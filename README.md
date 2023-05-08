@@ -5,14 +5,13 @@ buythattrack.com helps its users find the best place to buy their (digital) musi
 
 ## Stack
 
-|       Category | Tech                                    |
-| -------------: | --------------------------------------- |
-|      Framework | [React](https://react.dev/)             |
-| Meta framework | [Next.js](https://nextjs.org)           |
-|         Styles | [Tailwind CSS](https://tailwindcss.com) |
-|             DB | [Planetscale](https://planetscale.com)  |
-|            ORM | [Prisma](https://prisma.io)             |
-|        Hosting | [Vercel](https://vercel.com)            |
+|  Category | Tech                                    |
+| --------: | --------------------------------------- |
+| Framework | [React](https://react.dev/)             |
+|    Styles | [Tailwind CSS](https://tailwindcss.com) |
+|        DB | [Planetscale](https://planetscale.com)  |
+|       ORM | [Prisma](https://prisma.io)             |
+|   Hosting | [Vercel](https://vercel.com)            |
 
 ## Vendors
 
