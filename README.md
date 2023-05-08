@@ -1,6 +1,6 @@
 # buythattrack.com
 
-buythattrack.com helps its users find the best place to buy their (digital) music.  
+buythattrack.com helps its users find the best place to buy (digital) music.  
 'Best' may mean cheapest, highest quality, or the site that pays the artists the most, depending on user input.
 
 ## Stack
