@@ -7,7 +7,7 @@ export default {
   plugins: [require('daisyui')],
   daisyui: {
     styled: true,
-    themes: ['light', 'dark', 'synthwave'],
+    themes: true, // ['synthwave', 'light', 'dark'],
     base: true,
     utils: true,
     logs: true,
