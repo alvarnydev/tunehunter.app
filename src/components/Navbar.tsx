@@ -4,8 +4,8 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 const Navbar = () => {
   return (
     <nav className='bg-red-400'>
-      <ul>
-        <li>
+      <ul className='flex justify-end'>
+        <li className=''>
           <Link to='/'>Home</Link>
         </li>
         <li>

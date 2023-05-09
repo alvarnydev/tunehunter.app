@@ -15,9 +15,6 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-    // <Layout>
-    //   <PriceFinder />
-    // </Layout>
   );
 }
 

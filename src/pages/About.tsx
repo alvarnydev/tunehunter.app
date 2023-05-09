@@ -1,12 +1,8 @@
 import React from 'react';
+import InfoBox from '../components/InfoBox';
 
 const About = () => {
-  return (
-    <div>
-      <h1>About</h1>
-      <p>This is the about page.</p>
-    </div>
-  );
+  return <InfoBox />;
 };
 
 export default About;
