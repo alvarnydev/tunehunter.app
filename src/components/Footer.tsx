@@ -68,11 +68,11 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className='absolute bottom-0 w-full grid grid-cols-3 py-5 bg-base-300'>
+    <footer className=' w-full grid grid-cols-3 py-3 bg-base-300'>
       <LanguageSelector />
       <div className='flex justify-center items-center'>
         <a href='https://github.com/alvarnydev/btt.com' target='_blank' className='btn'>
-          <BsGithub size={32} />
+          <BsGithub size={28} />
         </a>
       </div>
       <ThemeSelector />

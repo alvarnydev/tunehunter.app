@@ -7,12 +7,12 @@ export default {
   plugins: [require('daisyui')],
   daisyui: {
     styled: true,
-    themes: ['synthwave', 'valentine', 'light', 'dark'],
+    themes: ['valentine', 'light', 'dark', 'synthwave'],
     base: true,
     utils: true,
     logs: true,
     rtl: false,
     prefix: '',
-    darkTheme: 'dark',
+    darkTheme: 'synthwave',
   },
 };

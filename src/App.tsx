@@ -1,10 +1,12 @@
 import Layout from './components/Layout';
-import PricesFinder from './components/PriceFinder';
+import PriceFinder from './components/PriceFinder';
+import PriceResults from './components/PriceResults';
 
 function App() {
   return (
     <Layout>
-      <PricesFinder />
+      <PriceFinder />
+      <PriceResults />
     </Layout>
   );
 }
