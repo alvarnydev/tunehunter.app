@@ -41,9 +41,13 @@ const SongInput = () => (
     <input
       type='text'
       placeholder='Artist'
-      className='input input-primary rounded-full md:w-full'
+      className='input md:h-12 h-16 md:text-base text-lg input-primary rounded-full md:w-full border-2'
     />
-    <input type='text' placeholder='Song' className='input rounded-full input-primary md:w-full' />
+    <input
+      type='text'
+      placeholder='Song'
+      className='input md:h-12 h-16 md:text-base text-lg rounded-full input-primary md:w-full border-2'
+    />
   </>
 );
 
@@ -51,12 +55,12 @@ const PlaylistInput = () => (
   <input
     type='text'
     placeholder='https://open.spotify.com/playlist/4Zn1Wd...'
-    className='input input-primary rounded-full md:w-full'
+    className='input input-primary rounded-full md:w-full md:text-base text-lg md:h-12 h-16 border-2'
   />
 );
 
 const SearchButton = () => (
-  <button className='btn btn-primary rounded-full gap-2 normal-case order-3'>
+  <button className='btn btn-primary rounded-full md:w-auto w-1/2 gap-2 normal-case order-3 md:text-base text-lg flex m-auto'>
     <BiSearch size={18} />
     Search
   </button>
