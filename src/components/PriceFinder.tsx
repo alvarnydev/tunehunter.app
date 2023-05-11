@@ -14,7 +14,7 @@ const SearchModeToggler = ({ searchMode, setSearchMode }: SearchModeTogglerProps
   }
 
   return (
-    <label className='swap swap-rotate'>
+    <label className='swap swap-rotate md:order-1 order-3 m-auto'>
       <input type='checkbox' />
 
       <div className='swap-on fill-current w-8 h-10 flex items-center' onClick={handleClick}>
@@ -29,7 +29,7 @@ const SearchModeToggler = ({ searchMode, setSearchMode }: SearchModeTogglerProps
 
 const SearchInput = ({ searchMode }: { searchMode: string }) => {
   return (
-    <div className='w-full flex gap-5'>
+    <div className='w-full flex md:flex-row flex-col md:gap-10 gap-8 order-2'>
       {searchMode === 'song' && <SongInput />}
       {searchMode === 'playlist' && <PlaylistInput />}
     </div>
@@ -41,28 +41,22 @@ const SongInput = () => (
     <input
       type='text'
       placeholder='Artist'
-      className='input input-primary rounded-full w-1/2 max-w-xs'
+      className='input input-primary rounded-full md:w-full'
     />
-    <input
-      type='text'
-      placeholder='Song'
-      className='input rounded-full input-primary w-1/2 max-w-xs'
-    />
+    <input type='text' placeholder='Song' className='input rounded-full input-primary md:w-full' />
   </>
 );
 
 const PlaylistInput = () => (
-  <>
-    <input
-      type='text'
-      placeholder='https://open.spotify.com/playlist/4Zn1Wd...'
-      className='input input-primary rounded-full w-full'
-    />
-  </>
+  <input
+    type='text'
+    placeholder='https://open.spotify.com/playlist/4Zn1Wd...'
+    className='input input-primary rounded-full md:w-full'
+  />
 );
 
 const SearchButton = () => (
-  <button className='btn btn-primary rounded-full gap-2 normal-case'>
+  <button className='btn btn-primary rounded-full gap-2 normal-case order-3'>
     <BiSearch size={18} />
     Search
   </button>
@@ -72,7 +66,7 @@ const PriceFinder = () => {
   const [searchMode, setSearchMode] = useState('song');
 
   return (
-    <div className='flex gap-10'>
+    <div className='flex md:flex-row flex-col md:gap-10 gap-8'>
       <SearchModeToggler searchMode={searchMode} setSearchMode={setSearchMode} />
       <SearchInput searchMode={searchMode} />
       <SearchButton />
