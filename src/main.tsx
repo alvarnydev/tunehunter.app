@@ -21,7 +21,6 @@ then:
 - web scraping
 - db fetching rsc
 
-
 testing:
 - jest, cypress
 

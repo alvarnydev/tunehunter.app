@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 interface SearchInputProps {
   searchMode: string;
   songSearchQuery: { artist: string; song: string };
@@ -34,6 +36,8 @@ interface SongInputProps {
 }
 
 const SongInput = ({ songSearchQuery, setSongSearchQuery }: SongInputProps) => {
+  const { t } = useTranslation();
+
   function handleArtistChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     setSongSearchQuery({ ...songSearchQuery, artist: value });
@@ -48,14 +52,14 @@ const SongInput = ({ songSearchQuery, setSongSearchQuery }: SongInputProps) => {
     <>
       <input
         type='text'
-        placeholder='Artist'
+        placeholder={t('pricefinder.artist')}
         className='input h-16 text-lg input-primary rounded-full md:w-full border-2 tracking-wider'
         value={songSearchQuery.artist}
         onChange={handleArtistChange}
       />
       <input
         type='text'
-        placeholder='Song'
+        placeholder={t('pricefinder.song')}
         className='input h-16 text-lg rounded-full input-primary md:w-full border-2 tracking-wider'
         value={songSearchQuery.song}
         onChange={handleSongChange}
