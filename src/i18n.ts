@@ -15,6 +15,12 @@ i18n
       en: {
         translation: {},
       },
+      de: {
+        translation: {},
+      },
+      es: {
+        translation: {},
+      },
     },
   });
 

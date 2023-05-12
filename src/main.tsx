@@ -12,16 +12,14 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
 /*
 todo:
-- tie themeswitcher to state
-
-- languagepicker and i18n
+- i18n
 - priceresults
 
 -> layout done
 
 then:
 - web scraping
-- db fetching
+- db fetching rsc
 
 
 testing:

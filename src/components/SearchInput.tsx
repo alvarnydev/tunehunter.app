@@ -49,14 +49,14 @@ const SongInput = ({ songSearchQuery, setSongSearchQuery }: SongInputProps) => {
       <input
         type='text'
         placeholder='Artist'
-        className='input md:h-12 h-16 md:text-base text-lg input-primary rounded-full md:w-full border-2'
+        className='input h-16 text-lg input-primary rounded-full md:w-full border-2 tracking-wider'
         value={songSearchQuery.artist}
         onChange={handleArtistChange}
       />
       <input
         type='text'
         placeholder='Song'
-        className='input md:h-12 h-16 md:text-base text-lg rounded-full input-primary md:w-full border-2'
+        className='input h-16 text-lg rounded-full input-primary md:w-full border-2 tracking-wider'
         value={songSearchQuery.song}
         onChange={handleSongChange}
       />
@@ -79,7 +79,7 @@ const PlaylistInput = ({ playlistSearchString, setPlaylistSearchString }: Playli
     <input
       type='text'
       placeholder='https://open.spotify.com/playlist/4Zn1Wd...'
-      className='input input-primary rounded-full md:w-full md:text-base text-lg md:h-12 h-16 border-2'
+      className='input input-primary rounded-full md:w-full text-lg h-16 border-2 tracking-wider'
       value={playlistSearchString}
       onChange={handleChange}
     />

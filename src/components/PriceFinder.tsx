@@ -4,7 +4,7 @@ import SearchModeToggler from './SearchModeToggler';
 import SearchInput from './SearchInput';
 
 const SearchButton = () => (
-  <button className='btn btn-primary rounded-full md:w-auto w-1/2 gap-2 normal-case order-3 md:text-base text-lg flex m-auto'>
+  <button className='btn btn-primary rounded-full md:w-auto w-1/2 gap-2 normal-case order-3 md:px-8 px-4 md:h-16 h-12 text-lg flex m-auto tracking-wide'>
     <BiSearch size={18} />
     Search
   </button>
