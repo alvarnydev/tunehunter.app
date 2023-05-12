@@ -81,17 +81,26 @@ const LanguageSelector = () => {
         style={{ visibility: visible ? 'visible' : 'hidden', opacity: visible ? '1' : '0' }}
       >
         <li>
-          <a onClick={handleOptionClick}>
+          <a
+            onClick={handleOptionClick}
+            aria-label='Link to change the language of the site to English'
+          >
             <GB title='english' className='w-8 rounded pointer-events-none' /> English
           </a>
         </li>
         <li>
-          <a onClick={handleOptionClick}>
+          <a
+            onClick={handleOptionClick}
+            aria-label='Link to change the language of the site to German'
+          >
             <DE title='german' className='w-8 rounded pointer-events-none' /> German
           </a>
         </li>
         <li>
-          <a onClick={handleOptionClick}>
+          <a
+            onClick={handleOptionClick}
+            aria-label='Link to change the language of the site to Spanish'
+          >
             <ES title='spanish' className='w-8 rounded pointer-events-none' /> Spanish
           </a>
         </li>
@@ -102,7 +111,12 @@ const LanguageSelector = () => {
 
 const GithubLinker = () => (
   <div className='flex justify-center items-center'>
-    <a href='https://github.com/alvarnydev/btt.com' target='_blank' className='btn'>
+    <a
+      href='https://github.com/alvarnydev/btt.com'
+      target='_blank'
+      className='btn'
+      aria-label='Link to the GitHub page of the project'
+    >
       <BsGithub size={28} />
     </a>
   </div>
