@@ -18,7 +18,12 @@ const ThemeSelector = () => {
 
   return (
     <label htmlFor='theme-switcher' className='swap swap-rotate'>
-      <input id='theme-switcher' type='checkbox' onClick={handleClick} />
+      <input
+        id='theme-switcher'
+        aria-labelledby='theme-switcher'
+        type='checkbox'
+        onClick={handleClick}
+      />
 
       {/* Sun */}
       <svg

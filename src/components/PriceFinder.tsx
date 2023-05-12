@@ -15,7 +15,7 @@ const SearchModeToggler = ({ searchMode, setSearchMode }: SearchModeTogglerProps
 
   return (
     <label htmlFor='search-mode-switcher' className='swap swap-rotate md:order-1 order-3 m-auto'>
-      <input id='search-mode-switcher' type='checkbox' />
+      <input id='search-mode-switcher' aria-labelledby='search-mode-switcher' type='checkbox' />
 
       <div className='swap-on fill-current w-8 h-10 flex items-center' onClick={handleClick}>
         <GiMusicalNotes size={40} />
