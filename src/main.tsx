@@ -9,3 +9,29 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <App />
   </React.StrictMode>
 );
+
+/*
+todo:
+- tie themeswitcher to state
+
+- languagepicker and i18n
+- priceresults
+
+-> layout done
+
+then:
+- web scraping
+- db fetching
+
+
+testing:
+- jest, cypress
+
+maybe:
+- retrowave font
+- background more interesting
+- pwa
+
+fix:
+- figure out a way to prevent rerender on every input change while still being able to control from both toggler and input
+*/
