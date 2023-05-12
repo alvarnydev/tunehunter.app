@@ -12,7 +12,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
 /*
 todo:
-- i18n
 - priceresults
 
 -> layout done
