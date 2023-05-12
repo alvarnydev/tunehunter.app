@@ -6,7 +6,7 @@ buythattrack.com helps its users find the best place to buy (digital) music.
 ## Stack
 
 |  Category | Tech                                                                        |
-| --------: | --------------------------------------------------------------------------- |
+| --------: | :-------------------------------------------------------------------------- |
 | Framework | [React](https://react.dev/)                                                 |
 |    Styles | [Tailwind CSS](https://tailwindcss.com) and [DaisyUI](https://daisyui.com/) |
 |        DB | [Planetscale](https://planetscale.com) and [Prisma](https://prisma.io)      |
