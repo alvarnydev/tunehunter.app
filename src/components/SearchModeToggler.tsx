@@ -41,10 +41,10 @@ const SearchModeToggler = ({
         onChange={handleChange}
       />
 
-      <div className='swap-on fill-current md:w-10 w-8 h-10 flex items-center'>
+      <div className='swap-on fill-current md:w-8 w-8 h-10 flex items-center'>
         <GiMusicalNotes size={40} />
       </div>
-      <div className='swap-off fill-current md:w-10 w-8 h-10 flex items-center'>
+      <div className='swap-off fill-current md:w-8 w-8 h-10 flex items-center'>
         <IoIosMusicalNote size={40} />
       </div>
     </label>

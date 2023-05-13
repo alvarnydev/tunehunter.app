@@ -53,14 +53,14 @@ const SongInput = ({ songSearchQuery, setSongSearchQuery }: SongInputProps) => {
       <input
         type='text'
         placeholder={t('pricefinder.artist')}
-        className='input h-16 md:text-xl text-lg input-primary rounded-full md:w-full border-2 tracking-wider md:px-8 px-4'
+        className='input input-primary rounded-full md:w-full border-2 tracking-wide'
         value={songSearchQuery.artist}
         onChange={handleArtistChange}
       />
       <input
         type='text'
         placeholder={t('pricefinder.song')}
-        className='input h-16 md:text-xl text-lg rounded-full input-primary md:w-full border-2 tracking-wider md:px-8 px-4'
+        className='input rounded-full input-primary md:w-full border-2 tracking-wide'
         value={songSearchQuery.song}
         onChange={handleSongChange}
       />
@@ -83,7 +83,7 @@ const PlaylistInput = ({ playlistSearchString, setPlaylistSearchString }: Playli
     <input
       type='text'
       placeholder='https://open.spotify.com/playlist/4Zn1Wd...'
-      className='input input-primary md:text-xl rounded-full md:w-full text-lg h-16 border-2 tracking-wider md:px-8 px-4'
+      className='input input-primary rounded-full md:w-full border-2 tracking-wide'
       value={playlistSearchString}
       onChange={handleChange}
     />
