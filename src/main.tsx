@@ -13,6 +13,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 /*
 todo:
 - priceresults
+- region in language menu
 
 -> layout done
 

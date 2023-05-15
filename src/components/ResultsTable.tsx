@@ -139,7 +139,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
-                    <img src='/logo_applemusic.svg' alt='Avatar Tailwind CSS Component' />
+                    <img src='/logo_itunesstore.jpg' alt='Avatar Tailwind CSS Component' />
                   </div>
                 </div>
                 <div className='md:block hidden'>
