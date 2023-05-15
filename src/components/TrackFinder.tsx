@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import ResultsTable from './ResultsTable';
-import SearchBar from './SearchBar';
+import ResultsTable from './TrackFinder/ResultsTable';
+import SearchBar from './TrackFinder/SearchBar';
 
 const TrackFinder = () => {
   const [priceData, setPriceData] = useState(null);

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import SearchModeToggler from './SearchModeToggler';
-import SearchInput from './SearchInput';
+import SearchModeToggler from './SearchBar/SearchModeToggler';
+import SearchInput from './SearchBar/SearchInput';
 import { useQuery } from '@tanstack/react-query';
-import SearchButton from './SearchButton';
+import SearchButton from './SearchBar/SearchButton';
 
 interface SearchBarProps {
   setPriceData: (priceData: any) => void;

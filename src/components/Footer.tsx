@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { themeChange } from 'theme-change';
-import ThemeSelector from './ThemeSelector';
-import LanguageSelector from './LanguageSelector';
-import GithubLinker from './GithubLinker';
+import ThemeSelector from './Footer/ThemeSelector';
+import LanguageSelector from './Footer/LanguageSelector';
+import GithubLinker from './Footer/GithubLinker';
 
 const Footer = () => {
   useEffect(() => {
