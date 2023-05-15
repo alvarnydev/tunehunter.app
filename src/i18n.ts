@@ -5,17 +5,47 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 const resources = {
   english: {
     translation: {
-      pricefinder: { artist: 'Artist', song: 'Song', search: 'Search' },
+      searchbar: { artist: 'Artist', song: 'Song', search: 'Search' },
+      resultstable: {
+        header: {
+          store: 'Music store',
+          quality: 'Quality',
+          price: 'Price',
+          artistsshare: "Artist's share",
+          link: 'Link',
+        },
+        buy: 'Buy',
+      },
     },
   },
   spanish: {
     translation: {
-      pricefinder: { artist: 'Artista', song: 'Canción', search: 'Buscar' },
+      searchbar: { artist: 'Artista', song: 'Canción', search: 'Buscar' },
+      resultstable: {
+        header: {
+          store: 'Tienda de música',
+          quality: 'Calidad',
+          price: 'Precio',
+          artistsshare: 'Corte del artista',
+          link: 'Link',
+        },
+        buy: 'Comprar',
+      },
     },
   },
   german: {
     translation: {
-      pricefinder: { artist: 'Künstler', song: 'Lied', search: 'Suchen' },
+      searchbar: { artist: 'Künstler', song: 'Lied', search: 'Suchen' },
+      resultstable: {
+        header: {
+          store: 'Plattform',
+          quality: 'Qualität',
+          price: 'Preis',
+          artistsshare: 'Künstleranteil',
+          link: 'Link',
+        },
+        buy: 'Kaufen',
+      },
     },
   },
 };
