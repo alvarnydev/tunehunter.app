@@ -25,14 +25,13 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
           <tr>
             <th className='text-base normal-case'>{t('resultstable.header.store')}</th>
             <th className='text-base normal-case'>{t('resultstable.header.quality')}</th>
-            <th className='text-base normal-case'>{t('resultstable.header.price')}</th>
             <th className='text-base normal-case'>{t('resultstable.header.artistsshare')}</th>
-            <th className='text-base normal-case'></th>
+            <th className='text-base normal-case'>{t('resultstable.header.price')}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
+            <th>
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
@@ -44,15 +43,13 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                   <div className='text-sm opacity-50'>United States</div>
                 </div>
               </div>
-            </td>
+            </th>
             <td>
               <div>MP3</div>
               <div className='text-sm opacity-50'>320kbps</div>
             </td>
-            <td>
-              <div>0.99€</div>
-            </td>
-            <td>
+
+            <td className=''>
               0.49€
               <span
                 className='tooltip ml-1 inline-block text-sm opacity-50'
@@ -61,14 +58,19 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                 <AiOutlineInfoCircle size={16} />
               </span>
             </td>
-            <th>
-              <button className='btn btn-ghost text-base normal-case'>
-                <FaExternalLinkSquareAlt size={32} className='text-secondary' />
-              </button>
-            </th>
+            <td>
+              <div className='flex items-center gap-4'>
+                <div className='inline-block'>0.99€</div>
+                <div className='flex justify-center flex-1'>
+                  <button className='btn btn-ghost text-base normal-case'>
+                    <FaExternalLinkSquareAlt size={32} className='text-secondary' />
+                  </button>
+                </div>
+              </div>
+            </td>
           </tr>
           <tr>
-            <td>
+            <th>
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
@@ -79,14 +81,12 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                   <div className='font-bold'>Bandcamp</div>
                 </div>
               </div>
-            </td>
+            </th>
             <td>
               <div>MP3</div>
               <div className='text-sm opacity-50'>320kbps</div>
             </td>
-            <td>
-              <div>0.99€</div>
-            </td>
+
             <td>
               0.79€
               <span
@@ -96,20 +96,23 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                 <AiOutlineInfoCircle size={16} />
               </span>
             </td>
-            <th>
-              <button className='btn btn-ghost text-base normal-case'>
-                <FaExternalLinkSquareAlt size={32} className='text-secondary' />
-              </button>
-            </th>
+            <td>
+              <div className='flex items-center gap-4'>
+                <div className='inline-block'>0.99€</div>
+                <div className='flex justify-center flex-1'>
+                  <button className='btn btn-ghost text-base normal-case'>
+                    <FaExternalLinkSquareAlt size={32} className='text-secondary' />
+                  </button>
+                </div>
+              </div>
+            </td>
           </tr>
           <tr>
-            <td></td>
+            <th></th>
             <td>
               <div>FLAC</div>
             </td>
-            <td>
-              <div>0.99€</div>
-            </td>
+
             <td>
               0.79€
               <span
@@ -119,17 +122,19 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                 <AiOutlineInfoCircle size={16} />
               </span>
             </td>
-            <th>
-              <button className='btn btn-ghost text-base normal-case'>
-                <FaExternalLinkSquareAlt size={32} className='text-secondary' />
-              </button>
-              {/* <button className='btn btn-secondary text-base normal-case'>
-                {t('resultstable.buy')}
-              </button> */}
-            </th>
+            <td>
+              <div className='flex items-center gap-4'>
+                <div className='inline-block'>0.99€</div>
+                <div className='flex justify-center flex-1'>
+                  <button className='btn btn-ghost text-base normal-case'>
+                    <FaExternalLinkSquareAlt size={32} className='text-secondary' />
+                  </button>
+                </div>
+              </div>
+            </td>
           </tr>
           <tr>
-            <td>
+            <th>
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
@@ -140,17 +145,16 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                   <div className='font-bold'>Beatport</div>
                 </div>
               </div>
-            </td>
+            </th>
             <td>
               <div>MP3</div>
               <div className='text-sm opacity-50'>320kbps</div>
             </td>
             <td>-</td>
             <td>-</td>
-            <th />
           </tr>
           <tr>
-            <td>
+            <th>
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
@@ -161,13 +165,10 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                   <div className='font-bold'>iTunes Store</div>
                 </div>
               </div>
-            </td>
+            </th>
             <td>
               <div>MP3</div>
               <div className='text-sm opacity-50'>320kbps</div>
-            </td>
-            <td>
-              <div>0.99€</div>
             </td>
             <td>
               0.59€
@@ -178,11 +179,16 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                 <AiOutlineInfoCircle size={16} />
               </span>
             </td>
-            <th>
-              <button className='btn btn-ghost text-base normal-case'>
-                <FaExternalLinkSquareAlt size={32} className='text-secondary' />
-              </button>
-            </th>
+            <td>
+              <div className='flex items-center gap-4'>
+                <div className='inline-block'>0.99€</div>
+                <div className='flex justify-center flex-1'>
+                  <button className='btn btn-ghost text-base normal-case'>
+                    <FaExternalLinkSquareAlt size={32} className='text-secondary' />
+                  </button>
+                </div>
+              </div>
+            </td>
           </tr>
         </tbody>
 
