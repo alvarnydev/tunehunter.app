@@ -40,7 +40,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                 </div>
                 <div className='md:block hidden'>
                   <div className='font-bold'>Amazon Music</div>
-                  <div className='text-sm opacity-50'>United States</div>
+                  <div className='text-sm font-normal opacity-50'>United States</div>
                 </div>
               </div>
             </th>
@@ -48,7 +48,6 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div>MP3</div>
               <div className='text-sm opacity-50'>320kbps</div>
             </td>
-
             <td className=''>
               0.49€
               <span
@@ -70,7 +69,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
             </td>
           </tr>
           <tr>
-            <th>
+            <th className='border-0'>
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
@@ -82,12 +81,12 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                 </div>
               </div>
             </th>
-            <td>
+            <td className='border-0'>
               <div>MP3</div>
               <div className='text-sm opacity-50'>320kbps</div>
             </td>
 
-            <td>
+            <td className='border-0'>
               0.79€
               <span
                 className='tooltip ml-1 inline-block text-sm opacity-50'
@@ -96,7 +95,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                 <AiOutlineInfoCircle size={16} />
               </span>
             </td>
-            <td>
+            <td className='border-0'>
               <div className='flex items-center gap-4'>
                 <div className='inline-block'>0.99€</div>
                 <div className='flex justify-center flex-1'>
@@ -112,7 +111,6 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
             <td>
               <div>FLAC</div>
             </td>
-
             <td>
               0.79€
               <span
