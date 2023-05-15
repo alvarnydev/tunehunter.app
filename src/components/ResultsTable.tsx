@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 
 interface ResultsTableProps {
   priceData:
@@ -17,7 +18,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
   const { t } = useTranslation();
 
   return (
-    <div className='overflow-x-auto w-full'>
+    <div className='overflow-x-auto w-11/12'>
       <table className='table w-full'>
         {/* head */}
         <thead>
@@ -52,12 +53,17 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div>0.99€</div>
             </td>
             <td>
-              <div>0.59€</div>
-              <div className='text-sm opacity-50'>60%</div>
+              0.49€
+              <span
+                className='tooltip ml-1 inline-block text-sm opacity-50'
+                data-tip={"Artist's share is 50% on Amazon Music."}
+              >
+                <AiOutlineInfoCircle size={16} />
+              </span>
             </td>
             <th>
               <button className='btn btn-ghost text-base normal-case'>
-                {<FaExternalLinkSquareAlt size={32} className='text-secondary' />}
+                <FaExternalLinkSquareAlt size={32} className='text-secondary' />
               </button>
             </th>
           </tr>
@@ -82,12 +88,17 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div>0.99€</div>
             </td>
             <td>
-              <div>0.59€</div>
-              <div className='text-sm opacity-50'>60%</div>
+              0.79€
+              <span
+                className='tooltip ml-1 inline-block text-sm opacity-50'
+                data-tip={"Artist's share is 80% on Bandcamp."}
+              >
+                <AiOutlineInfoCircle size={16} />
+              </span>
             </td>
             <th>
               <button className='btn btn-ghost text-base normal-case'>
-                {<FaExternalLinkSquareAlt size={32} className='text-secondary' />}
+                <FaExternalLinkSquareAlt size={32} className='text-secondary' />
               </button>
             </th>
           </tr>
@@ -95,18 +106,22 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
             <td></td>
             <td>
               <div>FLAC</div>
-              <div className='text-sm opacity-50'>-</div>
             </td>
             <td>
               <div>0.99€</div>
             </td>
             <td>
-              <div>0.59€</div>
-              <div className='text-sm opacity-50'>60%</div>
+              0.79€
+              <span
+                className='tooltip ml-1 inline-block text-sm opacity-50'
+                data-tip={"Artist's share is 80% on Bandcamp."}
+              >
+                <AiOutlineInfoCircle size={16} />
+              </span>
             </td>
             <th>
               <button className='btn btn-ghost text-base normal-case'>
-                {<FaExternalLinkSquareAlt size={32} className='text-secondary' />}
+                <FaExternalLinkSquareAlt size={32} className='text-secondary' />
               </button>
               {/* <button className='btn btn-secondary text-base normal-case'>
                 {t('resultstable.buy')}
@@ -132,7 +147,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
             </td>
             <td>-</td>
             <td>-</td>
-            <th></th>
+            <th />
           </tr>
           <tr>
             <td>
@@ -155,12 +170,17 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div>0.99€</div>
             </td>
             <td>
-              <div>0.59€</div>
-              <div className='text-sm opacity-50'>60%</div>
+              0.59€
+              <span
+                className='tooltip ml-1 inline-block text-sm opacity-50'
+                data-tip={"Artist's share is 60% on the iTunes Store."}
+              >
+                <AiOutlineInfoCircle size={16} />
+              </span>
             </td>
             <th>
               <button className='btn btn-ghost text-base normal-case'>
-                {<FaExternalLinkSquareAlt size={32} className='text-secondary' />}
+                <FaExternalLinkSquareAlt size={32} className='text-secondary' />
               </button>
             </th>
           </tr>

@@ -23,7 +23,7 @@ const resources = {
       searchbar: { artist: 'Artista', song: 'Canción', search: 'Buscar' },
       resultstable: {
         header: {
-          store: 'Tienda de música',
+          store: 'Tienda',
           quality: 'Calidad',
           price: 'Precio',
           artistsshare: 'Corte del artista',

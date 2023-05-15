@@ -14,7 +14,7 @@ const SearchBar = ({ setPriceData }: SearchBarProps) => {
   const [playlistSearchString, setPlaylistSearchString] = useState('');
 
   return (
-    <div className='flex md:flex-row flex-col md:gap-10 gap-8'>
+    <div className='flex md:flex-row flex-col w-4/5 md:gap-10 gap-8'>
       <SearchModeToggler
         searchMode={searchMode}
         setSearchMode={setSearchMode}
