@@ -1,3 +1,6 @@
+import { useTranslation } from 'react-i18next';
+import { FaExternalLinkSquareAlt } from 'react-icons/fa';
+
 interface ResultsTableProps {
   priceData:
     | [
@@ -11,16 +14,19 @@ interface ResultsTableProps {
 }
 
 const ResultsTable = ({ priceData }: ResultsTableProps) => {
+  const { t } = useTranslation();
+
   return (
     <div className='overflow-x-auto w-full'>
       <table className='table w-full'>
         {/* head */}
         <thead>
           <tr>
-            <th className='text-base normal-case'>Store</th>
-            <th className='text-base normal-case'>Price</th>
-            <th className='text-base normal-case'>Artist's Cut</th>
-            <th className='text-base normal-case'>Link</th>
+            <th className='text-base normal-case'>{t('resultstable.header.store')}</th>
+            <th className='text-base normal-case'>{t('resultstable.header.quality')}</th>
+            <th className='text-base normal-case'>{t('resultstable.header.price')}</th>
+            <th className='text-base normal-case'>{t('resultstable.header.artistsshare')}</th>
+            <th className='text-base normal-case'></th>
           </tr>
         </thead>
         <tbody>
@@ -32,16 +38,27 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                     <img src='/logo_amazonmusic.png' alt='Avatar Tailwind CSS Component' />
                   </div>
                 </div>
-                <div>
+                <div className='md:block hidden'>
                   <div className='font-bold'>Amazon Music</div>
                   <div className='text-sm opacity-50'>United States</div>
                 </div>
               </div>
             </td>
-            <td>0.99€</td>
-            <td>60% - 0.59€</td>
+            <td>
+              <div>MP3</div>
+              <div className='text-sm opacity-50'>320kbps</div>
+            </td>
+            <td>
+              <div>0.99€</div>
+            </td>
+            <td>
+              <div>0.59€</div>
+              <div className='text-sm opacity-50'>60%</div>
+            </td>
             <th>
-              <button className='btn btn-secondary text-base normal-case'>Buy</button>
+              <button className='btn btn-ghost text-base normal-case'>
+                {<FaExternalLinkSquareAlt size={32} className='text-secondary' />}
+              </button>
             </th>
           </tr>
           <tr>
@@ -52,15 +69,48 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                     <img src='/logo_bandcamp.svg' alt='Avatar Tailwind CSS Component' />
                   </div>
                 </div>
-                <div>
+                <div className='md:block hidden'>
                   <div className='font-bold'>Bandcamp</div>
                 </div>
               </div>
             </td>
-            <td>1.29€</td>
-            <td>80% - 0.99€</td>
+            <td>
+              <div>MP3</div>
+              <div className='text-sm opacity-50'>320kbps</div>
+            </td>
+            <td>
+              <div>0.99€</div>
+            </td>
+            <td>
+              <div>0.59€</div>
+              <div className='text-sm opacity-50'>60%</div>
+            </td>
             <th>
-              <button className='btn btn-secondary text-base normal-case'>Buy</button>
+              <button className='btn btn-ghost text-base normal-case'>
+                {<FaExternalLinkSquareAlt size={32} className='text-secondary' />}
+              </button>
+            </th>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <div>FLAC</div>
+              <div className='text-sm opacity-50'>-</div>
+            </td>
+            <td>
+              <div>0.99€</div>
+            </td>
+            <td>
+              <div>0.59€</div>
+              <div className='text-sm opacity-50'>60%</div>
+            </td>
+            <th>
+              <button className='btn btn-ghost text-base normal-case'>
+                {<FaExternalLinkSquareAlt size={32} className='text-secondary' />}
+              </button>
+              {/* <button className='btn btn-secondary text-base normal-case'>
+                {t('resultstable.buy')}
+              </button> */}
             </th>
           </tr>
           <tr>
@@ -71,10 +121,14 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                     <img src='/logo_beatport.svg' alt='Avatar Tailwind CSS Component' />
                   </div>
                 </div>
-                <div>
+                <div className='md:block hidden'>
                   <div className='font-bold'>Beatport</div>
                 </div>
               </div>
+            </td>
+            <td>
+              <div>MP3</div>
+              <div className='text-sm opacity-50'>320kbps</div>
             </td>
             <td>-</td>
             <td>-</td>
@@ -88,15 +142,26 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                     <img src='/logo_applemusic.svg' alt='Avatar Tailwind CSS Component' />
                   </div>
                 </div>
-                <div>
+                <div className='md:block hidden'>
                   <div className='font-bold'>iTunes Store</div>
                 </div>
               </div>
             </td>
-            <td>1.29€</td>
-            <td>30% - 0.42€</td>
+            <td>
+              <div>MP3</div>
+              <div className='text-sm opacity-50'>320kbps</div>
+            </td>
+            <td>
+              <div>0.99€</div>
+            </td>
+            <td>
+              <div>0.59€</div>
+              <div className='text-sm opacity-50'>60%</div>
+            </td>
             <th>
-              <button className='btn btn-secondary text-base normal-case'>Buy</button>
+              <button className='btn btn-ghost text-base normal-case'>
+                {<FaExternalLinkSquareAlt size={32} className='text-secondary' />}
+              </button>
             </th>
           </tr>
         </tbody>

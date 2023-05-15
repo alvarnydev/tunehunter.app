@@ -52,14 +52,14 @@ const SongInput = ({ songSearchQuery, setSongSearchQuery }: SongInputProps) => {
     <>
       <input
         type='text'
-        placeholder={t('pricefinder.artist')}
+        placeholder={t('searchbar.artist')}
         className='input input-primary rounded-full md:w-full border-2 tracking-wide'
         value={songSearchQuery.artist}
         onChange={handleArtistChange}
       />
       <input
         type='text'
-        placeholder={t('pricefinder.song')}
+        placeholder={t('searchbar.song')}
         className='input rounded-full input-primary md:w-full border-2 tracking-wide'
         value={songSearchQuery.song}
         onChange={handleSongChange}

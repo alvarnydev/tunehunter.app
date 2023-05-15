@@ -17,10 +17,10 @@ const SearchButton = () => {
   return (
     <button
       onClick={handleClick}
-      className='btn btn-primary rounded-full md:w-auto w-1/2 gap-2 normal-case order-3 px-4 text-base flex m-auto tracking-wide'
+      className='btn btn-primary font-normal rounded-full md:w-auto w-1/2 gap-2 normal-case order-3 px-4 text-base flex m-auto tracking-wide'
     >
       <BiSearch size={18} />
-      {t('pricefinder.search')}
+      {t('searchbar.search')}
     </button>
   );
 };
