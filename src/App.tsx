@@ -1,14 +1,6 @@
 import Layout from './components/Layout';
-import SearchBar from './components/SearchBar';
-import ResultsTable from './components/ResultsTable';
 import { Suspense } from 'react';
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import TrackFinder from './components/TrackFinder';
 
 const queryClient = new QueryClient();
