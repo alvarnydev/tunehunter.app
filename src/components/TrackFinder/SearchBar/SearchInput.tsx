@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-interface SearchInputProps {
+interface SearchTextInputProps {
   searchMode: string;
   songSearchQuery: { artist: string; song: string };
   playlistSearchString: string;
@@ -8,13 +8,13 @@ interface SearchInputProps {
   setPlaylistSearchString: (playlistInput: string) => void;
 }
 
-const SearchInput = ({
+const SearchTextInput = ({
   searchMode,
   songSearchQuery,
   playlistSearchString,
   setSongSearchQuery,
   setPlaylistSearchString,
-}: SearchInputProps) => {
+}: SearchTextInputProps) => {
   return (
     <div className='w-full flex md:flex-row flex-col md:gap-10 gap-8 order-2'>
       {searchMode === 'song' && (
@@ -90,4 +90,4 @@ const PlaylistInput = ({ playlistSearchString, setPlaylistSearchString }: Playli
   );
 };
 
-export default SearchInput;
+export default SearchTextInput;

@@ -1,21 +1,17 @@
 import { useTranslation } from 'react-i18next';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { priceDataType } from '../../types';
 
 interface ResultsTableProps {
-  priceData:
-    | [
-        {
-          artist: string;
-          song: string;
-          prices: { amazon: number; itunes: number; beatport: number; bandcamp: number };
-        }
-      ]
-    | null;
+  priceData: [priceDataType] | null;
 }
 
 const ResultsTable = ({ priceData }: ResultsTableProps) => {
   const { t } = useTranslation();
+
+  const priceDataArray = priceData ? priceData : [];
+  console.log(priceDataArray);
 
   return (
     <div className='overflow-x-auto w-11/12'>
@@ -23,17 +19,17 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
         {/* head */}
         <thead>
           <tr>
-            <th className='text-base normal-case'>{t('resultstable.header.store')}</th>
-            <th className='text-base normal-case'>{t('resultstable.header.quality')}</th>
-            <th className='text-base normal-case'>{t('resultstable.header.artistsshare')}</th>
-            <th className='text-base normal-case'>{t('resultstable.header.price')}</th>
+            <td className='text-base normal-case'>{t('resultstable.header.store')}</td>
+            <td className='text-base normal-case'>{t('resultstable.header.quality')}</td>
+            <td className='text-base normal-case'>{t('resultstable.header.artistsshare')}</td>
+            <td className='text-base normal-case'>{t('resultstable.header.price')}</td>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <th>
+            <td>
               <div className='flex items-center space-x-5'>
-                <div className='avatar'>
+                <div className='avatar '>
                   <div className='mask mask-squircle w-12 h-12'>
                     <img src='/logo_amazonmusic.png' alt='Avatar Tailwind CSS Component' />
                   </div>
@@ -43,7 +39,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                   <div className='text-sm font-normal opacity-50'>United States</div>
                 </div>
               </div>
-            </th>
+            </td>
             <td>
               <div>MP3</div>
               <div className='text-sm opacity-50'>320kbps</div>
@@ -69,7 +65,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
             </td>
           </tr>
           <tr>
-            <th className='border-0'>
+            <td className='border-0'>
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
@@ -80,7 +76,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                   <div className='font-bold'>Bandcamp</div>
                 </div>
               </div>
-            </th>
+            </td>
             <td className='border-0'>
               <div>MP3</div>
               <div className='text-sm opacity-50'>320kbps</div>
@@ -107,7 +103,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
             </td>
           </tr>
           <tr>
-            <th></th>
+            <td></td>
             <td>
               <div>FLAC</div>
             </td>
@@ -132,7 +128,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
             </td>
           </tr>
           <tr>
-            <th>
+            <td>
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
@@ -143,7 +139,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                   <div className='font-bold'>Beatport</div>
                 </div>
               </div>
-            </th>
+            </td>
             <td>
               <div>MP3</div>
               <div className='text-sm opacity-50'>320kbps</div>
@@ -152,7 +148,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
             <td>-</td>
           </tr>
           <tr>
-            <th>
+            <td>
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
@@ -163,7 +159,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
                   <div className='font-bold'>iTunes Store</div>
                 </div>
               </div>
-            </th>
+            </td>
             <td>
               <div>MP3</div>
               <div className='text-sm opacity-50'>320kbps</div>

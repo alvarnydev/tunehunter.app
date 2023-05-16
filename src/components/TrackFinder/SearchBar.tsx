@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import SearchModeToggler from './SearchBar/SearchModeToggler';
-import SearchInput from './SearchBar/SearchInput';
-import { useQuery } from '@tanstack/react-query';
+import SearchTextInput from './SearchBar/SearchInput';
 import SearchButton from './SearchBar/SearchButton';
+import { priceDataType } from '../../types';
 
 interface SearchBarProps {
-  setPriceData: (priceData: any) => void;
+  setPriceData: (priceData: [priceDataType]) => void;
 }
 
 const SearchBar = ({ setPriceData }: SearchBarProps) => {
@@ -13,8 +13,26 @@ const SearchBar = ({ setPriceData }: SearchBarProps) => {
   const [songSearchQuery, setSongSearchQuery] = useState({ artist: '', song: '' });
   const [playlistSearchString, setPlaylistSearchString] = useState('');
 
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (searchMode === 'song') {
+      await fetch(`/api/price?artist=${songSearchQuery.artist}&song=${songSearchQuery.song}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setPriceData(data);
+        });
+    } else if (searchMode === 'playlist') {
+      await fetch(`/api/price?playlist=${playlistSearchString}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setPriceData(data);
+        });
+    }
+  }
+
   return (
-    <div className='flex md:flex-row flex-col w-4/5 md:gap-10 gap-8'>
+    <form className='flex md:flex-row flex-col w-4/5 md:gap-10 gap-8' onSubmit={handleSubmit}>
       <SearchModeToggler
         searchMode={searchMode}
         setSearchMode={setSearchMode}
@@ -23,7 +41,7 @@ const SearchBar = ({ setPriceData }: SearchBarProps) => {
         setSongSearchQuery={setSongSearchQuery}
         setPlaylistSearchString={setPlaylistSearchString}
       />
-      <SearchInput
+      <SearchTextInput
         searchMode={searchMode}
         songSearchQuery={songSearchQuery}
         setSongSearchQuery={setSongSearchQuery}
@@ -31,7 +49,7 @@ const SearchBar = ({ setPriceData }: SearchBarProps) => {
         setPlaylistSearchString={setPlaylistSearchString}
       />
       <SearchButton />
-    </div>
+    </form>
   );
 };
 
