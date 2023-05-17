@@ -1,7 +1,9 @@
+'use client';
+
 import { useState } from 'react';
 import ResultsTable from './TrackFinder/ResultsTable';
 import SearchBar from './TrackFinder/SearchBar';
-import { priceDataType } from '../types';
+import { priceDataType } from '@/types';
 
 const samplePriceData: Array<priceDataType> = [
   {

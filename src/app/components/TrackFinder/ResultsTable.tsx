@@ -1,17 +1,13 @@
-import { useTranslation } from 'react-i18next';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
-import { priceDataType } from '../../types';
+import { priceDataType } from '@/types';
 
 interface ResultsTableProps {
   priceData: priceDataType[] | null;
 }
 
 const ResultsTable = ({ priceData }: ResultsTableProps) => {
-  const { t } = useTranslation();
-
   const priceDataArray = priceData ? priceData : [];
-  console.log(priceDataArray);
 
   return (
     <div className='overflow-x-auto w-11/12'>
@@ -19,10 +15,10 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
         {/* head */}
         <thead>
           <tr>
-            <td className='text-base normal-case'>{t('resultstable.header.store')}</td>
-            <td className='text-base normal-case'>{t('resultstable.header.quality')}</td>
-            <td className='text-base normal-case'>{t('resultstable.header.artistsshare')}</td>
-            <td className='text-base normal-case'>{t('resultstable.header.price')}</td>
+            <td className='text-base normal-case'>{'resultstable.header.store'}</td>
+            <td className='text-base normal-case'>{'resultstable.header.quality'}</td>
+            <td className='text-base normal-case'>{'resultstable.header.artistsshare'}</td>
+            <td className='text-base normal-case'>{'resultstable.header.price'}</td>
           </tr>
         </thead>
         <tbody>

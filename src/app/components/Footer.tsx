@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 import { themeChange } from 'theme-change';
 import ThemeSelector from './Footer/ThemeSelector';
