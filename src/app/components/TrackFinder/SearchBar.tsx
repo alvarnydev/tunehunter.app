@@ -2,7 +2,7 @@ import { useState } from 'react';
 import SearchModeToggler from './SearchBar/SearchModeToggler';
 import SearchTextInput from './SearchBar/SearchInput';
 import SearchButton from './SearchBar/SearchButton';
-import { priceDataType } from '../../types';
+import { priceDataType } from '@/types';
 
 interface SearchBarProps {
   setPriceData: (priceData: [priceDataType]) => void;

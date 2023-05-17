@@ -1,6 +1,7 @@
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { priceDataType } from '@/types';
+import Image from 'next/image';
 
 interface ResultsTableProps {
   priceData: priceDataType[] | null;
@@ -26,8 +27,13 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
             <td>
               <div className='flex items-center space-x-5'>
                 <div className='avatar '>
-                  <div className='mask mask-squircle w-12 h-12'>
-                    <img src='/logo_amazonmusic.png' alt='Avatar Tailwind CSS Component' />
+                  <div className='mask mask-squircle'>
+                    <Image
+                      width={48}
+                      height={48}
+                      src='/logo_amazonmusic.png'
+                      alt='Avatar Tailwind CSS Component'
+                    />
                   </div>
                 </div>
                 <div className='md:block hidden'>
@@ -65,7 +71,12 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
-                    <img src='/logo_bandcamp.svg' alt='Avatar Tailwind CSS Component' />
+                    <Image
+                      width={48}
+                      height={48}
+                      src='/logo_bandcamp.svg'
+                      alt='Avatar Tailwind CSS Component'
+                    />
                   </div>
                 </div>
                 <div className='md:block hidden'>
@@ -128,7 +139,12 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
-                    <img src='/logo_beatport.svg' alt='Avatar Tailwind CSS Component' />
+                    <Image
+                      width={48}
+                      height={48}
+                      src='/logo_beatport.svg'
+                      alt='Avatar Tailwind CSS Component'
+                    />
                   </div>
                 </div>
                 <div className='md:block hidden'>
@@ -147,8 +163,13 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
             <td>
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
-                  <div className='mask mask-squircle w-12 h-12'>
-                    <img src='/logo_itunesstore.jpg' alt='Avatar Tailwind CSS Component' />
+                  <div className='mask mask-squircle '>
+                    <Image
+                      width={48}
+                      height={48}
+                      src='/logo_itunesstore.jpg'
+                      alt='Avatar Tailwind CSS Component'
+                    />
                   </div>
                 </div>
                 <div className='md:block hidden'>

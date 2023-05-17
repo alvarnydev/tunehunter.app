@@ -7,9 +7,7 @@ const LanguageSelector = () => {
 
   useEffect(() => {
     localStorage.setItem('language', language);
-  }, []);
 
-  useEffect(() => {
     // Change language
   }, [language]);
 
