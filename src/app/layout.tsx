@@ -13,13 +13,13 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
-        <div className='min-h-screen flex flex-col justify-between items-center overflow-hidden'>
-          <main className='flex-1 flex flex-col justify-evenly items-center w-full max-w-5xl md:gap-4 gap-10 py-10'>
-            {children}
-          </main>
-          <Footer />
-        </div>
+      <body
+        className={`${inter.className} min-h-screen flex flex-col justify-between items-center overflow-hidden`}
+      >
+        <main className='flex-1 flex flex-col justify-evenly items-center w-full max-w-5xl md:gap-4 gap-10 py-10'>
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
   );
