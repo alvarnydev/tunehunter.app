@@ -4,7 +4,7 @@ import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { priceDataType } from '../../types';
 
 interface ResultsTableProps {
-  priceData: [priceDataType] | null;
+  priceData: priceDataType[] | null;
 }
 
 const ResultsTable = ({ priceData }: ResultsTableProps) => {
