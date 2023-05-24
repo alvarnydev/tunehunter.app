@@ -1,7 +1,7 @@
 import { GiMusicalNotes } from 'react-icons/gi';
 import { IoIosMusicalNote } from 'react-icons/io';
 
-interface SearchModeTogglerProps {
+interface ISearchModeTogglerProps {
   searchMode: string;
   setSearchMode: (searchMode: string) => void;
   songSearchQuery: { artist: string; song: string };
@@ -16,7 +16,7 @@ const SearchModeToggler = ({
   playlistSearchString,
   setSongSearchQuery,
   setPlaylistSearchString,
-}: SearchModeTogglerProps) => {
+}: ISearchModeTogglerProps) => {
   // Change mode and save / restore search query
   function handleChange() {
     // Changing from song -> playlist

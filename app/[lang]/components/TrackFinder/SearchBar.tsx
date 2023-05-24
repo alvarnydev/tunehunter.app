@@ -1,74 +1,73 @@
-import { useState } from 'react';
-import SearchModeToggler from './SearchBar/SearchModeToggler';
-import SearchTextInput from './SearchBar/SearchInput';
-import SearchButton from './SearchBar/SearchButton';
-import { priceDataType } from '@/types';
-import { getDictionary } from '../../../../../dictionaries';
+// 'use client';
 
-interface SearchBarProps {
-  setPriceData: (priceData: [priceDataType]) => void;
-}
+// import { useState } from 'react';
+// import SearchModeToggler from './SearchBar/SearchModeToggler';
+// import SearchTextInput from './SearchBar/SearchInput';
+// import SearchButton from './SearchButton';
+// import { PriceDataType } from '@/types';
 
-const SearchBar = ({ setPriceData }: SearchBarProps) => {
-  const [searchMode, setSearchMode] = useState('song');
-  const [songSearchQuery, setSongSearchQuery] = useState({ artist: '', song: '' });
-  const [playlistSearchString, setPlaylistSearchString] = useState('');
+// interface ISearchBarProps {
+//   setPriceData: (priceData: [PriceDataType]) => void;
+// }
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+// const SearchBar = ({ setPriceData }: ISearchBarProps) => {
+//   const [searchMode, setSearchMode] = useState('song');
+//   const [songSearchQuery, setSongSearchQuery] = useState({ artist: '', song: '' });
+//   const [playlistSearchString, setPlaylistSearchString] = useState('');
 
-    /*
-    Bandcamp:
-    - https://bandcamp.com/search?q=artist+song
+//   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+//     event.preventDefault();
 
-    Beatport:
-    - https://www.beatport.com/search?q=artist+song
+//     /*
+//     Bandcamp:
+//     - https://bandcamp.com/search?q=artist+song
 
-    Amazon Music:
-    - https://music.amazon.com/search/artist+song
+//     Beatport:
+//     - https://www.beatport.com/search?q=artist+song
 
-    iTunes Store: 
-    - https://itunes.apple.com/search?term=need+to+feel+loved&country=US&media=music&entity=song&limit=10
+//     Amazon Music:
+//     - https://music.amazon.com/search/artist+song
 
+//     iTunes Store:
+//     - https://itunes.apple.com/search?term=need+to+feel+loved&country=US&media=music&entity=song&limit=10
 
+//     */
 
-    */
+//     if (searchMode === 'song') {
+//       await fetch(`/api/price?artist=${songSearchQuery.artist}&song=${songSearchQuery.song}`)
+//         .then((res) => res.json())
+//         .then((data) => {
+//           setPriceData(data);
+//         });
+//     } else if (searchMode === 'playlist') {
+//       await fetch(`/api/price?playlist=${playlistSearchString}`)
+//         .then((res) => res.json())
+//         .then((data) => {
+//           setPriceData(data);
+//         });
+//     }
+//   }
 
-    if (searchMode === 'song') {
-      await fetch(`/api/price?artist=${songSearchQuery.artist}&song=${songSearchQuery.song}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setPriceData(data);
-        });
-    } else if (searchMode === 'playlist') {
-      await fetch(`/api/price?playlist=${playlistSearchString}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setPriceData(data);
-        });
-    }
-  }
+//   return (
+//     <form className='flex md:flex-row flex-col w-4/5 md:gap-10 gap-8' onSubmit={handleSubmit}>
+//       <SearchModeToggler
+//         searchMode={searchMode}
+//         setSearchMode={setSearchMode}
+//         songSearchQuery={songSearchQuery}
+//         playlistSearchString={playlistSearchString}
+//         setSongSearchQuery={setSongSearchQuery}
+//         setPlaylistSearchString={setPlaylistSearchString}
+//       />
+//       <SearchTextInput
+//         searchMode={searchMode}
+//         songSearchQuery={songSearchQuery}
+//         setSongSearchQuery={setSongSearchQuery}
+//         playlistSearchString={playlistSearchString}
+//         setPlaylistSearchString={setPlaylistSearchString}
+//       />
+//       <SearchButton />
+//     </form>
+//   );
+// };
 
-  return (
-    <form className='flex md:flex-row flex-col w-4/5 md:gap-10 gap-8' onSubmit={handleSubmit}>
-      <SearchModeToggler
-        searchMode={searchMode}
-        setSearchMode={setSearchMode}
-        songSearchQuery={songSearchQuery}
-        playlistSearchString={playlistSearchString}
-        setSongSearchQuery={setSongSearchQuery}
-        setPlaylistSearchString={setPlaylistSearchString}
-      />
-      <SearchTextInput
-        searchMode={searchMode}
-        songSearchQuery={songSearchQuery}
-        setSongSearchQuery={setSongSearchQuery}
-        playlistSearchString={playlistSearchString}
-        setPlaylistSearchString={setPlaylistSearchString}
-      />
-      <SearchButton />
-    </form>
-  );
-};
-
-export default SearchBar;
+// export default SearchBar;

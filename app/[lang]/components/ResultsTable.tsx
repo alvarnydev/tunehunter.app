@@ -1,14 +1,15 @@
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
-import { priceDataType } from '@/types';
+import { PriceDataType } from '@/types';
 import Image from 'next/image';
 
-interface ResultsTableProps {
-  priceData: priceDataType[] | null;
-}
+// interface IResultsTableProps {
+//   priceData: PriceDataType[] | null;
+// }
 
-const ResultsTable = ({ priceData }: ResultsTableProps) => {
-  const priceDataArray = priceData ? priceData : [];
+const ResultsTable = () => {
+  // { priceData }: IResultsTableProps
+  //const priceDataArray = priceData ? priceData : [];
 
   return (
     <div className='overflow-x-auto w-11/12'>
@@ -28,7 +29,12 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div className='flex items-center space-x-5'>
                 <div className='avatar '>
                   <div className='mask mask-squircle w-12 h-12'>
-                    <img src='/logo_amazonmusic.png' alt='Amazon Music logo' />
+                    <Image
+                      width={48}
+                      height={48}
+                      src='/assets/logo_amazonmusic.png'
+                      alt='Amazon Music logo'
+                    />
                   </div>
                 </div>
                 <div className='md:block hidden'>
@@ -66,7 +72,12 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
-                    <img src='/logo_bandcamp.png' alt='Bandcamp logo' />
+                    <Image
+                      width={48}
+                      height={48}
+                      src='/assets/logo_bandcamp.png'
+                      alt='Bandcamp logo'
+                    />
                   </div>
                 </div>
                 <div className='md:block hidden'>
@@ -129,7 +140,12 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
-                    <img src='/logo_beatport.png' alt='Beatport logo' />
+                    <Image
+                      width={48}
+                      height={48}
+                      src='/assets/logo_beatport.jpg'
+                      alt='Beatport logo'
+                    />
                   </div>
                 </div>
                 <div className='md:block hidden'>
@@ -149,7 +165,12 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
-                    <img src='/logo_itunesstore.jpg' alt='iTunes Store logo' />
+                    <Image
+                      width={48}
+                      height={48}
+                      src='/assets/logo_itunesstore.jpg'
+                      alt='iTunes Store logo'
+                    />
                   </div>
                 </div>
                 <div className='md:block hidden'>

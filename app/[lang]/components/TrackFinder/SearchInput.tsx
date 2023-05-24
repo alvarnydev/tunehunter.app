@@ -1,4 +1,4 @@
-interface SearchTextInputProps {
+interface ISearchTextInputProps {
   searchMode: string;
   songSearchQuery: { artist: string; song: string };
   playlistSearchString: string;
@@ -12,7 +12,7 @@ const SearchTextInput = ({
   playlistSearchString,
   setSongSearchQuery,
   setPlaylistSearchString,
-}: SearchTextInputProps) => {
+}: ISearchTextInputProps) => {
   return (
     <div className='w-full flex md:flex-row flex-col md:gap-10 gap-8 order-2'>
       {searchMode === 'song' && (
@@ -28,12 +28,12 @@ const SearchTextInput = ({
   );
 };
 
-interface SongInputProps {
+interface ISongInputProps {
   songSearchQuery: { artist: string; song: string };
   setSongSearchQuery: (songInput: { artist: string; song: string }) => void;
 }
 
-const SongInput = ({ songSearchQuery, setSongSearchQuery }: SongInputProps) => {
+const SongInput = ({ songSearchQuery, setSongSearchQuery }: ISongInputProps) => {
   function handleArtistChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     setSongSearchQuery({ ...songSearchQuery, artist: value });
@@ -64,12 +64,12 @@ const SongInput = ({ songSearchQuery, setSongSearchQuery }: SongInputProps) => {
   );
 };
 
-interface PlaylistInputProps {
+interface IPlaylistInputProps {
   playlistSearchString: string;
   setPlaylistSearchString: (playlistInput: string) => void;
 }
 
-const PlaylistInput = ({ playlistSearchString, setPlaylistSearchString }: PlaylistInputProps) => {
+const PlaylistInput = ({ playlistSearchString, setPlaylistSearchString }: IPlaylistInputProps) => {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     setPlaylistSearchString(value);

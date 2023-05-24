@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { DE, ES, GB } from 'country-flag-icons/react/3x2';
+import { LanguageContext } from '@/context/LanguageContext';
 
 const LanguageSelector = () => {
   const [visible, setIsVisible] = useState(false);
+  const language = useContext(LanguageContext);
 
   function handleOptionClick(e: React.MouseEvent<HTMLAnchorElement>) {
     const lang = e.currentTarget.firstChild?.textContent;
@@ -23,15 +25,9 @@ const LanguageSelector = () => {
         tabIndex={0}
         className='btn btn-ghost m-1 border-0 hover:bg-transparent'
       >
-        {language === 'english' && (
-          <GB title='english' className='w-11 rounded pointer-events-none' />
-        )}
-        {language === 'german' && (
-          <DE title='german' className='w-11 rounded  pointer-events-none' />
-        )}
-        {language === 'spanish' && (
-          <ES title='spanish' className='w-11 rounded  pointer-events-none' />
-        )}
+        {language === 'en' && <GB title='english' className='w-11 rounded pointer-events-none' />}
+        {language === 'de' && <DE title='german' className='w-11 rounded  pointer-events-none' />}
+        {language === 'es' && <ES title='spanish' className='w-11 rounded  pointer-events-none' />}
       </label>
       <ul
         tabIndex={0}

@@ -1,4 +1,4 @@
-import type { Language } from './i18n-config';
+import type { LanguageType } from './i18n-config';
 
 const dictionaries = {
   en: () => import('./dictionaries/en.json').then((module) => module.default),
@@ -6,4 +6,4 @@ const dictionaries = {
   es: () => import('./dictionaries/es.json').then((module) => module.default),
 };
 
-export const getDictionary = async (language: Language) => dictionaries[language]();
+export const getDictionary = async (language: LanguageType) => dictionaries[language]();
