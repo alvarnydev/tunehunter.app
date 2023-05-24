@@ -45,10 +45,10 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div className='text-sm opacity-50'>320kbps</div>
             </td>
             <td className=''>
-              0.49€
+              0.69€
               <span
                 className='tooltip ml-1 inline-block text-sm opacity-50'
-                data-tip={"Artist's share is 50% on Amazon Music."}
+                data-tip={"Artist's share is ~70% on Amazon Music."}
               >
                 <AiOutlineInfoCircle size={16} />
               </span>
@@ -83,10 +83,10 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
             </td>
 
             <td className='border-0'>
-              0.79€
+              0.85€
               <span
                 className='tooltip ml-1 inline-block text-sm opacity-50'
-                data-tip={"Artist's share is 80% on Bandcamp."}
+                data-tip={"Artist's share is 85-90% on Bandcamp."}
               >
                 <AiOutlineInfoCircle size={16} />
               </span>
@@ -108,10 +108,10 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div>FLAC</div>
             </td>
             <td>
-              0.79€
+              0.85€
               <span
                 className='tooltip ml-1 inline-block text-sm opacity-50'
-                data-tip={"Artist's share is 80% on Bandcamp."}
+                data-tip={"Artist's share is 85-90% on Bandcamp."}
               >
                 <AiOutlineInfoCircle size={16} />
               </span>
@@ -165,10 +165,10 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div className='text-sm opacity-50'>320kbps</div>
             </td>
             <td>
-              0.59€
+              0.69€
               <span
                 className='tooltip ml-1 inline-block text-sm opacity-50'
-                data-tip={"Artist's share is 60% on the iTunes Store."}
+                data-tip={"Artist's share is ~70% on the iTunes Store."}
               >
                 <AiOutlineInfoCircle size={16} />
               </span>

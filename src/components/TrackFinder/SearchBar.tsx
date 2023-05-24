@@ -16,6 +16,23 @@ const SearchBar = ({ setPriceData }: SearchBarProps) => {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    /*
+    Bandcamp:
+    - https://bandcamp.com/search?q=artist+song
+
+    Beatport:
+    - https://www.beatport.com/search?q=artist+song
+
+    Amazon Music:
+    - https://music.amazon.com/search/artist+song
+
+    iTunes Store: 
+    - https://itunes.apple.com/search?term=need+to+feel+loved&country=US&media=music&entity=song&limit=10
+
+
+
+    */
+
     if (searchMode === 'song') {
       await fetch(`/api/price?artist=${songSearchQuery.artist}&song=${songSearchQuery.song}`)
         .then((res) => res.json())
