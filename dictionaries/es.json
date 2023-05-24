@@ -1,0 +1,13 @@
+{
+  "searchbar": { "artist": "Artista", "song": "Canción", "search": "Buscar" },
+  "resultstable": {
+    "header": {
+      "store": "Tienda",
+      "quality": "Calidad",
+      "price": "Precio",
+      "artistsshare": "Corte del artista",
+      "link": "Link"
+    },
+    "buy": "Comprar"
+  }
+}

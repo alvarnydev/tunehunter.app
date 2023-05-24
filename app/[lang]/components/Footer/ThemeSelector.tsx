@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ThemeSelector = () => {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'synthwave');
+  const [theme, setTheme] = useState('synthwave');
   function handleClick() {
     const newTheme = theme === 'synthwave' ? 'valentine' : 'synthwave';
     setTheme(newTheme);
@@ -11,6 +11,10 @@ const ThemeSelector = () => {
 
     localStorage.setItem('theme', newTheme);
   }
+
+  useEffect(() => {
+    setTheme(localStorage.getItem('theme') || 'synthwave');
+  }, []);
 
   return (
     <label htmlFor='theme-switcher' className='swap swap-rotate'>

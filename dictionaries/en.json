@@ -1,0 +1,13 @@
+{
+  "searchbar": { "artist": "Artist", "song": "Song", "search": "Search" },
+  "resultstable": {
+    "header": {
+      "store": "Music store",
+      "quality": "Quality",
+      "price": "Price",
+      "artistsshare": "Artist's share",
+      "link": "Link"
+    },
+    "buy": "Buy"
+  }
+}
