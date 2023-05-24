@@ -27,13 +27,8 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
             <td>
               <div className='flex items-center space-x-5'>
                 <div className='avatar '>
-                  <div className='mask mask-squircle'>
-                    <Image
-                      width={48}
-                      height={48}
-                      src='/logo_amazonmusic.png'
-                      alt='Avatar Tailwind CSS Component'
-                    />
+                  <div className='mask mask-squircle w-12 h-12'>
+                    <img src='/logo_amazonmusic.png' alt='Amazon Music logo' />
                   </div>
                 </div>
                 <div className='md:block hidden'>
@@ -71,12 +66,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
-                    <Image
-                      width={48}
-                      height={48}
-                      src='/logo_bandcamp.svg'
-                      alt='Avatar Tailwind CSS Component'
-                    />
+                    <img src='/logo_bandcamp.png' alt='Bandcamp logo' />
                   </div>
                 </div>
                 <div className='md:block hidden'>
@@ -139,12 +129,7 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
                   <div className='mask mask-squircle w-12 h-12'>
-                    <Image
-                      width={48}
-                      height={48}
-                      src='/logo_beatport.svg'
-                      alt='Avatar Tailwind CSS Component'
-                    />
+                    <img src='/logo_beatport.png' alt='Beatport logo' />
                   </div>
                 </div>
                 <div className='md:block hidden'>
@@ -163,13 +148,8 @@ const ResultsTable = ({ priceData }: ResultsTableProps) => {
             <td>
               <div className='flex items-center space-x-5'>
                 <div className='avatar'>
-                  <div className='mask mask-squircle '>
-                    <Image
-                      width={48}
-                      height={48}
-                      src='/logo_itunesstore.jpg'
-                      alt='Avatar Tailwind CSS Component'
-                    />
+                  <div className='mask mask-squircle w-12 h-12'>
+                    <img src='/logo_itunesstore.jpg' alt='iTunes Store logo' />
                   </div>
                 </div>
                 <div className='md:block hidden'>

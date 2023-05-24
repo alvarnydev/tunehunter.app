@@ -1,22 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { DE, ES, GB } from 'country-flag-icons/react/3x2';
 
 const LanguageSelector = () => {
-  const [language, setLanguage] = useState('english');
   const [visible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    localStorage.setItem('language', language);
-
-    // Change language
-  }, [language]);
 
   function handleOptionClick(e: React.MouseEvent<HTMLAnchorElement>) {
     const lang = e.currentTarget.firstChild?.textContent;
     if (lang == null) return;
 
-    localStorage.setItem('language', lang);
-    setLanguage(lang);
     setIsVisible(false);
   }
 
@@ -24,6 +15,7 @@ const LanguageSelector = () => {
     setIsVisible(!visible);
   }
 
+  // Get lang parameter from URL
   return (
     <div className='dropdown dropdown-top [@media(max-width:500px)]:dropdown-end flex justify-center items-center'>
       <label
