@@ -23,7 +23,7 @@ const LanguageSelector = ({ lang }: { lang: LangType }) => {
   }
 
   let newUrl = '';
-  if (typeof window !== undefined) {
+  if (typeof window !== 'undefined') {
     newUrl = `/${lang}${window.location.search}${window.location.hash}`;
   }
 
