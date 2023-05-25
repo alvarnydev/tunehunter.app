@@ -4,28 +4,25 @@ import { DE, ES, GB } from 'country-flag-icons/react/3x2';
 import { LangType } from '../../../../i18n-config';
 import Link from 'next/link';
 
+const langData = [
+  { short: 'en', long: 'English' },
+  { short: 'de', long: 'German' },
+  { short: 'es', long: 'Spanish' },
+];
+
+// URL is like this: https://buythattrack.com/en?artist=X&song=Y
+// Now we want it to be like this: https://buythattrack.com/de?artist=X&song=Y
+// window.location.protocol = https://
+// window.location.host = buythattrack.com
+// window.location.pathname = /en
+// window.location.search = ?artist=X&song=Y
+// window.location.hash = #hash
+// --> Change the pathname
+// window.location.origin = protocol + host = https://buythattrack.com
+// window.location.href = origin + pathname + search + hash https://buythattrack.com/en?artist=X&song=Y#hash
+
 const LanguageSelector = ({ lang }: { lang: LangType }) => {
   const [visible, setIsVisible] = useState(false);
-
-  function handleOptionClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    // URL is like this: https://buythattrack.com/en?artist=X&song=Y
-    // Now we want it to be like this: https://buythattrack.com/de?artist=X&song=Y
-    // window.location.protocol = https://
-    // window.location.host = buythattrack.com
-    // window.location.pathname = /en
-    // window.location.search = ?artist=X&song=Y
-    // window.location.hash = #hash
-    // --> Change the pathname
-    // window.location.origin = protocol + host = https://buythattrack.com
-    // window.location.href = origin + pathname + search + hash https://buythattrack.com/en?artist=X&song=Y#hash
-
-    setIsVisible(false);
-  }
-
-  let newUrl = '';
-  if (typeof window !== 'undefined') {
-    newUrl = `/${lang}${window.location.search}${window.location.hash}`;
-  }
 
   // Show and hide the menu
   function handleMenuClick() {
@@ -48,35 +45,25 @@ const LanguageSelector = ({ lang }: { lang: LangType }) => {
         className='dropdown-content menu p-2 bg-base-200 rounded-box w-42'
         style={{ visibility: visible ? 'visible' : 'hidden', opacity: visible ? '1' : '0' }}
       >
-        <li>
-          <Link aria-label='Link to change the language of the site to English' href={newUrl}>
-            <GB title='english' className='w-8 rounded pointer-events-none' /> English
-          </Link>
-        </li>
-        <li>
-          <a
-            onClick={handleOptionClick}
-            aria-label='Link to change the language of the site to English'
-          >
-            <GB title='english' className='w-8 rounded pointer-events-none' /> English
-          </a>
-        </li>
-        <li>
-          <a
-            onClick={handleOptionClick}
-            aria-label='Link to change the language of the site to German'
-          >
-            <DE title='german' className='w-8 rounded pointer-events-none' /> German
-          </a>
-        </li>
-        <li>
-          <a
-            onClick={handleOptionClick}
-            aria-label='Link to change the language of the site to Spanish'
-          >
-            <ES title='spanish' className='w-8 rounded pointer-events-none' /> Spanish
-          </a>
-        </li>
+        {langData.map((lang) => (
+          <li key={lang.short}>
+            <Link
+              aria-label={`Link to change the language of the site to ${lang.short}`}
+              href={`/${lang.short}`}
+            >
+              {lang.short === 'en' && (
+                <GB title={lang.long} className='w-8 rounded pointer-events-none' />
+              )}
+              {lang.short === 'es' && (
+                <DE title={lang.long} className='w-8 rounded pointer-events-none' />
+              )}
+              {lang.short === 'de' && (
+                <ES title={lang.long} className='w-8 rounded pointer-events-none' />
+              )}
+              {lang.long}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   );
