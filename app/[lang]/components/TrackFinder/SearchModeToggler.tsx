@@ -1,14 +1,7 @@
+import { ISearchModeTogglerProps } from '@/interfaces';
 import { GiMusicalNotes } from 'react-icons/gi';
 import { IoIosMusicalNote } from 'react-icons/io';
 
-interface ISearchModeTogglerProps {
-  searchMode: string;
-  setSearchMode: (searchMode: string) => void;
-  songSearchQuery: { artist: string; song: string };
-  playlistSearchString: string;
-  setSongSearchQuery: (songInput: { artist: string; song: string }) => void;
-  setPlaylistSearchString: (playlistInput: string) => void;
-}
 const SearchModeToggler = ({
   searchMode,
   setSearchMode,

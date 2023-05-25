@@ -1,9 +1,8 @@
 'use client';
-
 import { PropsWithChildren, useState } from 'react';
-import { PriceDataType } from '@/types';
+import { PriceDataType, DictTrackFinderTypes } from '@/types';
 import SearchModeToggler from './TrackFinder/SearchModeToggler';
-import SearchTextInput from './TrackFinder/SearchInput';
+import SearchTextInput from './TrackFinder/SearchTextInput';
 import SearchButton from './TrackFinder/SearchButton';
 
 const samplePriceData: Array<PriceDataType> = [
@@ -14,11 +13,16 @@ const samplePriceData: Array<PriceDataType> = [
   },
 ];
 
-const TrackFinder = ({ children }: PropsWithChildren) => {
+const TrackFinder: React.FC<PropsWithChildren<DictTrackFinderTypes>> = ({
+  dictTrackFinder,
+  children,
+}) => {
   const [priceData, setPriceData] = useState(samplePriceData);
   const [searchMode, setSearchMode] = useState('song');
   const [songSearchQuery, setSongSearchQuery] = useState({ artist: '', song: '' });
   const [playlistSearchString, setPlaylistSearchString] = useState('');
+
+  const { search: buttonText, ...dictTextInput } = dictTrackFinder;
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -50,13 +54,14 @@ const TrackFinder = ({ children }: PropsWithChildren) => {
           setPlaylistSearchString={setPlaylistSearchString}
         />
         <SearchTextInput
+          dictTextInput={dictTextInput}
           searchMode={searchMode}
           songSearchQuery={songSearchQuery}
           setSongSearchQuery={setSongSearchQuery}
           playlistSearchString={playlistSearchString}
           setPlaylistSearchString={setPlaylistSearchString}
         />
-        <SearchButton />
+        <SearchButton buttonText={buttonText} />
       </form>
       {children}
       {/* <SearchBar setPriceData={setPriceData} />

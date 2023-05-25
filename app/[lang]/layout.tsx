@@ -1,3 +1,4 @@
+import { LanguageType } from '../../i18n-config';
 import Footer from './components/Footer';
 import './globals.css';
 import { Inter } from 'next/font/google';
@@ -10,9 +11,19 @@ export const metadata = {
     'We compare music vendors like Beatport and Amazon Music to find the best deal for you.',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export async function generateStaticParams() {
+  return [{ lang: 'en' }, { lang: 'de' }, { lang: 'es' }];
+}
+
+export default function RootLayout({
+  children,
+  params: { lang },
+}: {
+  children: React.ReactNode;
+  params: { lang: LanguageType };
+}) {
   return (
-    <html lang='en'>
+    <html lang={lang}>
       <body
         className={`${inter.className} min-h-screen flex flex-col justify-between items-center overflow-hidden`}
       >

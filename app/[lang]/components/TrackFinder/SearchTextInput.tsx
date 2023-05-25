@@ -1,12 +1,7 @@
-interface ISearchTextInputProps {
-  searchMode: string;
-  songSearchQuery: { artist: string; song: string };
-  playlistSearchString: string;
-  setSongSearchQuery: (songInput: { artist: string; song: string }) => void;
-  setPlaylistSearchString: (playlistInput: string) => void;
-}
+import { IPlaylistInputProps, ISearchTextInputProps, ISongInputProps } from '@/interfaces';
 
 const SearchTextInput = ({
+  dictTextInput,
   searchMode,
   songSearchQuery,
   playlistSearchString,
@@ -16,7 +11,11 @@ const SearchTextInput = ({
   return (
     <div className='w-full flex md:flex-row flex-col md:gap-10 gap-8 order-2'>
       {searchMode === 'song' && (
-        <SongInput songSearchQuery={songSearchQuery} setSongSearchQuery={setSongSearchQuery} />
+        <SongInput
+          dictSongInput={dictTextInput}
+          songSearchQuery={songSearchQuery}
+          setSongSearchQuery={setSongSearchQuery}
+        />
       )}
       {searchMode === 'playlist' && (
         <PlaylistInput
@@ -28,12 +27,7 @@ const SearchTextInput = ({
   );
 };
 
-interface ISongInputProps {
-  songSearchQuery: { artist: string; song: string };
-  setSongSearchQuery: (songInput: { artist: string; song: string }) => void;
-}
-
-const SongInput = ({ songSearchQuery, setSongSearchQuery }: ISongInputProps) => {
+const SongInput = ({ dictSongInput, songSearchQuery, setSongSearchQuery }: ISongInputProps) => {
   function handleArtistChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     setSongSearchQuery({ ...songSearchQuery, artist: value });
@@ -48,14 +42,14 @@ const SongInput = ({ songSearchQuery, setSongSearchQuery }: ISongInputProps) => 
     <>
       <input
         type='text'
-        placeholder={'searchbar.artist'}
+        placeholder={dictSongInput.artist}
         className='input input-primary rounded-full md:w-full border-2 tracking-wide'
         value={songSearchQuery.artist}
         onChange={handleArtistChange}
       />
       <input
         type='text'
-        placeholder={'searchbar.song'}
+        placeholder={dictSongInput.song}
         className='input rounded-full input-primary md:w-full border-2 tracking-wide'
         value={songSearchQuery.song}
         onChange={handleSongChange}
@@ -63,11 +57,6 @@ const SongInput = ({ songSearchQuery, setSongSearchQuery }: ISongInputProps) => 
     </>
   );
 };
-
-interface IPlaylistInputProps {
-  playlistSearchString: string;
-  setPlaylistSearchString: (playlistInput: string) => void;
-}
 
 const PlaylistInput = ({ playlistSearchString, setPlaylistSearchString }: IPlaylistInputProps) => {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {

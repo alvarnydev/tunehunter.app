@@ -1,13 +1,13 @@
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
-import { PriceDataType } from '@/types';
+import { PriceDataType, DictResultsTableTypes } from '@/types';
 import Image from 'next/image';
 
 // interface IResultsTableProps {
 //   priceData: PriceDataType[] | null;
 // }
 
-const ResultsTable = () => {
+const ResultsTable: React.FC<DictResultsTableTypes> = ({ dictResultsTable }) => {
   // { priceData }: IResultsTableProps
   //const priceDataArray = priceData ? priceData : [];
 
@@ -17,10 +17,10 @@ const ResultsTable = () => {
         {/* head */}
         <thead>
           <tr>
-            <td className='text-base normal-case'>{'resultstable.header.store'}</td>
-            <td className='text-base normal-case'>{'resultstable.header.quality'}</td>
-            <td className='text-base normal-case'>{'resultstable.header.artistsshare'}</td>
-            <td className='text-base normal-case'>{'resultstable.header.price'}</td>
+            <td className='text-base normal-case'>{dictResultsTable.header.store}</td>
+            <td className='text-base normal-case'>{dictResultsTable.header.quality}</td>
+            <td className='text-base normal-case'>{dictResultsTable.header.artistsshare}</td>
+            <td className='text-base normal-case'>{dictResultsTable.header.price}</td>
           </tr>
         </thead>
         <tbody>
