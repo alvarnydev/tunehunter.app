@@ -1,4 +1,4 @@
-import { LanguageType } from '../../i18n-config';
+import { LangType } from '../../i18n-config';
 import Footer from './components/Footer';
 import './globals.css';
 import { Inter } from 'next/font/google';
@@ -20,7 +20,7 @@ export default function RootLayout({
   params: { lang },
 }: {
   children: React.ReactNode;
-  params: { lang: LanguageType };
+  params: { lang: LangType };
 }) {
   return (
     <html lang={lang}>
@@ -30,7 +30,7 @@ export default function RootLayout({
         <main className='flex-1 flex flex-col justify-evenly items-center w-full max-w-5xl md:gap-4 gap-10 py-10'>
           {children}
         </main>
-        <Footer />
+        <Footer lang={lang} />
       </body>
     </html>
   );

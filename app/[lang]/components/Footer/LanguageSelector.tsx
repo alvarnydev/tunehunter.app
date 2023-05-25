@@ -1,23 +1,24 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { DE, ES, GB } from 'country-flag-icons/react/3x2';
-import { LanguageContext } from '@/context/LanguageContext';
+import { LangType } from '../../../../i18n-config';
 
-const LanguageSelector = () => {
+const LanguageSelector = ({ lang }: { lang: LangType }) => {
   const [visible, setIsVisible] = useState(false);
-  const language = useContext(LanguageContext);
 
   function handleOptionClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    const lang = e.currentTarget.firstChild?.textContent;
-    if (lang == null) return;
+    const currUrl = window.location.pathname;
+    // let newUrl = window.location.pathname.replace(`/${lang}`, `/${code}`);
+    // window.location.replace();
+    console.log(window);
 
     setIsVisible(false);
   }
 
+  // Show and hide the menu
   function handleMenuClick() {
     setIsVisible(!visible);
   }
 
-  // Get lang parameter from URL
   return (
     <div className='dropdown dropdown-top [@media(max-width:500px)]:dropdown-end flex justify-center items-center'>
       <label
@@ -25,9 +26,9 @@ const LanguageSelector = () => {
         tabIndex={0}
         className='btn btn-ghost m-1 border-0 hover:bg-transparent'
       >
-        {language === 'en' && <GB title='english' className='w-11 rounded pointer-events-none' />}
-        {language === 'de' && <DE title='german' className='w-11 rounded  pointer-events-none' />}
-        {language === 'es' && <ES title='spanish' className='w-11 rounded  pointer-events-none' />}
+        {lang === 'en' && <GB title='english' className='w-11 rounded pointer-events-none' />}
+        {lang === 'de' && <DE title='german' className='w-11 rounded  pointer-events-none' />}
+        {lang === 'es' && <ES title='spanish' className='w-11 rounded  pointer-events-none' />}
       </label>
       <ul
         tabIndex={0}

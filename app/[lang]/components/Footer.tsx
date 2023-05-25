@@ -5,8 +5,9 @@ import { themeChange } from 'theme-change';
 import ThemeSelector from './Footer/ThemeSelector';
 import LanguageSelector from './Footer/LanguageSelector';
 import GithubLinker from './Footer/GithubLinker';
+import { LangType } from '../../../i18n-config';
 
-const Footer = () => {
+const Footer = ({ lang }: { lang: LangType }) => {
   useEffect(() => {
     themeChange(false);
   }, []);
@@ -15,7 +16,7 @@ const Footer = () => {
     <footer className='w-full grid grid-cols-3 md:py-3 py-1 bg-base-300'>
       <ThemeSelector />
       <GithubLinker />
-      <LanguageSelector />
+      <LanguageSelector lang={lang} />
     </footer>
   );
 };

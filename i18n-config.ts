@@ -4,4 +4,4 @@ export const i18n = {
   languageDetection: false,
 } as const;
 
-export type LanguageType = (typeof i18n)['languages'][number];
+export type LangType = (typeof i18n)['languages'][number];
