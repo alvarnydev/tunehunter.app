@@ -1,5 +1,5 @@
 'use client';
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import { PriceDataType, DictTrackFinderTypes } from '@/types';
 import SearchModeToggler from './TrackFinder/SearchModeToggler';
 import SearchTextInput from './TrackFinder/SearchTextInput';

@@ -8,8 +8,9 @@ export default async function Home({ params: { lang } }: { params: { lang: LangT
   const dict = await getDictionary(lang);
 
   return (
-    <TrackFinder dictTrackFinder={dict.searchbar}>
-      <ResultsTable dictResultsTable={dict.resultstable} />
-    </TrackFinder>
+    <></>
+    // <TrackFinder dictTrackFinder={dict.searchbar}>
+    //   <ResultsTable dictResultsTable={dict.resultstable} />
+    // </TrackFinder>
   );
 }
