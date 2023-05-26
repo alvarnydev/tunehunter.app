@@ -1,5 +1,5 @@
 {
-  "searchbar": { "artist": "Künstler", "title": "Lied", "search": "Suchen" },
+  "trackfinderform": { "artist": "Künstler", "title": "Lied", "search": "Suchen" },
   "resultstable": {
     "header": {
       "store": "Plattform",

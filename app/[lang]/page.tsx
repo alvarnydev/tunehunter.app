@@ -7,9 +7,5 @@ import { getDictionary } from '../../dictionaries';
 export default async function Home({ params: { lang } }: { params: { lang: LangType } }) {
   const dict = await getDictionary(lang);
 
-  return (
-    <TrackFinderForm dictTrackFinder={dict.searchbar}>
-      <ResultsTable dictResultsTable={dict.resultstable} />
-    </TrackFinderForm>
-  );
+  return <TrackFinderForm dictTrackFinder={dict.trackfinderform} />;
 }
