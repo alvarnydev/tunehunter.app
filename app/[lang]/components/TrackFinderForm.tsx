@@ -1,14 +1,13 @@
 'use client';
 import { PropsWithChildren, useEffect, useState } from 'react';
-import { PriceDataType, DictTrackFinderTypes } from '@/types';
+import { SongVendorType, DictTrackFinderTypes } from '@/types';
 import SearchModeToggler from './TrackFinder/SearchModeToggler';
 import SearchTextInput from './TrackFinder/SearchTextInput';
 import SearchButton from './TrackFinder/SearchButton';
 
-const samplePriceData: Array<PriceDataType> = [
+const samplePriceData: Array<SongVendorType> = [
   {
-    artist: 'A',
-    song: 'B',
+    song: { artist: 'A', song: 'B' },
     prices: { amazon: 0.99, itunes: 0.99, beatport: 1.49, bandcamp: 0.99 },
   },
 ];

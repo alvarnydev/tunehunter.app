@@ -1,6 +1,6 @@
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
-import { PriceDataType, DictResultsTableTypes } from '@/types';
+import { SongVendorType, DictResultsTableTypes } from '@/types';
 import Image from 'next/image';
 
 // interface IResultsTableProps {

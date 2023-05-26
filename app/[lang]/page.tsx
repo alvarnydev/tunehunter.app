@@ -1,6 +1,6 @@
 'use client';
 import { LangType } from '../../i18n-config';
-import TrackFinder from './components/TrackFinder';
+import TrackFinderForm from './components/TrackFinderForm';
 import ResultsTable from './components/ResultsTable';
 import { getDictionary } from '../../dictionaries';
 
@@ -8,8 +8,8 @@ export default async function Home({ params: { lang } }: { params: { lang: LangT
   const dict = await getDictionary(lang);
 
   return (
-    <TrackFinder dictTrackFinder={dict.searchbar}>
+    <TrackFinderForm dictTrackFinder={dict.searchbar}>
       <ResultsTable dictResultsTable={dict.resultstable} />
-    </TrackFinder>
+    </TrackFinderForm>
   );
 }

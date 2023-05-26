@@ -1,7 +1,11 @@
-export type PriceDataType = {
+export type SongType = {
   artist: string;
   song: string;
-  prices: { amazon: number; itunes: number; beatport: number; bandcamp: number };
+};
+
+export type SongVendorType = {
+  song: SongType;
+  prices: { amazon: number; itunes: number; beatport: number; bandcamp: number } | {};
 };
 
 export type DictTrackFinderTypes = {
