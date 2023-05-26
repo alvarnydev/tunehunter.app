@@ -54,10 +54,10 @@ const LanguageSelector = ({ lang }: { lang: LangType }) => {
               {lang.short === 'en' && (
                 <GB title={lang.long} className='w-8 rounded pointer-events-none' />
               )}
-              {lang.short === 'es' && (
+              {lang.short === 'de' && (
                 <DE title={lang.long} className='w-8 rounded pointer-events-none' />
               )}
-              {lang.short === 'de' && (
+              {lang.short === 'es' && (
                 <ES title={lang.long} className='w-8 rounded pointer-events-none' />
               )}
               {lang.long}
