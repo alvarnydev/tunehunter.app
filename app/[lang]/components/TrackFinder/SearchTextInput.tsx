@@ -49,7 +49,7 @@ const SongInput = ({ dictSongInput, songSearchQuery, setSongSearchQuery }: ISong
       />
       <input
         type='text'
-        placeholder={dictSongInput.title}
+        placeholder={dictSongInput.song}
         className='input rounded-full input-primary md:w-full border-2 tracking-wide'
         value={songSearchQuery.title}
         onChange={handleSongChange}

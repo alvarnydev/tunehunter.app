@@ -1,5 +1,5 @@
 {
-  "trackfinderform": { "artist": "Artista", "title": "Canción", "search": "Buscar" },
+  "trackfinderform": { "artist": "Artista", "song": "Canción", "search": "Buscar" },
   "resultstable": {
     "header": {
       "store": "Tienda",

@@ -9,7 +9,7 @@ export type SongVendorType = {
 };
 
 export type DictTrackFinderTypes = {
-  dictTrackFinder: { artist: string; title: string; search: string };
+  dictTrackFinder: { artist: string; song: string; search: string };
 };
 
 export type DictResultsTableTypes = {
@@ -27,5 +27,5 @@ export type DictResultsTableTypes = {
 
 export type DictTextInputTypes = {
   artist: string;
-  title: string;
+  song: string;
 };
