@@ -35,7 +35,7 @@ const SongInput = ({ dictSongInput, songSearchQuery, setSongSearchQuery }: ISong
 
   function handleSongChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
-    setSongSearchQuery({ ...songSearchQuery, song: value });
+    setSongSearchQuery({ ...songSearchQuery, title: value });
   }
 
   return (
@@ -49,9 +49,9 @@ const SongInput = ({ dictSongInput, songSearchQuery, setSongSearchQuery }: ISong
       />
       <input
         type='text'
-        placeholder={dictSongInput.song}
+        placeholder={dictSongInput.title}
         className='input rounded-full input-primary md:w-full border-2 tracking-wide'
-        value={songSearchQuery.song}
+        value={songSearchQuery.title}
         onChange={handleSongChange}
       />
     </>

@@ -1,5 +1,5 @@
 {
-  "searchbar": { "artist": "Künstler", "song": "Lied", "search": "Suchen" },
+  "searchbar": { "artist": "Künstler", "title": "Lied", "search": "Suchen" },
   "resultstable": {
     "header": {
       "store": "Plattform",

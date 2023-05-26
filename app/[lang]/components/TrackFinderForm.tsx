@@ -7,7 +7,7 @@ import SearchButton from './TrackFinder/SearchButton';
 
 const samplePriceData: Array<SongVendorType> = [
   {
-    song: { artist: 'A', song: 'B' },
+    song: { artist: 'A', title: 'B' },
     prices: { amazon: 0.99, itunes: 0.99, beatport: 1.49, bandcamp: 0.99 },
   },
 ];
@@ -16,9 +16,9 @@ const TrackFinder: React.FC<PropsWithChildren<DictTrackFinderTypes>> = ({
   dictTrackFinder,
   children,
 }) => {
-  const [priceData, setPriceData] = useState(samplePriceData);
+  const [priceData, setPriceData] = useState<SongVendorType[]>(samplePriceData);
   const [searchMode, setSearchMode] = useState('song');
-  const [songSearchQuery, setSongSearchQuery] = useState({ artist: '', song: '' });
+  const [songSearchQuery, setSongSearchQuery] = useState({ artist: '', title: '' });
   const [playlistSearchString, setPlaylistSearchString] = useState('');
 
   const { search: buttonText, ...dictTextInput } = dictTrackFinder;
@@ -26,14 +26,23 @@ const TrackFinder: React.FC<PropsWithChildren<DictTrackFinderTypes>> = ({
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    const songUrl = `/api/song?title=${songSearchQuery.title}&artist=${songSearchQuery.artist}`;
+    const playlistUrl = `/api/playlist?url=${playlistSearchString}`;
+    const headers = {
+      headers: {
+        'Content-Type': 'application/json',
+        'API-Key': process.env.DATA_API_KEY,
+      },
+    };
+
     if (searchMode === 'song') {
-      await fetch(`/api/price?artist=${songSearchQuery.artist}&song=${songSearchQuery.song}`)
+      await fetch(songUrl) // , { headers }
         .then((res) => res.json())
         .then((data) => {
           setPriceData(data);
         });
     } else if (searchMode === 'playlist') {
-      await fetch(`/api/price?playlist=${playlistSearchString}`)
+      await fetch(playlistUrl)
         .then((res) => res.json())
         .then((data) => {
           setPriceData(data);
@@ -63,8 +72,6 @@ const TrackFinder: React.FC<PropsWithChildren<DictTrackFinderTypes>> = ({
         <SearchButton buttonText={buttonText} />
       </form>
       {children}
-      {/* <SearchBar setPriceData={setPriceData} />
-      <ResultsTable priceData={priceData} /> */}
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
-import { SongVendorType, DictResultsTableTypes } from '@/types';
+import { DictResultsTableTypes } from '@/types';
 import Image from 'next/image';
 
 // interface IResultsTableProps {
@@ -8,9 +8,6 @@ import Image from 'next/image';
 // }
 
 const ResultsTable: React.FC<DictResultsTableTypes> = ({ dictResultsTable }) => {
-  // { priceData }: IResultsTableProps
-  //const priceDataArray = priceData ? priceData : [];
-
   return (
     <div className='overflow-x-auto w-11/12'>
       <table className='table w-full'>

@@ -1,18 +1,18 @@
-import { DictTextInputTypes } from './types';
+import { DictTextInputTypes, SongType } from './types';
 
 export interface ISearchTextInputProps {
   dictTextInput: DictTextInputTypes;
   searchMode: string;
-  songSearchQuery: { artist: string; song: string };
+  songSearchQuery: SongType;
   playlistSearchString: string;
-  setSongSearchQuery: (songInput: { artist: string; song: string }) => void;
+  setSongSearchQuery: (songInput: SongType) => void;
   setPlaylistSearchString: (playlistInput: string) => void;
 }
 
 export interface ISongInputProps {
   dictSongInput: DictTextInputTypes;
-  songSearchQuery: { artist: string; song: string };
-  setSongSearchQuery: (songInput: { artist: string; song: string }) => void;
+  songSearchQuery: SongType;
+  setSongSearchQuery: (songInput: SongType) => void;
 }
 
 export interface IPlaylistInputProps {
@@ -23,8 +23,8 @@ export interface IPlaylistInputProps {
 export interface ISearchModeTogglerProps {
   searchMode: string;
   setSearchMode: (searchMode: string) => void;
-  songSearchQuery: { artist: string; song: string };
+  songSearchQuery: SongType;
   playlistSearchString: string;
-  setSongSearchQuery: (songInput: { artist: string; song: string }) => void;
+  setSongSearchQuery: (songInput: SongType) => void;
   setPlaylistSearchString: (playlistInput: string) => void;
 }

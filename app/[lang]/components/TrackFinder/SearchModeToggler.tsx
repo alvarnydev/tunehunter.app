@@ -20,7 +20,7 @@ const SearchModeToggler = ({
     }
 
     // Changing from playlist -> song
-    setSongSearchQuery({ artist: songSearchQuery.artist, song: songSearchQuery.song });
+    setSongSearchQuery({ artist: songSearchQuery.artist, title: songSearchQuery.title });
     setSearchMode('song');
   }
 
