@@ -20,15 +20,17 @@ const SearchButton = ({ searchMode, songSearchQuery, playlistSearchString }: Sea
   }
 
   return (
-    <Link className='order-3 flex' to={`/results${params}`}>
-      <button
-        type='submit'
-        className='btn btn-primary font-normal rounded-full md:w-auto w-1/2 gap-2 flex normal-case px-4 text-base tracking-wide'
-      >
-        <BiSearch size={18} />
-        {t('searchbar.search')}
-      </button>
-    </Link>
+    <div className='order-3'>
+      <Link className='md:flex' to={`/results${params}`}>
+        <button
+          type='submit'
+          className='btn btn-primary font-normal md:w-auto w-1/2 m-auto rounded-full gap-2 flex normal-case px-4 text-base tracking-wide'
+        >
+          <BiSearch size={18} />
+          {t('searchbar.search')}
+        </button>
+      </Link>
+    </div>
   );
 };
 
