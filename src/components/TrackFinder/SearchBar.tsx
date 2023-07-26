@@ -2,13 +2,12 @@ import { useState } from 'react';
 import SearchModeToggler from './SearchBar/SearchModeToggler';
 import SearchTextInput from './SearchBar/SearchInput';
 import SearchButton from './SearchBar/SearchButton';
-import { priceDataType } from '../../types';
 
-interface SearchBarProps {
-  setPriceData: (priceData: [priceDataType]) => void;
-}
+// interface SearchBarProps {
+//   setPriceData: (priceData: [priceDataType]) => void;
+// }
 
-const SearchBar = ({ setPriceData }: SearchBarProps) => {
+const SearchBar = () => {
   const [searchMode, setSearchMode] = useState('song');
   const [songSearchQuery, setSongSearchQuery] = useState({ artist: '', song: '' });
   const [playlistSearchString, setPlaylistSearchString] = useState('');
@@ -16,19 +15,19 @@ const SearchBar = ({ setPriceData }: SearchBarProps) => {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (searchMode === 'song') {
-      await fetch(`/api/price?artist=${songSearchQuery.artist}&song=${songSearchQuery.song}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setPriceData(data);
-        });
-    } else if (searchMode === 'playlist') {
-      await fetch(`/api/price?playlist=${playlistSearchString}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setPriceData(data);
-        });
-    }
+    // if (searchMode === 'song') {
+    //   await fetch(`/api/price?artist=${songSearchQuery.artist}&song=${songSearchQuery.song}`)
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       setPriceData(data);
+    //     });
+    // } else if (searchMode === 'playlist') {
+    //   await fetch(`/api/price?playlist=${playlistSearchString}`)
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       setPriceData(data);
+    //     });
+    // }
   }
 
   return (

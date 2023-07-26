@@ -1,0 +1,68 @@
+MVP: only german results
+
+1. Second page on 'search'
+
+2. API calls
+
+
+
+
+
+THEN:
+
+1. Save calls in DB
+
+2. Get real API connections
+
+
+
+
+
+
+_________________
+
+
+- add lang to trackfinder form to properly route requests
+- api key
+- Validate input: react hook forms
+- Convert results to table(s): array.map
+- rate limiting search
+
+
+2. Work
+  - Provider context for SeachBar status
+  - Add region + quality menu
+      - aac 256, mp3 320, lossless
+  - Add server actions, api for data requests
+  - For mobile:
+      - on button click hide menu
+
+3. Jest, Cypress
+
+Maybe:
+- Retrowave fonts
+- Animations
+- Background more interesting
+
+
+Fix:
+- State in input component leading to unnecessary renders
+- Lots of state sharing between toggler and input
+- Put data fetching in ResultsTable and make it a RSC (child in pages.tsx rather than directly in TrackFinderForm) rather than use API
+
+
+APIs:
+   Bandcamp: No API
+    - Scrape: https://bandcamp.com/search?q=artist+song
+
+    Beatport: API
+    - API link: https://api.beatport.com/v4/docs/catalog/search/
+    - API example: - 
+    - Scrape example: https://www.beatport.com/search?q=Need+to+feel+loved+reflekt+adamk+and+soha+remix
+
+    Amazon Music:
+    - https://music.amazon.com/search/artist+song
+
+    iTunes Store: API
+    - API link: 
+    - API example: https://itunes.apple.com/search?term=need+to+feel+loved&country=US&media=music&entity=song&limit=10

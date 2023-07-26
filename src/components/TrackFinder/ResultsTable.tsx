@@ -1,17 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
-import { priceDataType } from '../../types';
 
-interface ResultsTableProps {
-  priceData: priceDataType[] | null;
-}
+// interface ResultsTableProps {
+//   priceData: priceDataType[] | null;
+// }
 
-const ResultsTable = ({ priceData }: ResultsTableProps) => {
+const ResultsTable = () => {
+  // { priceData }: ResultsTableProps
   const { t } = useTranslation();
-
-  const priceDataArray = priceData ? priceData : [];
-  console.log(priceDataArray);
 
   return (
     <div className='overflow-x-auto w-11/12'>
