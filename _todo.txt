@@ -1,8 +1,9 @@
 MVP: only german results
 
-1. Second page on 'search'
-
-2. API calls
+0. prompt input
+1. on back click put state back in
+2. skeleton loading animation 
+3. real data with API calls
 
 
 
@@ -20,6 +21,12 @@ THEN:
 
 
 _________________
+
+Second page on 'search'
+
+
+
+
 
 
 - add lang to trackfinder form to properly route requests

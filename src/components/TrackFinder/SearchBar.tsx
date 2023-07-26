@@ -12,26 +12,8 @@ const SearchBar = () => {
   const [songSearchQuery, setSongSearchQuery] = useState({ artist: '', song: '' });
   const [playlistSearchString, setPlaylistSearchString] = useState('');
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    // if (searchMode === 'song') {
-    //   await fetch(`/api/price?artist=${songSearchQuery.artist}&song=${songSearchQuery.song}`)
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       setPriceData(data);
-    //     });
-    // } else if (searchMode === 'playlist') {
-    //   await fetch(`/api/price?playlist=${playlistSearchString}`)
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //       setPriceData(data);
-    //     });
-    // }
-  }
-
   return (
-    <form className='flex md:flex-row flex-col w-4/5 md:gap-10 gap-8' onSubmit={handleSubmit}>
+    <div className='flex md:flex-row flex-col w-4/5 md:gap-10 gap-8'>
       <SearchModeToggler
         searchMode={searchMode}
         setSearchMode={setSearchMode}
@@ -47,8 +29,12 @@ const SearchBar = () => {
         playlistSearchString={playlistSearchString}
         setPlaylistSearchString={setPlaylistSearchString}
       />
-      <SearchButton />
-    </form>
+      <SearchButton
+        searchMode={searchMode}
+        songSearchQuery={songSearchQuery}
+        playlistSearchString={playlistSearchString}
+      />
+    </div>
   );
 };
 
