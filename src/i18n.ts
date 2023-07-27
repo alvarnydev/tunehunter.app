@@ -31,7 +31,7 @@ const resources = {
           link: 'Link',
         },
         buy: 'Comprar',
-        backtostart: 'Back to the start',
+        backtostart: 'Volver al principio',
       },
     },
   },

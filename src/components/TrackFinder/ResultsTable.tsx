@@ -48,7 +48,6 @@ const ResultsTable = () => {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key == 'Backspace') {
-        console.log('backspace');
         navigate(-1);
       }
     }

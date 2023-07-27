@@ -1,10 +1,8 @@
 MVP: only german results
 
-0. prompt input
-
-1. fake data with skeleton loading animation
-
-2. real data with private API calls
+1. cookies
+2. fake data with skeleton loading animation
+3. real data with private API calls
 
 
 
