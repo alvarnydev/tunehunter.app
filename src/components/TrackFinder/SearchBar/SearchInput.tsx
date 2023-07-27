@@ -56,6 +56,7 @@ const SongInput = ({ songSearchQuery, setSongSearchQuery }: SongInputProps) => {
         className='input input-primary rounded-full md:w-full border-2 tracking-wide'
         value={songSearchQuery.artist}
         onChange={handleArtistChange}
+        onKeyDown={handleSubmit}
       />
       <input
         type='text'
@@ -63,6 +64,7 @@ const SongInput = ({ songSearchQuery, setSongSearchQuery }: SongInputProps) => {
         className='input rounded-full input-primary md:w-full border-2 tracking-wide'
         value={songSearchQuery.song}
         onChange={handleSongChange}
+        onKeyDown={handleSubmit}
       />
     </>
   );
@@ -86,8 +88,15 @@ const PlaylistInput = ({ playlistSearchString, setPlaylistSearchString }: Playli
       className='input input-primary rounded-full md:w-full border-2 tracking-wide'
       value={playlistSearchString}
       onChange={handleChange}
+      onKeyDown={handleSubmit}
     />
   );
 };
+
+function handleSubmit(e: React.KeyboardEvent) {
+  if (e.key === 'Enter') {
+    document.getElementById('submitBtn')?.click();
+  }
+}
 
 export default SearchTextInput;

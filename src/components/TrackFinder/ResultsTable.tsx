@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import { BsFillRewindCircleFill } from 'react-icons/bs';
 
@@ -9,16 +9,45 @@ import { BsFillRewindCircleFill } from 'react-icons/bs';
 //   priceData: priceDataType[] | null;
 // }
 
+function loadAmazonData() {
+  throw new Error('Not yet implemented');
+}
+
+function loadBandcampData() {
+  throw new Error('Not yet implemented');
+}
+
+function loadBeatportData() {
+  throw new Error('Not yet implemented');
+}
+
+function loadItunesData() {
+  throw new Error('Not yet implemented');
+}
+
+function loadData(searchParams: URLSearchParams) {
+  const type = searchParams.get('type');
+
+  if (type == 'song') {
+    const artist = searchParams.get('artist');
+    const song = searchParams.get('song');
+  } else if (type == 'playlist') {
+    const url = searchParams.get('url');
+  }
+}
+
 const ResultsTable = () => {
-  // { priceData }: ResultsTableProps
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+
+  const data = loadData(searchParams);
 
   return (
     <>
       <Link className='flex' to='/'>
         <button
           type='submit'
-          className='btn btn-primary font-normal rounded-full w-auto gap-2 flex normal-case px-4 text-base tracking-wide'
+          className='btn font-normal rounded-full w-auto gap-2 flex normal-case px-4 text-base tracking-wide'
         >
           <BsFillRewindCircleFill size={24} />
           {t('resultstable.backtostart')}
@@ -68,7 +97,7 @@ const ResultsTable = () => {
                   <div className='inline-block'>0.99€</div>
                   <div className='flex justify-center flex-1'>
                     <button className='btn btn-ghost text-base normal-case'>
-                      <FaExternalLinkSquareAlt size={32} className='text-secondary' />
+                      <FaExternalLinkSquareAlt size={32} className='text-primary' />
                     </button>
                   </div>
                 </div>
@@ -106,7 +135,7 @@ const ResultsTable = () => {
                   <div className='inline-block'>0.99€</div>
                   <div className='flex justify-center flex-1'>
                     <button className='btn btn-ghost text-base normal-case'>
-                      <FaExternalLinkSquareAlt size={32} className='text-secondary' />
+                      <FaExternalLinkSquareAlt size={32} className='text-primary' />
                     </button>
                   </div>
                 </div>
@@ -131,7 +160,7 @@ const ResultsTable = () => {
                   <div className='inline-block'>0.99€</div>
                   <div className='flex justify-center flex-1'>
                     <button className='btn btn-ghost text-base normal-case'>
-                      <FaExternalLinkSquareAlt size={32} className='text-secondary' />
+                      <FaExternalLinkSquareAlt size={32} className='text-primary' />
                     </button>
                   </div>
                 </div>
@@ -188,23 +217,13 @@ const ResultsTable = () => {
                   <div className='inline-block'>0.99€</div>
                   <div className='flex justify-center flex-1'>
                     <button className='btn btn-ghost text-base normal-case'>
-                      <FaExternalLinkSquareAlt size={32} className='text-secondary' />
+                      <FaExternalLinkSquareAlt size={32} className='text-primary' />
                     </button>
                   </div>
                 </div>
               </td>
             </tr>
           </tbody>
-
-          {/* foot */}
-          {/* <tfoot>
-          <tr>
-            <th />
-            <th />
-            <th />
-            <th />
-          </tr>
-        </tfoot> */}
         </table>
       </div>
     </>

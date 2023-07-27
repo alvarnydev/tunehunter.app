@@ -1,12 +1,10 @@
 MVP: only german results
 
 0. prompt input
-2. results get get parameter
+1. fake data
 
-3. on back click put state back in
-
-4. skeleton loading animation 
-5. real data with API calls
+2. skeleton loading animation 
+3. real data with private API calls
 
 
 
@@ -16,7 +14,7 @@ THEN:
 
 1. Save calls in DB
 
-2. Get real API connections
+2. Get real API keys
 
 
 
@@ -25,7 +23,6 @@ THEN:
 
 _________________
 
-Second page on 'search'
 
 
 

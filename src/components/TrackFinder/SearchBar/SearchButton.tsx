@@ -59,6 +59,7 @@ const SearchButton = ({ searchMode, songSearchQuery, playlistSearchString }: Sea
     <div className='order-3'>
       <Link className='md:flex' to={`/results${params}`}>
         <button
+          id='submitBtn'
           type='submit'
           className='btn btn-primary font-normal md:w-auto w-1/2 m-auto rounded-full gap-2 flex normal-case px-4 text-base tracking-wide'
         >
