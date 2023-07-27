@@ -29,9 +29,15 @@ function saveParamsToLocalStorage({
   playlistSearchString,
 }: SearchButtonProps) {
   localStorage.setItem('searchMode', searchMode);
-  localStorage.setItem('songSearchQuery_artist', songSearchQuery.artist);
-  localStorage.setItem('songSearchQuery_song', songSearchQuery.song);
-  localStorage.setItem('playlistSearchString', playlistSearchString);
+  if (searchMode == 'song') {
+    localStorage.setItem('songSearchQuery_artist', songSearchQuery.artist);
+    localStorage.setItem('songSearchQuery_song', songSearchQuery.song);
+    localStorage.removeItem('playlistSearchString');
+  } else if (searchMode == 'playlist') {
+    localStorage.removeItem('songSearchQuery_artist');
+    localStorage.removeItem('songSearchQuery_song');
+    localStorage.setItem('playlistSearchString', playlistSearchString);
+  }
 }
 
 const SearchButton = ({ searchMode, songSearchQuery, playlistSearchString }: SearchButtonProps) => {
