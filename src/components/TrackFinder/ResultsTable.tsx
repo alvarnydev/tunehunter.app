@@ -15,10 +15,10 @@ const ResultsTable = () => {
 
   return (
     <>
-      <Link className='order-3 flex' to='/'>
+      <Link className='flex' to='/'>
         <button
           type='submit'
-          className='btn btn-primary font-normal rounded-full md:w-auto w-1/2 gap-2 flex normal-case px-4 text-base tracking-wide'
+          className='btn btn-primary font-normal rounded-full w-auto gap-2 flex normal-case px-4 text-base tracking-wide'
         >
           <BsFillRewindCircleFill size={24} />
           {t('resultstable.backtostart')}
