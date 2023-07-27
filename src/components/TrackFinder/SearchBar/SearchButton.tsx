@@ -1,13 +1,29 @@
 import { BiSearch } from 'react-icons/bi';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import toast, { Toast } from 'react-hot-toast';
 
 interface SearchButtonProps {
   searchMode: string;
   songSearchQuery: { artist: string; song: string };
   playlistSearchString: string;
 }
+
+const ToastComponent = ({ t, text }: { t: Toast; text: string }) => {
+  return (
+    <span>
+      <div className='flex justify-center items-center gap-4 mx-4'>
+        <span>{text}</span>
+        <button
+          className='bg-white/50 border-2 border-black rounded-lg py-1 px-2 m-0'
+          onClick={() => toast.dismiss(t.id)}
+        >
+          Dismiss
+        </button>
+      </div>
+    </span>
+  );
+};
 
 function isValidInput({
   searchMode,
@@ -16,23 +32,11 @@ function isValidInput({
 }: SearchButtonProps): boolean {
   if (searchMode == 'song') {
     if (songSearchQuery.artist == '' || songSearchQuery.song == '') {
-      toast((t) => (
-        <span>
-          <div className='flex justify-between items-center gap-4'>
-            <span>Fill out all fields.</span>
-            <button
-              className='bg-white/50 border-2 border-black rounded-lg py-1 px-2 m-0'
-              onClick={() => toast.dismiss(t.id)}
-            >
-              Dismiss
-            </button>
-          </div>
-        </span>
-      ));
+      toast((t) => <ToastComponent t={t} text={'Need both fields, mate.'} />);
       return false;
     }
   } else if (searchMode == 'playlist' && playlistSearchString == '') {
-    toast("That didn't quite work! Fill out the field.");
+    toast((t) => <ToastComponent t={t} text={'Need a URL, mate.'} />);
     return false;
   }
 
