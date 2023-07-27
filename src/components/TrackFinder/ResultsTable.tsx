@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
 import { BsFillRewindCircleFill } from 'react-icons/bs';
+import { useEffect } from 'react';
 
 // interface ResultsTableProps {
 //   priceData: priceDataType[] | null;
@@ -39,8 +40,25 @@ function loadData(searchParams: URLSearchParams) {
 const ResultsTable = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const data = loadData(searchParams);
+
+  // Backspace gets us back
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key == 'Backspace') {
+        console.log('backspace');
+        navigate(-1);
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return function cleanup() {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [navigate]);
 
   return (
     <>
