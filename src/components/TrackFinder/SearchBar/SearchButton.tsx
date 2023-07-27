@@ -8,16 +8,46 @@ interface SearchButtonProps {
   playlistSearchString: string;
 }
 
-const SearchButton = ({ searchMode, songSearchQuery, playlistSearchString }: SearchButtonProps) => {
-  const { t } = useTranslation();
-
-  let params = `?type=${searchMode}`; //&artist=${songSearchQuery.artist}&song=${songSearchQuery.song}`;
+function buildUrlParams({
+  searchMode,
+  songSearchQuery,
+  playlistSearchString,
+}: SearchButtonProps): string {
+  let params = `?type=${searchMode}`;
 
   if (searchMode == 'song') {
     params += `&artist=${songSearchQuery.artist}&song=${songSearchQuery.song}`;
   } else if (searchMode == 'playlist') {
     params += `&url=${playlistSearchString}`;
   }
+  return params;
+}
+
+function saveParamsToLocalStorage({
+  searchMode,
+  songSearchQuery,
+  playlistSearchString,
+}: SearchButtonProps) {
+  localStorage.setItem('searchMode', searchMode);
+  localStorage.setItem('songSearchQuery_artist', songSearchQuery.artist);
+  localStorage.setItem('songSearchQuery_song', songSearchQuery.song);
+  localStorage.setItem('playlistSearchString', playlistSearchString);
+}
+
+const SearchButton = ({ searchMode, songSearchQuery, playlistSearchString }: SearchButtonProps) => {
+  const { t } = useTranslation();
+
+  saveParamsToLocalStorage({
+    searchMode,
+    songSearchQuery,
+    playlistSearchString,
+  });
+
+  const params = buildUrlParams({
+    searchMode,
+    songSearchQuery,
+    playlistSearchString,
+  });
 
   return (
     <div className='order-3'>

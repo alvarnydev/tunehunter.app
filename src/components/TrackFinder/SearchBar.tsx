@@ -8,9 +8,14 @@ import SearchButton from './SearchBar/SearchButton';
 // }
 
 const SearchBar = () => {
-  const [searchMode, setSearchMode] = useState('song');
-  const [songSearchQuery, setSongSearchQuery] = useState({ artist: '', song: '' });
-  const [playlistSearchString, setPlaylistSearchString] = useState('');
+  const [searchMode, setSearchMode] = useState(localStorage.getItem('searchMode') || 'song');
+  const [songSearchQuery, setSongSearchQuery] = useState({
+    artist: localStorage.getItem('songSearchQuery_artist') || '',
+    song: localStorage.getItem('songSearchQuery_song') || '',
+  });
+  const [playlistSearchString, setPlaylistSearchString] = useState(
+    localStorage.getItem('playlistSearchString') || ''
+  );
 
   return (
     <div className='flex md:flex-row flex-col w-4/5 md:gap-10 gap-8'>

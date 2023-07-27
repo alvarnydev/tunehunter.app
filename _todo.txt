@@ -1,10 +1,10 @@
 MVP: only german results
 
 0. prompt input
-1. results: fix mobile layout 
 2. results get get parameter
 
 3. on back click put state back in
+
 4. skeleton loading animation 
 5. real data with API calls
 
