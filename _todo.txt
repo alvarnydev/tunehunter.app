@@ -1,6 +1,9 @@
 MVP: only german results
 
-1. cookies
+0. make logo with iPad and 80s retrowave font https://creativemarket.com/Aiyari/1434947-The-Moonlight or https://creativemarket.com/Aiyari/3461753-Aiyari-Handmade-Font-Bundle-Extras?u=Aiyari&utm_source=Link&utm_medium=CM+Social+Share&utm_campaign=Product+Social+Share&utm_content=Aiyari+Handmade+Font+Bundle+%2B+Extras+%7E+Display+Fonts+%7E+Creative+Market&ts=201902
+
+
+1. cookies (have some cookies. ok | i hate cookies)
 2. fake data with skeleton loading animation
 3. real data with private API calls
 
