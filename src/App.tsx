@@ -31,6 +31,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <Layout>
           <Toaster
+            containerClassName='toaster-wrapper'
             position='top-center'
             reverseOrder={true}
             containerStyle={toastContainer}

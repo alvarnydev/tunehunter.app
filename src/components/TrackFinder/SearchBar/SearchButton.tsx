@@ -2,6 +2,7 @@ import { BiSearch } from 'react-icons/bi';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toast } from 'react-hot-toast';
+import useToast from '../../../hooks/useToast';
 
 interface SearchButtonProps {
   searchMode: string;
@@ -32,11 +33,11 @@ function isValidInput({
 }: SearchButtonProps): boolean {
   if (searchMode == 'song') {
     if (songSearchQuery.artist == '' || songSearchQuery.song == '') {
-      toast((t) => <ToastComponent t={t} text={'Need both fields, mate.'} />);
+      toast((t) => <ToastComponent t={t} text={'Heya there, need both fields to continue!'} />);
       return false;
     }
   } else if (searchMode == 'playlist' && playlistSearchString == '') {
-    toast((t) => <ToastComponent t={t} text={'Need a URL, mate.'} />);
+    toast((t) => <ToastComponent t={t} text={'Hey there, please put in a URL!'} />);
     return false;
   }
 
@@ -79,6 +80,7 @@ function saveParamsToLocalStorage({
 const SearchButton = ({ searchMode, songSearchQuery, playlistSearchString }: SearchButtonProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  useToast();
 
   function handleClick() {
     if (
