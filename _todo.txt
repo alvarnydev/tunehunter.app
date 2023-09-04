@@ -59,18 +59,26 @@ Fix:
 
 
 APIs:
-   Bandcamp: No API
+   Bandcamp
     - Scrape: https://bandcamp.com/search?q=artist+song
 
-    Beatport: API
+
+
+    Beatport
     - API link: https://api.beatport.com/v4/docs/catalog/search/
     - API example: - 
     - Scrape example: https://www.beatport.com/search?q=Need+to+feel+loved+reflekt+adamk+and+soha+remix
 
-    Amazon Music:
+
+
+    Amazon Music
     - Scrape: https://music.amazon.com/search/artist+song
     - API link: 
+    1. PartnerNet / Amazon Associate: https://partnernet.amazon.de/home
+    2. Use Amazon Product Advertising API: https://partnernet.amazon.de/assoc_credentials/home
+    - Reference: https://stackoverflow.com/questions/5020522/querying-amazon-product-api-to-get-asin-of-mp3-download-using-artist-and-title
 
-    iTunes Store: API
-    - API link: 
-    - API example: https://itunes.apple.com/search?term=need+to+feel+loved&country=US&media=music&entity=song&limit=10
+
+
+    iTunes Store
+    - API example: https://itunes.apple.com/search?term=need+to+feel+loved&country=DE&media=music&entity=song&limit=5

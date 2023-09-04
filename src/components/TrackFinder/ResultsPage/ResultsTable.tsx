@@ -1,8 +1,20 @@
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { t } from 'i18next';
+import { useQuery } from '@tanstack/react-query';
+import { fetchSongData } from '../../../utils/fetchSongData';
+import { LoadingSpinner } from '../LoadingPage';
+import ErrorAlert from './ErrorAlert';
 
 const ResultsTable = () => {
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['songData'],
+    queryFn: fetchSongData,
+  });
+
+  if (isLoading) return <LoadingSpinner />;
+  if (error && error instanceof Error) return <ErrorAlert errorMessage={error.message} />;
+
   return (
     <div className='overflow-x-auto w-11/12'>
       <table className='table w-full'>
