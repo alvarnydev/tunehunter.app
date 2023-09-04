@@ -3,9 +3,10 @@ import { Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import ResultsTable from './components/TrackFinder/ResultsTable';
-import SearchBar from './components/TrackFinder/SearchBar';
+import ResultsPage from './components/TrackFinder/ResultsPage';
+import SearchPage from './components/TrackFinder/SearchPage';
 import { Toaster } from 'react-hot-toast';
+import BackButton from './components/TrackFinder/ResultsPage/BackButton';
 
 const queryClient = new QueryClient();
 
@@ -40,9 +41,17 @@ function App() {
           />
           <BrowserRouter>
             <Routes>
-              <Route path='/' element={<SearchBar />} />
-              <Route path='/results' element={<ResultsTable />} />
-              <Route path='*' element={<span>Nothing to see here 👀</span>} />
+              <Route path='/' element={<SearchPage />} />
+              <Route path='/results' element={<ResultsPage />} />
+              <Route
+                path='*'
+                element={
+                  <>
+                    <span>Nothing to see here.. 👀</span>
+                    <BackButton />
+                  </>
+                }
+              />
             </Routes>
           </BrowserRouter>
         </Layout>

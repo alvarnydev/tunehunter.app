@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import SearchModeToggler from './SearchBar/SearchModeToggler';
-import SearchTextInput from './SearchBar/SearchInput';
-import SearchButton from './SearchBar/SearchButton';
+import SearchModeToggler from './SearchPage/SearchModeToggler';
+import SearchTextInput from './SearchPage/SearchInput';
+import SearchButton from './SearchPage/SearchButton';
 
 // interface SearchBarProps {
 //   setPriceData: (priceData: [priceDataType]) => void;
 // }
 
-const SearchBar = () => {
+const SearchPage = () => {
   const [searchMode, setSearchMode] = useState(localStorage.getItem('searchMode') || 'song');
   const [songSearchQuery, setSongSearchQuery] = useState({
     artist: localStorage.getItem('songSearchQuery_artist') || '',
@@ -43,4 +43,4 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+export default SearchPage;
