@@ -1,11 +1,10 @@
 MVP: only german results
 
-0. make logo with iPad and 80s retrowave font https://creativemarket.com/Aiyari/1434947-The-Moonlight or https://creativemarket.com/Aiyari/3461753-Aiyari-Handmade-Font-Bundle-Extras?u=Aiyari&utm_source=Link&utm_medium=CM+Social+Share&utm_campaign=Product+Social+Share&utm_content=Aiyari+Handmade+Font+Bundle+%2B+Extras+%7E+Display+Fonts+%7E+Creative+Market&ts=201902
-
+Setup backend on heroku or docker under api.buythattrack.com
+Connect client to server
 
 1. fake data with skeleton loading animation
 2. real data with private API calls
-
 
 
 
@@ -15,6 +14,10 @@ THEN:
 1. Save calls in DB
 
 2. Get real API keys
+
+make logo with iPad and 80s retrowave font https://creativemarket.com/Aiyari/1434947-The-Moonlight or https://creativemarket.com/Aiyari/3461753-Aiyari-Handmade-Font-Bundle-Extras?u=Aiyari&utm_source=Link&utm_medium=CM+Social+Share&utm_campaign=Product+Social+Share&utm_content=Aiyari+Handmade+Font+Bundle+%2B+Extras+%7E+Display+Fonts+%7E+Creative+Market&ts=201902
+
+
 
 
 
