@@ -15,6 +15,8 @@ const ResultsTable = () => {
   if (isLoading) return <LoadingSpinner />;
   if (error && error instanceof Error) return <ErrorAlert errorMessage={error.message} />;
 
+  console.log(data);
+
   return (
     <div className='overflow-x-auto w-11/12'>
       <table className='table w-full'>
