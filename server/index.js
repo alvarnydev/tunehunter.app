@@ -8,6 +8,38 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
+function fetchPlaceholderValues() {
+    const response = [
+        {
+            kind: 'song',
+            artistName: 'Artist Name',
+            trackName: 'Track Name',
+            trackTime: 100,
+            trackPrice: 1.99,
+            artworkUrl: 'https://via.placeholder.com/100',
+            trackViewUrl: 'https://via.placeholder.com/100',
+        },
+        {
+            kind: 'song2',
+            artistName: 'Artist Name',
+            trackName: 'Track Name',
+            trackTime: 100,
+            trackPrice: 1.99,
+            artworkUrl: 'https://via.placeholder.com/100',
+            trackViewUrl: 'https://via.placeholder.com/100',
+        },
+    ];
+    return response;
+}
+app.get('/beatport', async (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    let { song, artist, country } = req.query;
+    if (!country) {
+        country = 'DE';
+    }
+    const response = fetchPlaceholderValues();
+    res.send(response);
+});
 app.get('/itunes', async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
     let { song, artist, country } = req.query;
@@ -27,7 +59,25 @@ app.get('/itunes', async (req, res) => {
             trackViewUrl: song.trackViewUrl,
         };
     });
-    res.send({ response, filteredResponse });
+    res.send(filteredResponse);
+});
+app.get('/amazon', async (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    let { song, artist, country } = req.query;
+    if (!country) {
+        country = 'DE';
+    }
+    const response = fetchPlaceholderValues();
+    res.send(response);
+});
+app.get('/bandcamp', async (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+    let { song, artist, country } = req.query;
+    if (!country) {
+        country = 'DE';
+    }
+    const response = fetchPlaceholderValues();
+    res.send(response);
 });
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

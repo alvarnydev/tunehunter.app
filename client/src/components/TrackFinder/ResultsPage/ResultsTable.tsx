@@ -2,7 +2,7 @@ import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { t } from 'i18next';
 import { useQuery } from '@tanstack/react-query';
-import { fetchData } from '../../../utils/fetchSongData';
+import { fetchData } from '../../../utils/fetchData';
 import { LoadingSpinner } from '../LoadingPage';
 import ErrorAlert from './ErrorAlert';
 import { useSearchParams } from 'react-router-dom';

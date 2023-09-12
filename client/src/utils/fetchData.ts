@@ -32,9 +32,15 @@ async function fetchSongData(artist: string, song: string) {
   const itunesData = fetchVendorData(
     `https://api.buythattrack.com/itunes?song=${song}&artist=${artist}&country=DE`
   );
-  const beatportData = fetchVendorData('https://reqres.in/api/users/2');
-  const amazonData = fetchVendorData('https://reqres.in/api/users/3');
-  const bandcampData = fetchVendorData('https://reqres.in/api/users/4');
+  const beatportData = fetchVendorData(
+    `https://api.buythattrack.com/beatport?song=${song}&artist=${artist}&country=DE`
+  );
+  const amazonData = fetchVendorData(
+    `https://api.buythattrack.com/amazon?song=${song}&artist=${artist}&country=DE`
+  );
+  const bandcampData = fetchVendorData(
+    `https://api.buythattrack.com/bandcamp?song=${song}&artist=${artist}&country=DE`
+  );
 
   const [itunes, beatport, amazon, bandcamp] = await Promise.all([
     itunesData,
