@@ -1,10 +1,10 @@
 MVP: only german results
 
-Create some query on backend
+figure out TS monorepo
 Connect client to server under api.buythattrack.com (proxy?)
+secure API
 
-1. fake data with skeleton loading animation
-2. real data with private API calls
+Skeleton loading animation with real data (itunes)
 
 
 
