@@ -1,7 +1,7 @@
 MVP: only german results
 
-Setup backend on heroku or docker under api.buythattrack.com
-Connect client to server
+Create some query on backend
+Connect client to server under api.buythattrack.com (proxy?)
 
 1. fake data with skeleton loading animation
 2. real data with private API calls
