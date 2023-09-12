@@ -3,7 +3,7 @@ export const fetchData = async ({
 }: {
   queryKey: [string, { searchParams: URLSearchParams }];
 }) => {
-  const [_key, { searchParams }] = queryKey;
+  const [, { searchParams }] = queryKey;
 
   const type = searchParams.get('type');
 
@@ -53,4 +53,5 @@ async function fetchSongData(artist: string, song: string) {
 
 async function fetchPlaylistData(url: string) {
   throw new Error('Not implemented');
+  console.log(url);
 }

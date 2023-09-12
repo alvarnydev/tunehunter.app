@@ -1,13 +1,11 @@
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { useEffect } from 'react';
 import InfoBanner from './ResultsPage/InfoBanner';
 import BackButton from './ResultsPage/BackButton';
 import ResultsTable from './ResultsPage/ResultsTable';
+import { useEffect } from 'react';
 
 const ResultsPage = () => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
 
   // Backspace gets us back
