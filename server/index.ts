@@ -28,7 +28,7 @@ app.get('/itunes', async (req: Request, res: Response) => {
     };
   });
 
-  res.send({ response: response, filteredResponse: filteredResponse });
+  res.send({ response, filteredResponse });
 });
 
 app.listen(port, () => {

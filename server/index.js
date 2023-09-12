@@ -35,7 +35,7 @@ app.get('/itunes', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             trackViewUrl: song.trackViewUrl,
         };
     });
-    res.send({ response: response, filteredResponse: filteredResponse });
+    res.send({ response, filteredResponse });
 }));
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
