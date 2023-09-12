@@ -1,6 +1,5 @@
 MVP: only german results
 
-figure out TS monorepo
 Connect client to server under api.buythattrack.com (proxy?)
 secure API
 

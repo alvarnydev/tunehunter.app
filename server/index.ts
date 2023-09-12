@@ -7,6 +7,8 @@ const app: Express = express();
 const port = process.env.PORT;
 
 app.get('/itunes', async (req: Request, res: Response) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
   let { song, artist, country } = req.query;
   if (!country) {
     country = 'DE';

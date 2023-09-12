@@ -2,14 +2,16 @@ import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { t } from 'i18next';
 import { useQuery } from '@tanstack/react-query';
-import { fetchSongData } from '../../../utils/fetchSongData';
+import { fetchData } from '../../../utils/fetchSongData';
 import { LoadingSpinner } from '../LoadingPage';
 import ErrorAlert from './ErrorAlert';
+import { useSearchParams } from 'react-router-dom';
 
 const ResultsTable = () => {
+  const [searchParams] = useSearchParams();
   const { isLoading, error, data } = useQuery({
-    queryKey: ['songData'],
-    queryFn: fetchSongData,
+    queryKey: ['songData', { searchParams }],
+    queryFn: fetchData,
   });
 
   if (isLoading) return <LoadingSpinner />;

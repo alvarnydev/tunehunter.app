@@ -7,9 +7,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-
-    "esModuleInterop": true
+    "jsx": "react-jsx"
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.json"],
   "references": [{ "path": "./tsconfig.node.json" }]
