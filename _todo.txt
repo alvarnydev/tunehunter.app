@@ -1,8 +1,6 @@
 MVP: only german results
 
-Connect client to server under api.buythattrack.com (proxy?)
-secure API
-
+secure API with api key
 Skeleton loading animation with real data (itunes)
 
 

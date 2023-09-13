@@ -23,22 +23,25 @@ export const fetchData = async ({
   }
 };
 
-async function fetchVendorData(url: string) {
+async function fetchApiData(url: string) {
   const dataUrl = new URL(url).href;
   return await fetch(dataUrl).then((res) => res.json());
+  // headers: {
+  //   'x-api-key': process.env.API_KEY,
+  // },
 }
 
 async function fetchSongData(artist: string, song: string) {
-  const itunesData = fetchVendorData(
+  const itunesData = fetchApiData(
     `https://api.buythattrack.com/itunes?song=${song}&artist=${artist}&country=DE`
   );
-  const beatportData = fetchVendorData(
+  const beatportData = fetchApiData(
     `https://api.buythattrack.com/beatport?song=${song}&artist=${artist}&country=DE`
   );
-  const amazonData = fetchVendorData(
+  const amazonData = fetchApiData(
     `https://api.buythattrack.com/amazon?song=${song}&artist=${artist}&country=DE`
   );
-  const bandcampData = fetchVendorData(
+  const bandcampData = fetchApiData(
     `https://api.buythattrack.com/bandcamp?song=${song}&artist=${artist}&country=DE`
   );
 
