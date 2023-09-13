@@ -31,16 +31,6 @@ function fetchPlaceholderValues() {
   return response;
 }
 
-function init(req: Request, res: Response) {
-  setHeaders(res);
-  validateKey(req, res);
-  validateParams(req, res);
-}
-
-function setHeaders(res: Response) {
-  res.set('Access-Control-Allow-Origin', '*');
-}
-
 function validateKey(req: Request, res: Response): boolean {
   const api_key = req.header('X-API-KEY');
   if (api_key !== process.env.API_KEY) {
@@ -62,9 +52,15 @@ function validateParams(req: Request, res: Response): boolean {
   return true;
 }
 
-app.get('/beatport', async (req: Request, res: Response) => {
-  setHeaders(res);
+app.use((_, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', '*');
 
+  next();
+});
+
+app.get('/beatport', async (req: Request, res: Response) => {
   if (!(validateKey(req, res) && validateParams(req, res))) {
     return;
   }
@@ -75,8 +71,6 @@ app.get('/beatport', async (req: Request, res: Response) => {
 });
 
 app.get('/amazon', async (req: Request, res: Response) => {
-  setHeaders(res);
-
   if (!(validateKey(req, res) && validateParams(req, res))) {
     return;
   }
@@ -87,8 +81,6 @@ app.get('/amazon', async (req: Request, res: Response) => {
 });
 
 app.get('/bandcamp', async (req: Request, res: Response) => {
-  setHeaders(res);
-
   if (!(validateKey(req, res) && validateParams(req, res))) {
     return;
   }
@@ -99,8 +91,6 @@ app.get('/bandcamp', async (req: Request, res: Response) => {
 });
 
 app.get('/itunes', async (req: Request, res: Response) => {
-  setHeaders(res);
-
   if (!(validateKey(req, res) && validateParams(req, res))) {
     return;
   }
@@ -110,7 +100,6 @@ app.get('/itunes', async (req: Request, res: Response) => {
     `https://itunes.apple.com/search?term=${song}+${artist}&country=${country}&media=music&entity=song&limit=5`
   ).href;
   const response = await fetch(dataUrl).then((res) => res.json());
-  console.log(response);
   const filteredResponse = response.results.map((song: any) => {
     return {
       kind: song.kind,

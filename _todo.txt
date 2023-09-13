@@ -1,9 +1,17 @@
 MVP: only german results
 
-secure API with api key
-Skeleton loading animation with real data (itunes)
+0. figure out TS
+    - types for api calls
+    - types for components
 
+1. iTunes store functional
+    - Skeleton loading animation with real data (itunes)
 
+2. narrow down user input
+
+3. beatport, amazon, bandcamp
+
+4. spotify integration
 
 
 THEN:

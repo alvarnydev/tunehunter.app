@@ -25,25 +25,16 @@ export const fetchData = async ({
 
 async function fetchApiData(url: string) {
   const dataUrl = new URL(url).href;
-  return await fetch(dataUrl).then((res) => res.json());
-  // headers: {
-  //   'x-api-key': process.env.API_KEY,
-  // },
+  const apiKey = import.meta.env.VITE_API_KEY || '';
+  return await fetch(dataUrl, { headers: { 'X-API-KEY': apiKey } }).then((res) => res.json());
 }
 
 async function fetchSongData(artist: string, song: string) {
-  const itunesData = fetchApiData(
-    `https://api.buythattrack.com/itunes?song=${song}&artist=${artist}&country=DE`
-  );
-  const beatportData = fetchApiData(
-    `https://api.buythattrack.com/beatport?song=${song}&artist=${artist}&country=DE`
-  );
-  const amazonData = fetchApiData(
-    `https://api.buythattrack.com/amazon?song=${song}&artist=${artist}&country=DE`
-  );
-  const bandcampData = fetchApiData(
-    `https://api.buythattrack.com/bandcamp?song=${song}&artist=${artist}&country=DE`
-  );
+  const apiUrl = import.meta.env.VITE_API_URL || '';
+  const itunesData = fetchApiData(`${apiUrl}/itunes?song=${song}&artist=${artist}&country=DE`);
+  const beatportData = fetchApiData(`${apiUrl}/beatport?song=${song}&artist=${artist}&country=DE`);
+  const amazonData = fetchApiData(`${apiUrl}/amazon?song=${song}&artist=${artist}&country=DE`);
+  const bandcampData = fetchApiData(`${apiUrl}/bandcamp?song=${song}&artist=${artist}&country=DE`);
 
   const [itunes, beatport, amazon, bandcamp] = await Promise.all([
     itunesData,

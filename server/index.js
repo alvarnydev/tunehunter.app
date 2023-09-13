@@ -31,14 +31,6 @@ function fetchPlaceholderValues() {
     ];
     return response;
 }
-function init(req, res) {
-    setHeaders(res);
-    validateKey(req, res);
-    validateParams(req, res);
-}
-function setHeaders(res) {
-    res.set('Access-Control-Allow-Origin', '*');
-}
 function validateKey(req, res) {
     const api_key = req.header('X-API-KEY');
     if (api_key !== process.env.API_KEY) {
@@ -58,8 +50,13 @@ function validateParams(req, res) {
     }
     return true;
 }
+app.use((_, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+    next();
+});
 app.get('/beatport', async (req, res) => {
-    setHeaders(res);
     if (!(validateKey(req, res) && validateParams(req, res))) {
         return;
     }
@@ -68,7 +65,6 @@ app.get('/beatport', async (req, res) => {
     res.send(response);
 });
 app.get('/amazon', async (req, res) => {
-    setHeaders(res);
     if (!(validateKey(req, res) && validateParams(req, res))) {
         return;
     }
@@ -77,7 +73,6 @@ app.get('/amazon', async (req, res) => {
     res.send(response);
 });
 app.get('/bandcamp', async (req, res) => {
-    setHeaders(res);
     if (!(validateKey(req, res) && validateParams(req, res))) {
         return;
     }
@@ -86,14 +81,12 @@ app.get('/bandcamp', async (req, res) => {
     res.send(response);
 });
 app.get('/itunes', async (req, res) => {
-    setHeaders(res);
     if (!(validateKey(req, res) && validateParams(req, res))) {
         return;
     }
     let { song, artist, country } = req.query;
     const dataUrl = new URL(`https://itunes.apple.com/search?term=${song}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
     const response = await fetch(dataUrl).then((res) => res.json());
-    console.log(response);
     const filteredResponse = response.results.map((song) => {
         return {
             kind: song.kind,

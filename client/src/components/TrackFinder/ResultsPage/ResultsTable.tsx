@@ -6,6 +6,7 @@ import { fetchData } from '../../../utils/fetchData';
 import { LoadingSpinner } from '../LoadingPage';
 import ErrorAlert from './ErrorAlert';
 import { useSearchParams } from 'react-router-dom';
+import ResultsRow from './ResultsRow';
 
 const ResultsTable = () => {
   const [searchParams] = useSearchParams();
@@ -17,7 +18,7 @@ const ResultsTable = () => {
   if (isLoading) return <LoadingSpinner />;
   if (error && error instanceof Error) return <ErrorAlert errorMessage={error.message} />;
 
-  console.log(data);
+  console.log(data?.amazon);
 
   return (
     <div className='overflow-x-auto w-11/12'>
@@ -31,44 +32,9 @@ const ResultsTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <div className='flex items-center space-x-5'>
-                <div className='avatar '>
-                  <div className='mask mask-squircle w-12 h-12'>
-                    <img src='/logo_amazonmusic.png' alt='Avatar Tailwind CSS Component' />
-                  </div>
-                </div>
-                <div className='md:block hidden'>
-                  <div className='font-bold'>Amazon Music</div>
-                  <div className='text-sm font-normal opacity-50'>United States</div>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div>MP3</div>
-              <div className='text-sm opacity-50'>320kbps</div>
-            </td>
-            <td className=''>
-              0.49€
-              <span
-                className='tooltip ml-1 inline-block text-sm opacity-50'
-                data-tip={"Artist's share is 50% on Amazon Music."}
-              >
-                <AiOutlineInfoCircle size={16} />
-              </span>
-            </td>
-            <td>
-              <div className='flex items-center gap-4'>
-                <div className='inline-block'>0.99€</div>
-                <div className='flex justify-center flex-1'>
-                  <button className='btn btn-ghost text-base normal-case'>
-                    <FaExternalLinkSquareAlt size={32} className='text-primary' />
-                  </button>
-                </div>
-              </div>
-            </td>
-          </tr>
+          {data?.amazon.map((song: any) => {
+            return <ResultsRow vendor='Amazon Music' price={song.price} link={song.link} />;
+          })}
           <tr>
             <td className='border-0'>
               <div className='flex items-center space-x-5'>
