@@ -7,6 +7,7 @@ import { LoadingSpinner } from '../LoadingPage';
 import ErrorAlert from './ErrorAlert';
 import { useSearchParams } from 'react-router-dom';
 import ResultsRow from './ResultsRow';
+import { companyDataType, songDataType } from '../../../utils/types';
 
 const ResultsTable = () => {
   const [searchParams] = useSearchParams();
@@ -33,7 +34,24 @@ const ResultsTable = () => {
         </thead>
         <tbody>
           {data?.amazon.map((song: any) => {
-            return <ResultsRow vendor='Amazon Music' price={song.price} link={song.link} />;
+            const companyData: companyDataType = {
+              name: song.company.name,
+              country: song.company.country,
+              logo: song.company.logo,
+              artistsShare: song.company.artistsShare,
+            };
+            const songData: songDataType = {
+              title: song.title,
+              artist: song.artist,
+              album: song.album,
+              duration: song.duration,
+              qualityFormat: song.qualityFormat,
+              qualityKbps: song.qualityKbps,
+              price: song.price,
+              link: song.link,
+            };
+
+            return <ResultsRow rowData={{ company: companyData, song: songData }} />;
           })}
           <tr>
             <td className='border-0'>
