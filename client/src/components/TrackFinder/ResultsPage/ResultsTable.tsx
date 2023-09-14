@@ -1,5 +1,3 @@
-import { FaExternalLinkSquareAlt } from 'react-icons/fa';
-import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { t } from 'i18next';
 import { useQuery } from '@tanstack/react-query';
 import { fetchData } from '../../../utils/fetchData';
@@ -7,9 +5,11 @@ import { LoadingSpinner } from '../LoadingPage';
 import ErrorAlert from './ErrorAlert';
 import { useSearchParams } from 'react-router-dom';
 import ResultsRow from './ResultsRow';
-import { CompanyDataType, ResultsDataType, SongDataType } from '../../../utils/types';
+import { ResultsDataType } from '../../../utils/types';
 
 function filterData(data: any): ResultsDataType {
+  // If we find multiple songs to the input, have the user pick the one he/she means.
+  // If the search params contain a duration, the user already narrowed down the search to a single song.
   // implement logic to pick the song the fits the picked duration the best
 
   const filteredData: ResultsDataType = {
@@ -49,12 +49,7 @@ const ResultsTable = () => {
   if (isLoading) return <LoadingSpinner />;
   if (error && error instanceof Error) return <ErrorAlert errorMessage={error.message} />;
 
-  console.log(data?.amazon);
-
   const filteredData = filterData(data);
-
-  // If we find multiple songs to the input, have the user pick the one he/she means.
-  // If the search params contain a duration, the user already narrowed down the search to a single song.
 
   return (
     <div className='overflow-x-auto w-11/12'>

@@ -1,8 +1,10 @@
 MVP: only german results
 
+
+
 0. figure out TS
     - types for api calls
-    - types for components
+    - @trpc/server zod
 
 1. iTunes store functional
     - Skeleton loading animation with real data (itunes)
