@@ -1,16 +1,23 @@
 export type ResultsRowType = {
-  company: companyDataType;
-  song: songDataType;
+  company: CompanyDataType;
+  song: SongDataType;
 };
 
-export type companyDataType = {
+export type ResultsDataType = {
+  itunesData: ResultsRowType;
+  beatportData: ResultsRowType;
+  amazonData: ResultsRowType;
+  bandcampData: ResultsRowType;
+};
+
+export type CompanyDataType = {
   name: string;
   logo: string;
   country: string;
   artistsShare: number;
 };
 
-export type songDataType = {
+export type SongDataType = {
   title: string;
   artist: string;
   album: string;

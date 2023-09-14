@@ -7,7 +7,37 @@ import { LoadingSpinner } from '../LoadingPage';
 import ErrorAlert from './ErrorAlert';
 import { useSearchParams } from 'react-router-dom';
 import ResultsRow from './ResultsRow';
-import { companyDataType, songDataType } from '../../../utils/types';
+import { CompanyDataType, ResultsDataType, SongDataType } from '../../../utils/types';
+
+function filterData(data: any): ResultsDataType {
+  // implement logic to pick the song the fits the picked duration the best
+
+  const filteredData: ResultsDataType = {
+    amazonData: data.amazon[0],
+    beatportData: data.beatport[0],
+    itunesData: data.itunes[0],
+    bandcampData: data.bandcamp[0],
+  };
+
+  // const companyData: CompanyDataType = {
+  //   name: song.company.name,
+  //   country: song.company.country,
+  //   logo: song.company.logo,
+  //   artistsShare: song.company.artistsShare,
+  // };
+  // const songData: SongDataType = {
+  //   title: song.title,
+  //   artist: song.artist,
+  //   album: song.album,
+  //   duration: song.duration,
+  //   qualityFormat: song.qualityFormat,
+  //   qualityKbps: song.qualityKbps,
+  //   price: song.price,
+  //   link: song.link,
+  // };
+
+  return filteredData;
+}
 
 const ResultsTable = () => {
   const [searchParams] = useSearchParams();
@@ -21,6 +51,11 @@ const ResultsTable = () => {
 
   console.log(data?.amazon);
 
+  const filteredData = filterData(data);
+
+  // If we find multiple songs to the input, have the user pick the one he/she means.
+  // If the search params contain a duration, the user already narrowed down the search to a single song.
+
   return (
     <div className='overflow-x-auto w-11/12'>
       <table className='table w-full'>
@@ -33,146 +68,10 @@ const ResultsTable = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.amazon.map((song: any) => {
-            const companyData: companyDataType = {
-              name: song.company.name,
-              country: song.company.country,
-              logo: song.company.logo,
-              artistsShare: song.company.artistsShare,
-            };
-            const songData: songDataType = {
-              title: song.title,
-              artist: song.artist,
-              album: song.album,
-              duration: song.duration,
-              qualityFormat: song.qualityFormat,
-              qualityKbps: song.qualityKbps,
-              price: song.price,
-              link: song.link,
-            };
-
-            return <ResultsRow rowData={{ company: companyData, song: songData }} />;
-          })}
-          <tr>
-            <td className='border-0'>
-              <div className='flex items-center space-x-5'>
-                <div className='avatar'>
-                  <div className='mask mask-squircle w-12 h-12'>
-                    <img src='/logo_bandcamp.svg' alt='Avatar Tailwind CSS Component' />
-                  </div>
-                </div>
-                <div className='md:block hidden'>
-                  <div className='font-bold'>Bandcamp</div>
-                </div>
-              </div>
-            </td>
-            <td className='border-0'>
-              <div>MP3</div>
-              <div className='text-sm opacity-50'>320kbps</div>
-            </td>
-
-            <td className='border-0'>
-              0.79€
-              <span
-                className='tooltip ml-1 inline-block text-sm opacity-50'
-                data-tip={"Artist's share is 80% on Bandcamp."}
-              >
-                <AiOutlineInfoCircle size={16} />
-              </span>
-            </td>
-            <td className='border-0'>
-              <div className='flex items-center gap-4'>
-                <div className='inline-block'>0.99€</div>
-                <div className='flex justify-center flex-1'>
-                  <button className='btn btn-ghost text-base normal-case'>
-                    <FaExternalLinkSquareAlt size={32} className='text-primary' />
-                  </button>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <div>FLAC</div>
-            </td>
-            <td>
-              0.79€
-              <span
-                className='tooltip ml-1 inline-block text-sm opacity-50'
-                data-tip={"Artist's share is 80% on Bandcamp."}
-              >
-                <AiOutlineInfoCircle size={16} />
-              </span>
-            </td>
-            <td>
-              <div className='flex items-center gap-4'>
-                <div className='inline-block'>0.99€</div>
-                <div className='flex justify-center flex-1'>
-                  <button className='btn btn-ghost text-base normal-case'>
-                    <FaExternalLinkSquareAlt size={32} className='text-primary' />
-                  </button>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div className='flex items-center space-x-5'>
-                <div className='avatar'>
-                  <div className='mask mask-squircle w-12 h-12'>
-                    <img src='/logo_beatport.svg' alt='Avatar Tailwind CSS Component' />
-                  </div>
-                </div>
-                <div className='md:block hidden'>
-                  <div className='font-bold'>Beatport</div>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div>MP3</div>
-              <div className='text-sm opacity-50'>320kbps</div>
-            </td>
-            <td>-</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>
-              <div className='flex items-center space-x-5'>
-                <div className='avatar'>
-                  <div className='mask mask-squircle w-12 h-12'>
-                    <img src='/logo_itunesstore.jpg' alt='Avatar Tailwind CSS Component' />
-                  </div>
-                </div>
-                <div className='md:block hidden'>
-                  <div className='font-bold'>iTunes Store</div>
-                </div>
-              </div>
-            </td>
-            <td>
-              <div>MP3</div>
-              <div className='text-sm opacity-50'>320kbps</div>
-            </td>
-            <td>
-              0.59€
-              <span
-                className='tooltip ml-1 inline-block text-sm opacity-50'
-                data-tip={"Artist's share is 60% on the iTunes Store."}
-              >
-                <AiOutlineInfoCircle size={16} />
-              </span>
-            </td>
-            <td>
-              <div className='flex items-center gap-4'>
-                <div className='inline-block'>0.99€</div>
-                <div className='flex justify-center flex-1'>
-                  <button className='btn btn-ghost text-base normal-case'>
-                    <FaExternalLinkSquareAlt size={32} className='text-primary' />
-                  </button>
-                </div>
-              </div>
-            </td>
-          </tr>
+          {filteredData.amazonData && <ResultsRow rowData={filteredData.amazonData} />}
+          {filteredData.bandcampData && <ResultsRow rowData={filteredData.bandcampData} />}
+          {filteredData.beatportData && <ResultsRow rowData={filteredData.beatportData} />}
+          {filteredData.itunesData && <ResultsRow rowData={filteredData.itunesData} />}
         </tbody>
       </table>
     </div>
