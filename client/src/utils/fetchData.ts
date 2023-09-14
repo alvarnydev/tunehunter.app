@@ -1,3 +1,4 @@
+// Top-level function to fetch data from our own API
 export const fetchData = async ({
   queryKey,
 }: {
@@ -6,35 +7,42 @@ export const fetchData = async ({
   const [, { searchParams }] = queryKey;
 
   const type = searchParams.get('type');
+  const country = searchParams.get('country');
+  if (!type || !country) {
+    throw new Error('Missing type or country!');
+  }
 
   if (type == 'song') {
     const artist = searchParams.get('artist');
     const song = searchParams.get('song');
     if (!artist || !song) {
-      throw new Error('Missing artist or song');
+      throw new Error('Missing artist and/or title!');
     }
-    return await fetchSongData(artist, song);
+    return await fetchSongData(artist, song, country);
   } else if (type == 'playlist') {
     const url = searchParams.get('url');
     if (!url) {
-      throw new Error('Missing playlist url');
+      throw new Error('Missing playlist URL!');
     }
     return await fetchPlaylistData(url);
   }
 };
 
-async function fetchApiData(url: string) {
-  const dataUrl = new URL(url).href;
-  const apiKey = import.meta.env.VITE_API_KEY || '';
-  return await fetch(dataUrl, { headers: { 'X-API-KEY': apiKey } }).then((res) => res.json());
-}
-
-async function fetchSongData(artist: string, song: string) {
+// Mid-level API calls to our own backend
+async function fetchSongData(artist: string, title: string, country: string) {
   const apiUrl = import.meta.env.VITE_API_URL || '';
-  const itunesData = fetchApiData(`${apiUrl}/itunes?song=${song}&artist=${artist}&country=DE`);
-  const beatportData = fetchApiData(`${apiUrl}/beatport?song=${song}&artist=${artist}&country=DE`);
-  const amazonData = fetchApiData(`${apiUrl}/amazon?song=${song}&artist=${artist}&country=DE`);
-  const bandcampData = fetchApiData(`${apiUrl}/bandcamp?song=${song}&artist=${artist}&country=DE`);
+  const itunesData = fetchApiData(
+    `${apiUrl}/itunes?artist=${artist}&title=${title}&country=${country}`
+  );
+  const beatportData = fetchApiData(
+    `${apiUrl}/beatport?artist=${artist}&title=${title}&country=${country}`
+  );
+  const amazonData = fetchApiData(
+    `${apiUrl}/amazon?artist=${artist}&title=${title}&country=${country}`
+  );
+  const bandcampData = fetchApiData(
+    `${apiUrl}/bandcamp?artist=${artist}&title=${title}&country=${country}`
+  );
 
   const [itunes, beatport, amazon, bandcamp] = await Promise.all([
     itunesData,
@@ -54,4 +62,11 @@ async function fetchSongData(artist: string, song: string) {
 async function fetchPlaylistData(url: string) {
   throw new Error('Not implemented');
   console.log(url);
+}
+
+// Low-level API call to third party APIs
+async function fetchApiData(url: string) {
+  const dataUrl = new URL(url).href;
+  const apiKey = import.meta.env.VITE_API_KEY || '';
+  return await fetch(dataUrl, { headers: { 'X-API-KEY': apiKey } }).then((res) => res.json());
 }

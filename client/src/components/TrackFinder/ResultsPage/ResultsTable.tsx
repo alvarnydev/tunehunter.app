@@ -5,36 +5,19 @@ import { LoadingSpinner } from '../LoadingPage';
 import ErrorAlert from './ErrorAlert';
 import { useSearchParams } from 'react-router-dom';
 import ResultsRow from './ResultsRow';
-import { ResultsDataType } from '../../../utils/types';
+import { ApiDataType, ResultsDataType } from '../../../../../types';
 
-function filterData(data: any): ResultsDataType {
+function filterData(apiData: ApiDataType): ResultsDataType {
   // If we find multiple songs to the input, have the user pick the one he/she means.
   // If the search params contain a duration, the user already narrowed down the search to a single song.
   // implement logic to pick the song the fits the picked duration the best
 
   const filteredData: ResultsDataType = {
-    amazonData: data.amazon[0],
-    beatportData: data.beatport[0],
-    itunesData: data.itunes[0],
-    bandcampData: data.bandcamp[0],
+    amazonData: apiData.amazonData[0],
+    beatportData: apiData.beatportData[0],
+    itunesData: apiData.itunesData[0],
+    bandcampData: apiData.bandcampData[0],
   };
-
-  // const companyData: CompanyDataType = {
-  //   name: song.company.name,
-  //   country: song.company.country,
-  //   logo: song.company.logo,
-  //   artistsShare: song.company.artistsShare,
-  // };
-  // const songData: SongDataType = {
-  //   title: song.title,
-  //   artist: song.artist,
-  //   album: song.album,
-  //   duration: song.duration,
-  //   qualityFormat: song.qualityFormat,
-  //   qualityKbps: song.qualityKbps,
-  //   price: song.price,
-  //   link: song.link,
-  // };
 
   return filteredData;
 }

@@ -2,9 +2,9 @@ import { useTranslation } from 'react-i18next';
 
 interface SearchTextInputProps {
   searchMode: string;
-  songSearchQuery: { artist: string; song: string };
+  songSearchQuery: { artist: string; title: string };
   playlistSearchString: string;
-  setSongSearchQuery: (songInput: { artist: string; song: string }) => void;
+  setSongSearchQuery: (songInput: { artist: string; title: string }) => void;
   setPlaylistSearchString: (playlistInput: string) => void;
 }
 
@@ -31,8 +31,8 @@ const SearchTextInput = ({
 };
 
 interface SongInputProps {
-  songSearchQuery: { artist: string; song: string };
-  setSongSearchQuery: (songInput: { artist: string; song: string }) => void;
+  songSearchQuery: { artist: string; title: string };
+  setSongSearchQuery: (songInput: { artist: string; title: string }) => void;
 }
 
 const SongInput = ({ songSearchQuery, setSongSearchQuery }: SongInputProps) => {
@@ -43,9 +43,9 @@ const SongInput = ({ songSearchQuery, setSongSearchQuery }: SongInputProps) => {
     setSongSearchQuery({ ...songSearchQuery, artist: value });
   }
 
-  function handleSongChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
-    setSongSearchQuery({ ...songSearchQuery, song: value });
+    setSongSearchQuery({ ...songSearchQuery, title: value });
   }
 
   return (
@@ -62,8 +62,8 @@ const SongInput = ({ songSearchQuery, setSongSearchQuery }: SongInputProps) => {
         type='text'
         placeholder={t('searchbar.song')}
         className='input rounded-full input-primary md:w-full border-2 tracking-wide'
-        value={songSearchQuery.song}
-        onChange={handleSongChange}
+        value={songSearchQuery.title}
+        onChange={handleTitleChange}
         onKeyDown={handleSubmit}
       />
     </>

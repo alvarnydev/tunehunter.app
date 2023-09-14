@@ -9,6 +9,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.json"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.json", "../types.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

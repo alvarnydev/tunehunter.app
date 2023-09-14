@@ -6,7 +6,7 @@ import useToast from '../../../hooks/useToast';
 
 interface SearchButtonProps {
   searchMode: string;
-  songSearchQuery: { artist: string; song: string };
+  songSearchQuery: { artist: string; title: string };
   playlistSearchString: string;
 }
 
@@ -32,7 +32,7 @@ function isValidInput({
   playlistSearchString,
 }: SearchButtonProps): boolean {
   if (searchMode == 'song') {
-    if (songSearchQuery.artist == '' || songSearchQuery.song == '') {
+    if (songSearchQuery.artist == '' || songSearchQuery.title == '') {
       toast((t) => <ToastComponent t={t} text={'Heya there, need both fields to continue!'} />);
       return false;
     }
@@ -49,10 +49,10 @@ function buildGetParams({
   songSearchQuery,
   playlistSearchString,
 }: SearchButtonProps): string {
-  let params = `?type=${searchMode}`;
+  let params = `?type=${searchMode}&country=DE`; // TODO: other countries
 
   if (searchMode == 'song') {
-    params += `&artist=${songSearchQuery.artist}&song=${songSearchQuery.song}`;
+    params += `&artist=${songSearchQuery.artist}&title=${songSearchQuery.title}`;
   } else if (searchMode == 'playlist') {
     params += `&url=${playlistSearchString}`;
   }
@@ -68,11 +68,11 @@ function saveParamsToLocalStorage({
 
   if (searchMode == 'song') {
     localStorage.setItem('songSearchQuery_artist', songSearchQuery.artist);
-    localStorage.setItem('songSearchQuery_song', songSearchQuery.song);
+    localStorage.setItem('songSearchQuery_title', songSearchQuery.title);
     localStorage.removeItem('playlistSearchString');
   } else if (searchMode == 'playlist') {
     localStorage.removeItem('songSearchQuery_artist');
-    localStorage.removeItem('songSearchQuery_song');
+    localStorage.removeItem('songSearchQuery_title');
     localStorage.setItem('playlistSearchString', playlistSearchString);
   }
 }

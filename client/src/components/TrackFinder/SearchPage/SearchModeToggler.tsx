@@ -4,9 +4,9 @@ import { IoIosMusicalNote } from 'react-icons/io';
 interface SearchModeTogglerProps {
   searchMode: string;
   setSearchMode: (searchMode: string) => void;
-  songSearchQuery: { artist: string; song: string };
+  songSearchQuery: { artist: string; title: string };
   playlistSearchString: string;
-  setSongSearchQuery: (songInput: { artist: string; song: string }) => void;
+  setSongSearchQuery: (songInput: { artist: string; title: string }) => void;
   setPlaylistSearchString: (playlistInput: string) => void;
 }
 const SearchModeToggler = ({
@@ -27,7 +27,7 @@ const SearchModeToggler = ({
     }
 
     // Changing from playlist -> song
-    setSongSearchQuery({ artist: songSearchQuery.artist, song: songSearchQuery.song });
+    setSongSearchQuery({ artist: songSearchQuery.artist, title: songSearchQuery.title });
     setSearchMode('song');
   }
 

@@ -1,9 +1,8 @@
-import React from 'react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
-import { ResultsRowType } from '../../../utils/types';
+import { TrackInfoType } from '../../../../../types';
 
-const ResultsRow = ({ rowData }: { rowData: ResultsRowType }) => {
+const ResultsRow = ({ rowData }: { rowData: TrackInfoType }) => {
   return (
     <tr>
       <td>

@@ -11,7 +11,7 @@ const SearchPage = () => {
   const [searchMode, setSearchMode] = useState(localStorage.getItem('searchMode') || 'song');
   const [songSearchQuery, setSongSearchQuery] = useState({
     artist: localStorage.getItem('songSearchQuery_artist') || '',
-    song: localStorage.getItem('songSearchQuery_song') || '',
+    title: localStorage.getItem('songSearchQuery_title') || '',
   });
   const [playlistSearchString, setPlaylistSearchString] = useState(
     localStorage.getItem('playlistSearchString') || ''
