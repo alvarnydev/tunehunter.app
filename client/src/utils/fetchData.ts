@@ -8,6 +8,7 @@ export const fetchData = async ({
 }) => {
   const [, { searchParams }] = queryKey;
 
+  console.log(searchParams);
   const type = searchParams.get('type');
   const country = searchParams.get('country');
   if (!type || !country) {
@@ -16,11 +17,11 @@ export const fetchData = async ({
 
   if (type == 'song') {
     const artist = searchParams.get('artist');
-    const song = searchParams.get('song');
-    if (!artist || !song) {
+    const title = searchParams.get('title');
+    if (!artist || !title) {
       throw new Error('Missing artist and/or title!');
     }
-    return await fetchSongData(artist, song, country);
+    return await fetchSongData(artist, title, country);
   } else if (type == 'playlist') {
     const url = searchParams.get('url');
     if (!url) {

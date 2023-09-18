@@ -7,12 +7,12 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 
-function fetchPlaceholderValues() {
+function fetchPlaceholderValues(vendor: string) {
   const response: TrackInfoType[] = [
     {
       vendor: {
-        name: 'itunesstore',
-        country: 'testcountry',
+        name: vendor,
+        country: 'DE',
         songLink: 'fancy link',
         artLink: 'album',
       },
@@ -80,7 +80,7 @@ app.get('/beatport', async (req: Request, res: Response) => {
   }
   let { title, artist, country } = req.query;
 
-  const response = fetchPlaceholderValues();
+  const response = fetchPlaceholderValues('Beatport');
   res.send(response);
 });
 
@@ -90,7 +90,7 @@ app.get('/amazon', async (req: Request, res: Response) => {
   }
   let { title, artist, country } = req.query;
 
-  const response = fetchPlaceholderValues();
+  const response = fetchPlaceholderValues('Amazon Music');
   res.send(response);
 });
 
@@ -100,7 +100,7 @@ app.get('/bandcamp', async (req: Request, res: Response) => {
   }
   let { title, artist, country } = req.query;
 
-  const response = fetchPlaceholderValues();
+  const response = fetchPlaceholderValues('Bandcamp');
   res.send(response);
 });
 
@@ -119,7 +119,7 @@ app.get('/itunes', async (req: Request, res: Response) => {
   const filteredResponse: TrackInfoType[] = response.results.map((song: any) => {
     return {
       vendor: {
-        name: 'itunesstore',
+        name: 'iTunes Store',
         country: song.country,
         songLink: song.trackViewUrl,
         artLink: song.artworkUrl100,

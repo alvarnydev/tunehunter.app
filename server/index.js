@@ -8,12 +8,12 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
-function fetchPlaceholderValues() {
+function fetchPlaceholderValues(vendor) {
     const response = [
         {
             vendor: {
-                name: 'itunesstore',
-                country: 'testcountry',
+                name: vendor,
+                country: 'DE',
                 songLink: 'fancy link',
                 artLink: 'album',
             },
@@ -74,7 +74,7 @@ app.get('/beatport', async (req, res) => {
         return;
     }
     let { title, artist, country } = req.query;
-    const response = fetchPlaceholderValues();
+    const response = fetchPlaceholderValues('Beatport');
     res.send(response);
 });
 app.get('/amazon', async (req, res) => {
@@ -82,7 +82,7 @@ app.get('/amazon', async (req, res) => {
         return;
     }
     let { title, artist, country } = req.query;
-    const response = fetchPlaceholderValues();
+    const response = fetchPlaceholderValues('Amazon Music');
     res.send(response);
 });
 app.get('/bandcamp', async (req, res) => {
@@ -90,7 +90,7 @@ app.get('/bandcamp', async (req, res) => {
         return;
     }
     let { title, artist, country } = req.query;
-    const response = fetchPlaceholderValues();
+    const response = fetchPlaceholderValues('Bandcamp');
     res.send(response);
 });
 app.get('/itunes', async (req, res) => {
@@ -104,7 +104,7 @@ app.get('/itunes', async (req, res) => {
     const filteredResponse = response.results.map((song) => {
         return {
             vendor: {
-                name: 'itunesstore',
+                name: 'iTunes Store',
                 country: song.country,
                 songLink: song.trackViewUrl,
                 artLink: song.artworkUrl100,

@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 
-import BackButton from './ResultsPage/BackButton';
 import ResultsTable from './ResultsPage/ResultsTable';
 import { useEffect } from 'react';
+import BackButton from './ResultsPage/BackButton';
+import InfoBanner from './ResultsPage/InfoBanner';
 
 const ResultsPage = () => {
   const navigate = useNavigate();
@@ -24,7 +25,9 @@ const ResultsPage = () => {
 
   return (
     <>
+      <BackButton />
       <ResultsTable />
+      {/* <InfoBanner /> */}
     </>
   );
 };

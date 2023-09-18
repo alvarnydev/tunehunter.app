@@ -1,8 +1,9 @@
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import { BsFillRewindCircleFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 const BackButton = () => {
+  const { t } = useTranslation();
   return (
     <Link className='flex' to='/'>
       <button

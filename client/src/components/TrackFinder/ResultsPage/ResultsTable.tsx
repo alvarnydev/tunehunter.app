@@ -1,4 +1,3 @@
-import { t } from 'i18next';
 import { useQuery } from '@tanstack/react-query';
 import { fetchData } from '../../../utils/fetchData';
 import { LoadingSpinner } from '../../utils/Loading';
@@ -6,8 +5,8 @@ import { useSearchParams } from 'react-router-dom';
 import ResultsRow from './ResultsRow';
 import { ApiResponseDataType, ResultsDataType } from '../../../../../types';
 import ErrorAlert from '../../utils/Error';
-import InfoBanner from './InfoBanner';
-import BackButton from './BackButton';
+import { useTranslation } from 'react-i18next';
+import TrackPreview from './TrackPreview';
 
 function filterData(apiData: ApiResponseDataType): ResultsDataType {
   // If we find multiple songs to the input, have the user pick the one he/she means.
@@ -25,6 +24,7 @@ function filterData(apiData: ApiResponseDataType): ResultsDataType {
 }
 
 const ResultsTable = () => {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const { isLoading, error, data } = useQuery({
     queryKey: ['songData', { searchParams }],
@@ -39,11 +39,8 @@ const ResultsTable = () => {
     const filteredData = filterData(data);
 
     return (
-      <div className='overflow-x-auto w-11/12'>
-        <BackButton />
-
-        <InfoBanner />
-
+      <div className='overflow-x-auto w-11/12 flex flex-col xl:flex-row gap-8'>
+        <TrackPreview songData={filteredData.itunesData} />
         <table className='table w-full'>
           <thead>
             <tr>

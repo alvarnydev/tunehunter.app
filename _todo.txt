@@ -1,11 +1,8 @@
 MVP: only german results
 
+0. link
 
-0. figure out TS
-    - types for api calls
-
-1. iTunes store functional
-    - Skeleton loading animation with real data (itunes)
+1. Skeleton loading animation
 
 2. narrow down user input
 
@@ -16,7 +13,11 @@ MVP: only german results
 
 THEN:
 
-0. helpful error
+0. unhappy paths, error handling when accessing third party apis
+0. helpful error messages 
+- couldn't find song
+- internal error
+- ?
 
 1. Save calls in DB
 

@@ -17,6 +17,9 @@ const resources = {
         buy: 'Buy',
         backtostart: 'Back to the start',
       },
+      countries: {
+        de: 'Germany',
+      },
     },
   },
   spanish: {
@@ -33,6 +36,9 @@ const resources = {
         buy: 'Comprar',
         backtostart: 'Volver al principio',
       },
+      countries: {
+        de: 'Alemania',
+      },
     },
   },
   german: {
@@ -47,7 +53,10 @@ const resources = {
           link: 'Link',
         },
         buy: 'Kaufen',
-        backtostart: 'Zurück zum Anfang',
+        backtostart: 'Zurück zum Start',
+      },
+      countries: {
+        de: 'Deutschland',
       },
     },
   },
