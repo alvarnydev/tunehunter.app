@@ -8,24 +8,40 @@ const app: Express = express();
 const port = process.env.PORT;
 
 function fetchPlaceholderValues() {
-  const response = [
+  const response: TrackInfoType[] = [
     {
-      kind: 'song',
-      artistName: 'Artist Name',
-      trackName: 'Track Name',
-      trackTime: 100,
-      trackPrice: 1.99,
-      artworkUrl: 'https://via.placeholder.com/100',
-      trackViewUrl: 'https://via.placeholder.com/100',
+      vendor: {
+        name: 'itunesstore',
+        country: 'testcountry',
+        songLink: 'fancy link',
+        artLink: 'album',
+      },
+      song: {
+        title: 'ph title',
+        artist: 'ph artist',
+        album: 'song album',
+        duration: 213,
+        qualityFormat: 'MP3', // todo: figure out format from song.previewUrl
+        qualityKbps: 320, // todo: figure out kbps from song.previewUrl
+        price: 1.29,
+      },
     },
     {
-      kind: 'song2',
-      artistName: 'Artist Name',
-      trackName: 'Track Name',
-      trackTime: 100,
-      trackPrice: 1.99,
-      artworkUrl: 'https://via.placeholder.com/100',
-      trackViewUrl: 'https://via.placeholder.com/100',
+      vendor: {
+        name: 'itunesstore 2',
+        country: 'testcountry 2',
+        songLink: 'fancy link 2',
+        artLink: 'album 2',
+      },
+      song: {
+        title: 'ph title 2',
+        artist: 'ph artist 2',
+        album: 'song album 2',
+        duration: 187,
+        qualityFormat: 'MP3 2', // todo: figure out format from song.previewUrl
+        qualityKbps: 320, // todo: figure out kbps from song.previewUrl
+        price: 2.29,
+      },
     },
   ];
 
@@ -105,15 +121,16 @@ app.get('/itunes', async (req: Request, res: Response) => {
       vendor: {
         name: 'itunesstore',
         country: song.country,
-        link: song.trackViewUrl,
+        songLink: song.trackViewUrl,
+        artLink: song.artworkUrl100,
       },
       song: {
         title: song.trackName,
         artist: song.artistName,
         album: song.collectionName,
         duration: song.trackTimeMillis / 1000,
-        qualityFormat: song.kind, // todo: figure out format from song.previewUrl
-        qualityKbps: 0, // todo: figure out kbps from song.previewUrl
+        qualityFormat: 'AAC', // todo: figure out format from song.previewUrl
+        qualityKbps: 256, // todo: figure out kbps from song.previewUrl
         price: song.trackPrice,
       },
     };

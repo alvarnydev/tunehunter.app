@@ -1,11 +1,13 @@
 import { t } from 'i18next';
 import { useQuery } from '@tanstack/react-query';
 import { fetchData } from '../../../utils/fetchData';
-import { LoadingSpinner } from '../LoadingPage';
-import ErrorAlert from './ErrorAlert';
+import { LoadingSpinner } from '../../utils/Loading';
 import { useSearchParams } from 'react-router-dom';
 import ResultsRow from './ResultsRow';
 import { ApiResponseDataType, ResultsDataType } from '../../../../../types';
+import ErrorAlert from '../../utils/Error';
+import InfoBanner from './InfoBanner';
+import BackButton from './BackButton';
 
 function filterData(apiData: ApiResponseDataType): ResultsDataType {
   // If we find multiple songs to the input, have the user pick the one he/she means.
@@ -29,14 +31,19 @@ const ResultsTable = () => {
     queryFn: fetchData,
   });
 
-  if (isLoading) return <LoadingSpinner />;
-  if (error && error instanceof Error) return <ErrorAlert errorMessage={error.message} />;
+  if (isLoading) return <LoadingSpinner size={40} />;
+  if (error && error instanceof Error)
+    return <ErrorAlert errorMessage={`API error: ${error.message}`} />;
 
   if (data) {
     const filteredData = filterData(data);
 
     return (
       <div className='overflow-x-auto w-11/12'>
+        <BackButton />
+
+        <InfoBanner />
+
         <table className='table w-full'>
           <thead>
             <tr>

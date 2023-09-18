@@ -2,9 +2,7 @@ MVP: only german results
 
 
 0. figure out TS
-    - figure out ApiSongRequestDataType for api calls
     - types for api calls
-
 
 1. iTunes store functional
     - Skeleton loading animation with real data (itunes)
@@ -17,6 +15,8 @@ MVP: only german results
 
 
 THEN:
+
+0. helpful error
 
 1. Save calls in DB
 

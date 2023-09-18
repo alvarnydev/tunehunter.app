@@ -3,7 +3,8 @@ export type TrackInfoType = {
   vendor: {
     name: string;
     country: string;
-    link: string;
+    songLink: string;
+    artLink: string;
   };
   song: {
     title: string;

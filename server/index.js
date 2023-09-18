@@ -11,22 +11,38 @@ const port = process.env.PORT;
 function fetchPlaceholderValues() {
     const response = [
         {
-            kind: 'song',
-            artistName: 'Artist Name',
-            trackName: 'Track Name',
-            trackTime: 100,
-            trackPrice: 1.99,
-            artworkUrl: 'https://via.placeholder.com/100',
-            trackViewUrl: 'https://via.placeholder.com/100',
+            vendor: {
+                name: 'itunesstore',
+                country: 'testcountry',
+                songLink: 'fancy link',
+                artLink: 'album',
+            },
+            song: {
+                title: 'ph title',
+                artist: 'ph artist',
+                album: 'song album',
+                duration: 213,
+                qualityFormat: 'MP3',
+                qualityKbps: 320,
+                price: 1.29,
+            },
         },
         {
-            kind: 'song2',
-            artistName: 'Artist Name',
-            trackName: 'Track Name',
-            trackTime: 100,
-            trackPrice: 1.99,
-            artworkUrl: 'https://via.placeholder.com/100',
-            trackViewUrl: 'https://via.placeholder.com/100',
+            vendor: {
+                name: 'itunesstore 2',
+                country: 'testcountry 2',
+                songLink: 'fancy link 2',
+                artLink: 'album 2',
+            },
+            song: {
+                title: 'ph title 2',
+                artist: 'ph artist 2',
+                album: 'song album 2',
+                duration: 187,
+                qualityFormat: 'MP3 2',
+                qualityKbps: 320,
+                price: 2.29,
+            },
         },
     ];
     return response;
@@ -84,15 +100,24 @@ app.get('/itunes', async (req, res) => {
     let { title, artist, country } = req.query;
     const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
     const response = await fetch(dataUrl).then((res) => res.json());
+    // Create unified TrackInfoType[] response, grabbing the data we need from the third party <any> API response
     const filteredResponse = response.results.map((song) => {
         return {
-            kind: song.kind,
-            artistName: song.artistName,
-            trackName: song.trackName,
-            trackTime: song.trackTimeMillis / 1000,
-            trackPrice: song.trackPrice,
-            artworkUrl: song.artworkUrl100,
-            trackViewUrl: song.trackViewUrl,
+            vendor: {
+                name: 'itunesstore',
+                country: song.country,
+                songLink: song.trackViewUrl,
+                artLink: song.artworkUrl100,
+            },
+            song: {
+                title: song.trackName,
+                artist: song.artistName,
+                album: song.collectionName,
+                duration: song.trackTimeMillis / 1000,
+                qualityFormat: 'AAC',
+                qualityKbps: 256,
+                price: song.trackPrice,
+            },
         };
     });
     res.send(filteredResponse);
