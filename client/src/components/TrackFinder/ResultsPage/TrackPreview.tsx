@@ -3,7 +3,7 @@ import { TrackInfoType } from '../../../../../types';
 const TrackPreview = (props: { songData: TrackInfoType }) => {
   return (
     <>
-      <div className='card w-96'>
+      <div className='card w-96 bg-primary'>
         <figure className='px-10 pt-10'>
           <img src={props.songData.vendor.artLink} alt='Shoes' className='rounded-xl' />
         </figure>
@@ -11,7 +11,9 @@ const TrackPreview = (props: { songData: TrackInfoType }) => {
           <h2 className='card-title'>{props.songData.song.artist}</h2>
           <p>{props.songData.song.title}</p>
           <div className='card-actions justify-end'>
-            <button className='btn btn-accent'>Not the song you're looking for?</button>
+            <button className='btn btn-block btn-outline text-xs text-'>
+              Not the song you're looking for?
+            </button>
           </div>
         </div>
       </div>
