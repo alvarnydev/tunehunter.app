@@ -2,19 +2,29 @@ import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { TrackInfoType } from '../../../../../types';
 
+enum ArtistsShareEnum {
+  amazon = 0.5,
+  bandcamp = 0.8,
+  beatport = 0.5,
+  itunes = 0.6,
+}
+
 const ResultsRow = ({ rowData }: { rowData: TrackInfoType }) => {
+  const artistsShare = ArtistsShareEnum.amazon; // todo: look up
+  const logoPath = `logo_${rowData.vendor.name}.svg`;
+
   return (
     <tr>
       <td>
         <div className='flex items-center space-x-5'>
           <div className='avatar '>
             <div className='mask mask-squircle w-12 h-12'>
-              <img src='/logo_amazonmusic.png' alt='Avatar Tailwind CSS Component' />
+              <img src={logoPath} alt='Avatar Tailwind CSS Component' />
             </div>
           </div>
           <div className='md:block hidden'>
-            <div className='font-bold'>{rowData.company.name}</div>
-            <div className='text-sm font-normal opacity-50'>{rowData.company.country}</div>
+            <div className='font-bold'>{rowData.vendor.name}</div>
+            <div className='text-sm font-normal opacity-50'>{rowData.vendor.country}</div>
           </div>
         </div>
       </td>
@@ -23,10 +33,10 @@ const ResultsRow = ({ rowData }: { rowData: TrackInfoType }) => {
         <div className='text-sm opacity-50'>{rowData.song.qualityFormat}</div>
       </td>
       <td className=''>
-        {rowData.song.price / rowData.company.artistsShare}€
+        {rowData.song.price / artistsShare}€
         <span
           className='tooltip ml-1 inline-block text-sm opacity-50'
-          data-tip={`Artist's share is ${rowData.company.artistsShare}% on ${rowData.company.name}.`}
+          data-tip={`Artist's share is ${artistsShare}% on ${rowData.vendor.name}.`}
         >
           <AiOutlineInfoCircle size={16} />
         </span>

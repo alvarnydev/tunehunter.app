@@ -2,8 +2,9 @@ MVP: only german results
 
 
 0. figure out TS
+    - figure out ApiSongRequestDataType for api calls
     - types for api calls
-    - song to title
+
 
 1. iTunes store functional
     - Skeleton loading animation with real data (itunes)

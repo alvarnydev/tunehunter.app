@@ -40,13 +40,10 @@ function validateKey(req, res) {
     return true;
 }
 function validateParams(req, res) {
-    let { song, artist, country } = req.query;
-    if (!song || !artist) {
-        res.status(400).send('Missing song or artist');
+    let { title, artist, country } = req.query;
+    if (!title || !artist || !country) {
+        res.status(400).send('Missing title, artist or country!');
         return false;
-    }
-    if (!country) {
-        country = 'DE';
     }
     return true;
 }
@@ -60,7 +57,7 @@ app.get('/beatport', async (req, res) => {
     if (!(validateKey(req, res) && validateParams(req, res))) {
         return;
     }
-    let { song, artist, country } = req.query;
+    let { title, artist, country } = req.query;
     const response = fetchPlaceholderValues();
     res.send(response);
 });
@@ -68,7 +65,7 @@ app.get('/amazon', async (req, res) => {
     if (!(validateKey(req, res) && validateParams(req, res))) {
         return;
     }
-    let { song, artist, country } = req.query;
+    let { title, artist, country } = req.query;
     const response = fetchPlaceholderValues();
     res.send(response);
 });
@@ -76,7 +73,7 @@ app.get('/bandcamp', async (req, res) => {
     if (!(validateKey(req, res) && validateParams(req, res))) {
         return;
     }
-    let { song, artist, country } = req.query;
+    let { title, artist, country } = req.query;
     const response = fetchPlaceholderValues();
     res.send(response);
 });
@@ -84,8 +81,8 @@ app.get('/itunes', async (req, res) => {
     if (!(validateKey(req, res) && validateParams(req, res))) {
         return;
     }
-    let { song, artist, country } = req.query;
-    const dataUrl = new URL(`https://itunes.apple.com/search?term=${song}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
+    let { title, artist, country } = req.query;
+    const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
     const response = await fetch(dataUrl).then((res) => res.json());
     const filteredResponse = response.results.map((song) => {
         return {

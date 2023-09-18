@@ -1,3 +1,5 @@
+import { ApiResponseDataType, TrackInfoType } from '../../../types';
+
 // Top-level function to fetch data from our own API
 export const fetchData = async ({
   queryKey,
@@ -29,44 +31,44 @@ export const fetchData = async ({
 };
 
 // Mid-level API calls to our own backend
-async function fetchSongData(artist: string, title: string, country: string) {
-  const apiUrl = import.meta.env.VITE_API_URL || '';
-  const itunesData = fetchApiData(
-    `${apiUrl}/itunes?artist=${artist}&title=${title}&country=${country}`
-  );
-  const beatportData = fetchApiData(
-    `${apiUrl}/beatport?artist=${artist}&title=${title}&country=${country}`
-  );
-  const amazonData = fetchApiData(
-    `${apiUrl}/amazon?artist=${artist}&title=${title}&country=${country}`
-  );
-  const bandcampData = fetchApiData(
-    `${apiUrl}/bandcamp?artist=${artist}&title=${title}&country=${country}`
-  );
+async function fetchSongData(
+  artist: string,
+  title: string,
+  country: string
+): Promise<ApiResponseDataType> {
+  const itunesResponse = fetchApiData(artist, title, country, 'itunes');
+  const beatportResponse = fetchApiData(artist, title, country, 'beatport');
+  const amazonResponse = fetchApiData(artist, title, country, 'amazon');
+  const bandcampResponse = fetchApiData(artist, title, country, 'bandcamp');
 
-  const [itunes, beatport, amazon, bandcamp] = await Promise.all([
-    itunesData,
-    beatportData,
-    amazonData,
-    bandcampData,
+  const [itunesData, beatportData, amazonData, bandcampData] = await Promise.all([
+    itunesResponse,
+    beatportResponse,
+    amazonResponse,
+    bandcampResponse,
   ]);
 
-  return {
-    itunes,
-    beatport,
-    amazon,
-    bandcamp,
-  };
+  return { itunesData, beatportData, amazonData, bandcampData };
 }
 
 async function fetchPlaylistData(url: string) {
-  throw new Error('Not implemented');
+  throw new Error('Not yet implemented');
   console.log(url);
 }
 
-// Low-level API call to third party APIs
-async function fetchApiData(url: string) {
-  const dataUrl = new URL(url).href;
+// Low-level API call to our own backend
+async function fetchApiData(
+  artist: string,
+  title: string,
+  country: string,
+  vendor: string
+): Promise<TrackInfoType[]> {
+  const apiUrl = import.meta.env.VITE_API_URL || '';
   const apiKey = import.meta.env.VITE_API_KEY || '';
-  return await fetch(dataUrl, { headers: { 'X-API-KEY': apiKey } }).then((res) => res.json());
+
+  const dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}`)
+    .href;
+  return await fetch(dataUrl, { headers: { 'X-API-KEY': apiKey } }).then((res) =>
+    res.json().then((data) => data as TrackInfoType[])
+  );
 }
