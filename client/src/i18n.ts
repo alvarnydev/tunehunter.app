@@ -16,6 +16,7 @@ const resources = {
         },
         buy: 'Buy',
         backtostart: 'Back to the start',
+        wrongsong: "Not the song you're looking for?",
       },
       countries: {
         de: 'Germany',
@@ -35,6 +36,7 @@ const resources = {
         },
         buy: 'Comprar',
         backtostart: 'Volver al principio',
+        wrongsong: '¿No es la canción que buscas?',
       },
       countries: {
         de: 'Alemania',
@@ -54,6 +56,7 @@ const resources = {
         },
         buy: 'Kaufen',
         backtostart: 'Zurück zum Start',
+        wrongsong: 'Nicht das Lied, dass du suchst?',
       },
       countries: {
         de: 'Deutschland',

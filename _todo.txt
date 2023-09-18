@@ -4,6 +4,10 @@ MVP: only german results
 - color LoadingSpinner
 - figure out why api.btt doesnt work
 
+0,5. spotify play found song
+- get song info from spotify
+- then search vendor APIs with that data 
+
 1. Skeleton loading animation
 
 2. narrow down user input

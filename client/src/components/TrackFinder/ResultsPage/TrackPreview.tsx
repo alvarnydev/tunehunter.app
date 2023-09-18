@@ -1,21 +1,20 @@
+import { useTranslation } from 'react-i18next';
 import { TrackInfoType } from '../../../../../types';
 
 const TrackPreview = (props: { songData: TrackInfoType }) => {
+  const { t } = useTranslation();
+
   return (
     <>
-      <div className='card w-96 bg-primary'>
-        <figure className='px-10 pt-10'>
+      <div className='bg-primary m-auto flex flex-col items-center justify-around rounded-2xl gap-4 p-8 xl:w-96 xl:m-0'>
+        <figure className='content-center'>
           <img src={props.songData.vendor.artLink} alt='Shoes' className='rounded-xl' />
         </figure>
-        <div className='card-body items-center text-center'>
-          <h2 className='card-title'>{props.songData.song.artist}</h2>
+        <div className='flex flex-col justify-center items-center text-center p-0 gap-4'>
+          <h2 className='text-xl font-bold'>{props.songData.song.artist}</h2>
           <p>{props.songData.song.title}</p>
-          <div className='card-actions justify-end'>
-            <button className='btn btn-block btn-outline text-xs text-'>
-              Not the song you're looking for?
-            </button>
-          </div>
         </div>
+        <button className='btn btn-outline text-xs w-auto'>{t('resultstable.wrongsong')}</button>
       </div>
     </>
   );
