@@ -1,6 +1,8 @@
 MVP: only german results
 
-0. link
+0. 
+- color LoadingSpinner
+- figure out why api.btt doesnt work
 
 1. Skeleton loading animation
 
