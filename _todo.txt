@@ -1,9 +1,6 @@
 MVP: only german results
 
 TODO:
-- color LoadingSpinner
-- figure out why api.btt doesnt work
-
 0,5. spotify play found song
 - get song info from spotify
 - then search vendor APIs with that data 
@@ -18,8 +15,9 @@ TODO:
 
 
 THEN:
+figure out why api.btt doesnt work
 
-0. unhappy paths, error handling when accessing third party apis
+0. unhappy paths, error handling when accessing third party apis, error boundaries
 0. helpful error messages 
 - couldn't find song
 - internal error
@@ -67,6 +65,7 @@ Maybe:
 - Retrowave fonts
 - Animations
 - Background more interesting
+- artist and title suggestions
 
 
 Fix:
