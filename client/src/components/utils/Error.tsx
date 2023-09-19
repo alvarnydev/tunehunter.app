@@ -1,3 +1,5 @@
+import BackButton from '../TrackFinder/ResultsPage/BackButton';
+
 const ErrorAlert = (props: { errorMessage: string }) => {
   return (
     <div className='alert alert-error w-auto'>
@@ -16,6 +18,15 @@ const ErrorAlert = (props: { errorMessage: string }) => {
       </svg>
       <span>{props.errorMessage}</span>
     </div>
+  );
+};
+
+export const NotFoundError = () => {
+  return (
+    <>
+      <span>Nothing to see here.. 👀</span>
+      <BackButton />
+    </>
   );
 };
 

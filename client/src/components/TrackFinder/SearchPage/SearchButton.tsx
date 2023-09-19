@@ -8,6 +8,8 @@ interface SearchButtonProps {
   searchMode: string;
   songSearchQuery: { artist: string; title: string };
   playlistSearchString: string;
+  searchParams?: URLSearchParams;
+  setSearchParams?: (searchParams: URLSearchParams) => void;
 }
 
 const ToastComponent = ({ t, text }: { t: Toast; text: string }) => {
@@ -77,7 +79,13 @@ function saveParamsToLocalStorage({
   }
 }
 
-const SearchButton = ({ searchMode, songSearchQuery, playlistSearchString }: SearchButtonProps) => {
+const SearchButton = ({
+  searchMode,
+  songSearchQuery,
+  playlistSearchString,
+  searchParams,
+  setSearchParams,
+}: SearchButtonProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   useToast();
@@ -106,6 +114,9 @@ const SearchButton = ({ searchMode, songSearchQuery, playlistSearchString }: Sea
     });
 
     navigate(`/results${params}`);
+    if (setSearchParams && searchParams) {
+      setSearchParams(new URLSearchParams(params));
+    }
   }
 
   return (

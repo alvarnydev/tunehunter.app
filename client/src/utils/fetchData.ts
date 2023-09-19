@@ -4,11 +4,10 @@ import { ApiResponseDataType, TrackInfoType } from '../../../types';
 export const fetchData = async ({
   queryKey,
 }: {
-  queryKey: [string, { searchParams: URLSearchParams }];
+  queryKey: [string, { searchParameters: URLSearchParams }];
 }) => {
-  const [, { searchParams }] = queryKey;
+  const [, { searchParameters: searchParams }] = queryKey;
 
-  console.log(searchParams);
   const type = searchParams.get('type');
   const country = searchParams.get('country');
   if (!type || !country) {

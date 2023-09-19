@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchData } from '../../../utils/fetchData';
 import { LoadingSpinner } from '../../utils/Loading';
-import { useSearchParams } from 'react-router-dom';
 import ResultsRow from './ResultsRow';
 import { ApiResponseDataType, ResultsDataType } from '../../../../../types';
 import ErrorAlert from '../../utils/Error';
@@ -23,11 +22,10 @@ function filterData(apiData: ApiResponseDataType): ResultsDataType {
   return filteredData;
 }
 
-const ResultsTable = () => {
+const ResultsTable = (props: { searchParams: URLSearchParams }) => {
   const { t } = useTranslation();
-  const [searchParams] = useSearchParams();
   const { isLoading, error, data } = useQuery({
-    queryKey: ['songData', { searchParams }],
+    queryKey: ['songData', { searchParameters: props.searchParams }],
     queryFn: fetchData,
   });
 

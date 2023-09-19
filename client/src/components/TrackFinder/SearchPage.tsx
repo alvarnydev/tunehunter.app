@@ -7,7 +7,13 @@ import SearchButton from './SearchPage/SearchButton';
 //   setPriceData: (priceData: [priceDataType]) => void;
 // }
 
-const SearchPage = () => {
+const SearchPage = ({
+  searchParams,
+  setSearchParams,
+}: {
+  searchParams?: URLSearchParams;
+  setSearchParams?: (searchparams: URLSearchParams) => void;
+}) => {
   const [searchMode, setSearchMode] = useState(localStorage.getItem('searchMode') || 'song');
   const [songSearchQuery, setSongSearchQuery] = useState({
     artist: localStorage.getItem('songSearchQuery_artist') || '',
@@ -38,6 +44,8 @@ const SearchPage = () => {
         searchMode={searchMode}
         songSearchQuery={songSearchQuery}
         playlistSearchString={playlistSearchString}
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
       />
     </div>
   );

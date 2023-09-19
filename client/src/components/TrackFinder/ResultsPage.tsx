@@ -1,19 +1,21 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import ResultsTable from './ResultsPage/ResultsTable';
 import { useEffect } from 'react';
-import BackButton from './ResultsPage/BackButton';
-import InfoBanner from './ResultsPage/InfoBanner';
 import SearchPage from './SearchPage';
 
 const ResultsPage = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // Backspace gets us back
+  // Backspace gets us back, escape brings us home
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key == 'Backspace') {
+      if (e.key == 'Backspace' && e.target == document.body) {
         navigate(-1);
+      }
+      if (e.key == 'Escape') {
+        navigate('/');
       }
     }
 
@@ -26,8 +28,8 @@ const ResultsPage = () => {
 
   return (
     <>
-      <SearchPage />
-      <ResultsTable />
+      <SearchPage searchParams={searchParams} setSearchParams={setSearchParams} />
+      <ResultsTable searchParams={searchParams} />
     </>
   );
 };

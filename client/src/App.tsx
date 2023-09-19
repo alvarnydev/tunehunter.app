@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ResultsPage from './components/TrackFinder/ResultsPage';
 import SearchPage from './components/TrackFinder/SearchPage';
 import { Toaster } from 'react-hot-toast';
-import BackButton from './components/TrackFinder/ResultsPage/BackButton';
+import { NotFoundError } from './components/utils/Error';
 
 const queryClient = new QueryClient();
 
@@ -43,15 +43,7 @@ function App() {
             <Routes>
               <Route path='/' element={<SearchPage />} />
               <Route path='/results' element={<ResultsPage />} />
-              <Route
-                path='*'
-                element={
-                  <>
-                    <span>Nothing to see here.. 👀</span>
-                    <BackButton />
-                  </>
-                }
-              />
+              <Route path='*' element={<NotFoundError />} />
             </Routes>
           </BrowserRouter>
         </Layout>
