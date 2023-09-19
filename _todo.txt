@@ -1,17 +1,12 @@
 MVP: only german results
 
-TODO:
-0,5. spotify play found song
-- get song info from spotify
-- then search vendor APIs with that data 
-
 1. Skeleton loading animation
-
 2. narrow down user input
-
 3. beatport, amazon, bandcamp
-
 4. spotify integration
+- drag and drop from spotify: songs and playlists
+- get song info from spotify and then search vendor APIs with that data 
+- spotify play found song
 
 
 THEN:
