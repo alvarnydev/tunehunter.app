@@ -1,7 +1,6 @@
 MVP: only german results
 
 TODO:
-- fix whatever funky shit is going on with search params
 - color LoadingSpinner
 - figure out why api.btt doesnt work
 

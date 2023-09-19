@@ -25,7 +25,7 @@ function filterData(apiData: ApiResponseDataType): ResultsDataType {
 const ResultsTable = (props: { searchParams: URLSearchParams }) => {
   const { t } = useTranslation();
   const { isLoading, error, data } = useQuery({
-    queryKey: ['songData', { searchParameters: props.searchParams }],
+    queryKey: [props.searchParams.toString(), { searchParams: props.searchParams }],
     queryFn: fetchData,
   });
 
