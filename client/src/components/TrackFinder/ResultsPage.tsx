@@ -8,13 +8,13 @@ const ResultsPage = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Backspace gets us back, escape brings us home
+  // Backspace gets us back, ctrl + escape brings us home
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key == 'Backspace' && e.target == document.body) {
         navigate(-1);
       }
-      if (e.key == 'Escape') {
+      if (e.key == 'Escape' && e.ctrlKey == true && e.target == document.body) {
         navigate('/');
       }
     }
@@ -27,7 +27,7 @@ const ResultsPage = () => {
   }, [navigate]);
 
   return (
-    <div className='flex flex-col justify-center items-center gap-16'>
+    <div className='flex flex-col justify-center items-center w-full gap-16'>
       <SearchPage searchParams={searchParams} setSearchParams={setSearchParams} />
       <div className='flex justify-center items-center xl:h-96'>
         <ResultsTable searchParams={searchParams} />

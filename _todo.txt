@@ -2,6 +2,7 @@ MVP: only german results
 
 0. error boundaries
 
+
 1. spotify integration for song data (get song info from spotify and then search vendor APIs with that data 
 )
 2. narrow down user input: check out these other songs we found for your input
@@ -10,14 +11,19 @@ MVP: only german results
 - drag and drop from spotify: songs and playlists
 - spotify play found song
 
+5. suggestions when entering text
+
 
 THEN:
 figure out why api.btt doesnt work
 
 1. Save calls in DB
 2. Get real API keys
-3. prettier error alerts
-4. skeleton loading
+
+style stuff:
+- loading animation color
+- skeleton loading
+- alerts for errors
 
 make logo with iPad and 80s retrowave font https://creativemarket.com/Aiyari/1434947-The-Moonlight or https://creativemarket.com/Aiyari/3461753-Aiyari-Handmade-Font-Bundle-Extras?u=Aiyari&utm_source=Link&utm_medium=CM+Social+Share&utm_campaign=Product+Social+Share&utm_content=Aiyari+Handmade+Font+Bundle+%2B+Extras+%7E+Display+Fonts+%7E+Creative+Market&ts=201902
 
