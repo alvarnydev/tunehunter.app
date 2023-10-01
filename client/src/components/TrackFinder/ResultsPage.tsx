@@ -29,7 +29,9 @@ const ResultsPage = () => {
   return (
     <>
       <SearchPage searchParams={searchParams} setSearchParams={setSearchParams} />
-      <ResultsTable searchParams={searchParams} />
+      <div className='flex justify-center items-center xl:h-96'>
+        <ResultsTable searchParams={searchParams} />
+      </div>
     </>
   );
 };

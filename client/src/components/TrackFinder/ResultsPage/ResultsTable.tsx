@@ -7,6 +7,11 @@ import ErrorAlert from '../../utils/Error';
 import { useTranslation } from 'react-i18next';
 import TrackPreview from './TrackPreview';
 
+function validateData(apiData: ApiResponseDataType): number {
+  if (apiData.itunesData.length == 0 || apiData.itunesData == undefined) return 0;
+  return 1;
+}
+
 function filterData(apiData: ApiResponseDataType): ResultsDataType {
   // If we find multiple songs to the input, have the user pick the one he/she means.
   // If the search params contain a duration, the user already narrowed down the search to a single song.
@@ -31,9 +36,14 @@ const ResultsTable = (props: { searchParams: URLSearchParams }) => {
 
   if (isLoading) return <LoadingSpinner size={40} />;
   if (error && error instanceof Error)
-    return <ErrorAlert errorMessage={`API error: ${error.message}`} />;
+    return (
+      <ErrorAlert errorMessage={`Internal error you should not be seeing: ${error.message}`} />
+    );
 
   if (data) {
+    if (!validateData(data))
+      return <ErrorAlert errorMessage='Could not find a song for your input :(' />;
+
     const filteredData = filterData(data);
 
     return (

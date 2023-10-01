@@ -30,7 +30,7 @@ export const fetchData = async ({
   }
 };
 
-// Mid-level API calls to our own backend
+// Mid-level custom API calls to our own backend
 async function fetchSongData(
   artist: string,
   title: string,
