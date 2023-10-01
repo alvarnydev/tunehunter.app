@@ -1,7 +1,8 @@
 import Layout from './components/Layout';
 import { Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import ResultsPage from './components/TrackFinder/ResultsPage';
 import SearchPage from './components/TrackFinder/SearchPage';
@@ -26,6 +27,28 @@ const toastOptions = {
   },
 };
 
+const animationClasses = {
+  appear: 'opacity-0',
+  enter: 'opacity-0',
+  appearActive: 'transition-opacity duration-500 opacity-100',
+  enterActive: 'transition-opacity duration-500 opacity-100',
+};
+
+const AnimatedSwitch = () => {
+  const location = useLocation();
+  return (
+    <TransitionGroup component={null} exit={false}>
+      <CSSTransition key={location.pathname} classNames={animationClasses} timeout={500}>
+        <Routes location={location}>
+          <Route path='/' element={<SearchPage />} />
+          <Route path='/results' element={<ResultsPage />} />
+          <Route path='*' element={<NotFoundError />} />
+        </Routes>
+      </CSSTransition>
+    </TransitionGroup>
+  );
+};
+
 function App() {
   return (
     <Suspense fallback='...is loading'>
@@ -40,11 +63,7 @@ function App() {
             gutter={24}
           />
           <BrowserRouter>
-            <Routes>
-              <Route path='/' element={<SearchPage />} />
-              <Route path='/results' element={<ResultsPage />} />
-              <Route path='*' element={<NotFoundError />} />
-            </Routes>
+            <AnimatedSwitch />
           </BrowserRouter>
         </Layout>
       </QueryClientProvider>

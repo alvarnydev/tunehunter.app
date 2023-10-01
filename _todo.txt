@@ -1,13 +1,13 @@
 MVP: only german results
 
-itunes length 0 or undefined?
+0. error boundaries
 
-1. Skeleton loading animation
-2. narrow down user input
+1. spotify integration for song data (get song info from spotify and then search vendor APIs with that data 
+)
+2. narrow down user input: check out these other songs we found for your input
 3. beatport, amazon, bandcamp
 4. spotify integration
 - drag and drop from spotify: songs and playlists
-- get song info from spotify and then search vendor APIs with that data 
 - spotify play found song
 
 
@@ -16,6 +16,8 @@ figure out why api.btt doesnt work
 
 1. Save calls in DB
 2. Get real API keys
+3. prettier error alerts
+4. skeleton loading
 
 make logo with iPad and 80s retrowave font https://creativemarket.com/Aiyari/1434947-The-Moonlight or https://creativemarket.com/Aiyari/3461753-Aiyari-Handmade-Font-Bundle-Extras?u=Aiyari&utm_source=Link&utm_medium=CM+Social+Share&utm_campaign=Product+Social+Share&utm_content=Aiyari+Handmade+Font+Bundle+%2B+Extras+%7E+Display+Fonts+%7E+Creative+Market&ts=201902
 

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import TrackPreview from './TrackPreview';
 
 function validateData(apiData: ApiResponseDataType): number {
+  // todo: itunes length 0 or undefined?
   if (apiData.itunesData.length == 0 || apiData.itunesData == undefined) return 0;
   return 1;
 }

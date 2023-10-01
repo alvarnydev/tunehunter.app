@@ -27,12 +27,12 @@ const ResultsPage = () => {
   }, [navigate]);
 
   return (
-    <>
+    <div className='flex flex-col justify-center items-center gap-16'>
       <SearchPage searchParams={searchParams} setSearchParams={setSearchParams} />
       <div className='flex justify-center items-center xl:h-96'>
         <ResultsTable searchParams={searchParams} />
       </div>
-    </>
+    </div>
   );
 };
 
