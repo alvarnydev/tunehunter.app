@@ -1,6 +1,6 @@
 import BackButton from '../TrackFinder/ResultsPage/BackButton';
 
-const ErrorAlert = (props: { message: string }) => {
+const ErrorAlert = (props: { message?: string }) => {
   return (
     <div className='alert alert-error w-auto'>
       <svg
@@ -19,6 +19,10 @@ const ErrorAlert = (props: { message: string }) => {
       <span>{props.message}</span>
     </div>
   );
+};
+
+ErrorAlert.defaultProps = {
+  message: "Something bad happened, sorry! We're investigating... 🕵️‍♀️",
 };
 
 export const WarningAlert = (props: { message: string }) => {

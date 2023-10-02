@@ -6,6 +6,7 @@ import { ApiResponseDataType, ResultsDataType } from '../../../../../types';
 import ErrorAlert, { WarningAlert } from '../../utils/ErrorComponents';
 import { useTranslation } from 'react-i18next';
 import TrackPreview from './TrackPreview';
+import { logError } from '../../utils/ErrorFunctions';
 
 function validateData(apiData: ApiResponseDataType): number {
   // todo: itunes length 0 or undefined?
@@ -36,8 +37,13 @@ const ResultsTable = (props: { searchParams: URLSearchParams }) => {
   });
 
   if (isLoading) return <LoadingSpinner size={40} />;
-  if (error && error instanceof Error)
-    return <ErrorAlert message={`Internal error you should not be seeing: ${error.message}`} />;
+  if (error && error instanceof Error) {
+    logError(error, {
+      customMessage: `ResultsTable query failed!`,
+      componentStack: error.stack,
+    });
+    return <ErrorAlert />;
+  }
 
   if (data) {
     if (!validateData(data))

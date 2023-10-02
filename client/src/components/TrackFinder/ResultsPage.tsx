@@ -33,12 +33,7 @@ const ResultsPage = () => {
     <div className='flex flex-col justify-center items-center w-full gap-16'>
       <SearchPage searchParams={searchParams} setSearchParams={setSearchParams} />
       <div className='flex justify-center items-center xl:h-96'>
-        <ErrorBoundary
-          fallback={
-            <ErrorAlert message="Something bad happened, sorry! We're investigating... 🕵️‍♀️" />
-          }
-          onError={logError}
-        >
+        <ErrorBoundary fallback={<ErrorAlert />} onError={logError}>
           <ResultsTable searchParams={searchParams} />
         </ErrorBoundary>
       </div>
