@@ -3,6 +3,9 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import ResultsTable from './ResultsPage/ResultsTable';
 import { useEffect } from 'react';
 import SearchPage from './SearchPage';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorAlert from '../utils/ErrorComponents';
+import { logError } from '../utils/ErrorFunctions';
 
 const ResultsPage = () => {
   const navigate = useNavigate();
@@ -30,7 +33,14 @@ const ResultsPage = () => {
     <div className='flex flex-col justify-center items-center w-full gap-16'>
       <SearchPage searchParams={searchParams} setSearchParams={setSearchParams} />
       <div className='flex justify-center items-center xl:h-96'>
-        <ResultsTable searchParams={searchParams} />
+        <ErrorBoundary
+          fallback={
+            <ErrorAlert message="Something bad happened, sorry! We're investigating... 🕵️‍♀️" />
+          }
+          onError={logError}
+        >
+          <ResultsTable searchParams={searchParams} />
+        </ErrorBoundary>
       </div>
     </div>
   );

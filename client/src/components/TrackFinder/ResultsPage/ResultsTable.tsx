@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchData } from '../../../utils/fetchData';
-import { LoadingSpinner } from '../../utils/Loading';
+import { LoadingSpinner } from '../../utils/LoadingComponents';
 import ResultsRow from './ResultsRow';
 import { ApiResponseDataType, ResultsDataType } from '../../../../../types';
-import ErrorAlert from '../../utils/Error';
+import ErrorAlert, { WarningAlert } from '../../utils/ErrorComponents';
 import { useTranslation } from 'react-i18next';
 import TrackPreview from './TrackPreview';
 
@@ -37,13 +37,11 @@ const ResultsTable = (props: { searchParams: URLSearchParams }) => {
 
   if (isLoading) return <LoadingSpinner size={40} />;
   if (error && error instanceof Error)
-    return (
-      <ErrorAlert errorMessage={`Internal error you should not be seeing: ${error.message}`} />
-    );
+    return <ErrorAlert message={`Internal error you should not be seeing: ${error.message}`} />;
 
   if (data) {
     if (!validateData(data))
-      return <ErrorAlert errorMessage='Could not find a song for your input :(' />;
+      return <WarningAlert message='Could not find a song for your input :(' />;
 
     const filteredData = filterData(data);
 

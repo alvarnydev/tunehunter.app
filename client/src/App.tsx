@@ -7,7 +7,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import ResultsPage from './components/TrackFinder/ResultsPage';
 import SearchPage from './components/TrackFinder/SearchPage';
 import { Toaster } from 'react-hot-toast';
-import { NotFoundError } from './components/utils/Error';
+import { NotFoundError } from './components/utils/ErrorComponents';
 
 const queryClient = new QueryClient();
 

@@ -1,7 +1,5 @@
 MVP: only german results
 
-0. error boundaries
-
 
 1. spotify integration for song data (get song info from spotify and then search vendor APIs with that data 
 )
@@ -23,7 +21,9 @@ figure out why api.btt doesnt work
 style stuff:
 - loading animation color
 - skeleton loading
-- alerts for errors
+- alerts for errors#
+
+error service notification
 
 make logo with iPad and 80s retrowave font https://creativemarket.com/Aiyari/1434947-The-Moonlight or https://creativemarket.com/Aiyari/3461753-Aiyari-Handmade-Font-Bundle-Extras?u=Aiyari&utm_source=Link&utm_medium=CM+Social+Share&utm_campaign=Product+Social+Share&utm_content=Aiyari+Handmade+Font+Bundle+%2B+Extras+%7E+Display+Fonts+%7E+Creative+Market&ts=201902
 
