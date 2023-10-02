@@ -34,6 +34,7 @@ const ResultsTable = (props: { searchParams: URLSearchParams }) => {
   const { isLoading, error, data } = useQuery({
     queryKey: [props.searchParams.toString(), { searchParams: props.searchParams }],
     queryFn: fetchData,
+    retry: false,
   });
 
   if (isLoading) return <LoadingSpinner size={40} />;
