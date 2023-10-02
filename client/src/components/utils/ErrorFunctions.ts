@@ -5,6 +5,9 @@ export const logError = (
   info: { customMessage?: string; componentStack?: string }
 ) => {
   sendMessage(
-    `buythattrack.com error\n\nError message: ${error.message}\n Custom error message: ${info.customMessage}\n\nStack trace: ${info.componentStack}`
+    `buythattrack.com error! %0A
+    Error message: ${error.message} %0A
+    Custom error message: ${info.customMessage} %0A
+    Stack trace: ${info.componentStack}`
   );
 };
