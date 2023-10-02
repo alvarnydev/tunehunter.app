@@ -1,8 +1,6 @@
 MVP: only german results
 
 timeout for api calls
-cors, figure out why api.btt doesnt work
-
 
 1. spotify integration for song data (get song info from spotify and then search vendor APIs with that data 
 )
@@ -13,6 +11,9 @@ cors, figure out why api.btt doesnt work
 - spotify play found song
 
 5. suggestions when entering text
+
+cors, figure out why api.btt doesnt work
+
 
 THEN:
 

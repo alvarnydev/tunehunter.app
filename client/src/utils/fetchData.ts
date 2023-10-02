@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { ApiResponseDataType, TrackInfoType } from '../../../types';
 
 // Top-level function to fetch data from our own API
@@ -68,7 +69,7 @@ async function fetchApiData(
 
   const dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}`)
     .href;
-  return await fetch(dataUrl, { headers: { 'X-API-KEY': apiKey } }).then((res) =>
-    res.json().then((data) => data as TrackInfoType[])
+  return await axios(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then(
+    (res) => res.data as TrackInfoType[]
   );
 }
