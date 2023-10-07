@@ -13,7 +13,7 @@ const resources = {
       spotifyBox: {
         integration: 'For best results use our ',
         annotation:
-          "After logging in, just hit play on the song you want to search for and we'll do the rest.",
+          "After logging in, just hit play on the song you want to search for and we'll automatically search for it.",
       },
       resultstable: {
         header: {
@@ -42,7 +42,7 @@ const resources = {
       spotifyBox: {
         integration: 'Para mejores resultados, use nuestra ',
         annotation:
-          'Después de iniciar sesión, simplemente presione reproducir en la canción que desea buscar y nosotros haremos el resto.',
+          'Después de iniciar sesión, simplemente presione reproducir en la canción que desea buscar y la buscaremos automáticamente.',
       },
       resultstable: {
         header: {

@@ -1,9 +1,5 @@
 MVP: only german results
 
-"We use the Spotify API to get information about the song you are looking for. We then search the APIs of the following vendors for the song you are looking for: Amazon Music, Beatport, Bandcamp, iTunes Store. We then display the results in a table. You can then click on the links to go to the vendor's website and listen to the song."
-
-"For better results use our Spotify integration. After logging in, just hit play on the song you want to search for and we'll do the rest."
-
 1. spotify integration for song data 
     - songs and playlist currently playing
     - Get song info from spotify and then search vendor APIs with that data
