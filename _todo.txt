@@ -1,16 +1,18 @@
 MVP: only german results
 
-timeout for api calls
+"We use the Spotify API to get information about the song you are looking for. We then search the APIs of the following vendors for the song you are looking for: Amazon Music, Beatport, Bandcamp, iTunes Store. We then display the results in a table. You can then click on the links to go to the vendor's website and listen to the song."
 
-1. spotify integration for song data (get song info from spotify and then search vendor APIs with that data 
-)
-2. narrow down user input: check out these other songs we found for your input
+"For better results use our Spotify integration. After logging in, just hit play on the song you want to search for and we'll do the rest."
+
+1. spotify integration for song data 
+    - songs and playlist currently playing
+    - Get song info from spotify and then search vendor APIs with that data
+    - Play found song in TrackPreview
+
+2. Modal to narrow down user input: <This one>, check out these other songs we found for your input
+
 3. beatport, amazon, bandcamp
-4. spotify integration
-- drag and drop from spotify: songs and playlists
-- spotify play found song
-
-5. suggestions when entering text
+4. suggestions when entering text
 
 cors, figure out why api.btt doesnt work
 

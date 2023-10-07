@@ -5,7 +5,12 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 const resources = {
   english: {
     translation: {
-      searchbar: { artist: 'Artist', song: 'Song', search: 'Search' },
+      searchbar: {
+        artist: 'Artist',
+        song: 'Song',
+        search: 'Search',
+        spotifyIntegration: 'For best results use our ',
+      },
       resultstable: {
         header: {
           store: 'Music store',
@@ -25,7 +30,12 @@ const resources = {
   },
   spanish: {
     translation: {
-      searchbar: { artist: 'Artista', song: 'Canción', search: 'Buscar' },
+      searchbar: {
+        artist: 'Artista',
+        song: 'Canción',
+        search: 'Buscar',
+        spotifyIntegration: 'Para mejores resultados, use nuestra ',
+      },
       resultstable: {
         header: {
           store: 'Tienda',
@@ -45,7 +55,12 @@ const resources = {
   },
   german: {
     translation: {
-      searchbar: { artist: 'Künstler', song: 'Lied', search: 'Suchen' },
+      searchbar: {
+        artist: 'Künstler',
+        song: 'Lied',
+        search: 'Suchen',
+        spotifyIntegration: "Für das beste Ergebnis nutz' unsere ",
+      },
       resultstable: {
         header: {
           store: 'Plattform',

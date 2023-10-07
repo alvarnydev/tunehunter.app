@@ -22,7 +22,7 @@ const ErrorAlert = (props: { message?: string }) => {
 };
 
 ErrorAlert.defaultProps = {
-  message: "Something bad happened, sorry! We're investigating... 🕵️‍♀️",
+  message: "Something bad happened on our end, sorry! We're investigating... 🕵️‍♀️",
 };
 
 export const WarningAlert = (props: { message: string }) => {
