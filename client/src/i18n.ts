@@ -9,7 +9,11 @@ const resources = {
         artist: 'Artist',
         song: 'Song',
         search: 'Search',
-        spotifyIntegration: 'For best results use our ',
+      },
+      spotifyBox: {
+        integration: 'For best results use our ',
+        annotation:
+          "After logging in, just hit play on the song you want to search for and we'll do the rest.",
       },
       resultstable: {
         header: {
@@ -34,7 +38,11 @@ const resources = {
         artist: 'Artista',
         song: 'Canción',
         search: 'Buscar',
-        spotifyIntegration: 'Para mejores resultados, use nuestra ',
+      },
+      spotifyBox: {
+        integration: 'Para mejores resultados, use nuestra ',
+        annotation:
+          'Después de iniciar sesión, simplemente presione reproducir en la canción que desea buscar y nosotros haremos el resto.',
       },
       resultstable: {
         header: {
@@ -59,7 +67,12 @@ const resources = {
         artist: 'Künstler',
         song: 'Lied',
         search: 'Suchen',
-        spotifyIntegration: "Für das beste Ergebnis nutz' unsere ",
+        spotifyIntegration: '',
+      },
+      spotifyBox: {
+        integration: "Für das beste Ergebnis nutz' unsere ",
+        annotation:
+          'Nach dem Einloggen einfach das Lied starten, das du suchst und wir suchen es automatisch heraus.',
       },
       resultstable: {
         header: {

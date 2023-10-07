@@ -1,7 +1,7 @@
-import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { TrackInfoType } from '../../../../../types';
 import { useTranslation } from 'react-i18next';
+import InfoAnnotation from '../../utils/InfoComponents';
 
 enum ArtistsShareEnum {
   amazonmusic = 0.5,
@@ -45,12 +45,9 @@ const ResultsRow = ({ rowData }: { rowData: TrackInfoType }) => {
       </td>
       <td className=''>
         {(Math.round(rowData.song.price * artistsShare * 100) / 100).toFixed(2)}€
-        <span
-          className='tooltip ml-1 inline-block text-sm opacity-50'
-          data-tip={`Artist's share is ${artistsShare * 100}% on ${rowData.vendor.name}.`}
-        >
-          <AiOutlineInfoCircle size={16} />
-        </span>
+        <InfoAnnotation
+          infoText={`Artist's share is ${artistsShare * 100}% on ${rowData.vendor.name}.`}
+        />
       </td>
       <td>
         <div className='flex items-center gap-4'>
