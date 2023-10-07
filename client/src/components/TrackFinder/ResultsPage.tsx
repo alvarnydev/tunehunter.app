@@ -2,7 +2,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import ResultsTable from './ResultsPage/ResultsTable';
 import { useEffect } from 'react';
-import SearchPage from './SearchPage';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorAlert from '../utils/ErrorComponents';
 import { logError } from '../utils/ErrorFunctions';

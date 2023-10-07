@@ -4,7 +4,7 @@ const SpotifyIntegrationBox = () => {
   const { t } = useTranslation();
 
   return (
-    <div className='flex items-center gap-2'>
+    <div className='w-4/5 flex flex-col md:flex-row items-center justify-center gap-2'>
       <p>{t('searchbar.spotifyIntegration')}</p>
 
       <button className='btn btn-xs btn-success rounded-full'>Spotify Integration</button>
