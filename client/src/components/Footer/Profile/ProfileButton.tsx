@@ -1,4 +1,5 @@
 import { RiAccountCircleFill } from 'react-icons/ri';
+import { RiCloseCircleFill } from 'react-icons/ri';
 
 const ProfileButton = ({
   menuOpen,
@@ -17,7 +18,10 @@ const ProfileButton = ({
         className='btn btn-primary hover:bg-primary border-none rounded-full px-3 md:px-4'
         onClick={handleProfileClick}
       >
-        <RiAccountCircleFill size={40} className='text-white' />
+        <label className={`swap swap-flip transition-menu ${menuOpen ? 'swap-active' : ''}`}>
+          <RiCloseCircleFill size={40} className='text-white swap-on' />
+          <RiAccountCircleFill size={40} className='text-white swap-off' />
+        </label>
       </button>
     </div>
   );
