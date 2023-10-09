@@ -30,7 +30,7 @@ const LanguageSelector = () => {
       <label
         onClick={handleMenuClick}
         tabIndex={0}
-        className='btn btn-ghost m-1 border-0 hover:bg-transparent'
+        className='btn btn-ghost grayscale-[30%] m-1 border-0 hover:bg-transparent'
       >
         {language === 'english' && (
           <GB title='english' className='w-11 rounded pointer-events-none' />

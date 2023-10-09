@@ -2,7 +2,11 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      transitionTimingFunction: {
+        custom: 'cubic-bezier(0.83, 0, 0.17, 1)',
+      },
+    },
   },
   plugins: [require('daisyui')],
   daisyui: {

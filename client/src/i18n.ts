@@ -70,7 +70,7 @@ const resources = {
         spotifyIntegration: '',
       },
       spotifyBox: {
-        integration: "Für das beste Ergebnis nutz' unsere ",
+        integration: "Für die besten Ergebnisse nutz' unsere ",
         annotation:
           'Nach dem Einloggen einfach das Lied starten, das du suchst und wir suchen es automatisch heraus.',
       },

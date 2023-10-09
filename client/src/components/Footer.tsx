@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { themeChange } from 'theme-change';
 import ThemeSelector from './Footer/ThemeSelector';
 import LanguageSelector from './Footer/LanguageSelector';
-import ProfileButton from './Footer/ProfileButton';
+import Profile from './Footer/Profile';
 
 const Footer = () => {
   useEffect(() => {
@@ -10,9 +10,9 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className='w-full grid grid-cols-3 md:py-3 py-1 bg-base-300'>
+    <footer className='w-full grid grid-cols-3 md:py-3 py-2 bg-base-300'>
       <ThemeSelector />
-      <ProfileButton />
+      <Profile />
       <LanguageSelector />
     </footer>
   );
