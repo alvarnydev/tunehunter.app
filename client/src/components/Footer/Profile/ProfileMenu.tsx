@@ -1,6 +1,6 @@
 const ProfileMenu = () => {
   return (
-    <div className='z-20 absolute-center'>
+    <div className='z-20 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
       <nav>
         <ul>
           <li>Profile</li>

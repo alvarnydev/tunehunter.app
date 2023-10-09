@@ -11,9 +11,9 @@ const resources = {
         search: 'Search',
       },
       spotifyBox: {
-        integration: 'For best results use our ',
+        integration: 'For best results, use our ',
         annotation:
-          "After logging in, just hit play on the song you want to search for and we'll automatically search for it.",
+          "After logging in, just hit play on the song you want to search for and we'll automatically search for it!",
       },
       resultstable: {
         header: {
@@ -42,7 +42,7 @@ const resources = {
       spotifyBox: {
         integration: 'Para mejores resultados, use nuestra ',
         annotation:
-          'Después de iniciar sesión, simplemente presione reproducir en la canción que desea buscar y la buscaremos automáticamente.',
+          'Después de iniciar sesión, simplemente reproduce la canción que deseas buscar y la buscaremos automáticamente!',
       },
       resultstable: {
         header: {
@@ -70,9 +70,9 @@ const resources = {
         spotifyIntegration: '',
       },
       spotifyBox: {
-        integration: "Für die besten Ergebnisse nutz' unsere ",
+        integration: "Für die besten Ergebnisse, nutz' unsere ",
         annotation:
-          'Nach dem Einloggen einfach das Lied starten, das du suchst und wir suchen es automatisch heraus.',
+          'Starte nach dem Einloggen einfach das Lied, das du suchst und wir suchen es automatisch heraus!',
       },
       resultstable: {
         header: {
