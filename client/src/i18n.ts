@@ -30,6 +30,9 @@ const resources = {
       countries: {
         de: 'Germany',
       },
+      errors: {
+        general: "Something bad happened on our end, sorry! We're investigating 🕵️‍♀️",
+      },
     },
   },
   spanish: {
@@ -58,6 +61,9 @@ const resources = {
       },
       countries: {
         de: 'Alemania',
+      },
+      errors: {
+        general: 'Nos ha pasado algo, ¡lo sentimos! Estamos investigando 🕵️‍♀️',
       },
     },
   },
@@ -88,6 +94,9 @@ const resources = {
       },
       countries: {
         de: 'Deutschland',
+      },
+      errors: {
+        general: 'Etwas ist schief gelaufen, sorry! Wir begeben uns auf Fehlersuche 🕵️‍♀️',
       },
     },
   },

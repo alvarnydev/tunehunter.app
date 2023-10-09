@@ -1,7 +1,8 @@
 MVP: only german results
 
-close Profile button change
+duration time
 have menu fly in
+nice menu
 
 1. spotify integration for song data 
     - songs and playlist currently playing

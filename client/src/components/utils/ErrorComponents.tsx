@@ -1,6 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import BackButton from '../TrackFinder/ResultsPage/BackButton';
 
-const ErrorAlert = (props: { message?: string }) => {
+const ErrorAlert = ({ message }: { message?: string }) => {
+  const { t } = useTranslation();
+  message = message || t('errors.general');
+
   return (
     <div className='alert alert-error w-auto'>
       <svg
@@ -16,13 +20,9 @@ const ErrorAlert = (props: { message?: string }) => {
           d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z'
         />
       </svg>
-      <span>{props.message}</span>
+      <span>{message}</span>
     </div>
   );
-};
-
-ErrorAlert.defaultProps = {
-  message: "Something bad happened on our end, sorry! We're investigating... 🕵️‍♀️",
 };
 
 export const WarningAlert = (props: { message: string }) => {

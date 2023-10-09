@@ -1,6 +1,6 @@
-const ProfileMenu = () => {
+const ProfileMenu = ({ menuOpen }: { menuOpen: boolean }) => {
   return (
-    <div className='z-20 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+    <div className={`z-20 fixed translate-center ${menuOpen ? '' : 'hidden'}`}>
       <nav>
         <ul>
           <li>Profile</li>
