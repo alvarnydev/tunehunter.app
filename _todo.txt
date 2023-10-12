@@ -1,8 +1,14 @@
 MVP: only german results
 
 have menu fly in
-nice menu
 use daisy's toasts?
+
+z-index
+    normal 1 too
+
+    normal -5
+    menu bg 0
+    menu 1
 
 1. spotify integration for song data 
     - songs and playlist currently playing
