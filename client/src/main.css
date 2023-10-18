@@ -9,6 +9,9 @@
   .transition-menu {
     @apply ease-menu duration-1000;
   }
+  .transition-menu-fast {
+    @apply ease-menuFast duration-700;
+  }
 }
 
 *,

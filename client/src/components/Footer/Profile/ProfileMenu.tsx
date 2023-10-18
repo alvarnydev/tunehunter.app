@@ -7,7 +7,7 @@ const ProfileMenu = ({ menuOpen }: { menuOpen: boolean }) => {
 
   return (
     <div
-      className={`z-20 w-4/5 h-3/4 fixed flex justify-center items-center translate-center transition-menu ${
+      className={`z-20 w-4/5 h-3/4 fixed flex justify-center items-center translate-center transition-menu-fast ${
         menuOpen ? '' : 'opacity-0 pointer-events-none'
       }`}
     >
