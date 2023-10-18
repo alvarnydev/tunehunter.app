@@ -7,7 +7,7 @@
     @apply top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
   }
   .transition-menu {
-    @apply ease-menu duration-1000 !important;
+    @apply ease-menu duration-1000;
   }
 }
 

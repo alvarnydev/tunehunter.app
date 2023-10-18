@@ -18,9 +18,9 @@ const ProfileButton = ({
         className='btn btn-primary hover:bg-primary border-none rounded-full px-3 md:px-4'
         onClick={handleProfileClick}
       >
-        <label className={`swap swap-flip ${menuOpen ? 'swap-active' : ''}`}>
-          <RiCloseCircleFill size={40} className='text-white swap-on transition-menu' />
-          <RiAccountCircleFill size={40} className='text-white swap-off transition-menu' />
+        <label className={`swap swap-rotate ${menuOpen ? 'swap-active' : ''}`}>
+          <RiCloseCircleFill size={40} className='text-white swap-on transition-menu ' />
+          <RiAccountCircleFill size={40} className='text-white swap-off transition-menu ' />
         </label>
       </button>
     </div>

@@ -7,12 +7,14 @@ const ProfileMenu = ({ menuOpen }: { menuOpen: boolean }) => {
 
   return (
     <div
-      className={`z-20 w-4/5 h-3/4 fixed translate-center flex items-center justify-start gap-8 ${
-        menuOpen ? '' : 'hidden'
+      className={`z-20 w-4/5 h-3/4 fixed flex justify-center items-center translate-center transition-menu ${
+        menuOpen ? '' : 'opacity-0 pointer-events-none'
       }`}
     >
-      <MenuNavigation menuPage={menuPage} setMenuPage={setMenuPage} />
-      <MenuContent menuPage={menuPage} />
+      <div className='flex items-center justify-start gap-8 '>
+        <MenuNavigation menuPage={menuPage} setMenuPage={setMenuPage} />
+        <MenuContent menuPage={menuPage} />
+      </div>
     </div>
   );
 };

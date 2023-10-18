@@ -7,15 +7,16 @@ const MenuContent = ({ menuPage }: { menuPage: number }) => {
     <div className='flex flex-col justify-center items-center gap-4 '>
       {menuPage === 0 && (
         <>
-          <ProfileStats />
-          <ProfileStats />
           <ProfileEdits />
+          <ProfileStats />
         </>
       )}
       {menuPage === 1 && (
         <>
           <ProfileStats />
           <SettingsEdits />
+          {/* <LogOut /> */}
+          {/* <FeedbackForm />  */}
         </>
       )}
     </div>

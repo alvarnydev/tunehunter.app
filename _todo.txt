@@ -1,14 +1,6 @@
 MVP: only german results
 
-have menu fly in
 use daisy's toasts?
-
-z-index
-    normal 1 too
-
-    normal -5
-    menu bg 0
-    menu 1
 
 1. spotify integration for song data 
     - songs and playlist currently playing
@@ -22,10 +14,16 @@ z-index
 
 cors, figure out why api.btt doesnt work
 
+optimizations: 
+- tailwind purge
+- react lazy
+- daisyui
+
 
 THEN:
 
 demo mode: use local data instead of backend api
+lots of memory? check for memory leaks, endless loops
 
 1. Save calls in DB
 2. Get real API keys
