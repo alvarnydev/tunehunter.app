@@ -1,6 +1,7 @@
 import { SetStateAction } from 'react';
 import { PiMusicNotesFill } from 'react-icons/pi';
 import { IoMdSettings } from 'react-icons/io';
+import { FaCircleInfo } from 'react-icons/fa6';
 
 const MenuNavigation = ({
   menuPage,
@@ -9,21 +10,33 @@ const MenuNavigation = ({
   menuPage: number;
   setMenuPage: React.Dispatch<SetStateAction<number>>;
 }) => {
+  const NavigationItem: React.FC<{
+    pageNumber: number;
+    pageTitle: string;
+    pageIcon: React.ReactNode;
+  }> = ({ pageNumber, pageTitle, pageIcon }) => (
+    <li>
+      <a className={menuPage == pageNumber ? 'active' : ''} onClick={() => setMenuPage(pageNumber)}>
+        {pageIcon}
+        {pageTitle}
+      </a>
+    </li>
+  );
+
   return (
     <nav className=''>
       <ul className='menu bg-base-200 w-56 rounded-box'>
-        <li>
-          <a className={menuPage == 0 ? 'active' : ''} onClick={() => setMenuPage(0)}>
-            <PiMusicNotesFill size={20} />
-            You
-          </a>
-        </li>
-        <li>
-          <a className={menuPage == 1 ? 'active' : ''} onClick={() => setMenuPage(1)}>
-            <IoMdSettings size={20} />
-            Settings
-          </a>
-        </li>
+        <NavigationItem
+          pageNumber={0}
+          pageTitle={'You'}
+          pageIcon={<PiMusicNotesFill size={20} />}
+        />
+        <NavigationItem
+          pageNumber={1}
+          pageTitle={'Settings'}
+          pageIcon={<IoMdSettings size={20} />}
+        />
+        <NavigationItem pageNumber={2} pageTitle={'About'} pageIcon={<FaCircleInfo size={20} />} />
       </ul>
     </nav>
   );

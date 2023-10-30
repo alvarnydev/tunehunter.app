@@ -1,6 +1,10 @@
+import AboutContribute from './MenuContent/AboutContribute';
+import AboutFeedback from './MenuContent/AboutFeedback';
+import AboutInfo from './MenuContent/AboutInfo';
 import ProfileEdits from './MenuContent/ProfileEdits';
 import ProfileStats from './MenuContent/ProfileStats';
 import SettingsEdits from './MenuContent/SettingsEdits';
+import SettingsLogout from './MenuContent/SettingsLogout';
 
 const MenuContent = ({ menuPage }: { menuPage: number }) => {
   return (
@@ -13,10 +17,15 @@ const MenuContent = ({ menuPage }: { menuPage: number }) => {
       )}
       {menuPage === 1 && (
         <>
-          <ProfileStats />
           <SettingsEdits />
-          {/* <LogOut /> */}
-          {/* <FeedbackForm />  */}
+          <SettingsLogout />
+        </>
+      )}
+      {menuPage === 2 && (
+        <>
+          <AboutInfo />
+          <AboutFeedback />
+          <AboutContribute />
         </>
       )}
     </div>
