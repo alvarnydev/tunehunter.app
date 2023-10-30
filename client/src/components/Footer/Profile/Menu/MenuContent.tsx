@@ -6,22 +6,22 @@ import ProfileStats from './MenuContent/ProfileStats';
 import SettingsEdits from './MenuContent/SettingsEdits';
 import SettingsLogout from './MenuContent/SettingsLogout';
 
-const MenuContent = ({ menuPage }: { menuPage: number }) => {
+const MenuContent = ({ menuPage }: { menuPage: string }) => {
   return (
     <div className='flex flex-col justify-center items-center gap-4 '>
-      {menuPage === 0 && (
+      {menuPage === 'you' && (
         <>
           <ProfileEdits />
           <ProfileStats />
         </>
       )}
-      {menuPage === 1 && (
+      {menuPage === 'settings' && (
         <>
           <SettingsEdits />
           <SettingsLogout />
         </>
       )}
-      {menuPage === 2 && (
+      {menuPage === 'about' && (
         <>
           <AboutInfo />
           <AboutFeedback />

@@ -3,7 +3,7 @@ import MenuNavigation from './Menu/MenuNavigation';
 import MenuContent from './Menu/MenuContent';
 
 const ProfileMenu = ({ menuOpen }: { menuOpen: boolean }) => {
-  const [menuPage, setMenuPage] = useState(0);
+  const [menuPage, setMenuPage] = useState('you');
 
   return (
     <div
