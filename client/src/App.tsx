@@ -1,5 +1,5 @@
 import Layout from './components/Layout';
-import { Suspense } from 'react';
+import { Suspense, createContext, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -8,6 +8,9 @@ import ResultsPage from './components/TrackFinder/ResultsPage';
 import SearchPage from './components/TrackFinder/SearchPage';
 import { Toaster } from 'react-hot-toast';
 import { NotFoundError } from './components/utils/ErrorComponents';
+import CallbackPage from './components/TrackFinder/CallbackPage';
+
+const UserContext = createContext({});
 
 const queryClient = new QueryClient();
 
@@ -42,6 +45,7 @@ const AnimatedSwitch = () => {
         <Routes location={location}>
           <Route path='/' element={<SearchPage />} />
           <Route path='/results' element={<ResultsPage />} />
+          <Route path='/callback' element={<CallbackPage />} />
           <Route path='*' element={<NotFoundError />} />
         </Routes>
       </CSSTransition>
@@ -50,23 +54,29 @@ const AnimatedSwitch = () => {
 };
 
 function App() {
+  const [user, setUser] = useState(null);
+
   return (
     <Suspense fallback='...is loading'>
-      <QueryClientProvider client={queryClient}>
-        <Layout>
-          <Toaster
-            containerClassName='toaster-wrapper'
-            position='top-center'
-            reverseOrder={true}
-            containerStyle={toastContainer}
-            toastOptions={toastOptions}
-            gutter={24}
-          />
-          <BrowserRouter>
-            <AnimatedSwitch />
-          </BrowserRouter>
-        </Layout>
-      </QueryClientProvider>
+      // todo:
+      https://react.dev/reference/react/useContext#optimizing-re-renders-when-passing-objects-and-functions
+      <UserContext.Provider value={{ user, setUser }}>
+        <QueryClientProvider client={queryClient}>
+          <Layout>
+            <Toaster
+              containerClassName='toaster-wrapper'
+              position='top-center'
+              reverseOrder={true}
+              containerStyle={toastContainer}
+              toastOptions={toastOptions}
+              gutter={24}
+            />
+            <BrowserRouter>
+              <AnimatedSwitch />
+            </BrowserRouter>
+          </Layout>
+        </QueryClientProvider>
+      </UserContext.Provider>
     </Suspense>
   );
 }

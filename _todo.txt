@@ -1,6 +1,13 @@
 MVP: only german results
 
-use daisy's toasts?
+implement callback handling 
+- Store the token in the local storage
+- (Pass the token to the backend on requests)
+
+context logged in (spotify integration used) -> settings menu opens based on that
+
+fill menu with daisy components
+- make right menu fixed size
 
 1. spotify integration for song data 
     - songs and playlist currently playing
@@ -8,6 +15,8 @@ use daisy's toasts?
     - Play found song in TrackPreview
 
 2. Modal to narrow down user input: <This one>, check out these other songs we found for your input
+
+use daisy's toasts?
 
 3. beatport, amazon, bandcamp
 4. suggestions when entering text

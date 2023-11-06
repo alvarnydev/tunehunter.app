@@ -37,7 +37,12 @@ const ResultsTable = (props: { searchParams: URLSearchParams }) => {
     retry: false,
   });
 
-  if (isLoading) return <LoadingSpinner size={40} />;
+  if (isLoading)
+    return (
+      <div className='flex h-[426px]'>
+        <LoadingSpinner size={40} />
+      </div>
+    );
   if (error && error instanceof Error) {
     logError(error, {
       customMessage: `ResultsTable query failed!`,

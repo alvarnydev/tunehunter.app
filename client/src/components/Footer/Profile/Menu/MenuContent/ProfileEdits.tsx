@@ -1,4 +1,6 @@
 const ProfileEdits = () => {
+  // todo: make this a form? add region here, get initially from spotify api
+
   return (
     // <div>
     //   <div className='flex'>

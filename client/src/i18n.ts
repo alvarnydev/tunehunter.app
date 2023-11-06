@@ -33,6 +33,19 @@ const resources = {
       errors: {
         general: "Something bad happened on our end, sorry! We're investigating 🕵️‍♀️",
       },
+      loadingStates: {
+        loading: 'Loading...',
+        error: {
+          noCodeVerifierFound: 'Error: No code verifier found in local storage!',
+          noCodeFound: 'Error: No code found in callback URL!',
+          fetchError: 'Error: Could not fetch access token!',
+          noTokenFound: 'Error: No token found in response!',
+        },
+        success: {
+          general: 'Success',
+          redirecting: 'Success, redirecting...',
+        },
+      },
     },
   },
   spanish: {
@@ -64,6 +77,11 @@ const resources = {
       },
       errors: {
         general: 'Nos ha pasado algo, ¡lo sentimos! Estamos investigando 🕵️‍♀️',
+      },
+      loadingStates: {
+        loading: 'Cargando...',
+        error: 'Error',
+        success: 'Éxito',
       },
     },
   },
@@ -97,6 +115,11 @@ const resources = {
       },
       errors: {
         general: 'Etwas ist schief gelaufen, sorry! Wir begeben uns auf Fehlersuche 🕵️‍♀️',
+      },
+      loadingStates: {
+        loading: 'Laden...',
+        error: 'Fehler',
+        success: 'Erfolg',
       },
     },
   },

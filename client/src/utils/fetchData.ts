@@ -64,13 +64,8 @@ async function fetchApiData(
   country: string,
   vendor: string
 ): Promise<TrackInfoType[]> {
-  const devMode = import.meta.env.DEV_MODE || '';
-  const apiUrl =
-    devMode == 'laptop'
-      ? import.meta.env.VITE_API_URL_LAPTOP
-      : import.meta.env.VITE_API_URL_PC || '';
+  const apiUrl = import.meta.env.VITE_API_URL || '';
   const apiKey = import.meta.env.VITE_API_KEY || '';
-  console.log(devMode, apiUrl);
 
   const dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}`)
     .href;
