@@ -1,7 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ThemeSelector = () => {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'synthwave');
+  const [theme, setTheme] = useState('synthwave');
+
+  useEffect(() => {
+    const themeStored = localStorage.getItem('theme');
+    if (themeStored) {
+      setTheme(themeStored);
+    }
+  }, []);
+
   function handleClick() {
     const newTheme = theme === 'synthwave' ? 'valentine' : 'synthwave';
     setTheme(newTheme);

@@ -58,8 +58,8 @@ function App() {
 
   return (
     <Suspense fallback='...is loading'>
-      // todo:
-      https://react.dev/reference/react/useContext#optimizing-re-renders-when-passing-objects-and-functions
+      {/* todo:
+      https://react.dev/reference/react/useContext#optimizing-re-renders-when-passing-objects-and-functions */}
       <UserContext.Provider value={{ user, setUser }}>
         <QueryClientProvider client={queryClient}>
           <Layout>

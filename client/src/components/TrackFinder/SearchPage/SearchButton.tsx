@@ -3,11 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toast } from 'react-hot-toast';
 import useToast from '../../../hooks/useToast';
+import { FormDataType } from '../../../../../types';
 
 interface SearchButtonProps {
-  searchMode: string;
-  songSearchQuery: { artist: string; title: string };
-  playlistSearchString: string;
+  formData: FormDataType;
   searchParams?: URLSearchParams;
   setSearchParams?: (searchParams: URLSearchParams) => void;
 }
@@ -28,90 +27,62 @@ const ToastComponent = ({ t, text }: { t: Toast; text: string }) => {
   );
 };
 
-function isValidInput({
-  searchMode,
-  songSearchQuery,
-  playlistSearchString,
-}: SearchButtonProps): boolean {
-  if (searchMode == 'song') {
-    if (songSearchQuery.artist == '' || songSearchQuery.title == '') {
-      toast((t) => <ToastComponent t={t} text={'Heya there, need both fields to continue!'} />);
-      return false;
-    }
-  } else if (searchMode == 'playlist' && playlistSearchString == '') {
-    toast((t) => <ToastComponent t={t} text={'Hey there, please put in a URL!'} />);
-    return false;
-  }
-
-  return true;
-}
-
-function buildGetParams({
-  searchMode,
-  songSearchQuery,
-  playlistSearchString,
-}: SearchButtonProps): string {
-  let params = `?type=${searchMode}&country=DE`; // TODO: other countries
-
-  if (searchMode == 'song') {
-    params += `&artist=${songSearchQuery.artist}&title=${songSearchQuery.title}`;
-  } else if (searchMode == 'playlist') {
-    params += `&url=${playlistSearchString}`;
-  }
-  return params;
-}
-
-function saveParamsToLocalStorage({
-  searchMode,
-  songSearchQuery,
-  playlistSearchString,
-}: SearchButtonProps) {
-  localStorage.setItem('searchMode', searchMode);
-
-  if (searchMode == 'song') {
-    localStorage.setItem('songSearchQuery_artist', songSearchQuery.artist);
-    localStorage.setItem('songSearchQuery_title', songSearchQuery.title);
-    localStorage.removeItem('playlistSearchString');
-  } else if (searchMode == 'playlist') {
-    localStorage.removeItem('songSearchQuery_artist');
-    localStorage.removeItem('songSearchQuery_title');
-    localStorage.setItem('playlistSearchString', playlistSearchString);
-  }
-}
-
-const SearchButton = ({
-  searchMode,
-  songSearchQuery,
-  playlistSearchString,
-  searchParams,
-  setSearchParams,
-}: SearchButtonProps) => {
+const SearchButton = ({ formData, searchParams, setSearchParams }: SearchButtonProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   useToast();
 
+  function isValidInput(): boolean {
+    const { searchMode, songSearchQuery, playlistSearchString } = formData;
+
+    if (searchMode == 'song') {
+      if (songSearchQuery.artist == '' || songSearchQuery.title == '') {
+        toast((t) => <ToastComponent t={t} text={'Heya there, need both fields to continue!'} />);
+        return false;
+      }
+    } else if (searchMode == 'playlist' && playlistSearchString == '') {
+      toast((t) => <ToastComponent t={t} text={'Hey there, please put in a URL!'} />);
+      return false;
+    }
+
+    return true;
+  }
+
+  function buildGetParams(): string {
+    const { searchMode, songSearchQuery, playlistSearchString } = formData;
+    let params = `?type=${searchMode}&country=DE`; // TODO: other countries
+
+    if (searchMode == 'song') {
+      params += `&artist=${songSearchQuery.artist}&title=${songSearchQuery.title}`;
+    } else if (searchMode == 'playlist') {
+      params += `&url=${playlistSearchString}`;
+    }
+    return params;
+  }
+
+  function saveFormData() {
+    const { searchMode, songSearchQuery, playlistSearchString } = formData;
+    localStorage.setItem('searchMode', searchMode);
+
+    if (searchMode == 'song') {
+      localStorage.setItem('songSearchQuery_artist', songSearchQuery.artist);
+      localStorage.setItem('songSearchQuery_title', songSearchQuery.title);
+      localStorage.removeItem('playlistSearchString');
+    } else if (searchMode == 'playlist') {
+      localStorage.removeItem('songSearchQuery_artist');
+      localStorage.removeItem('songSearchQuery_title');
+      localStorage.setItem('playlistSearchString', playlistSearchString);
+    }
+  }
+
   function handleClick() {
-    if (
-      !isValidInput({
-        searchMode,
-        songSearchQuery,
-        playlistSearchString,
-      })
-    ) {
+    if (!isValidInput()) {
       return;
     }
 
-    saveParamsToLocalStorage({
-      searchMode,
-      songSearchQuery,
-      playlistSearchString,
-    });
+    saveFormData();
 
-    const params = buildGetParams({
-      searchMode,
-      songSearchQuery,
-      playlistSearchString,
-    });
+    const params = buildGetParams();
 
     navigate(`/results${params}`);
     if (setSearchParams && searchParams) {

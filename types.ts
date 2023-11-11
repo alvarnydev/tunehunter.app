@@ -1,3 +1,12 @@
+export type FormDataType = {
+  searchMode: string;
+  songSearchQuery: {
+    artist: string;
+    title: string;
+  };
+  playlistSearchString: string;
+};
+
 // Basic information about a given track, used in both API and frontend
 export type TrackInfoType = {
   vendor: {

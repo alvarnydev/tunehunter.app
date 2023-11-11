@@ -1,34 +1,29 @@
 import { GiMusicalNotes } from 'react-icons/gi';
 import { IoIosMusicalNote } from 'react-icons/io';
+import { FormDataType } from '../../../../../types';
 
-interface SearchModeTogglerProps {
-  searchMode: string;
-  setSearchMode: (searchMode: string) => void;
-  songSearchQuery: { artist: string; title: string };
-  playlistSearchString: string;
-  setSongSearchQuery: (songInput: { artist: string; title: string }) => void;
-  setPlaylistSearchString: (playlistInput: string) => void;
-}
 const SearchModeToggler = ({
-  searchMode,
-  setSearchMode,
-  songSearchQuery,
-  playlistSearchString,
-  setSongSearchQuery,
-  setPlaylistSearchString,
-}: SearchModeTogglerProps) => {
-  // Change mode and save / restore search query
+  formData,
+  handleFormUpdate,
+}: {
+  formData: FormDataType;
+  handleFormUpdate: (newFormData: FormDataType) => void;
+}) => {
   function handleChange() {
-    // Changing from song -> playlist
-    if (searchMode === 'song') {
-      setPlaylistSearchString(playlistSearchString);
-      setSearchMode('playlist');
+    if (formData.searchMode === 'song') {
+      handleFormUpdate({
+        ...formData,
+        searchMode: 'playlist',
+      });
+      // setPlaylistSearchString(playlistSearchString);
       return;
     }
 
-    // Changing from playlist -> song
-    setSongSearchQuery({ artist: songSearchQuery.artist, title: songSearchQuery.title });
-    setSearchMode('song');
+    // setSongSearchQuery({ artist: songSearchQuery.artist, title: songSearchQuery.title });
+    handleFormUpdate({
+      ...formData,
+      searchMode: 'song',
+    });
   }
 
   return (
@@ -37,7 +32,7 @@ const SearchModeToggler = ({
         id='search-mode-switcher'
         aria-labelledby='search-mode-switcher'
         type='checkbox'
-        defaultChecked={searchMode === 'playlist'}
+        defaultChecked={formData.searchMode === 'playlist'}
         onChange={handleChange}
       />
 

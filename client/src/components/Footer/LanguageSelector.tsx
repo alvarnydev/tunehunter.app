@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { DE, ES, GB } from 'country-flag-icons/react/3x2';
 
 const LanguageSelector = () => {
-  const [language, setLanguage] = useState(localStorage.getItem('language') || 'english');
+  const [language, setLanguage] = useState('english');
   const [visible, setIsVisible] = useState(false);
 
   const { i18n } = useTranslation();
@@ -11,6 +11,13 @@ const LanguageSelector = () => {
   useEffect(() => {
     i18n.changeLanguage(language);
   }, [language, i18n]);
+
+  useEffect(() => {
+    const languageStored = localStorage.getItem('language');
+    if (languageStored) {
+      setLanguage(languageStored);
+    }
+  }, []);
 
   function handleOptionClick(e: React.MouseEvent<HTMLAnchorElement>) {
     const lang = e.currentTarget.firstChild?.textContent;

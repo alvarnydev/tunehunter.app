@@ -1,7 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchModeToggler from './SearchModeToggler';
 import SearchTextInput from './SearchInput';
 import SearchButton from './SearchButton';
+import { FormDataType } from '../../../../../types';
+
+const initialFormData: FormDataType = {
+  searchMode: 'song',
+  songSearchQuery: {
+    artist: '',
+    title: '',
+  },
+  playlistSearchString: '',
+};
 
 const SearchBar = ({
   searchParams,
@@ -10,36 +20,42 @@ const SearchBar = ({
   searchParams?: URLSearchParams;
   setSearchParams?: (searchparams: URLSearchParams) => void;
 }) => {
-  const [searchMode, setSearchMode] = useState(localStorage.getItem('searchMode') || 'song');
-  const [songSearchQuery, setSongSearchQuery] = useState({
-    artist: localStorage.getItem('songSearchQuery_artist') || '',
-    title: localStorage.getItem('songSearchQuery_title') || '',
-  });
-  const [playlistSearchString, setPlaylistSearchString] = useState(
-    localStorage.getItem('playlistSearchString') || ''
-  );
+  const [formData, setFormData] = useState(initialFormData);
+
+  const handleFormUpdate = (newFormData: FormDataType) => {
+    setFormData(newFormData);
+  };
+
+  useEffect(() => {
+    const searchModeStored = localStorage.getItem('searchMode');
+    if (searchModeStored) {
+      setFormData({ ...formData, searchMode: searchModeStored });
+    }
+
+    const playlistSearchStringStored = localStorage.getItem('playlistSearchString');
+    if (playlistSearchStringStored) {
+      setFormData({ ...formData, playlistSearchString: playlistSearchStringStored });
+    }
+
+    const songSearchQuery_artist = localStorage.getItem('songSearchQuery_artist');
+    const songSearchQuery_title = localStorage.getItem('songSearchQuery_title');
+    if (songSearchQuery_artist && songSearchQuery_title) {
+      setFormData({
+        ...formData,
+        songSearchQuery: {
+          artist: songSearchQuery_artist,
+          title: songSearchQuery_title,
+        },
+      });
+    }
+  }, []);
 
   return (
     <div className='flex md:flex-row flex-col w-4/5 md:gap-10 gap-8'>
-      <SearchModeToggler
-        searchMode={searchMode}
-        setSearchMode={setSearchMode}
-        songSearchQuery={songSearchQuery}
-        playlistSearchString={playlistSearchString}
-        setSongSearchQuery={setSongSearchQuery}
-        setPlaylistSearchString={setPlaylistSearchString}
-      />
-      <SearchTextInput
-        searchMode={searchMode}
-        songSearchQuery={songSearchQuery}
-        setSongSearchQuery={setSongSearchQuery}
-        playlistSearchString={playlistSearchString}
-        setPlaylistSearchString={setPlaylistSearchString}
-      />
+      <SearchModeToggler formData={formData} handleFormUpdate={handleFormUpdate} />
+      <SearchTextInput formData={formData} handleFormUpdate={handleFormUpdate} />
       <SearchButton
-        searchMode={searchMode}
-        songSearchQuery={songSearchQuery}
-        playlistSearchString={playlistSearchString}
+        formData={formData}
         searchParams={searchParams}
         setSearchParams={setSearchParams}
       />
