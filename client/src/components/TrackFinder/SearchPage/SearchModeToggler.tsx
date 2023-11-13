@@ -15,11 +15,9 @@ const SearchModeToggler = ({
         ...formData,
         searchMode: 'playlist',
       });
-      // setPlaylistSearchString(playlistSearchString);
       return;
     }
 
-    // setSongSearchQuery({ artist: songSearchQuery.artist, title: songSearchQuery.title });
     handleFormUpdate({
       ...formData,
       searchMode: 'song',

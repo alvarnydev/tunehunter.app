@@ -29,24 +29,27 @@ const SearchBar = ({
   useEffect(() => {
     const searchModeStored = localStorage.getItem('searchMode');
     if (searchModeStored) {
-      setFormData({ ...formData, searchMode: searchModeStored });
+      setFormData((formData) => ({ ...formData, searchMode: searchModeStored }));
     }
 
     const playlistSearchStringStored = localStorage.getItem('playlistSearchString');
     if (playlistSearchStringStored) {
-      setFormData({ ...formData, playlistSearchString: playlistSearchStringStored });
+      setFormData((formData) => ({
+        ...formData,
+        playlistSearchString: playlistSearchStringStored,
+      }));
     }
 
     const songSearchQuery_artist = localStorage.getItem('songSearchQuery_artist');
     const songSearchQuery_title = localStorage.getItem('songSearchQuery_title');
     if (songSearchQuery_artist && songSearchQuery_title) {
-      setFormData({
+      setFormData((formData) => ({
         ...formData,
         songSearchQuery: {
           artist: songSearchQuery_artist,
           title: songSearchQuery_title,
         },
-      });
+      }));
     }
   }, []);
 
