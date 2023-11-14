@@ -53,11 +53,11 @@ const ResultsRow = ({ rowData }: { rowData: TrackInfoType }) => {
         <div className='flex items-center gap-4'>
           <div className='inline-block'>{rowData.song.price}€</div>
           <div className='flex justify-center flex-1'>
-            <button className='btn btn-ghost text-base normal-case'>
-              <a href={rowData.vendor.songLink} target='_blank'>
+            <a href={rowData.vendor.songLink} target='_blank'>
+              <button className='btn btn-ghost text-base normal-case'>
                 <FaExternalLinkSquareAlt size={32} className='text-primary' />
-              </a>
-            </button>
+              </button>
+            </a>
           </div>
         </div>
       </td>
