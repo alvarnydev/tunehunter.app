@@ -52,8 +52,7 @@ const ResultsTable = (props: { searchParams: URLSearchParams }) => {
   }
 
   if (data) {
-    if (!validateData(data))
-      return <WarningAlert message='Could not find a song for your input :(' />;
+    if (!validateData(data)) return <WarningAlert message='Could not find a song for your input :(' />;
 
     const filteredData = filterData(data);
 

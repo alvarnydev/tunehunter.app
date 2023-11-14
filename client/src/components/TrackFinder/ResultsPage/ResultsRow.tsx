@@ -17,10 +17,7 @@ const ResultsRow = ({ rowData }: { rowData: TrackInfoType }) => {
   const vendorCountryLower = rowData.vendor.country.toLowerCase().slice(0, 2);
 
   const artistsShare = ArtistsShareEnum[vendorNameLower as keyof typeof ArtistsShareEnum];
-  const logoPath =
-    rowData.vendor.name == 'iTunes Store'
-      ? `logo_${vendorNameLower}.jpg`
-      : `logo_${vendorNameLower}.svg`;
+  const logoPath = rowData.vendor.name == 'iTunes Store' ? `logo_${vendorNameLower}.jpg` : `logo_${vendorNameLower}.svg`;
 
   return (
     <tr>
@@ -33,9 +30,7 @@ const ResultsRow = ({ rowData }: { rowData: TrackInfoType }) => {
           </div>
           <div className='md:block hidden'>
             <div className='font-bold'>{rowData.vendor.name}</div>
-            <div className='text-sm font-normal opacity-50'>
-              {t(`countries.${vendorCountryLower}`)}
-            </div>
+            <div className='text-sm font-normal opacity-50'>{t(`countries.${vendorCountryLower}`)}</div>
           </div>
         </div>
       </td>
@@ -45,9 +40,7 @@ const ResultsRow = ({ rowData }: { rowData: TrackInfoType }) => {
       </td>
       <td className=''>
         {(Math.round(rowData.song.price * artistsShare * 100) / 100).toFixed(2)}€
-        <InfoAnnotation
-          infoText={`Artist's share is ${artistsShare * 100}% on ${rowData.vendor.name}.`}
-        />
+        <InfoAnnotation infoText={`Artist's share is ${artistsShare * 100}% on ${rowData.vendor.name}.`} />
       </td>
       <td>
         <div className='flex items-center gap-4'>

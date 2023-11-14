@@ -110,9 +110,7 @@ app.get('/itunes', async (req: Request, res: Response) => {
   }
   let { title, artist, country } = req.query;
 
-  const dataUrl = new URL(
-    `https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`
-  ).href;
+  const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
   const response = await fetch(dataUrl).then((res) => res.json());
 
   // Create unified TrackInfoType[] response, grabbing the data we need from the third party <any> API response
