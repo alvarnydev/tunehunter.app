@@ -42,8 +42,8 @@ const resources = {
           noTokenFound: 'Error: No token found in response!',
         },
         success: {
-          general: 'Success',
-          redirecting: 'Success, redirecting...',
+          general: 'Success!',
+          redirecting: 'Success! Redirecting...',
         },
       },
     },
@@ -80,8 +80,16 @@ const resources = {
       },
       loadingStates: {
         loading: 'Cargando...',
-        error: 'Error',
-        success: 'Éxito',
+        error: {
+          noCodeVerifierFound: 'Error: No code verifier found in local storage!',
+          noCodeFound: 'Error: No code found in callback URL!',
+          fetchError: 'Error: Could not fetch access token!',
+          noTokenFound: 'Error: No token found in response!',
+        },
+        success: {
+          general: 'Éxito!',
+          redirecting: 'Éxito! Redirigiendo...',
+        },
       },
     },
   },
@@ -118,8 +126,16 @@ const resources = {
       },
       loadingStates: {
         loading: 'Laden...',
-        error: 'Fehler',
-        success: 'Erfolg',
+        error: {
+          noCodeVerifierFound: 'Error: No code verifier found in local storage!',
+          noCodeFound: 'Error: No code found in callback URL!',
+          fetchError: 'Error: Could not fetch access token!',
+          noTokenFound: 'Error: No token found in response!',
+        },
+        success: {
+          general: 'Erfolg!',
+          redirecting: 'Erfolg! Leite weiter...',
+        },
       },
     },
   },
