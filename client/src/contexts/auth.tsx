@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { createContext, PropsWithChildren, useState } from 'react';
+import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 
 export const AuthContext = createContext({
   isAuthenticated: false,
-  user: {
+  accessToken: '',
+  userData: {
     name: '',
     email: '',
   },
@@ -13,23 +14,36 @@ export const AuthContext = createContext({
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState({
+  const [accessToken, setAccessToken] = useState('');
+  const [userData, setUserData] = useState({
     name: '',
     email: '',
   });
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      const accessToken = localStorage.getItem('accessToken');
+      if (!accessToken) return;
+
+      setAccessToken(accessToken);
+    } else {
+      localStorage.removeItem('accessToken');
+      setAccessToken('');
+    }
+  }, [isAuthenticated]);
+
   const login = () => {
     setIsAuthenticated(true);
+    // todo: get user data from spotify api
   };
 
   const logout = () => {
     setIsAuthenticated(false);
-    setUser({
+    setUserData({
       name: '',
       email: '',
     });
-    // todo: clear local storage
   };
 
-  return <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ isAuthenticated, userData, accessToken, login, logout }}>{children}</AuthContext.Provider>;
 };

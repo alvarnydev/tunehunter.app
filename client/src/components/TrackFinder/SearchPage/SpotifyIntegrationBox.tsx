@@ -1,8 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import InfoAnnotation from '../../utils/InfoComponents';
+import { useContext } from 'react';
+import { AuthContext } from '../../../contexts/auth';
 
 const SpotifyIntegrationBox = () => {
   const { t } = useTranslation();
+  const { isAuthenticated } = useContext(AuthContext);
 
   const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID || '';
   const REDIRECT_URI = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
@@ -44,8 +47,6 @@ const SpotifyIntegrationBox = () => {
       scope: SCOPE,
     };
 
-    console.log(REDIRECT_URI);
-
     const url = new URL(AUTH_ENDPOINT);
     url.search = new URLSearchParams(params).toString();
     window.location.href = url.toString();
@@ -53,20 +54,17 @@ const SpotifyIntegrationBox = () => {
 
   return (
     <div className='w-4/5 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0'>
-      <p className='pr-2'>{t('spotifyBox.integration')}</p>
-      <div className='flex items-center'>
-        <button
-          className='btn btn-xs btn-success rounded-full'
-          onClick={requestAuthorizationCodePKCE}
-        >
-          Spotify Integration
-        </button>
-        <InfoAnnotation infoText={t('spotifyBox.annotation')} />
-      </div>
+      <p className='pr-2'>{isAuthenticated ? t('spotifyBox.authorized') : t('spotifyBox.integration')}</p>
+      {!isAuthenticated && (
+        <div className='flex items-center'>
+          <button className='btn btn-xs btn-success rounded-full' onClick={requestAuthorizationCodePKCE}>
+            Spotify Integration
+          </button>
+          <InfoAnnotation infoText={t('spotifyBox.annotation')} />
+        </div>
+      )}
     </div>
   );
 };
 
 export default SpotifyIntegrationBox;
-
-// bg-black py-2 px-4 rounded-full
