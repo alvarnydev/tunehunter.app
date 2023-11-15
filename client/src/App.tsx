@@ -1,5 +1,5 @@
 import Layout from './components/Layout';
-import { Suspense, createContext, useState } from 'react';
+import { Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -9,33 +9,11 @@ import SearchPage from './components/TrackFinder/SearchPage';
 import { Toaster } from 'react-hot-toast';
 import { NotFoundError } from './components/utils/ErrorComponents';
 import CallbackPage from './components/TrackFinder/CallbackPage';
-
-const UserContext = createContext({});
+import { AuthProvider } from './contexts/auth';
+import animationClasses from './utils/animations';
+import { toastContainer, toastOptions } from './utils/toast';
 
 const queryClient = new QueryClient();
-
-const toastContainer = {
-  top: 30,
-  left: 40,
-  right: 40,
-};
-const toastOptions = {
-  // bg-info rounded-full border-2 border-info
-  className: 'alert alert-warning',
-  style: {
-    padding: '8px 0px',
-  },
-  error: {
-    className: 'alert alert-error',
-  },
-};
-
-const animationClasses = {
-  appear: 'opacity-0',
-  enter: 'opacity-0',
-  appearActive: 'transition-opacity duration-500 opacity-100',
-  enterActive: 'transition-opacity duration-500 opacity-100',
-};
 
 const AnimatedSwitch = () => {
   const location = useLocation();
@@ -54,29 +32,20 @@ const AnimatedSwitch = () => {
 };
 
 function App() {
-  const [user, setUser] = useState(null);
-
   return (
     <Suspense fallback='...is loading'>
       {/* todo:
       https://react.dev/reference/react/useContext#optimizing-re-renders-when-passing-objects-and-functions */}
-      <UserContext.Provider value={{ user, setUser }}>
+      <AuthProvider>
         <QueryClientProvider client={queryClient}>
           <Layout>
-            <Toaster
-              containerClassName='toaster-wrapper'
-              position='top-center'
-              reverseOrder={true}
-              containerStyle={toastContainer}
-              toastOptions={toastOptions}
-              gutter={24}
-            />
+            <Toaster containerClassName='toaster-wrapper' position='top-center' reverseOrder={true} containerStyle={toastContainer} toastOptions={toastOptions} gutter={24} />
             <BrowserRouter>
               <AnimatedSwitch />
             </BrowserRouter>
           </Layout>
         </QueryClientProvider>
-      </UserContext.Provider>
+      </AuthProvider>
     </Suspense>
   );
 }

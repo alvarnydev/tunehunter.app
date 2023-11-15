@@ -1,6 +1,6 @@
 MVP: only german results
 
-user access token to get info about user
+use user access token to get info about user
 put user name or email into user context
 
 context logged in (spotify integration used) -> settings menu opens based on that
