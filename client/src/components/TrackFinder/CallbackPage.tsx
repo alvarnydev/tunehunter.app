@@ -69,7 +69,7 @@ const CallbackPage = () => {
   return (
     <div className='flex flex-col gap-4'>
       <LoadingSpinner size={24} />
-      <p className='ml-2 text-[#36d7b7]'>{t(`loadingStates.${status}`)}</p>
+      <p className='ml-2'>{t(`loadingStates.${status}`)}</p>
     </div>
   );
 };

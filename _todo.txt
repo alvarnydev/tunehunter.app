@@ -1,6 +1,5 @@
 MVP: only german results
 
-add tooltip to disabled profile button
 add animation to profilebutton after redirection
 fix page refresh breaking login
 

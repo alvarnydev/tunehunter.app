@@ -48,7 +48,7 @@ const ResultsTable = (props: { searchParams: URLSearchParams }) => {
       customMessage: `ResultsTable query failed!`,
       componentStack: error.stack,
     });
-    return <ErrorAlert />;
+    return <ErrorAlert message={error.message} />;
   }
 
   if (data) {

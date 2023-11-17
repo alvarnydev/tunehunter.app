@@ -13,7 +13,7 @@ const resources = {
       spotifyBox: {
         integration: 'For best results, use our ',
         annotation: "After logging in, just hit play on the song you want to search for and we'll automatically search for it!",
-        authorized: 'Waiting for you to start playing a song...',
+        authenticated: 'Detecting your song',
       },
       resultstable: {
         header: {
@@ -27,11 +27,16 @@ const resources = {
         backtostart: 'Back to the start',
         wrongsong: 'Not the right song?',
       },
+      footer: {
+        profileDisabledTooltip: 'To access your profile, log in with Spotify',
+      },
       countries: {
         de: 'Germany',
       },
       errors: {
-        general: "Something bad happened on our end, sorry! We're investigating 🕵️‍♀️",
+        general: "Something bad happened on our end, sorry! We're investigating...",
+        moreInformation: "In case you're curious, this is the error: ",
+        reachOut: 'While the error already made its way over to me, feel free to reach out to me at XXX :)',
       },
       loadingStates: {
         loading: 'Loading...',
@@ -58,6 +63,7 @@ const resources = {
       spotifyBox: {
         integration: 'Para mejores resultados, use nuestra ',
         annotation: 'Después de iniciar sesión, simplemente reproduce la canción que deseas buscar y la buscaremos automáticamente!',
+        authenticated: 'Detectando tu canción',
       },
       resultstable: {
         header: {
@@ -71,11 +77,16 @@ const resources = {
         backtostart: 'Volver al principio',
         wrongsong: '¿No la canción correcta?',
       },
+      footer: {
+        profileDisabledTooltip: 'Para acceder a tu perfil, inicia sesión con Spotify',
+      },
       countries: {
         de: 'Alemania',
       },
       errors: {
-        general: 'Nos ha pasado algo, ¡lo sentimos! Estamos investigando 🕵️‍♀️',
+        general: 'Nos ha pasado algo, ¡lo sentimos! Estamos investigando...',
+        moreInformation: 'En caso de que estés curioso, este es el error: ',
+        reachOut: 'Aunque el error ya me ha llegado, no dudes en contactarme en XXX :)',
       },
       loadingStates: {
         loading: 'Cargando...',
@@ -103,6 +114,7 @@ const resources = {
       spotifyBox: {
         integration: "Für die besten Ergebnisse, nutz' unsere ",
         annotation: 'Starte nach dem Einloggen einfach das Lied, das du suchst und wir suchen es automatisch heraus!',
+        authenticated: 'Versuche, dein Lied herauszufinden',
       },
       resultstable: {
         header: {
@@ -116,11 +128,16 @@ const resources = {
         backtostart: 'Zurück zum Start',
         wrongsong: 'Nicht das richtige Lied?',
       },
+      footer: {
+        profileDisabledTooltip: "Um auf dein Profil zuzugreifen, log' dich mit Spotify ein",
+      },
       countries: {
         de: 'Deutschland',
       },
       errors: {
-        general: 'Etwas ist schief gelaufen, sorry! Wir begeben uns auf Fehlersuche 🕵️‍♀️',
+        general: 'Etwas ist schief gelaufen, sorry! Wir begeben uns auf Fehlersuche...',
+        moreInformation: 'Falls du neugierig bist, das ist der Fehler: ',
+        reachOut: 'Auch wenn der Fehler schon bei mir angekommen ist, kannst du mich gerne unter XXX kontaktieren :)',
       },
       loadingStates: {
         loading: 'Laden...',
