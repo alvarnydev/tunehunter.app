@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProfileButton from './Profile/ProfileButton';
 import ProfileMenu from './Profile/ProfileMenu';
 import ProfileBackground from './Profile/ProfileBackground';
-import { AuthContext } from '../../contexts/auth';
+import { useAuth } from '../../contexts/auth';
 
 const Profile = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     if (!isAuthenticated) setMenuOpen(false);

@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import InfoAnnotation from '../../utils/InfoComponents';
-import { useContext } from 'react';
-import { AuthContext } from '../../../contexts/auth';
+import { useAuth } from '../../../contexts/auth';
 
 const SpotifyIntegrationBox = () => {
   const { t } = useTranslation();
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated } = useAuth();
 
   const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID || '';
   const REDIRECT_URI = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;

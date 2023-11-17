@@ -1,14 +1,14 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LoadingSpinner } from '../utils/LoadingComponents';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { AuthContext } from '../../contexts/auth';
+import { useAuth } from '../../contexts/auth';
 
 const CallbackPage = () => {
   const [status, setStatus] = useState('loading');
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const { login } = useAuth();
 
   useEffect(() => {
     processCallback();
