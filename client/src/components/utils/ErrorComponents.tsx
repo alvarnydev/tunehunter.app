@@ -5,7 +5,7 @@ const ErrorAlert = ({ message }: { message?: string }) => {
   const { t } = useTranslation();
 
   return (
-    <div className='alert alert-error w-4/5'>
+    <div className='alert alert-error w-auto max-w-[80%]'>
       <div className='collapse collapse-arrow bg-error rounded-xl'>
         <input type='checkbox' />
         <div className='collapse-title flex gap-4'>
@@ -19,9 +19,7 @@ const ErrorAlert = ({ message }: { message?: string }) => {
             <div className='flex justify-between items-center gap-4 border-t-2 pt-4'>
               <p className='w-1/4'>{t('errors.moreInformation')}</p>
               <div className='mockup-code w-3/4'>
-                <pre data-prefix='~'>
-                  <code>{message}</code>
-                </pre>
+                <code className='block px-6 break-words'>{message}</code>
               </div>
             </div>
             <p>{t('errors.reachOut')}</p>

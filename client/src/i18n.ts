@@ -36,16 +36,10 @@ const resources = {
       errors: {
         general: "Something bad happened on our end, sorry! We're investigating...",
         moreInformation: 'This is what happened: ',
-        reachOut: 'The error already made its way over to us but feel free to reach out at XXX :)',
+        reachOut: 'The error already made its way over to us but feel free to reach out anyway at XXX.',
       },
       loadingStates: {
         loading: 'Loading...',
-        error: {
-          noCodeVerifierFound: 'Error: No code verifier found in local storage!',
-          noCodeFound: 'Error: No code found in callback URL!',
-          fetchError: 'Error: Could not fetch access token!',
-          noTokenFound: 'Error: No token found in response!',
-        },
         success: {
           general: 'Success!',
           redirecting: 'Success! Redirecting...',
@@ -85,17 +79,11 @@ const resources = {
       },
       errors: {
         general: 'Nos ha pasado algo, ¡lo sentimos! Estamos investigando...',
-        moreInformation: 'En caso de que estés curioso, este es el error: ',
-        reachOut: 'Aunque el error ya nos ha llegado, no dudes en contactarnos en XXX :)',
+        moreInformation: 'Esto es lo que ha pasado: ',
+        reachOut: 'Aunque el error ya nos ha llegado, no dudes en contactarnos en XXX.',
       },
       loadingStates: {
         loading: 'Cargando...',
-        error: {
-          noCodeVerifierFound: 'Error: No code verifier found in local storage!',
-          noCodeFound: 'Error: No code found in callback URL!',
-          fetchError: 'Error: Could not fetch access token!',
-          noTokenFound: 'Error: No token found in response!',
-        },
         success: {
           general: 'Éxito!',
           redirecting: 'Éxito! Redirigiendo...',
@@ -136,17 +124,11 @@ const resources = {
       },
       errors: {
         general: 'Etwas ist schief gelaufen, sorry! Wir begeben uns auf Fehlersuche...',
-        moreInformation: 'Falls du neugierig bist, das ist der Fehler: ',
-        reachOut: 'Der Fehler hat schon seinen Weg zu uns gefunden, aber du kannst uns trotzdem gerne unter XXX kontaktieren :)',
+        moreInformation: 'Das ist passiert: ',
+        reachOut: 'Der Fehler hat auch schon seinen Weg zu uns gefunden, aber du kannst uns trotzdem gerne unter XXX kontaktieren.',
       },
       loadingStates: {
         loading: 'Laden...',
-        error: {
-          noCodeVerifierFound: 'Error: No code verifier found in local storage!',
-          noCodeFound: 'Error: No code found in callback URL!',
-          fetchError: 'Error: Could not fetch access token!',
-          noTokenFound: 'Error: No token found in response!',
-        },
         success: {
           general: 'Erfolg!',
           redirecting: 'Erfolg! Leite weiter...',

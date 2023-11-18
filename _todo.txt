@@ -34,7 +34,7 @@ optimizations:
 
 THEN:
 
-demo mode: use local data instead of backend api
+Why is cors not blocking requests to https://accounts.spotify.com/api/token but to api.btt.com?
 lots of memory? check for memory leaks, endless loops
 
 1. Save calls in DB

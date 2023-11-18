@@ -33,12 +33,7 @@ const SpotifyIntegrationBox = () => {
       .replace(/\//g, '_');
   };
 
-  const requestAuthorizationCodePKCE = async () => {
-    const codeVerifier = generateRandomString(64);
-    window.localStorage.setItem('codeVerifier', codeVerifier);
-    const hashed = await hashStringWithSha256(codeVerifier);
-    const codeChallenge = encodeWithBase64Url(hashed);
-
+  const redirectToSpotify = (codeChallenge: string) => {
     const params = {
       client_id: CLIENT_ID,
       response_type: RESPONSE_TYPE,
@@ -51,6 +46,14 @@ const SpotifyIntegrationBox = () => {
     const url = new URL(AUTH_ENDPOINT);
     url.search = new URLSearchParams(params).toString();
     window.location.href = url.toString();
+  };
+
+  const requestAuthorizationCodePKCE = async () => {
+    const codeVerifier = generateRandomString(64);
+    window.localStorage.setItem('codeVerifier', codeVerifier);
+    const hashed = await hashStringWithSha256(codeVerifier);
+    const codeChallenge = encodeWithBase64Url(hashed);
+    redirectToSpotify(codeChallenge);
   };
 
   const TextAuthenticated = () => {
