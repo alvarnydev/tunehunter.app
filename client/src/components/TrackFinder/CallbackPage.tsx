@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import ErrorAlert from '../utils/ErrorComponents';
 import { useTranslation } from 'react-i18next';
 import { FaCheck } from 'react-icons/fa6';
+import { removeFromLocalStorage, retrieveFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage';
 
 const CallbackPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +17,7 @@ const CallbackPage = () => {
   useEffect(() => {
     let ignore = false;
     setIsLoading(true);
-    const code = retrieveFromCallbackUrl();
+    const code = retrieveFromUrl('code');
     const codeVerifier = retrieveFromLocalStorage('codeVerifier');
     const params = buildSearchParams(code, codeVerifier);
 
@@ -31,6 +32,7 @@ const CallbackPage = () => {
           setError('');
           await saveProperty(data, 'access_token');
           await saveProperty(data, 'refresh_token');
+          await saveExpiryDate(data, 'expires_in');
 
           setTimeout(() => {
             redirect();
@@ -58,6 +60,7 @@ const CallbackPage = () => {
     navigate('/');
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const saveProperty = async (data: any, key: string) => {
     const keyValue = data[key];
     if (keyValue === null || keyValue === '') {
@@ -67,27 +70,22 @@ const CallbackPage = () => {
     saveToLocalStorage(key, keyValue);
   };
 
-  const retrieveFromCallbackUrl = (): string => {
+  const saveExpiryDate = async (data: any, key: string) => {
+    const expiresIn = data[key];
+    const currentDate = new Date();
+    saveToLocalStorage('issue_date', currentDate.toISOString());
+    currentDate.setSeconds(currentDate.getSeconds() + expiresIn);
+    saveToLocalStorage('expiry_date', currentDate.toISOString());
+  };
+
+  const retrieveFromUrl = (parameter: string): string => {
     const params = new URLSearchParams(window.location.search);
-    const code = params.get('code');
+    const code = params.get(parameter);
     if (code === null) {
-      throw new Error('No code found in callback URL!');
+      throw new Error(`No '${parameter}' found in callback URL!`);
     }
 
     return code;
-  };
-
-  const retrieveFromLocalStorage = (key: string): string => {
-    const value = window.localStorage.getItem(key);
-    if (value === null) {
-      throw new Error(`No '${key}' found in local storage!`);
-    }
-
-    return value;
-  };
-
-  const saveToLocalStorage = (key: string, value: string): void => {
-    window.localStorage.setItem(key, value);
   };
 
   const buildSearchParams = (code: string, codeVerifier: string): URLSearchParams => {
@@ -106,15 +104,15 @@ const CallbackPage = () => {
       body: params,
     });
     if (!response.ok || response === null) {
-      throw new Error('Could not fetch access token!');
+      throw new Error('Error while sending request!');
     }
 
     return response;
   };
 
   const cleanUpLocalStorage = (): void => {
-    window.localStorage.removeItem('codeVerifier');
-    window.localStorage.removeItem('code');
+    removeFromLocalStorage('codeVerifier');
+    removeFromLocalStorage('code');
   };
 
   if (error) return <ErrorAlert message={error} />;
@@ -133,5 +131,3 @@ const CallbackPage = () => {
 };
 
 export default CallbackPage;
-
-// noCodeFound: 'Error: No code found in callback URL!',

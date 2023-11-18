@@ -1,13 +1,12 @@
 MVP: only german results
 
-add animation to profilebutton after redirection
-fix page refresh breaking login
 
 token refresh
 use user access token to get info about user
 put user name or email into user context
 
-context logged in (spotify integration used) -> settings menu opens based on that
+add animation to profilebutton after redirection
+figre out double request with strict mode on on CallbackPage
 
 fill menu with daisy components
 - make right menu fixed size

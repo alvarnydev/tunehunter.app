@@ -9,31 +9,58 @@ import SearchPage from './components/TrackFinder/SearchPage';
 import { Toaster } from 'react-hot-toast';
 import { NotFoundError } from './components/utils/ErrorComponents';
 import CallbackPage from './components/TrackFinder/CallbackPage';
-import { AuthProvider } from './contexts/auth';
+import { AuthProvider, useAuth } from './contexts/auth';
 import animationClasses from './utils/animations';
 import { toastContainer, toastOptions } from './utils/toast';
+import { refreshToken } from './utils/fetchAUth';
+import { retrieveFromLocalStorage } from './utils/localStorage';
 
 const queryClient = new QueryClient();
 
 const AnimatedSwitch = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isAuthenticated, login } = useAuth();
 
-  // Keymappings
   useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key == 'Backspace' && e.target == document.body) {
-        navigate(-1);
-      }
-      if (e.key == 'Escape' && e.ctrlKey == true && e.target == document.body) {
-        navigate('/');
-      }
-    }
+    const keyMappings = [
+      { key: 'Backspace', action: () => navigate(-1) },
+      { key: 'KeyH', action: () => navigate('/') },
+    ];
 
-    document.addEventListener('keydown', handleKeyDown);
+    const addKeyMappings = () => {
+      keyMappings.forEach((keyMapping) => {
+        document.addEventListener('keyup', (e) => {
+          if (e.key == keyMapping.key && e.target == document.body) {
+            keyMapping.action();
+          }
+        });
+      });
+    };
+
+    const removeKeyMappings = () => {
+      keyMappings.forEach((keyMapping) => {
+        document.removeEventListener('keyup', (e) => {
+          if (e.key == keyMapping.key && e.target == document.body) {
+            keyMapping.action();
+          }
+        });
+      });
+    };
+
+    const tryIdentifyUser = async () => {
+      const accessToken = retrieveFromLocalStorage('access_token');
+      if (accessToken) {
+        login(accessToken);
+      }
+    };
+
+    addKeyMappings();
+    if (!isAuthenticated) tryIdentifyUser();
+    if (isAuthenticated) refreshToken();
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      removeKeyMappings();
     };
   }, [navigate]);
 

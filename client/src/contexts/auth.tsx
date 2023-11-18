@@ -8,6 +8,12 @@ export const AuthContext = createContext({
   userData: {
     name: '',
     email: '',
+    imagePath: '',
+    spotify: {
+      totalLikes: 0,
+      totalSongs: 0,
+      searches: 0,
+    },
   },
   login: (_accessToken: string) => {},
   logout: () => {},
@@ -22,6 +28,12 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [userData, setUserData] = useState({
     name: '',
     email: '',
+    imagePath: '',
+    spotify: {
+      totalLikes: 0,
+      totalSongs: 0,
+      searches: 0,
+    },
   });
 
   const getUserData = async () => {
@@ -44,6 +56,12 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     setUserData({
       name: '',
       email: '',
+      imagePath: '',
+      spotify: {
+        totalLikes: 0,
+        totalSongs: 0,
+        searches: 0,
+      },
     });
   };
 
