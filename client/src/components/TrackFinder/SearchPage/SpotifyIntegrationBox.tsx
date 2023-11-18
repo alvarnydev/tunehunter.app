@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import InfoAnnotation from '../../utils/InfoComponents';
 import { useAuth } from '../../../contexts/auth';
 import { FaSpotify } from 'react-icons/fa6';
-import { ScaleLoader } from 'react-spinners';
 import { LoadingPulse } from '../../utils/LoadingComponents';
 
 const SpotifyIntegrationBox = () => {

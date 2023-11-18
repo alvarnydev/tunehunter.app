@@ -35,8 +35,8 @@ const resources = {
       },
       errors: {
         general: "Something bad happened on our end, sorry! We're investigating...",
-        moreInformation: "In case you're curious, this is the error: ",
-        reachOut: 'While the error already made its way over to me, feel free to reach out to me at XXX :)',
+        moreInformation: 'This is what happened: ',
+        reachOut: 'The error already made its way over to us but feel free to reach out at XXX :)',
       },
       loadingStates: {
         loading: 'Loading...',
@@ -86,7 +86,7 @@ const resources = {
       errors: {
         general: 'Nos ha pasado algo, ¡lo sentimos! Estamos investigando...',
         moreInformation: 'En caso de que estés curioso, este es el error: ',
-        reachOut: 'Aunque el error ya me ha llegado, no dudes en contactarme en XXX :)',
+        reachOut: 'Aunque el error ya nos ha llegado, no dudes en contactarnos en XXX :)',
       },
       loadingStates: {
         loading: 'Cargando...',
@@ -137,7 +137,7 @@ const resources = {
       errors: {
         general: 'Etwas ist schief gelaufen, sorry! Wir begeben uns auf Fehlersuche...',
         moreInformation: 'Falls du neugierig bist, das ist der Fehler: ',
-        reachOut: 'Auch wenn der Fehler schon bei mir angekommen ist, kannst du mich gerne unter XXX kontaktieren :)',
+        reachOut: 'Der Fehler hat schon seinen Weg zu uns gefunden, aber du kannst uns trotzdem gerne unter XXX kontaktieren :)',
       },
       loadingStates: {
         loading: 'Laden...',

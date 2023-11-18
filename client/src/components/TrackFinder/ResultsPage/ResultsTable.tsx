@@ -29,10 +29,10 @@ function filterData(apiData: ApiResponseDataType): ResultsDataType {
   return filteredData;
 }
 
-const ResultsTable = (props: { searchParams: URLSearchParams }) => {
+const ResultsTable = ({ searchParams }: { searchParams: URLSearchParams }) => {
   const { t } = useTranslation();
   const { isLoading, error, data } = useQuery({
-    queryKey: [props.searchParams.toString(), { searchParams: props.searchParams }],
+    queryKey: [searchParams.toString(), { searchParams }],
     queryFn: fetchData,
     retry: false,
   });

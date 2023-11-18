@@ -1,7 +1,7 @@
 import Layout from './components/Layout';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import ResultsPage from './components/TrackFinder/ResultsPage';
@@ -16,7 +16,27 @@ import { toastContainer, toastOptions } from './utils/toast';
 const queryClient = new QueryClient();
 
 const AnimatedSwitch = () => {
+  const navigate = useNavigate();
   const location = useLocation();
+
+  // Keymappings
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key == 'Backspace' && e.target == document.body) {
+        navigate(-1);
+      }
+      if (e.key == 'Escape' && e.ctrlKey == true && e.target == document.body) {
+        navigate('/');
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [navigate]);
+
   return (
     <TransitionGroup component={null} exit={false}>
       <CSSTransition key={location.pathname} classNames={animationClasses} timeout={500}>

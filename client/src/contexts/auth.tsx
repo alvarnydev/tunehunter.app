@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
+import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
 export const AuthContext = createContext({
   isAuthenticated: false,
@@ -8,7 +9,7 @@ export const AuthContext = createContext({
     name: '',
     email: '',
   },
-  login: () => {},
+  login: (_accessToken: string) => {},
   logout: () => {},
 });
 
@@ -23,25 +24,23 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     email: '',
   });
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      const accessToken = localStorage.getItem('accessToken');
-      if (!accessToken) return;
+  const getUserData = async () => {
+    // const response = await fetch('http://localhost:3001/api/user', {
+    //   headers: { Authorization: `Bearer ${accessToken}` },
+    // });
+    // const data = await response.json();
+    // setUserData(data);
+  };
 
-      setAccessToken(accessToken);
-    } else {
-      localStorage.removeItem('accessToken');
-      setAccessToken('');
-    }
-  }, [isAuthenticated]);
-
-  const login = () => {
+  const login = (accessToken: string) => {
     setIsAuthenticated(true);
-    // todo: get user data from spotify api
+    setAccessToken(accessToken);
+    getUserData();
   };
 
   const logout = () => {
     setIsAuthenticated(false);
+    setAccessToken('');
     setUserData({
       name: '',
       email: '',

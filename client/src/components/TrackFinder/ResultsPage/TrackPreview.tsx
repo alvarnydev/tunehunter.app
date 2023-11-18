@@ -7,21 +7,17 @@ function openModal() {
   modal.showModal();
 }
 
-const TrackPreview = (props: { songData: TrackInfoType }) => {
+const TrackPreview = ({ songData }: { songData: TrackInfoType }) => {
   const { t } = useTranslation();
 
   return (
     <div className='bg-primary m-auto flex flex-col items-center justify-around rounded-2xl gap-4 p-8 xl:w-96 xl:m-0'>
       <figure className='content-center'>
-        <img
-          src={props.songData.vendor.artLink}
-          alt='Album cover art'
-          className='rounded-xl w-40 h-40'
-        />
+        <img src={songData.vendor.artLink} alt='Album cover art' className='rounded-xl w-40 h-40' />
       </figure>
       <div className='flex flex-col justify-center items-center text-center p-0 gap-1'>
-        <h2 className='text-xl font-bold'>{props.songData.song.artist}</h2>
-        <p>{props.songData.song.title}</p>
+        <h2 className='text-xl font-bold'>{songData.song.artist}</h2>
+        <p>{songData.song.title}</p>
       </div>
       <button className='btn btn-outline rounded-full text-xs w-auto' onClick={openModal}>
         {t('resultstable.wrongsong')}
@@ -40,11 +36,3 @@ const TrackPreview = (props: { songData: TrackInfoType }) => {
 };
 
 export default TrackPreview;
-
-{
-  /* <div className='flex flex-col gap-4'>
-  <img src={props.songData.vendor.artLink} alt='album cover' />
-  <span className='text-sm'>{props.songData.song.artist}</span>
-  <span className='text-sm'>{props.songData.song.title}</span>
-</div>; */
-}

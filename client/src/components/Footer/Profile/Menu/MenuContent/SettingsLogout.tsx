@@ -1,5 +1,4 @@
-import { useContext } from 'react';
-import { AuthContext } from '../../../../../contexts/auth';
+import { useAuth } from '../../../../../contexts/auth';
 
 const SettingsLogout = () => {
   const { logout } = useAuth();
