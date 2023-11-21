@@ -12,8 +12,8 @@ import CallbackPage from './components/TrackFinder/CallbackPage';
 import { AuthProvider, useAuth } from './contexts/auth';
 import animationClasses from './utils/animations';
 import { toastContainer, toastOptions } from './utils/toast';
-import { refreshToken } from './utils/fetchAUth';
 import { retrieveFromLocalStorage } from './utils/localStorage';
+import { refreshToken } from './utils/fetchAuth';
 
 const queryClient = new QueryClient();
 
