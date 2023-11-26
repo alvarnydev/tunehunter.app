@@ -1,5 +1,6 @@
 MVP: only german results
 
+check rerendering of components
 
 token refresh
 use user access token to get info about user

@@ -62,7 +62,7 @@ const AnimatedSwitch = () => {
     return () => {
       removeKeyMappings();
     };
-  }, [navigate]);
+  }, [navigate, login, isAuthenticated]);
 
   return (
     <TransitionGroup component={null} exit={false}>
