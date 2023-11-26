@@ -2,14 +2,17 @@ import { LoadingSpinner } from '../utils/LoadingComponents';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../contexts/auth';
 import { useEffect, useState } from 'react';
-import ErrorAlert from '../utils/ErrorComponents';
+import AppAlert, { UserAlert } from '../utils/ErrorComponents';
 import { useTranslation } from 'react-i18next';
 import { FaCheck } from 'react-icons/fa6';
 import { removeFromLocalStorage, retrieveFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage';
+import BackButton from './ResultsPage/BackButton';
+
+const initialError = { type: 'app', message: '' };
 
 const CallbackPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(initialError);
   const { login } = useAuth();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -17,9 +20,17 @@ const CallbackPage = () => {
   useEffect(() => {
     let ignore = false;
     setIsLoading(true);
-    const code = retrieveFromUrl('code');
-    const codeVerifier = retrieveFromLocalStorage('codeVerifier');
-    const params = buildSearchParams(code, codeVerifier);
+    let code;
+    let codeVerifier;
+    let params: URLSearchParams;
+
+    try {
+      code = retrieveFromUrl('code');
+      codeVerifier = retrieveFromLocalStorage('codeVerifier');
+      params = buildSearchParams(code, codeVerifier);
+    } catch (error) {
+      setError({ type: 'user', message: "You did not grant us access! While we can't use your Spotify data this way, you can still use the normal search function." });
+    }
 
     // After the user accepts the authorization request of the previous step, we can exchange the authorization code for an access token.
     const requestAccessToken = async () => {
@@ -29,7 +40,7 @@ const CallbackPage = () => {
 
         if (ignore === false) {
           setIsLoading(false);
-          setError('');
+          setError(initialError);
           await saveProperty(data, 'access_token');
           await saveProperty(data, 'refresh_token');
           await saveExpiryDate(data, 'expires_in');
@@ -40,25 +51,25 @@ const CallbackPage = () => {
         }
       } catch (error: unknown) {
         if (ignore === false && error instanceof Error) {
-          setError(error.message);
+          setError({ type: 'app', message: error.message });
           setIsLoading(false);
         }
       }
     };
 
-    requestAccessToken();
+    const redirect = () => {
+      cleanUpLocalStorage();
+      const accessToken = retrieveFromLocalStorage('access_token');
+      login(accessToken);
+      navigate('/');
+    };
+
+    if (error.message === '') requestAccessToken();
 
     return () => {
       ignore = true;
     };
-  }, []);
-
-  const redirect = () => {
-    cleanUpLocalStorage();
-    const accessToken = retrieveFromLocalStorage('access_token');
-    login(accessToken);
-    navigate('/');
-  };
+  }, [login, navigate, error]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const saveProperty = async (data: any, key: string) => {
@@ -115,7 +126,15 @@ const CallbackPage = () => {
     removeFromLocalStorage('code');
   };
 
-  if (error) return <ErrorAlert message={error} />;
+  if (error.message !== '') {
+    return (
+      <div className='flex flex-col items-center justify-center gap-[5vh]'>
+        {error.type == 'app' && <AppAlert type={'error'} message={error.message} />}
+        {error.type == 'user' && <UserAlert type={'warning'} message={error.message} />}
+        <BackButton />
+      </div>
+    );
+  }
 
   return (
     <div className='flex flex-col gap-4 items-center'>

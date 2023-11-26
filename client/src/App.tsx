@@ -48,15 +48,19 @@ const AnimatedSwitch = () => {
       });
     };
 
-    const tryIdentifyUser = async () => {
-      const accessToken = retrieveFromLocalStorage('access_token');
-      if (accessToken) {
+    const tryToIdentifyUser = async (): Promise<boolean> => {
+      try {
+        const accessToken = retrieveFromLocalStorage('access_token');
+        console.log('accessToken', accessToken);
         login(accessToken);
+        return true;
+      } catch (error) {
+        return false;
       }
     };
 
     addKeyMappings();
-    if (!isAuthenticated) tryIdentifyUser();
+    if (!isAuthenticated) tryToIdentifyUser();
     if (isAuthenticated) refreshToken();
 
     return () => {

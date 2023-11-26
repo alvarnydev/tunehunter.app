@@ -8,7 +8,7 @@ export const removeFromLocalStorage = (key: string): void => {
 
 export const retrieveFromLocalStorage = (key: string): string => {
   const value = window.localStorage.getItem(key);
-  if (value === null) {
+  if (value === null || value === 'undefined') {
     throw new Error(`No '${key}' found in local storage!`);
   }
 

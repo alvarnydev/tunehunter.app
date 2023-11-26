@@ -3,7 +3,7 @@ import { fetchData } from '../../../utils/fetchData';
 import { LoadingSpinner } from '../../utils/LoadingComponents';
 import ResultsRow from './ResultsRow';
 import { ApiResponseDataType, ResultsDataType } from '../../../../../types';
-import ErrorAlert, { WarningAlert } from '../../utils/ErrorComponents';
+import AppAlert, { WarningAlert } from '../../utils/ErrorComponents';
 import { useTranslation } from 'react-i18next';
 import TrackPreview from './TrackPreview';
 import { logError } from '../../utils/ErrorFunctions';
@@ -48,7 +48,7 @@ const ResultsTable = ({ searchParams }: { searchParams: URLSearchParams }) => {
       customMessage: `ResultsTable query failed!`,
       componentStack: error.stack,
     });
-    return <ErrorAlert message={error.message} />;
+    return <AppAlert type={'error'} message={error.message} />;
   }
 
   if (data) {

@@ -74,7 +74,7 @@ const SpotifyIntegrationBox = () => {
   };
 
   return (
-    <div className='w-4/5 flex flex-col gap-6 items-center justify-center'>
+    <div className='w-4/5 flex flex-col gap-[3vh] items-center justify-center'>
       {isAuthenticated && (
         <>
           <Dashboard />

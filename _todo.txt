@@ -1,10 +1,12 @@
 MVP: only german results
 
-check rerendering of components
+callback page denied access
 
 token refresh
 use user access token to get info about user
 put user name or email into user context
+
+also history
 
 add animation to profilebutton after redirection
 figre out double request with strict mode on on CallbackPage

@@ -13,13 +13,7 @@ const initialFormData: FormDataType = {
   playlistSearchString: '',
 };
 
-const SearchBar = ({
-  searchParams,
-  setSearchParams,
-}: {
-  searchParams?: URLSearchParams;
-  setSearchParams?: (searchparams: URLSearchParams) => void;
-}) => {
+const SearchBar = ({ searchParams, setSearchParams }: { searchParams?: URLSearchParams; setSearchParams?: (searchparams: URLSearchParams) => void }) => {
   const [formData, setFormData] = useState(initialFormData);
 
   const handleFormUpdate = (newFormData: FormDataType) => {
@@ -27,41 +21,41 @@ const SearchBar = ({
   };
 
   useEffect(() => {
-    const searchModeStored = localStorage.getItem('searchMode');
-    if (searchModeStored) {
-      setFormData((formData) => ({ ...formData, searchMode: searchModeStored }));
+    function restoreFormData() {
+      const searchModeStored = localStorage.getItem('searchMode');
+      if (searchModeStored) {
+        setFormData((formData) => ({ ...formData, searchMode: searchModeStored }));
+      }
+
+      const playlistSearchStringStored = localStorage.getItem('playlistSearchString');
+      if (playlistSearchStringStored) {
+        setFormData((formData) => ({
+          ...formData,
+          playlistSearchString: playlistSearchStringStored,
+        }));
+      }
+
+      const songSearchQuery_artist = localStorage.getItem('songSearchQuery_artist');
+      const songSearchQuery_title = localStorage.getItem('songSearchQuery_title');
+      if (songSearchQuery_artist && songSearchQuery_title) {
+        setFormData((formData) => ({
+          ...formData,
+          songSearchQuery: {
+            artist: songSearchQuery_artist,
+            title: songSearchQuery_title,
+          },
+        }));
+      }
     }
 
-    const playlistSearchStringStored = localStorage.getItem('playlistSearchString');
-    if (playlistSearchStringStored) {
-      setFormData((formData) => ({
-        ...formData,
-        playlistSearchString: playlistSearchStringStored,
-      }));
-    }
-
-    const songSearchQuery_artist = localStorage.getItem('songSearchQuery_artist');
-    const songSearchQuery_title = localStorage.getItem('songSearchQuery_title');
-    if (songSearchQuery_artist && songSearchQuery_title) {
-      setFormData((formData) => ({
-        ...formData,
-        songSearchQuery: {
-          artist: songSearchQuery_artist,
-          title: songSearchQuery_title,
-        },
-      }));
-    }
+    restoreFormData();
   }, []);
 
   return (
     <div className='flex md:flex-row flex-col w-4/5 md:gap-10 gap-8'>
       <SearchModeToggler formData={formData} handleFormUpdate={handleFormUpdate} />
       <SearchTextInput formData={formData} handleFormUpdate={handleFormUpdate} />
-      <SearchButton
-        formData={formData}
-        searchParams={searchParams}
-        setSearchParams={setSearchParams}
-      />
+      <SearchButton formData={formData} searchParams={searchParams} setSearchParams={setSearchParams} />
     </div>
   );
 };
