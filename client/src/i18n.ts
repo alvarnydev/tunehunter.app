@@ -102,7 +102,7 @@ const resources = {
       spotifyBox: {
         integration: "Für die besten Ergebnisse, nutz' unsere ",
         annotation: 'Starte nach dem Einloggen einfach das Lied, das du suchst und wir suchen es automatisch heraus!',
-        authenticated: 'Starte irgendein ein Lied (in Spotify) und wir suchen automatisch danach!',
+        authenticated: 'Starte irgendein Lied (in Spotify) und wir suchen danach automatisch!',
       },
       resultstable: {
         header: {
