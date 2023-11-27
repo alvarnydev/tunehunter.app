@@ -29,7 +29,7 @@ const CallbackPage = () => {
       codeVerifier = retrieveFromLocalStorage('codeVerifier');
       params = buildSearchParams(code, codeVerifier);
     } catch (error) {
-      setError({ type: 'user', message: "You did not grant us access! While we can't use your Spotify data this way, you can still use the normal search function." });
+      setError({ type: 'user', message: t('spotifyBox.denied') });
     }
 
     // After the user accepts the authorization request of the previous step, we can exchange the authorization code for an access token.
