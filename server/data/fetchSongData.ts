@@ -1,16 +1,30 @@
 import { TrackInfoType } from '../../types';
+import { OurRequest } from '../utils/types';
+
+export const getData = async (req: OurRequest, store: string): Promise<TrackInfoType[]> => {
+  const { title, artist, duration, country } = req.query;
+  const durationNum = parseInt(duration);
+
+  switch (store) {
+    case 'itunes':
+      return await fetchItunesData(title, artist, durationNum, country);
+    case 'beatport':
+      return await fetchBeatportData(title, artist, durationNum, country);
+    case 'amazon':
+      return await fetchAmazonData(title, artist, durationNum, country);
+    case 'bandcamp':
+      return await fetchBandcampData(title, artist, durationNum, country);
+    default:
+      return fetchPlaceholderValues('song store');
+  }
+};
 
 export const fetchItunesData = async (title: string, artist: string, duration: number, country: string): Promise<TrackInfoType[]> => {
   const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
   const response = await fetch(dataUrl).then((res) => res.json());
 
-  // Sort songs by matching duration
-  const filteredSongs = response.results.filter((song: any) => {
-    return song.trackTimeMillis / 1000 === duration; // Todo
-  });
-
   // Create unified TrackInfoType[] response, grabbing the data we need from the third party <any> API response
-  const filteredResponse: TrackInfoType[] = filteredSongs.results.map((song: any) => {
+  const filteredResponse: TrackInfoType[] = response.results.map((song: any) => {
     return {
       vendor: {
         name: 'iTunes Store',
@@ -29,20 +43,21 @@ export const fetchItunesData = async (title: string, artist: string, duration: n
       },
     };
   });
-  return filteredResponse;
+
+  // Sort by matching duration
+  return filteredResponse.sort((a, b) => {
+    const aDurationDiff = Math.abs(a.song.duration - duration);
+    const bDurationDiff = Math.abs(b.song.duration - duration);
+    return aDurationDiff - bDurationDiff;
+  });
 };
 
 export const fetchBeatportData = async (title: string, artist: string, duration: number, country: string): Promise<TrackInfoType[]> => {
   const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
   const response = await fetch(dataUrl).then((res) => res.json());
 
-  // Sort songs by matching duration
-  const filteredSongs = response.results.filter((song: any) => {
-    return song.trackTimeMillis / 1000 === duration; // Todo
-  });
-
   // Create unified TrackInfoType[] response, grabbing the data we need from the third party <any> API response
-  const filteredResponse: TrackInfoType[] = filteredSongs.results.map((song: any) => {
+  const filteredResponse: TrackInfoType[] = response.results.map((song: any) => {
     return {
       vendor: {
         name: 'Beatport',
@@ -61,20 +76,21 @@ export const fetchBeatportData = async (title: string, artist: string, duration:
       },
     };
   });
-  return filteredResponse;
+
+  // Sort by matching duration
+  return filteredResponse.sort((a, b) => {
+    const aDurationDiff = Math.abs(a.song.duration - duration);
+    const bDurationDiff = Math.abs(b.song.duration - duration);
+    return aDurationDiff - bDurationDiff;
+  });
 };
 
 export const fetchAmazonData = async (title: string, artist: string, duration: number, country: string): Promise<TrackInfoType[]> => {
   const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
   const response = await fetch(dataUrl).then((res) => res.json());
 
-  // Sort songs by matching duration
-  const filteredSongs = response.results.filter((song: any) => {
-    return song.trackTimeMillis / 1000 === duration; // Todo
-  });
-
   // Create unified TrackInfoType[] response, grabbing the data we need from the third party <any> API response
-  const filteredResponse: TrackInfoType[] = filteredSongs.results.map((song: any) => {
+  const filteredResponse: TrackInfoType[] = response.results.map((song: any) => {
     return {
       vendor: {
         name: 'Amazon Music',
@@ -93,20 +109,21 @@ export const fetchAmazonData = async (title: string, artist: string, duration: n
       },
     };
   });
-  return filteredResponse;
+
+  // Sort by matching duration
+  return filteredResponse.sort((a, b) => {
+    const aDurationDiff = Math.abs(a.song.duration - duration);
+    const bDurationDiff = Math.abs(b.song.duration - duration);
+    return aDurationDiff - bDurationDiff;
+  });
 };
 
 export const fetchBandcampData = async (title: string, artist: string, duration: number, country: string): Promise<TrackInfoType[]> => {
   const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
   const response = await fetch(dataUrl).then((res) => res.json());
 
-  // Sort songs by matching duration
-  const filteredSongs = response.results.filter((song: any) => {
-    return song.trackTimeMillis / 1000 === duration; // Todo
-  });
-
   // Create unified TrackInfoType[] response, grabbing the data we need from the third party <any> API response
-  const filteredResponse: TrackInfoType[] = filteredSongs.results.map((song: any) => {
+  const filteredResponse: TrackInfoType[] = response.results.map((song: any) => {
     return {
       vendor: {
         name: 'Bandcamp',
@@ -125,7 +142,13 @@ export const fetchBandcampData = async (title: string, artist: string, duration:
       },
     };
   });
-  return filteredResponse;
+
+  // Sort by matching duration
+  return filteredResponse.sort((a, b) => {
+    const aDurationDiff = Math.abs(a.song.duration - duration);
+    const bDurationDiff = Math.abs(b.song.duration - duration);
+    return aDurationDiff - bDurationDiff;
+  });
 };
 
 export function fetchPlaceholderValues(vendor: string) {

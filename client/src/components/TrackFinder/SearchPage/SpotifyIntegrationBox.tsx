@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import InfoAnnotation from '../../utils/InfoComponents';
 import { useAuth } from '../../../contexts/auth';
-import { requestAuthorizationCodePKCE } from '../../../utils/fetchAuth';
+import { requestAuthorizationCodePKCE } from '../../../utils/fetchSpotifyAuth';
 
 const SpotifyIntegrationBox = () => {
   const { t } = useTranslation();

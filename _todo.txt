@@ -1,12 +1,14 @@
 MVP: only german results
 
+___
 use user access token to get info about user
 put user name or email into user context
-
-also history
+- also play history
 
 add animation to profilebutton after redirection
 figre out double request with strict mode on on CallbackPage
+___
+
 
 fill menu with daisy components
 - make right menu fixed size

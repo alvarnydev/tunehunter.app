@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
+import { removeFromLocalStorage } from '../utils/localStorage';
+import { fetchUserData } from '../utils/fetchSpotifyData';
 
 export const AuthContext = createContext({
   isAuthenticated: false,
@@ -36,21 +38,14 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     },
   });
 
-  const getUserData = async () => {
-    // const response = await fetch('http://localhost:3001/api/user', {
-    //   headers: { Authorization: `Bearer ${accessToken}` },
-    // });
-    // const data = await response.json();
-    // setUserData(data);
-  };
-
   const login = (accessToken: string) => {
     setIsAuthenticated(true);
     setAccessToken(accessToken);
-    getUserData();
+    fetchUserData();
   };
 
   const logout = () => {
+    removeFromLocalStorage('access_token');
     setIsAuthenticated(false);
     setAccessToken('');
     setUserData({

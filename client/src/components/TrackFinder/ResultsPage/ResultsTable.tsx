@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchData } from '../../../utils/fetchData';
+import { fetchMusicData } from '../../../utils/fetchMusicData';
 import { LoadingSpinner } from '../../utils/LoadingComponents';
 import ResultsRow from './ResultsRow';
 import { ApiResponseDataType, ResultsDataType } from '../../../../../types';
@@ -33,7 +33,7 @@ const ResultsTable = ({ searchParams }: { searchParams: URLSearchParams }) => {
   const { t } = useTranslation();
   const { isLoading, error, data } = useQuery({
     queryKey: [searchParams.toString(), { searchParams }],
-    queryFn: fetchData,
+    queryFn: fetchMusicData,
     retry: false,
   });
 

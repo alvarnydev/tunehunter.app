@@ -1,15 +1,28 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchPlaceholderValues = exports.fetchBandcampData = exports.fetchAmazonData = exports.fetchBeatportData = exports.fetchItunesData = void 0;
+exports.fetchPlaceholderValues = exports.fetchBandcampData = exports.fetchAmazonData = exports.fetchBeatportData = exports.fetchItunesData = exports.getData = void 0;
+const getData = async (req, store) => {
+    const { title, artist, duration, country } = req.query;
+    const durationNum = parseInt(duration);
+    switch (store) {
+        case 'itunes':
+            return await (0, exports.fetchItunesData)(title, artist, durationNum, country);
+        case 'beatport':
+            return await (0, exports.fetchBeatportData)(title, artist, durationNum, country);
+        case 'amazon':
+            return await (0, exports.fetchAmazonData)(title, artist, durationNum, country);
+        case 'bandcamp':
+            return await (0, exports.fetchBandcampData)(title, artist, durationNum, country);
+        default:
+            return fetchPlaceholderValues('song store');
+    }
+};
+exports.getData = getData;
 const fetchItunesData = async (title, artist, duration, country) => {
     const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
     const response = await fetch(dataUrl).then((res) => res.json());
-    // Sort songs by matching duration
-    const filteredSongs = response.results.filter((song) => {
-        return song.trackTimeMillis / 1000 === duration; // Todo
-    });
     // Create unified TrackInfoType[] response, grabbing the data we need from the third party <any> API response
-    const filteredResponse = filteredSongs.results.map((song) => {
+    const filteredResponse = response.results.map((song) => {
         return {
             vendor: {
                 name: 'iTunes Store',
@@ -28,18 +41,19 @@ const fetchItunesData = async (title, artist, duration, country) => {
             },
         };
     });
-    return filteredResponse;
+    // Sort by matching duration
+    return filteredResponse.sort((a, b) => {
+        const aDurationDiff = Math.abs(a.song.duration - duration);
+        const bDurationDiff = Math.abs(b.song.duration - duration);
+        return aDurationDiff - bDurationDiff;
+    });
 };
 exports.fetchItunesData = fetchItunesData;
 const fetchBeatportData = async (title, artist, duration, country) => {
     const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
     const response = await fetch(dataUrl).then((res) => res.json());
-    // Sort songs by matching duration
-    const filteredSongs = response.results.filter((song) => {
-        return song.trackTimeMillis / 1000 === duration; // Todo
-    });
     // Create unified TrackInfoType[] response, grabbing the data we need from the third party <any> API response
-    const filteredResponse = filteredSongs.results.map((song) => {
+    const filteredResponse = response.results.map((song) => {
         return {
             vendor: {
                 name: 'Beatport',
@@ -58,18 +72,19 @@ const fetchBeatportData = async (title, artist, duration, country) => {
             },
         };
     });
-    return filteredResponse;
+    // Sort by matching duration
+    return filteredResponse.sort((a, b) => {
+        const aDurationDiff = Math.abs(a.song.duration - duration);
+        const bDurationDiff = Math.abs(b.song.duration - duration);
+        return aDurationDiff - bDurationDiff;
+    });
 };
 exports.fetchBeatportData = fetchBeatportData;
 const fetchAmazonData = async (title, artist, duration, country) => {
     const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
     const response = await fetch(dataUrl).then((res) => res.json());
-    // Sort songs by matching duration
-    const filteredSongs = response.results.filter((song) => {
-        return song.trackTimeMillis / 1000 === duration; // Todo
-    });
     // Create unified TrackInfoType[] response, grabbing the data we need from the third party <any> API response
-    const filteredResponse = filteredSongs.results.map((song) => {
+    const filteredResponse = response.results.map((song) => {
         return {
             vendor: {
                 name: 'Amazon Music',
@@ -88,18 +103,19 @@ const fetchAmazonData = async (title, artist, duration, country) => {
             },
         };
     });
-    return filteredResponse;
+    // Sort by matching duration
+    return filteredResponse.sort((a, b) => {
+        const aDurationDiff = Math.abs(a.song.duration - duration);
+        const bDurationDiff = Math.abs(b.song.duration - duration);
+        return aDurationDiff - bDurationDiff;
+    });
 };
 exports.fetchAmazonData = fetchAmazonData;
 const fetchBandcampData = async (title, artist, duration, country) => {
     const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
     const response = await fetch(dataUrl).then((res) => res.json());
-    // Sort songs by matching duration
-    const filteredSongs = response.results.filter((song) => {
-        return song.trackTimeMillis / 1000 === duration; // Todo
-    });
     // Create unified TrackInfoType[] response, grabbing the data we need from the third party <any> API response
-    const filteredResponse = filteredSongs.results.map((song) => {
+    const filteredResponse = response.results.map((song) => {
         return {
             vendor: {
                 name: 'Bandcamp',
@@ -118,7 +134,12 @@ const fetchBandcampData = async (title, artist, duration, country) => {
             },
         };
     });
-    return filteredResponse;
+    // Sort by matching duration
+    return filteredResponse.sort((a, b) => {
+        const aDurationDiff = Math.abs(a.song.duration - duration);
+        const bDurationDiff = Math.abs(b.song.duration - duration);
+        return aDurationDiff - bDurationDiff;
+    });
 };
 exports.fetchBandcampData = fetchBandcampData;
 function fetchPlaceholderValues(vendor) {

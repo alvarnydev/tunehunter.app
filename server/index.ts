@@ -1,8 +1,8 @@
-import express, { Express, Request, Response } from 'express';
-import { fetchAmazonData, fetchBandcampData, fetchBeatportData, fetchItunesData, fetchPlaceholderValues } from './data/fetchSongData';
+import express, { Express, Response } from 'express';
 import dotenv from 'dotenv';
-import { isValidRequest } from './utils/validateRequest';
 import { OurRequest } from './utils/types';
+import { getData } from './data/fetchSongData';
+import { isValidRequest } from './utils/validateRequest';
 
 dotenv.config();
 
@@ -17,48 +17,46 @@ app.use((_, res, next) => {
   next();
 });
 
-app.get('/beatport', async (req: OurRequest, res: Response) => {
-  if (!isValidRequest(req, res)) {
-    return;
-  }
-
-  const { title, artist, duration, country } = req.query;
-  const durationNum = parseInt(duration);
-  const itunesData = await fetchBeatportData(title, artist, durationNum, country);
-  res.send(itunesData);
+app.get('/', (_, res) => {
+  res.send('Hello World!');
 });
 
-app.get('/amazon', async (req: OurRequest, res: Response) => {
+app.get('/api/spotify/auth', async (req: OurRequest, res: Response) => {});
+
+app.get('/api/spotify/refresh', async (req: OurRequest, res: Response) => {});
+
+app.get('/api/spotify/user', async (req: OurRequest, res: Response) => {});
+
+app.get('/api/beatport', async (req: OurRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
-
-  const { title, artist, duration, country } = req.query;
-  const durationNum = parseInt(duration);
-  const itunesData = await fetchAmazonData(title, artist, durationNum, country);
-  res.send(itunesData);
+  const data = await getData(req, 'beatport');
+  res.send(data);
 });
 
-app.get('/bandcamp', async (req: OurRequest, res: Response) => {
+app.get('/api/amazon', async (req: OurRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
-
-  const { title, artist, duration, country } = req.query;
-  const durationNum = parseInt(duration);
-  const itunesData = await fetchBandcampData(title, artist, durationNum, country);
-  res.send(itunesData);
+  const data = await getData(req, 'amazon');
+  res.send(data);
 });
 
-app.get('/itunes', async (req: OurRequest, res: Response) => {
+app.get('/api/bandcamp', async (req: OurRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
+  const data = await getData(req, 'bandcamp');
+  res.send(data);
+});
 
-  const { title, artist, duration, country } = req.query;
-  const durationNum = parseInt(duration);
-  const itunesData = await fetchItunesData(title, artist, durationNum, country);
-  res.send(itunesData);
+app.get('/api/itunes', async (req: OurRequest, res: Response) => {
+  if (!isValidRequest(req, res)) {
+    return;
+  }
+  const data = await getData(req, 'itunes');
+  res.send(data);
 });
 
 app.listen(port, () => {

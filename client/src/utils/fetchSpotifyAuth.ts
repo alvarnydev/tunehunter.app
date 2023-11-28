@@ -1,18 +1,11 @@
+import { saveExpiryDate } from './utilsFetch';
 import { retrieveFromLocalStorage, saveToLocalStorage } from './localStorage';
 
 const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID || '';
 const REDIRECT_URI = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
 const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
 const RESPONSE_TYPE = 'code';
-const SCOPE = 'user-read-currently-playing';
-
-export const requestAuthorizationCodePKCE = async () => {
-  const codeVerifier = generateRandomString(64);
-  window.localStorage.setItem('codeVerifier', codeVerifier);
-  const hashed = await hashStringWithSha256(codeVerifier);
-  const codeChallenge = encodeWithBase64Url(hashed);
-  redirectToSpotify(codeChallenge);
-};
+const SCOPE = 'user-read-currently-playing user-read-email user-read-private';
 
 const generateRandomString = (length: number) => {
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -48,16 +41,25 @@ const redirectToSpotify = (codeChallenge: string) => {
   window.location.href = url.toString();
 };
 
-export const refreshToken = async () => {
+export const requestAuthorizationCodePKCE = async () => {
+  const codeVerifier = generateRandomString(64);
+  window.localStorage.setItem('codeVerifier', codeVerifier);
+  const hashed = await hashStringWithSha256(codeVerifier);
+  const codeChallenge = encodeWithBase64Url(hashed);
+  redirectToSpotify(codeChallenge);
+};
+
+export const isTokenExpiring = () => {
   const expiryDate = retrieveFromLocalStorage('expiry_date');
   const timeLeft = new Date(expiryDate).getTime() - new Date().getTime();
   if (timeLeft / 60_000 > 30) {
-    console.log('Not refreshing token because enough time left: ', timeLeft / 60000);
-    return;
+    return false;
   }
+  return true;
+};
 
+export const refreshToken = async () => {
   const refreshToken = retrieveFromLocalStorage('refresh_token');
-  console.log('refreshToken', refreshToken);
   const url = new URL('https://accounts.spotify.com/api/token');
 
   const payload = {
@@ -80,4 +82,5 @@ export const refreshToken = async () => {
 
   saveToLocalStorage('access_token', newAccessToken);
   saveToLocalStorage('refresh_token', newRefreshToken);
+  saveExpiryDate(data);
 };

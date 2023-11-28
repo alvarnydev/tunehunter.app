@@ -5,8 +5,9 @@ import { useEffect, useState } from 'react';
 import AppAlert, { UserAlert } from '../utils/ErrorComponents';
 import { useTranslation } from 'react-i18next';
 import { FaCheck } from 'react-icons/fa6';
-import { removeFromLocalStorage, retrieveFromLocalStorage, saveToLocalStorage } from '../../utils/localStorage';
+import { removeFromLocalStorage, retrieveFromLocalStorage } from '../../utils/localStorage';
 import BackButton from './ResultsPage/BackButton';
+import { retrieveFromUrl, saveExpiryDate, saveProperty } from '../../utils/utilsFetch';
 
 const initialError = { type: 'app', message: '' };
 
@@ -43,7 +44,7 @@ const CallbackPage = () => {
           setError(initialError);
           await saveProperty(data, 'access_token');
           await saveProperty(data, 'refresh_token');
-          await saveExpiryDate(data, 'expires_in');
+          await saveExpiryDate(data);
 
           setTimeout(() => {
             redirect();
@@ -72,32 +73,6 @@ const CallbackPage = () => {
   }, []); // t, login, navigate, error
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const saveProperty = async (data: any, key: string) => {
-    const keyValue = data[key];
-    if (keyValue === null || keyValue === '') {
-      throw new Error(`No '${key}' found in response!`);
-    }
-
-    saveToLocalStorage(key, keyValue);
-  };
-
-  const saveExpiryDate = async (data: any, key: string) => {
-    const expiresIn = data[key];
-    const currentDate = new Date();
-    saveToLocalStorage('issue_date', currentDate.toISOString());
-    currentDate.setSeconds(currentDate.getSeconds() + expiresIn);
-    saveToLocalStorage('expiry_date', currentDate.toISOString());
-  };
-
-  const retrieveFromUrl = (parameter: string): string => {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get(parameter);
-    if (code === null) {
-      throw new Error(`No '${parameter}' found in callback URL!`);
-    }
-
-    return code;
-  };
 
   const buildSearchParams = (code: string, codeVerifier: string): URLSearchParams => {
     const params = new URLSearchParams();
@@ -111,7 +86,6 @@ const CallbackPage = () => {
 
   const sendRequest = async (params: URLSearchParams): Promise<Response> => {
     const url = 'https://accounts.spotify.com/api/token';
-    console.log('test');
     const response = await fetch(url, {
       method: 'POST',
       body: params,

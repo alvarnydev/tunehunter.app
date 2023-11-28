@@ -1,8 +1,11 @@
 import axios from 'axios';
 import { ApiResponseDataType, TrackInfoType } from '../../../types';
 
+const apiUrl = import.meta.env.VITE_API_URL || '';
+const apiKey = import.meta.env.VITE_API_KEY || '';
+
 // Top-level function to fetch data from our own API
-export const fetchData = async ({ queryKey }: { queryKey: [string, { searchParams: URLSearchParams }] }) => {
+export const fetchMusicData = async ({ queryKey }: { queryKey: [string, { searchParams: URLSearchParams }] }) => {
   const [, { searchParams }] = queryKey;
 
   const type = searchParams.get('type');
@@ -29,10 +32,10 @@ export const fetchData = async ({ queryKey }: { queryKey: [string, { searchParam
 
 // Mid-level custom API calls to our own backend
 async function fetchSongData(artist: string, title: string, country: string): Promise<ApiResponseDataType> {
-  const itunesResponse = fetchApiData(artist, title, country, 'itunes');
-  const beatportResponse = fetchApiData(artist, title, country, 'beatport');
-  const amazonResponse = fetchApiData(artist, title, country, 'amazon');
-  const bandcampResponse = fetchApiData(artist, title, country, 'bandcamp');
+  const itunesResponse = fetchFromAPI(artist, title, country, 'itunes');
+  const beatportResponse = fetchFromAPI(artist, title, country, 'beatport');
+  const amazonResponse = fetchFromAPI(artist, title, country, 'amazon');
+  const bandcampResponse = fetchFromAPI(artist, title, country, 'bandcamp');
 
   const [itunesData, beatportData, amazonData, bandcampData] = await Promise.all([itunesResponse, beatportResponse, amazonResponse, bandcampResponse]);
 
@@ -45,10 +48,7 @@ async function fetchPlaylistData(url: string) {
 }
 
 // Low-level API call to our own backend
-async function fetchApiData(artist: string, title: string, country: string, vendor: string): Promise<TrackInfoType[]> {
-  const apiUrl = import.meta.env.VITE_API_URL || '';
-  const apiKey = import.meta.env.VITE_API_KEY || '';
-
+async function fetchFromAPI(artist: string, title: string, country: string, vendor: string): Promise<TrackInfoType[]> {
   const dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}`).href;
   return await axios(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then((res) => res.data as TrackInfoType[]);
 }
