@@ -8,8 +8,6 @@ put user name or email into user context
 add animation to profilebutton after redirection
 figre out double request with strict mode on on CallbackPage
 ___
-
-
 fill menu with daisy components
 - make right menu fixed size
 

@@ -37,8 +37,11 @@ const CallbackPage = () => {
           await saveExpiryDate(data);
 
           setTimeout(() => {
+            playJingle();
+          }, 600);
+          setTimeout(() => {
             redirect();
-          }, 2000);
+          }, 1500);
         }
       } catch (e: unknown) {
         if (ignore === false && e instanceof Error) {
@@ -46,6 +49,11 @@ const CallbackPage = () => {
           setIsLoading(false);
         }
       }
+    };
+
+    const playJingle = () => {
+      const audio = new Audio('/jingle.mp3');
+      audio.play();
     };
 
     const redirect = () => {
