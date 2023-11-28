@@ -1,10 +1,14 @@
 import { useAuth } from '../../../../../contexts/auth';
+import { playJingle } from '../../../../../utils/audio';
 
 const SettingsLogout = () => {
   const { logout } = useAuth();
 
   const handleClick = () => {
-    logout();
+    playJingle(true);
+    setTimeout(() => {
+      logout();
+    }, 200);
   };
 
   return (

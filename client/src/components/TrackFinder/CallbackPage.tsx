@@ -8,6 +8,7 @@ import { FaCheck } from 'react-icons/fa6';
 import { removeFromLocalStorage, retrieveFromLocalStorage } from '../../utils/localStorage';
 import BackButton from './ResultsPage/BackButton';
 import { retrieveFromUrl, saveExpiryDate, saveProperty } from '../../utils/utilsFetch';
+import { playJingle } from '../../utils/audio';
 
 const initialError = { type: 'app', message: '' };
 
@@ -49,11 +50,6 @@ const CallbackPage = () => {
           setIsLoading(false);
         }
       }
-    };
-
-    const playJingle = () => {
-      const audio = new Audio('/jingle.mp3');
-      audio.play();
     };
 
     const redirect = () => {

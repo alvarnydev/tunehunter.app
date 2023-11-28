@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       transitionTimingFunction: {
-        menu: 'cubic-bezier(0.85, 0, 0.15, 1)',
+        menu: 'cubic-bezier(0.5, 0, 0.5, 1)',
         menuFast: 'cubic-bezier(0.85, 0, 0.15, 0)',
       },
     },
