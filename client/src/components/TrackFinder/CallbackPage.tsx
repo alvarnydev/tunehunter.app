@@ -18,20 +18,14 @@ const CallbackPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  console.log(isLoading, error, 'CallbackPage');
+
   useEffect(() => {
     let ignore = false;
     setIsLoading(true);
     let code;
     let codeVerifier;
     let params: URLSearchParams;
-
-    try {
-      code = retrieveFromUrl('code');
-      codeVerifier = retrieveFromLocalStorage('codeVerifier');
-      params = buildSearchParams(code, codeVerifier);
-    } catch (error) {
-      setError({ type: 'user', message: t('spotifyBox.denied') });
-    }
 
     // After the user accepts the authorization request of the previous step, we can exchange the authorization code for an access token.
     const requestAccessToken = async () => {
@@ -50,9 +44,9 @@ const CallbackPage = () => {
             redirect();
           }, 2000);
         }
-      } catch (error: unknown) {
-        if (ignore === false && error instanceof Error) {
-          setError({ type: 'app', message: error.message });
+      } catch (e: unknown) {
+        if (ignore === false && e instanceof Error) {
+          setError({ type: 'app', message: e.message });
           setIsLoading(false);
         }
       }
@@ -65,14 +59,19 @@ const CallbackPage = () => {
       navigate('/');
     };
 
-    if (error.message === '') requestAccessToken();
+    try {
+      code = retrieveFromUrl('code');
+      codeVerifier = retrieveFromLocalStorage('codeVerifier');
+      params = buildSearchParams(code, codeVerifier);
+      requestAccessToken();
+    } catch (e) {
+      setError({ type: 'user', message: t('spotifyBox.denied') });
+    }
 
     return () => {
       ignore = true;
     };
-  }, []); // t, login, navigate, error
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  }, [t, login, navigate]); // t, login, navigate, error
 
   const buildSearchParams = (code: string, codeVerifier: string): URLSearchParams => {
     const params = new URLSearchParams();
@@ -86,6 +85,7 @@ const CallbackPage = () => {
 
   const sendRequest = async (params: URLSearchParams): Promise<Response> => {
     const url = 'https://accounts.spotify.com/api/token';
+    console.log('request sent');
     const response = await fetch(url, {
       method: 'POST',
       body: params,
