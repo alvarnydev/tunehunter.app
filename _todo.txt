@@ -13,6 +13,9 @@ ___
 fill menu with daisy components
 - make right menu fixed size
 
+figure out /api and monorepo hosting stuff
+___
+
 1. spotify integration for song data 
     - songs and playlist currently playing
     - Get song info from spotify and then search vendor APIs with that data
