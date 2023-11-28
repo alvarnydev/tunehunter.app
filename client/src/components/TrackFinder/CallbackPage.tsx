@@ -69,7 +69,7 @@ const CallbackPage = () => {
     return () => {
       ignore = true;
     };
-  }, [login, navigate, error]);
+  }, []); // t, login, navigate, error
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const saveProperty = async (data: any, key: string) => {
@@ -110,12 +110,15 @@ const CallbackPage = () => {
   };
 
   const sendRequest = async (params: URLSearchParams): Promise<Response> => {
-    const response = await fetch('https://accounts.spotify.com/api/token', {
+    const url = 'https://accounts.spotify.com/api/token';
+    console.log('test');
+    const response = await fetch(url, {
       method: 'POST',
       body: params,
     });
-    if (!response.ok || response === null) {
-      throw new Error('Error while sending request!');
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(`Error in communication with Spotify API (${data.error}): ${data.error_description}!`);
     }
 
     return response;

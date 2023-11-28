@@ -1,8 +1,5 @@
 MVP: only german results
 
-callback page denied access
-
-token refresh
 use user access token to get info about user
 put user name or email into user context
 

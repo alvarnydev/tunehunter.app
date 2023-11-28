@@ -12,8 +12,8 @@ import CallbackPage from './components/TrackFinder/CallbackPage';
 import { AuthProvider, useAuth } from './contexts/auth';
 import animationClasses from './utils/animations';
 import { toastContainer, toastOptions } from './utils/toast';
-import { retrieveFromLocalStorage } from './utils/localStorage';
 import { refreshToken } from './utils/fetchAuth';
+import { retrieveFromLocalStorage } from './utils/localStorage';
 
 const queryClient = new QueryClient();
 
@@ -51,7 +51,6 @@ const AnimatedSwitch = () => {
     const tryToIdentifyUser = async (): Promise<boolean> => {
       try {
         const accessToken = retrieveFromLocalStorage('access_token');
-        console.log('accessToken', accessToken);
         login(accessToken);
         return true;
       } catch (error) {
@@ -60,13 +59,15 @@ const AnimatedSwitch = () => {
     };
 
     addKeyMappings();
+    console.log('isAuthenticated', isAuthenticated);
+
     if (!isAuthenticated) tryToIdentifyUser();
     if (isAuthenticated) refreshToken();
 
     return () => {
       removeKeyMappings();
     };
-  }, [navigate, login, isAuthenticated]);
+  }, [isAuthenticated]); // navigate, login, isAuthenticated
 
   return (
     <TransitionGroup component={null} exit={false}>

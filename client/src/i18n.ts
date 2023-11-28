@@ -13,7 +13,7 @@ const resources = {
       spotifyBox: {
         integration: 'For best results, use our ',
         annotation: "After logging in, just hit play on the song you want to search for and we'll automatically search for it!",
-        authenticated: 'Just press play on any song (in Spotify) and we will try to find it!',
+        authenticated: 'Press play on any song (in Spotify) and we will try to find it!',
         denied: "You did not grant us access! While we can't use your Spotify data this way, you can still use the normal search function.",
       },
       resultstable: {
@@ -58,7 +58,7 @@ const resources = {
       spotifyBox: {
         integration: 'Para mejores resultados, use nuestra ',
         annotation: 'Después de iniciar sesión, simplemente reproduce la canción que deseas buscar y la buscaremos automáticamente!',
-        authenticated: 'Sólo pulsa play en cualquier canción (en Spotify) y intentaremos encontrarla!',
+        authenticated: 'Pulsa play en cualquier canción (en Spotify) y intentaremos encontrarla!',
         denied: 'No nos has dado acceso! Aunque no podemos usar tus datos de Spotify de esta manera, puedes seguir usando la búsqueda normal.',
       },
       resultstable: {

@@ -1,3 +1,5 @@
+import { retrieveFromLocalStorage, saveToLocalStorage } from './localStorage';
+
 const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID || '';
 const REDIRECT_URI = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
 const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
@@ -47,24 +49,35 @@ const redirectToSpotify = (codeChallenge: string) => {
 };
 
 export const refreshToken = async () => {
-  const refreshToken = window.localStorage.getItem('refresh_token');
-  const params = {
-    grant_type: 'refresh_token',
-    refresh_token: refreshToken,
-  };
+  const expiryDate = retrieveFromLocalStorage('expiry_date');
+  const timeLeft = new Date(expiryDate).getTime() - new Date().getTime();
+  if (timeLeft / 60_000 > 30) {
+    console.log('Not refreshing token because enough time left: ', timeLeft / 60000);
+    return;
+  }
 
+  const refreshToken = retrieveFromLocalStorage('refresh_token');
+  console.log('refreshToken', refreshToken);
   const url = new URL('https://accounts.spotify.com/api/token');
-  //url.search = new URLSearchParams(params).toString();
 
-  const response = await fetch(url.toString(), {
+  const payload = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${import.meta.env.VITE_SPOTIFY_AUTHORIZATION}`,
     },
-  });
+    body: new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken,
+      client_id: CLIENT_ID,
+    }),
+  };
 
+  const response = await fetch(url, payload);
   const data = await response.json();
+
   const newAccessToken = data.access_token;
-  window.localStorage.setItem('access_token', newAccessToken);
+  const newRefreshToken = data.refresh_token;
+
+  saveToLocalStorage('access_token', newAccessToken);
+  saveToLocalStorage('refresh_token', newRefreshToken);
 };

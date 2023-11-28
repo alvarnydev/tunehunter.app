@@ -1,70 +1,13 @@
 import express, { Express, Request, Response } from 'express';
+import { fetchAmazonData, fetchBandcampData, fetchBeatportData, fetchItunesData, fetchPlaceholderValues } from './data/fetchSongData';
 import dotenv from 'dotenv';
-import { TrackInfoType } from '../types';
+import { isValidRequest } from './utils/validateRequest';
+import { OurRequest } from './utils/types';
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT;
-
-function fetchPlaceholderValues(vendor: string) {
-  const response: TrackInfoType[] = [
-    {
-      vendor: {
-        name: vendor,
-        country: 'DE',
-        songLink: 'fancy link',
-        artLink: 'album',
-      },
-      song: {
-        title: 'ph title',
-        artist: 'ph artist',
-        album: 'song album',
-        duration: 213,
-        qualityFormat: 'MP3', // todo: figure out format from song.previewUrl
-        qualityKbps: 320, // todo: figure out kbps from song.previewUrl
-        price: 1.29,
-      },
-    },
-    {
-      vendor: {
-        name: 'itunesstore 2',
-        country: 'testcountry 2',
-        songLink: 'fancy link 2',
-        artLink: 'album 2',
-      },
-      song: {
-        title: 'ph title 2',
-        artist: 'ph artist 2',
-        album: 'song album 2',
-        duration: 187,
-        qualityFormat: 'MP3 2', // todo: figure out format from song.previewUrl
-        qualityKbps: 320, // todo: figure out kbps from song.previewUrl
-        price: 2.29,
-      },
-    },
-  ];
-
-  return response;
-}
-
-function validateKey(req: Request, res: Response): boolean {
-  const api_key = req.header('X-API-KEY');
-  if (api_key !== process.env.API_KEY) {
-    res.status(401).send('Unauthorized');
-    return false;
-  }
-  return true;
-}
-
-function validateParams(req: Request, res: Response): boolean {
-  let { title, artist, country } = req.query;
-  if (!title || !artist || !country) {
-    res.status(400).send('Missing title, artist or country!');
-    return false;
-  }
-  return true;
-}
 
 app.use((_, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -74,67 +17,48 @@ app.use((_, res, next) => {
   next();
 });
 
-app.get('/beatport', async (req: Request, res: Response) => {
-  if (!(validateKey(req, res) && validateParams(req, res))) {
+app.get('/beatport', async (req: OurRequest, res: Response) => {
+  if (!isValidRequest(req, res)) {
     return;
   }
-  let { title, artist, country } = req.query;
 
-  const response = fetchPlaceholderValues('Beatport');
-  res.send(response);
+  const { title, artist, duration, country } = req.query;
+  const durationNum = parseInt(duration);
+  const itunesData = await fetchBeatportData(title, artist, durationNum, country);
+  res.send(itunesData);
 });
 
-app.get('/amazon', async (req: Request, res: Response) => {
-  if (!(validateKey(req, res) && validateParams(req, res))) {
+app.get('/amazon', async (req: OurRequest, res: Response) => {
+  if (!isValidRequest(req, res)) {
     return;
   }
-  let { title, artist, country } = req.query;
 
-  const response = fetchPlaceholderValues('Amazon Music');
-  res.send(response);
+  const { title, artist, duration, country } = req.query;
+  const durationNum = parseInt(duration);
+  const itunesData = await fetchAmazonData(title, artist, durationNum, country);
+  res.send(itunesData);
 });
 
-app.get('/bandcamp', async (req: Request, res: Response) => {
-  if (!(validateKey(req, res) && validateParams(req, res))) {
+app.get('/bandcamp', async (req: OurRequest, res: Response) => {
+  if (!isValidRequest(req, res)) {
     return;
   }
-  let { title, artist, country } = req.query;
 
-  const response = fetchPlaceholderValues('Bandcamp');
-  res.send(response);
+  const { title, artist, duration, country } = req.query;
+  const durationNum = parseInt(duration);
+  const itunesData = await fetchBandcampData(title, artist, durationNum, country);
+  res.send(itunesData);
 });
 
-app.get('/itunes', async (req: Request, res: Response) => {
-  if (!(validateKey(req, res) && validateParams(req, res))) {
+app.get('/itunes', async (req: OurRequest, res: Response) => {
+  if (!isValidRequest(req, res)) {
     return;
   }
-  let { title, artist, country } = req.query;
 
-  const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
-  const response = await fetch(dataUrl).then((res) => res.json());
-
-  // Create unified TrackInfoType[] response, grabbing the data we need from the third party <any> API response
-  const filteredResponse: TrackInfoType[] = response.results.map((song: any) => {
-    return {
-      vendor: {
-        name: 'iTunes Store',
-        country: song.country,
-        songLink: song.trackViewUrl,
-        artLink: song.artworkUrl100,
-      },
-      song: {
-        title: song.trackName,
-        artist: song.artistName,
-        album: song.collectionName,
-        duration: song.trackTimeMillis / 1000,
-        qualityFormat: 'AAC', // todo: figure out format from song.previewUrl
-        qualityKbps: 256, // todo: figure out kbps from song.previewUrl
-        price: song.trackPrice,
-      },
-    };
-  });
-
-  res.send(filteredResponse);
+  const { title, artist, duration, country } = req.query;
+  const durationNum = parseInt(duration);
+  const itunesData = await fetchItunesData(title, artist, durationNum, country);
+  res.send(itunesData);
 });
 
 app.listen(port, () => {
