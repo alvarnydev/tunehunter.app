@@ -1,11 +1,11 @@
-import { saveToLocalStorage } from './localStorage';
+import { storeInLocalStorage } from './localStorage';
 
 export const saveExpiryDate = async (data: any) => {
   const expiresIn = data['expires_in'];
   const currentDate = new Date();
-  saveToLocalStorage('issue_date', currentDate.toISOString());
+  storeInLocalStorage('issue_date', currentDate.toISOString());
   currentDate.setSeconds(currentDate.getSeconds() + expiresIn);
-  saveToLocalStorage('expiry_date', currentDate.toISOString());
+  storeInLocalStorage('expiry_date', currentDate.toISOString());
 };
 
 export const retrieveFromUrl = (parameter: string): string => {
@@ -24,5 +24,5 @@ export const saveProperty = async (data: any, key: string) => {
     throw new Error(`No '${key}' found in response!`);
   }
 
-  saveToLocalStorage(key, keyValue);
+  storeInLocalStorage(key, keyValue);
 };

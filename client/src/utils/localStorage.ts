@@ -1,4 +1,4 @@
-export const saveToLocalStorage = (key: string, value: string): void => {
+export const storeInLocalStorage = (key: string, value: string): void => {
   if (value === null || value === 'undefined') {
     throw new Error(`No value for '${key}' found!`);
   }

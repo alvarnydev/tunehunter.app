@@ -6,13 +6,11 @@ use user access token to get info about user
 put user name or email into user context
 - also play history
 
-figure out hover on dashboard
 ___
 fill menu with daisy components
 - make right menu fixed size
 - sounds for some buttons
 
-figure out /api and monorepo hosting stuff
 ___
 
 song choice modal

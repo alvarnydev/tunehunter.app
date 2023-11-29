@@ -1,5 +1,5 @@
 import { saveExpiryDate } from './utilsFetch';
-import { retrieveFromLocalStorage, saveToLocalStorage } from './localStorage';
+import { retrieveFromLocalStorage, storeInLocalStorage } from './localStorage';
 
 const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID || '';
 const REDIRECT_URI = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
@@ -80,7 +80,7 @@ export const refreshToken = async () => {
   const newAccessToken = data.access_token;
   const newRefreshToken = data.refresh_token;
 
-  saveToLocalStorage('access_token', newAccessToken);
-  saveToLocalStorage('refresh_token', newRefreshToken);
+  storeInLocalStorage('access_token', newAccessToken);
+  storeInLocalStorage('refresh_token', newRefreshToken);
   saveExpiryDate(data);
 };

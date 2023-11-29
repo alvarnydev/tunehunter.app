@@ -56,7 +56,8 @@ const CallbackPage = () => {
       cleanUpLocalStorage();
       const accessToken = retrieveFromLocalStorage('access_token');
       login(accessToken);
-      navigate('/');
+      const redirectPath = retrieveFromLocalStorage('redirect_path');
+      navigate(redirectPath);
     };
 
     // Get parameters from URL and build the request
