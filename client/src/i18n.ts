@@ -37,6 +37,7 @@ const resources = {
       errors: {
         general: "Something bad happened on our end, sorry! We're investigating...",
         moreInformation: 'This is what happened: ',
+        noSong: 'We could not find the song! Please check your input.',
         reachOut: 'The error already made its way over to us but feel free to reach out anyway at XXX.',
       },
       loadingStates: {
@@ -82,6 +83,7 @@ const resources = {
       errors: {
         general: 'Nos ha pasado algo, ¡lo sentimos! Estamos investigando...',
         moreInformation: 'Esto es lo que ha pasado: ',
+        noSong: 'No hemos podido encontrar la canción! Por favor, comprueba tu entrada.',
         reachOut: 'Aunque el error ya nos ha llegado, no dudes en contactarnos en XXX.',
       },
       loadingStates: {
@@ -128,6 +130,7 @@ const resources = {
       errors: {
         general: 'Etwas ist schief gelaufen, sorry! Wir begeben uns auf Fehlersuche...',
         moreInformation: 'Das ist passiert: ',
+        noSong: 'Wir konnten das Lied nicht finden! Bitte überprüfe deine Eingabe.',
         reachOut: 'Der Fehler hat auch schon seinen Weg zu uns gefunden, aber du kannst uns trotzdem gerne unter XXX kontaktieren.',
       },
       loadingStates: {
