@@ -1,5 +1,6 @@
 MVP: only german results
 
+
 ___
 use user access token to get info about user
 put user name or email into user context
@@ -13,6 +14,8 @@ fill menu with daisy components
 
 figure out /api and monorepo hosting stuff
 ___
+
+song choice modal
 
 1. spotify integration for song data 
     - songs and playlist currently playing

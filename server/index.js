@@ -19,31 +19,28 @@ app.use((_, res, next) => {
 app.get('/', (_, res) => {
     res.send('Hello World!');
 });
-app.get('/api/spotify/auth', async (req, res) => { });
-app.get('/api/spotify/refresh', async (req, res) => { });
-app.get('/api/spotify/user', async (req, res) => { });
-app.get('/api/beatport', async (req, res) => {
+app.get('/beatport', async (req, res) => {
     if (!(0, validateRequest_1.isValidRequest)(req, res)) {
         return;
     }
     const data = await (0, fetchSongData_1.getData)(req, 'beatport');
     res.send(data);
 });
-app.get('/api/amazon', async (req, res) => {
+app.get('/amazon', async (req, res) => {
     if (!(0, validateRequest_1.isValidRequest)(req, res)) {
         return;
     }
     const data = await (0, fetchSongData_1.getData)(req, 'amazon');
     res.send(data);
 });
-app.get('/api/bandcamp', async (req, res) => {
+app.get('/bandcamp', async (req, res) => {
     if (!(0, validateRequest_1.isValidRequest)(req, res)) {
         return;
     }
     const data = await (0, fetchSongData_1.getData)(req, 'bandcamp');
     res.send(data);
 });
-app.get('/api/itunes', async (req, res) => {
+app.get('/itunes', async (req, res) => {
     if (!(0, validateRequest_1.isValidRequest)(req, res)) {
         return;
     }

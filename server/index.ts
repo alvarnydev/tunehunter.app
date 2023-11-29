@@ -21,13 +21,7 @@ app.get('/', (_, res) => {
   res.send('Hello World!');
 });
 
-app.get('/api/spotify/auth', async (req: OurRequest, res: Response) => {});
-
-app.get('/api/spotify/refresh', async (req: OurRequest, res: Response) => {});
-
-app.get('/api/spotify/user', async (req: OurRequest, res: Response) => {});
-
-app.get('/api/beatport', async (req: OurRequest, res: Response) => {
+app.get('/beatport', async (req: OurRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
@@ -35,7 +29,7 @@ app.get('/api/beatport', async (req: OurRequest, res: Response) => {
   res.send(data);
 });
 
-app.get('/api/amazon', async (req: OurRequest, res: Response) => {
+app.get('/amazon', async (req: OurRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
@@ -43,7 +37,7 @@ app.get('/api/amazon', async (req: OurRequest, res: Response) => {
   res.send(data);
 });
 
-app.get('/api/bandcamp', async (req: OurRequest, res: Response) => {
+app.get('/bandcamp', async (req: OurRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
@@ -51,7 +45,7 @@ app.get('/api/bandcamp', async (req: OurRequest, res: Response) => {
   res.send(data);
 });
 
-app.get('/api/itunes', async (req: OurRequest, res: Response) => {
+app.get('/itunes', async (req: OurRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
