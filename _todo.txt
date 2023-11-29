@@ -1,6 +1,5 @@
 MVP: only german results
 
-
 ___
 use user access token to get info about user
 put user name or email into user context
