@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { removeFromLocalStorage } from '../utils/localStorage';
-import { fetchRecentlyPlayed } from '../utils/fetchSpotifyData';
+import { combinedFetchSpotifyData, fetchRecentlyPlayed } from '../utils/fetchSpotifyData';
 
 export const AuthContext = createContext({
   isAuthenticated: false,
@@ -61,7 +61,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   const getUserData = async (accessToken: string) => {
-    const recentlyPlayed = fetchRecentlyPlayed(accessToken);
+    const userData = await combinedFetchSpotifyData(accessToken);
+    console.log(userData);
     // setUserData(data);
   };
 
