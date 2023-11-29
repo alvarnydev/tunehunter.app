@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { removeFromLocalStorage } from '../utils/localStorage';
-import { fetchUserData } from '../utils/fetchSpotifyData';
+import { fetchRecentlyPlayed } from '../utils/fetchSpotifyData';
 
 export const AuthContext = createContext({
   isAuthenticated: false,
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const login = (accessToken: string) => {
     setIsAuthenticated(true);
     setAccessToken(accessToken);
-    fetchUserData();
+    getUserData(accessToken);
   };
 
   const logout = () => {
@@ -58,6 +58,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         searches: 0,
       },
     });
+  };
+
+  const getUserData = async (accessToken: string) => {
+    const recentlyPlayed = fetchRecentlyPlayed(accessToken);
+    // setUserData(data);
   };
 
   return <AuthContext.Provider value={{ isAuthenticated, userData, accessToken, login, logout }}>{children}</AuthContext.Provider>;

@@ -5,7 +5,7 @@ const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID || '';
 const REDIRECT_URI = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
 const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
 const RESPONSE_TYPE = 'code';
-const SCOPE = 'user-read-currently-playing user-read-email user-read-private';
+const SCOPE = ' user-read-email user-read-private user-read-currently-playing user-read-playback-state user-read-recently-played user-top-read ';
 
 const generateRandomString = (length: number) => {
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
