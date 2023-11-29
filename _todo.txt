@@ -29,8 +29,6 @@ use daisy's toasts?
 3. beatport, amazon, bandcamp
 4. suggestions when entering text
 
-cors, figure out why api.btt doesnt work
-
 optimizations: 
 - tailwind purge
 - react lazy
