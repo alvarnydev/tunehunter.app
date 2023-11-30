@@ -1,25 +1,15 @@
 import { BiSearch } from 'react-icons/bi';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import toast, { Toast } from 'react-hot-toast';
-import useToast from '../../../hooks/useToast';
 import { FormDataType } from '../../../../../types';
-
-interface SearchButtonProps {
-  formData: FormDataType;
-  searchParams?: URLSearchParams;
-  setSearchParams?: (searchParams: URLSearchParams) => void;
-}
 
 const ToastComponent = ({ t, text }: { t: Toast; text: string }) => {
   return (
     <span>
       <div className='flex justify-center items-center gap-4 mx-4'>
         <span>{text}</span>
-        <button
-          className='bg-white/50 border-2 border-black rounded-lg py-1 px-2 m-0'
-          onClick={() => toast.dismiss(t.id)}
-        >
+        <button className='bg-white/50 border-2 border-black rounded-lg py-1 px-2 m-0' onClick={() => toast.dismiss(t.id)}>
           Dismiss
         </button>
       </div>
@@ -27,10 +17,9 @@ const ToastComponent = ({ t, text }: { t: Toast; text: string }) => {
   );
 };
 
-const SearchButton = ({ formData, searchParams, setSearchParams }: SearchButtonProps) => {
+const SearchButton = ({ formData }: { formData: FormDataType }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  useToast();
 
   function isValidInput(): boolean {
     const { searchMode, songSearchQuery, playlistSearchString } = formData;
@@ -85,19 +74,14 @@ const SearchButton = ({ formData, searchParams, setSearchParams }: SearchButtonP
     const params = buildGetParams();
 
     navigate(`/results${params}`);
-    if (setSearchParams && searchParams) {
-      setSearchParams(new URLSearchParams(params));
-    }
+    // if (setSearchParams && searchParams) {
+    //   setSearchParams(new URLSearchParams(params));
+    // }
   }
 
   return (
     <div className='order-3 md:flex'>
-      <button
-        id='submitBtn'
-        type='submit'
-        className='btn btn-primary font-normal md:w-auto w-1/2 m-auto rounded-full gap-2 flex normal-case px-4 text-base tracking-wide'
-        onClick={handleClick}
-      >
+      <button id='submitBtn' type='submit' className='btn btn-primary font-normal md:w-auto w-1/2 m-auto rounded-full gap-2 flex normal-case px-4 text-base tracking-wide' onClick={handleClick}>
         <BiSearch size={18} />
         {t('searchbar.search')}
       </button>

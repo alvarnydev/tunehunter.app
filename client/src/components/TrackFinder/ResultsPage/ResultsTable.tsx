@@ -7,6 +7,7 @@ import AppAlert, { WarningAlert } from '../../utils/ErrorComponents';
 import { useTranslation } from 'react-i18next';
 import TrackPreview from './TrackPreview';
 import { logError } from '../../utils/ErrorFunctions';
+import { useSearchParams } from 'react-router-dom';
 
 function validateData(apiData: ApiResponseDataType): number {
   // todo: itunes length 0 or undefined?
@@ -29,8 +30,9 @@ function filterData(apiData: ApiResponseDataType): ResultsDataType {
   return filteredData;
 }
 
-const ResultsTable = ({ searchParams }: { searchParams: URLSearchParams }) => {
+const ResultsTable = () => {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
   const { isLoading, error, data } = useQuery({
     queryKey: [searchParams.toString(), { searchParams }],
     queryFn: fetchMusicData,

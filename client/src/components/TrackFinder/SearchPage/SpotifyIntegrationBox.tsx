@@ -28,7 +28,7 @@ const SpotifyIntegrationBox = () => {
     };
 
     return (
-      <tr className='[&>td]:border-0 relative'>
+      <tr className='[&>td]:border-0 relative [&>td]:rounded-none'>
         <td>
           <div className='flex items-center gap-3'>
             <div className='avatar pr-2'>
@@ -45,9 +45,9 @@ const SpotifyIntegrationBox = () => {
         <td>
           <div className=''>{trackData.name}</div>
         </td>
-        <td className='absolute right-0'>
+        <td className='absolute right-0 top-2'>
           <button className='btn btn-info btn-outline btn-xs rounded-full' onClick={startSearch}>
-            Search
+            {t('searchbar.search')}
           </button>
         </td>
       </tr>
@@ -56,7 +56,7 @@ const SpotifyIntegrationBox = () => {
 
   const RecentlyPlayedTable = () => {
     return (
-      <div className='overflow-x-auto max-h-56 rounded-xl shadow shadow-info px-4'>
+      <div className='overflow-x-auto max-h-60 rounded-xl shadow shadow-info bg-info px-2'>
         <table className='table table-fixed'>
           <tbody>
             {userData.currentlyPlaying && <TrackRow trackData={userData.currentlyPlaying.item} currentlyPlaying={true} />}

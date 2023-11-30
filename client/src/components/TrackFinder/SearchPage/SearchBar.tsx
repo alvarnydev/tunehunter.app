@@ -13,7 +13,7 @@ const initialFormData: FormDataType = {
   playlistSearchString: '',
 };
 
-const SearchBar = ({ searchParams, setSearchParams }: { searchParams?: URLSearchParams; setSearchParams?: (searchparams: URLSearchParams) => void }) => {
+const SearchBar = () => {
   const [formData, setFormData] = useState(initialFormData);
 
   const handleFormUpdate = (newFormData: FormDataType) => {
@@ -100,7 +100,7 @@ const SearchBar = ({ searchParams, setSearchParams }: { searchParams?: URLSearch
     <div className='flex md:flex-row flex-col w-4/5 md:gap-10 gap-8'>
       <SearchModeToggler formData={formData} handleFormUpdate={handleFormUpdate} />
       <SearchTextInput formData={formData} handleFormUpdate={handleFormUpdate} />
-      <SearchButton formData={formData} searchParams={searchParams} setSearchParams={setSearchParams} />
+      <SearchButton formData={formData} />
     </div>
   );
 };
