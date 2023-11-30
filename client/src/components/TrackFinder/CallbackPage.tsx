@@ -66,7 +66,7 @@ const CallbackPage = () => {
     if (ignore === false) {
       const reqParams = new URLSearchParams(window.location.search);
       if (reqParams.has('error')) {
-        setError({ type: 'user', message: t('spotifyBox.denied') });
+        setError({ type: 'user', message: t('spotify.denied') });
         setIsLoading(false);
       } else {
         const code = retrieveFromUrl('code');

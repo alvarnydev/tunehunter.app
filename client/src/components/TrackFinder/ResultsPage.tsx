@@ -11,7 +11,7 @@ const ResultsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   return (
-    <div className='flex flex-col justify-center items-center w-full gap-16'>
+    <div className='flex flex-col justify-center items-center w-full gap-10'>
       {/* <SearchBar searchParams={searchParams} setSearchParams={setSearchParams} /> */}
       <SearchPage />
       <div className='flex justify-center items-center xl:h-96'>

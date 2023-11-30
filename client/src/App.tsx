@@ -25,7 +25,7 @@ const AnimatedSwitch = () => {
   useEffect(() => {
     const keyMappings = [
       { key: 'Backspace', action: () => navigate(-1) },
-      { key: 'KeyH', action: () => navigate('/') },
+      { key: 'Escape', action: () => navigate('/') },
     ];
 
     const addKeyMappings = () => {

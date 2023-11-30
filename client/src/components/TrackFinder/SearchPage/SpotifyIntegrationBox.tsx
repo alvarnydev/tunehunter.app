@@ -3,78 +3,77 @@ import InfoAnnotation from '../../utils/InfoComponents';
 import { useAuth } from '../../../contexts/auth';
 import { requestAuthorizationCodePKCE } from '../../../utils/fetchSpotifyAuth';
 import { storeInLocalStorage } from '../../../utils/localStorage';
+import { Track } from '../../../types';
+import { useNavigate } from 'react-router';
 
 const SpotifyIntegrationBox = () => {
   const { t } = useTranslation();
   const { isAuthenticated, userData } = useAuth();
+  const navigate = useNavigate();
 
   const startIntegration = () => {
     storeInLocalStorage('redirect_path', window.location.pathname + window.location.search);
     requestAuthorizationCodePKCE();
   };
 
-  const startSearch = () => {
-    console.log('start search');
+  const TrackRow: React.FC<{
+    trackData: Track;
+    currentlyPlaying?: boolean;
+  }> = (
+    { trackData, currentlyPlaying } // todo: mark as playing
+  ) => {
+    const startSearch = () => {
+      const params = `?type=song&country=DE&artist=${trackData.artists[0].name}&title=${trackData.name}&duration=${trackData.duration_ms}`;
+      navigate(`/results${params}`);
+    };
+
+    return (
+      <tr className='[&>td]:border-0 relative'>
+        <td>
+          <div className='flex items-center gap-3'>
+            <div className='avatar pr-2'>
+              <div className='mask mask-squircle w-10 h-10'>
+                <img src={trackData.album.images[0].url} alt='Avatar Tailwind CSS Component' />
+              </div>
+            </div>
+            <div>
+              <div className=''>{trackData.artists[0].name}</div>
+              <div className='text-sm opacity-50'>{trackData.artists[1]?.name}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div className=''>{trackData.name}</div>
+        </td>
+        <td className='absolute right-0'>
+          <button className='btn btn-info btn-outline btn-xs rounded-full' onClick={startSearch}>
+            Search
+          </button>
+        </td>
+      </tr>
+    );
   };
 
-  const RecentlyPlayed = () => {
+  const RecentlyPlayedTable = () => {
     return (
-      <div className='overflow-x-auto max-h-52 rounded-xl'>
-        <table className='table '>
+      <div className='overflow-x-auto max-h-56 rounded-xl shadow shadow-info px-4'>
+        <table className='table table-fixed'>
           <tbody>
-            {userData.currentlyPlaying && (
-              // todo: mark as playing
-              <tr>
-                <td>
-                  <div className='flex items-center gap-3'>
-                    <div className='avatar'>
-                      <div className='mask mask-squircle w-10 h-10'>
-                        <img src={userData.currentlyPlaying.item.album.images[0].url} alt='Avatar Tailwind CSS Component' />
-                      </div>
-                    </div>
-                    <div>
-                      <div className=''>{userData.currentlyPlaying.item.artists[0].name}</div>
-                      <div className='text-sm opacity-50'>{userData.currentlyPlaying.item.artists[1]?.name}</div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div className=''>{userData.currentlyPlaying.item.name}</div>
-                </td>
-                <th>
-                  <button className='btn btn-info btn-outline btn-xs rounded-full'>Search</button>
-                </th>
-              </tr>
-            )}
-            {userData.recentlyPlayed?.items.map((item) => {
-              return (
-                <tr>
-                  <td>
-                    <div className='flex items-center gap-3'>
-                      <div className='avatar'>
-                        <div className='mask mask-squircle w-10 h-10'>
-                          <img src={item.track.album.images[0].url} alt='Avatar Tailwind CSS Component' />
-                        </div>
-                      </div>
-                      <div>
-                        <div className=''>{item.track.artists[0].name}</div>
-                        <div className='text-sm opacity-50'>{item.track.artists[1]?.name}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div className=''>{item.track.name}</div>
-                  </td>
-                  <th>
-                    <button className='btn btn-info btn-outline btn-xs rounded-full' onClick={startSearch}>
-                      Search
-                    </button>
-                  </th>
-                </tr>
-              );
-            })}
+            {userData.currentlyPlaying && <TrackRow trackData={userData.currentlyPlaying.item} currentlyPlaying={true} />}
+            {userData.recentlyPlayed?.items.map((item) => (
+              <TrackRow key={item.played_at} trackData={item.track} />
+            ))}
           </tbody>
         </table>
+      </div>
+    );
+  };
+
+  const RecentlyPlayedBox = () => {
+    return (
+      <div className='flex flex-col items-center justify-center gap-2'>
+        <RecentlyPlayedTable />
+        <div className='text-sm italic text-info'>{t('spotify.recentlyPlayed')}</div>
       </div>
     );
   };
@@ -82,20 +81,20 @@ const SpotifyIntegrationBox = () => {
   const IntegrationText = () => {
     return (
       <div className='flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0'>
-        <p className='pr-2'>{t('spotifyBox.integration')}</p>
+        <p className='pr-2'>{t('spotify.integration')}</p>
         <div className='flex items-center'>
-          <button className='btn btn-xs btn-success rounded-full' onClick={startIntegration}>
+          <button className='btn btn-info btn-xs rounded-full' onClick={startIntegration}>
             Spotify Integration
           </button>
-          <InfoAnnotation infoText={t('spotifyBox.annotation')} />
+          <InfoAnnotation infoText={t('spotify.annotation')} />
         </div>
       </div>
     );
   };
 
   return (
-    <div className='w-4/5 flex flex-col items-center justify-center'>
-      {isAuthenticated && <RecentlyPlayed />}
+    <div className='flex flex-col items-center justify-center'>
+      {isAuthenticated && <RecentlyPlayedBox />}
       {!isAuthenticated && <IntegrationText />}
     </div>
   );
