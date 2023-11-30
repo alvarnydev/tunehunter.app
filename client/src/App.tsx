@@ -12,7 +12,7 @@ import CallbackPage from './components/TrackFinder/CallbackPage';
 import { AuthProvider, useAuth } from './contexts/auth';
 import animationClasses from './utils/animations';
 import { toastContainer, toastOptions } from './utils/toast';
-import { isTokenExpiring, refreshToken } from './utils/fetchSpotifyAuth';
+import { shouldRefreshToken, refreshToken } from './utils/fetchSpotifyAuth';
 import { retrieveFromLocalStorage } from './utils/localStorage';
 
 const queryClient = new QueryClient();
@@ -61,7 +61,7 @@ const AnimatedSwitch = () => {
     addKeyMappings();
 
     if (!isAuthenticated) tryToIdentifyUser();
-    if (isAuthenticated && isTokenExpiring()) refreshToken();
+    if (isAuthenticated && shouldRefreshToken()) refreshToken();
 
     return () => {
       removeKeyMappings();

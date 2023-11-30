@@ -5,6 +5,7 @@ searchpage suche und so
 currently playing
 settings
 NaN when itunes doens't have it 
+fix profile rendering twice on first load
 
 bring searchbar into its correct width (right side overflows)
 song choice modal

@@ -49,10 +49,14 @@ export const requestAuthorizationCodePKCE = async () => {
   redirectToSpotify(codeChallenge);
 };
 
-export const isTokenExpiring = () => {
-  const expiryDate = retrieveFromLocalStorage('expiry_date');
-  const timeLeft = new Date(expiryDate).getTime() - new Date().getTime();
-  if (timeLeft / 60_000 > 30) {
+export const shouldRefreshToken = () => {
+  const expiryDate = window.localStorage.getItem('expiry_date');
+  if (!expiryDate) {
+    return true;
+  }
+
+  const timeLeft = (new Date(expiryDate).getTime() - new Date().getTime()) / 60_000;
+  if (timeLeft > 30) {
     return false;
   }
   return true;

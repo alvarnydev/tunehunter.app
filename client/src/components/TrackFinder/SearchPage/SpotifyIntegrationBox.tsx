@@ -43,7 +43,7 @@ const SpotifyIntegrationBox = () => {
           </div>
         </td>
         <td>
-          <div className=''>{trackData.name}</div>
+          <div className=''>{trackData.name.substring(0, 50)}</div>
         </td>
         <td className='absolute right-0 top-2'>
           <button className='btn btn-info btn-outline btn-xs rounded-full' onClick={startSearch}>
@@ -56,7 +56,7 @@ const SpotifyIntegrationBox = () => {
 
   const RecentlyPlayedTable = () => {
     return (
-      <div className='overflow-x-auto max-h-60 rounded-xl shadow shadow-info bg-info px-2'>
+      <div className='overflow-x-auto max-h-60 rounded-xl shadow shadow-info bg-info pl-2'>
         <table className='table table-fixed'>
           <tbody>
             {userData.currentlyPlaying && <TrackRow trackData={userData.currentlyPlaying.item} currentlyPlaying={true} />}
