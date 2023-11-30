@@ -37,7 +37,7 @@ const SpotifyIntegrationBox = () => {
               </div>
             </div>
             <div>
-              <div className=''>{trackData.artists[0].name}</div>
+              <div className={`${currentlyPlaying ? 'font-bold' : ''}`}>{trackData.artists[0].name}</div>
               <div className='text-sm opacity-50'>{trackData.artists[1]?.name}</div>
             </div>
           </div>

@@ -1,11 +1,12 @@
 MVP: only german results
 
-
+loading state recently played songs
 searchpage suche und so
 currently playing
 settings
 NaN when itunes doens't have it 
 
+bring searchbar into its correct width (right side overflows)
 song choice modal
 
 1. spotify integration for song data 

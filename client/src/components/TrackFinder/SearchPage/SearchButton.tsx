@@ -1,6 +1,6 @@
 import { BiSearch } from 'react-icons/bi';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import toast, { Toast } from 'react-hot-toast';
 import { FormDataType } from '../../../../../types';
 
