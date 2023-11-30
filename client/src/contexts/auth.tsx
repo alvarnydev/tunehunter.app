@@ -3,20 +3,20 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { removeFromLocalStorage } from '../utils/localStorage';
 import { combinedFetchSpotifyData, fetchRecentlyPlayed } from '../utils/fetchSpotifyData';
+import { SpotifyDataType } from '../types';
+
+const initialUserData: SpotifyDataType = {
+  profileData: null,
+  currentlyPlaying: null,
+  queue: null,
+  recentlyPlayed: null,
+  topArtists: null,
+};
 
 export const AuthContext = createContext({
   isAuthenticated: false,
   accessToken: '',
-  userData: {
-    name: '',
-    email: '',
-    imagePath: '',
-    spotify: {
-      totalLikes: 0,
-      totalSongs: 0,
-      searches: 0,
-    },
-  },
+  userData: initialUserData,
   login: (_accessToken: string) => {},
   logout: () => {},
 });
@@ -27,16 +27,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [accessToken, setAccessToken] = useState('');
-  const [userData, setUserData] = useState({
-    name: '',
-    email: '',
-    imagePath: '',
-    spotify: {
-      totalLikes: 0,
-      totalSongs: 0,
-      searches: 0,
-    },
-  });
+  const [userData, setUserData] = useState<SpotifyDataType>(initialUserData);
 
   const login = (accessToken: string) => {
     setIsAuthenticated(true);
@@ -48,22 +39,12 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     removeFromLocalStorage('access_token');
     setIsAuthenticated(false);
     setAccessToken('');
-    setUserData({
-      name: '',
-      email: '',
-      imagePath: '',
-      spotify: {
-        totalLikes: 0,
-        totalSongs: 0,
-        searches: 0,
-      },
-    });
+    setUserData(initialUserData);
   };
 
   const getUserData = async (accessToken: string) => {
-    const userData = await combinedFetchSpotifyData(accessToken);
-    console.log(userData);
-    // setUserData(data);
+    const spotifyData = await combinedFetchSpotifyData(accessToken);
+    setUserData(spotifyData);
   };
 
   return <AuthContext.Provider value={{ isAuthenticated, userData, accessToken, login, logout }}>{children}</AuthContext.Provider>;

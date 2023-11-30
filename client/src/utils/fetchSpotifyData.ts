@@ -53,6 +53,5 @@ const fetchSpotifyData = async (token: string, endpoint: string) => {
   if (response.status === 204 || response.status >= 400) {
     return null;
   }
-  const data = await response.json();
-  return data;
+  return await response.json();
 };

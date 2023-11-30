@@ -4,12 +4,12 @@ export type PriceDataType = {
   prices: { amazon: number; itunes: number; beatport: number; bandcamp: number };
 };
 
-export type SpotifyUserDataType = {
-  profileData: ProfileDataType;
-  currentlyPlaying: CurrentlyPlayingType;
-  queue: QueueType;
-  recentlyPlayed: RecentlyPlayedType;
-  topArtists: TopArtistsType;
+export type SpotifyDataType = {
+  profileData: ProfileDataType | null;
+  currentlyPlaying: CurrentlyPlayingType | null;
+  queue: QueueType | null;
+  recentlyPlayed: RecentlyPlayedType | null;
+  topArtists: TopArtistsType | null;
 };
 
 // Meta
@@ -42,7 +42,7 @@ export type QueueType = {
 };
 
 export type RecentlyPlayedType = {
-  items: Track[];
+  items: RecentlyPlayedTrack[];
   next: string;
   cursors: Cursors;
   limit: number;
