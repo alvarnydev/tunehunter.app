@@ -57,6 +57,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   const refreshData = async (type?: string) => {
+    console.log('refreshing data');
     setUserData((userData) => ({ ...userData, isLoading: true }));
     let newData;
 

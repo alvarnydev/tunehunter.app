@@ -6,7 +6,7 @@ import { storeInLocalStorage } from '../../../utils/localStorage';
 import { Track } from '../../../types';
 import { LoadingIndicator, MusicPlayingIndicator } from '../../utils/IndicatorComponents';
 import { FormDataType } from '../../../../../types';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
   const { t } = useTranslation();
@@ -23,6 +23,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
       const songDuration = userData.currentlyPlaying.item.duration_ms;
       const songProgress = userData.currentlyPlaying.progress_ms;
       const timeLeft = songDuration - songProgress;
+      console.log(timeLeft);
 
       setTimeout(() => {
         refreshData('queue');
@@ -84,7 +85,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
           </div>
         </td>
         <td className='absolute right-0 top-2'>
-          <button className='btn btn-info btn-outline btn-xs rounded-full' onClick={startSearch}>
+          <button className='btn btn-primary btn-outline btn-xs rounded-full' onClick={startSearch}>
             {t('searchbar.search')}
           </button>
         </td>
@@ -92,29 +93,51 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
     );
   };
 
-  const RecentlyPlayedTable = () => {
+  const UserSongTable = () => {
+    const [height, setHeight] = useState(192);
+    const divRef = useRef<HTMLDivElement>(null);
+
+    const handleResize = () => {
+      console.log('resize'); // why is this not called?
+      const newHeight = divRef.current?.getBoundingClientRect().height;
+      setHeight(newHeight || height);
+    };
+
     return (
-      <div className={`overflow-x-auto w-full h-60 rounded-xl shadow-md shadow-info ${userData.isLoading ? 'flex justify-center items-center' : ''} pl-2 `}>
+      <div className={`w-3/4 rounded-xl shadow shadow-neutral pt-2 px-2 ${userData.isLoading ? 'flex justify-center items-center' : ''} `}>
         {userData.isLoading && <LoadingIndicator size={40} />}
         {!userData.isLoading && (
-          <table className='table table-fixed w-full'>
-            <tbody>
-              {userData.currentlyPlaying?.is_playing && <TrackRow trackData={userData.currentlyPlaying.item} currentlyPlaying={true} />}
-              {userData.recentlyPlayed?.items.map((item) => (
-                <TrackRow key={item.played_at} trackData={item.track} />
-              ))}
-            </tbody>
-          </table>
+          <>
+            <div className='flex justify-center py-2 mx-[2%] border-b-neutral border-b-[1px]'>
+              <TablePicker />
+            </div>
+            <div ref={divRef} className={`overflow-x-auto rounded py-2 resize-y h-[${height}px]`} onResize={handleResize}>
+              <table className='table table-fixed w-full'>
+                <tbody>
+                  {userData.currentlyPlaying?.is_playing && <TrackRow trackData={userData.currentlyPlaying.item} currentlyPlaying={true} />}
+                  {userData.recentlyPlayed?.items.map((item) => (
+                    <TrackRow key={item.played_at} trackData={item.track} />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </div>
     );
   };
 
-  const RecentlyPlayedBox = () => {
+  const TablePicker = () => {
     return (
-      <div className='w-3/4 flex flex-col items-center justify-center gap-2'>
-        <RecentlyPlayedTable />
-        <div className='text-sm italic text-info'>{t('spotify.recentlyPlayed')}</div>
+      <div className='w-[90%] flex justify-between'>
+        <div>
+          <p>Get your songs from:</p>
+        </div>
+        <div className='join'>
+          <button className='join-item capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-l-full'>Recently Played</button>
+          <button className='join-item font-normal capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-none'>Track Queue</button>
+          <button className='join-item font-normal capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-r-full'>Top Artists</button>
+        </div>
       </div>
     );
   };
@@ -135,7 +158,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
 
   return (
     <div className='flex flex-col items-center justify-center w-full'>
-      {isAuthenticated && <RecentlyPlayedBox />}
+      {isAuthenticated && <UserSongTable />}
       {!isAuthenticated && <IntegrationText />}
     </div>
   );

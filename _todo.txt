@@ -1,6 +1,13 @@
 MVP: only german results
 
+table header
+resize not triggering?
+
 create settings
+
+recently played
+- also queue
+- picks from top artists
 
 results:
 - when store doesn't have it: NaN to something more meaningful (e.g. "not available")
