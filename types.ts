@@ -1,3 +1,8 @@
+export type TokenType = {
+  accessToken: string;
+  refreshToken: string;
+};
+
 export type FormDataType = {
   country: string;
   searchMode: string;

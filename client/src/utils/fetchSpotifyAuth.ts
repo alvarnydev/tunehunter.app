@@ -1,5 +1,6 @@
 import { saveExpiryDate } from './utilsFetch';
 import { retrieveFromLocalStorage, storeInLocalStorage } from './localStorage';
+import { TokenType } from '../../../types';
 
 const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID || '';
 const REDIRECT_URI = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
@@ -62,7 +63,7 @@ export const shouldRefreshToken = () => {
   return true;
 };
 
-export const refreshToken = async () => {
+export const getNewTokens = async (): Promise<TokenType> => {
   const refreshToken = retrieveFromLocalStorage('refresh_token');
   const url = new URL('https://accounts.spotify.com/api/token');
 
@@ -81,10 +82,11 @@ export const refreshToken = async () => {
   const response = await fetch(url, payload);
   const data = await response.json();
 
-  const newAccessToken = data.access_token;
-  const newRefreshToken = data.refresh_token;
+  const { access_token, refresh_token } = data;
 
-  storeInLocalStorage('access_token', newAccessToken);
-  storeInLocalStorage('refresh_token', newRefreshToken);
+  storeInLocalStorage('access_token', access_token);
+  storeInLocalStorage('refresh_token', refresh_token);
   saveExpiryDate(data);
+
+  return { accessToken: access_token, refreshToken: refresh_token };
 };

@@ -55,10 +55,11 @@ const CallbackPage = () => {
     const redirect = () => {
       cleanUpLocalStorage();
       const accessToken = retrieveFromLocalStorage('access_token');
+      const refreshToken = retrieveFromLocalStorage('refresh_token');
       const redirectPath = retrieveFromLocalStorage('redirect_path');
       history.replaceState(null, '', redirectPath); // Prevent user from going back to the callback page
 
-      login(accessToken);
+      login({ accessToken, refreshToken });
       navigate(redirectPath);
     };
 

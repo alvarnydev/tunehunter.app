@@ -1,6 +1,5 @@
 MVP: only german results
 
-searchpage suche und so
 currently playing
 settings
 NaN when itunes doens't have it 

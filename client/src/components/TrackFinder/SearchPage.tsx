@@ -25,6 +25,10 @@ const SearchPage = () => {
   const { t } = useTranslation();
 
   // todo: this is terrible, figure out another way
+  /*
+    I use handleformupdate for the manual update via the input fields but also for the update via the spotify integration box
+    I can't use handleSubmit after handleFormUpdate in the spotifyintegration box because the state is still old so we have to somehow wait for the rerender of SearchPage
+  */
   useEffect(() => {
     if (shouldSearch) {
       handleSubmit();

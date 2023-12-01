@@ -4,6 +4,7 @@ import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { removeFromLocalStorage } from '../utils/localStorage';
 import { combinedFetchSpotifyData, fetchRecentlyPlayed } from '../utils/fetchSpotifyData';
 import { SpotifyDataType } from '../types';
+import { TokenType } from '../../../types';
 
 const initialUserData: SpotifyDataType = {
   isLoading: false,
@@ -14,11 +15,16 @@ const initialUserData: SpotifyDataType = {
   topArtists: null,
 };
 
+const initialTokens = {
+  accessToken: '',
+  refreshToken: '',
+};
+
 export const AuthContext = createContext({
   isAuthenticated: false,
-  accessToken: '',
+  tokens: initialTokens,
   userData: initialUserData,
-  login: (_accessToken: string) => {},
+  login: (_tokens: TokenType) => {},
   logout: () => {},
 });
 
@@ -27,19 +33,19 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [accessToken, setAccessToken] = useState('');
+  const [tokens, setTokens] = useState(initialTokens);
   const [userData, setUserData] = useState<SpotifyDataType>(initialUserData);
 
-  const login = (accessToken: string) => {
+  const login = (tokens: TokenType) => {
     setIsAuthenticated(true);
-    setAccessToken(accessToken);
-    getUserData(accessToken);
+    setTokens({ accessToken: tokens.accessToken, refreshToken: tokens.refreshToken });
+    getUserData(tokens.accessToken);
   };
 
   const logout = () => {
     removeFromLocalStorage('access_token');
     setIsAuthenticated(false);
-    setAccessToken('');
+    setTokens(initialTokens);
     setUserData(initialUserData);
   };
 
@@ -49,5 +55,5 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     setUserData({ ...spotifyData, isLoading: false });
   };
 
-  return <AuthContext.Provider value={{ isAuthenticated, userData, accessToken, login, logout }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ isAuthenticated, userData, tokens, login, logout }}>{children}</AuthContext.Provider>;
 };
