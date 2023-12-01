@@ -11,7 +11,7 @@ import { CurrentlyPlayingType, ProfileDataType, QueueType, RecentlyPlayedType, T
 const USER_PROFILE_ENDPOINT = 'https://api.spotify.com/v1/me';
 const CURRENTLY_PLAYING_ENDPOINT = 'https://api.spotify.com/v1/me/player/currently-playing';
 const QUEUE_ENDPOINT = 'https://api.spotify.com/v1/me/player/queue';
-const RECENTLY_PLAYED_ENDPOINT = 'https://api.spotify.com/v1/me/player/recently-played?limit=3';
+const RECENTLY_PLAYED_ENDPOINT = 'https://api.spotify.com/v1/me/player/recently-played';
 const TOP_ARTISTS_ENDPOINT = 'https://api.spotify.com/v1/me/top/artists';
 
 export const combinedFetchSpotifyData = async (token: string) => {

@@ -12,6 +12,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
   const { t } = useTranslation();
   const { isAuthenticated, userData, refreshData } = useAuth();
   const readyForRefresh = useRef(true);
+  console.log(userData);
 
   useEffect(() => {
     readyForRefresh.current = true;
@@ -98,7 +99,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
         {!userData.isLoading && (
           <table className='table table-fixed w-full'>
             <tbody>
-              {userData.currentlyPlaying && <TrackRow trackData={userData.currentlyPlaying.item} currentlyPlaying={true} />}
+              {userData.currentlyPlaying?.is_playing && <TrackRow trackData={userData.currentlyPlaying.item} currentlyPlaying={true} />}
               {userData.recentlyPlayed?.items.map((item) => (
                 <TrackRow key={item.played_at} trackData={item.track} />
               ))}

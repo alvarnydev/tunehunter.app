@@ -1,10 +1,15 @@
 MVP: only german results
 
-settings
-NaN when itunes doens't have it 
-fix profile rendering twice on first load
+create settings
 
-bring searchbar into its correct width (right side overflows)
+results:
+- when store doesn't have it: NaN to something more meaningful (e.g. "not available")
+- cant find song to your input -> no store has it
+
+fix 
+- profile rendering twice on first load
+- bring searchbar into its correct width (right side overflows)
+
 song choice modal
 
 1. spotify integration for song data 
