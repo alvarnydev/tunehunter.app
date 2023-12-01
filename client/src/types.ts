@@ -5,6 +5,7 @@ export type PriceDataType = {
 };
 
 export type SpotifyDataType = {
+  isLoading: boolean;
   profileData: ProfileDataType | null;
   currentlyPlaying: CurrentlyPlayingType | null;
   queue: QueueType | null;

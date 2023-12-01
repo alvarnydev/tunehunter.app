@@ -5,6 +5,7 @@ import { requestAuthorizationCodePKCE } from '../../../utils/fetchSpotifyAuth';
 import { storeInLocalStorage } from '../../../utils/localStorage';
 import { Track } from '../../../types';
 import { useNavigate } from 'react-router';
+import { LoadingSpinner } from '../../utils/LoadingComponents';
 
 const SpotifyIntegrationBox = () => {
   const { t } = useTranslation();
@@ -56,15 +57,18 @@ const SpotifyIntegrationBox = () => {
 
   const RecentlyPlayedTable = () => {
     return (
-      <div className='overflow-x-auto max-h-60 rounded-xl shadow shadow-info bg-info pl-2'>
-        <table className='table table-fixed'>
-          <tbody>
-            {userData.currentlyPlaying && <TrackRow trackData={userData.currentlyPlaying.item} currentlyPlaying={true} />}
-            {userData.recentlyPlayed?.items.map((item) => (
-              <TrackRow key={item.played_at} trackData={item.track} />
-            ))}
-          </tbody>
-        </table>
+      <div className={`overflow-x-auto w-full h-60 rounded-xl shadow shadow-info bg-info ${userData.isLoading ? 'flex justify-center items-center' : ''} pl-2 `}>
+        {userData.isLoading && <LoadingSpinner size={40} />}
+        {!userData.isLoading && (
+          <table className='table table-fixed '>
+            <tbody>
+              {userData.currentlyPlaying && <TrackRow trackData={userData.currentlyPlaying.item} currentlyPlaying={true} />}
+              {userData.recentlyPlayed?.items.map((item) => (
+                <TrackRow key={item.played_at} trackData={item.track} />
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     );
   };

@@ -6,6 +6,7 @@ import { combinedFetchSpotifyData, fetchRecentlyPlayed } from '../utils/fetchSpo
 import { SpotifyDataType } from '../types';
 
 const initialUserData: SpotifyDataType = {
+  isLoading: false,
   profileData: null,
   currentlyPlaying: null,
   queue: null,
@@ -43,8 +44,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   const getUserData = async (accessToken: string) => {
+    setUserData((userData) => ({ ...userData, isLoading: true }));
     const spotifyData = await combinedFetchSpotifyData(accessToken);
-    setUserData(spotifyData);
+    setUserData({ ...spotifyData, isLoading: false });
   };
 
   return <AuthContext.Provider value={{ isAuthenticated, userData, accessToken, login, logout }}>{children}</AuthContext.Provider>;
