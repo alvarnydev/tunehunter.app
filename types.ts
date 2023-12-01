@@ -1,8 +1,10 @@
 export type FormDataType = {
+  country: string;
   searchMode: string;
   songSearchQuery: {
     artist: string;
     title: string;
+    duration: number;
   };
   playlistSearchString: string;
 };

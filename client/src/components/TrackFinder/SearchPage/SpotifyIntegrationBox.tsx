@@ -4,13 +4,12 @@ import { useAuth } from '../../../contexts/auth';
 import { requestAuthorizationCodePKCE } from '../../../utils/fetchSpotifyAuth';
 import { storeInLocalStorage } from '../../../utils/localStorage';
 import { Track } from '../../../types';
-import { useNavigate } from 'react-router';
 import { LoadingSpinner } from '../../utils/LoadingComponents';
+import { FormDataType } from '../../../../../types';
 
-const SpotifyIntegrationBox = () => {
+const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
   const { t } = useTranslation();
   const { isAuthenticated, userData } = useAuth();
-  const navigate = useNavigate();
 
   const startIntegration = () => {
     storeInLocalStorage('redirect_path', window.location.pathname + window.location.search);
@@ -24,8 +23,18 @@ const SpotifyIntegrationBox = () => {
     { trackData, currentlyPlaying } // todo: mark as playing
   ) => {
     const startSearch = () => {
-      const params = `?type=song&country=DE&artist=${trackData.artists[0].name}&title=${trackData.name}&duration=${trackData.duration_ms}`;
-      navigate(`/results${params}`);
+      const newFormData = {
+        country: userData.profileData?.country || 'DE',
+        searchMode: 'song',
+        songSearchQuery: {
+          artist: trackData.artists[0].name,
+          title: trackData.name,
+          duration: trackData.duration_ms,
+        },
+        playlistSearchString: '',
+      };
+
+      handleFormUpdate(newFormData, true);
     };
 
     return (

@@ -1,6 +1,5 @@
 MVP: only german results
 
-loading state recently played songs
 searchpage suche und so
 currently playing
 settings

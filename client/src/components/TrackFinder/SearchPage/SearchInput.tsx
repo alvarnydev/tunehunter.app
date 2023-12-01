@@ -15,8 +15,6 @@ const SongInput = ({ formData, handleFormUpdate }: { formData: FormDataType; han
   const { songSearchQuery } = formData;
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value);
-    console.log(e.target.name);
     handleFormUpdate({
       ...formData,
       songSearchQuery: { ...songSearchQuery, [e.target.name]: e.target.value },
