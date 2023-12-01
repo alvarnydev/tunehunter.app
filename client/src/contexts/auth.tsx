@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { removeFromLocalStorage } from '../utils/localStorage';
-import { combinedFetchSpotifyData, fetchRecentlyPlayed } from '../utils/fetchSpotifyData';
+import { combinedFetchSpotifyData, fetchCurrentlyPlaying, fetchQueue, fetchRecentlyPlayed } from '../utils/fetchSpotifyData';
 import { SpotifyDataType } from '../types';
 import { TokenType } from '../../../types';
 
@@ -26,6 +26,7 @@ export const AuthContext = createContext({
   userData: initialUserData,
   login: (_tokens: TokenType) => {},
   logout: () => {},
+  refreshData: (type: string) => {},
 });
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -55,5 +56,23 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     setUserData({ ...spotifyData, isLoading: false });
   };
 
-  return <AuthContext.Provider value={{ isAuthenticated, userData, tokens, login, logout }}>{children}</AuthContext.Provider>;
+  const refreshData = async (type: string) => {
+    setUserData((userData) => ({ ...userData, isLoading: true }));
+    let newData;
+
+    switch (type) {
+      case 'recentlyPlayed':
+        newData = await fetchRecentlyPlayed(tokens.accessToken);
+        setUserData({ ...userData, recentlyPlayed: newData, isLoading: false });
+        break;
+      case 'currentlyPlaying':
+        newData = await fetchCurrentlyPlaying(tokens.accessToken);
+        setUserData({ ...userData, currentlyPlaying: newData, isLoading: false });
+        break;
+      default:
+        break;
+    }
+  };
+
+  return <AuthContext.Provider value={{ isAuthenticated, userData, tokens, login, logout, refreshData }}>{children}</AuthContext.Provider>;
 };

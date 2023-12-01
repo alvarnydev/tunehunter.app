@@ -1,6 +1,5 @@
 MVP: only german results
 
-currently playing
 settings
 NaN when itunes doens't have it 
 fix profile rendering twice on first load

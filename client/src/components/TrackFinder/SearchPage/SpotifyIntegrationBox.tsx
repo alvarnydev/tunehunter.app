@@ -4,12 +4,32 @@ import { useAuth } from '../../../contexts/auth';
 import { requestAuthorizationCodePKCE } from '../../../utils/fetchSpotifyAuth';
 import { storeInLocalStorage } from '../../../utils/localStorage';
 import { Track } from '../../../types';
-import { LoadingSpinner } from '../../utils/LoadingComponents';
+import { LoadingIndicator, MusicPlayingIndicator } from '../../utils/IndicatorComponents';
 import { FormDataType } from '../../../../../types';
+import { useEffect } from 'react';
 
 const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
   const { t } = useTranslation();
-  const { isAuthenticated, userData } = useAuth();
+  const { isAuthenticated, userData, refreshData } = useAuth();
+
+  useEffect(() => {
+    const getUpdatedPlayingData = async () => {
+      if (userData.currentlyPlaying == undefined) return;
+
+      const songDuration = userData.currentlyPlaying.item.duration_ms;
+      const songProgress = userData.currentlyPlaying.progress_ms;
+      const timeLeft = songDuration - songProgress;
+
+      setTimeout(() => {
+        refreshData('queue');
+        refreshData('currentlyPlaying');
+      }, timeLeft + 500);
+    };
+
+    if (isAuthenticated) {
+      getUpdatedPlayingData();
+    }
+  }, [isAuthenticated, userData.queue, userData.currentlyPlaying]);
 
   const startIntegration = () => {
     storeInLocalStorage('redirect_path', window.location.pathname + window.location.search);
@@ -42,18 +62,21 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
         <td>
           <div className='flex items-center gap-3'>
             <div className='avatar pr-2'>
-              <div className='mask mask-squircle w-10 h-10'>
-                <img src={trackData.album.images[0].url} alt='Avatar Tailwind CSS Component' />
+              <div className={`mask mask-squircle w-10 h-10 `}>
+                <img src={trackData.album.images[0].url} alt='Avatar Tailwind CSS Component' className='relative' />
               </div>
             </div>
             <div>
-              <div className={`${currentlyPlaying ? 'font-bold' : ''}`}>{trackData.artists[0].name}</div>
+              <div>{trackData.artists[0].name}</div>
               <div className='text-sm opacity-50'>{trackData.artists[1]?.name}</div>
             </div>
           </div>
         </td>
         <td>
-          <div className=''>{trackData.name.substring(0, 50)}</div>
+          <div className='flex items-center gap-2'>
+            {currentlyPlaying && <MusicPlayingIndicator size={12} />}
+            <div className='inline'>{trackData.name.substring(0, 50)}</div>
+          </div>
         </td>
         <td className='absolute right-0 top-2'>
           <button className='btn btn-info btn-outline btn-xs rounded-full' onClick={startSearch}>
@@ -65,9 +88,10 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
   };
 
   const RecentlyPlayedTable = () => {
+    console.log(userData);
     return (
       <div className={`overflow-x-auto w-full h-60 rounded-xl shadow shadow-info bg-info ${userData.isLoading ? 'flex justify-center items-center' : ''} pl-2 `}>
-        {userData.isLoading && <LoadingSpinner size={40} />}
+        {userData.isLoading && <LoadingIndicator size={40} />}
         {!userData.isLoading && (
           <table className='table table-fixed '>
             <tbody>

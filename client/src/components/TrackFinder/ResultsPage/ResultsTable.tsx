@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchMusicData } from '../../../utils/fetchMusicData';
-import { LoadingSpinner } from '../../utils/LoadingComponents';
+import { LoadingIndicator } from '../../utils/IndicatorComponents';
 import ResultsRow from './ResultsRow';
 import { ApiResponseDataType, ResultsDataType } from '../../../../../types';
 import AppAlert, { WarningAlert } from '../../utils/ErrorComponents';
@@ -42,7 +42,7 @@ const ResultsTable = () => {
   if (isLoading)
     return (
       <div className='flex h-[426px]'>
-        <LoadingSpinner size={40} />
+        <LoadingIndicator size={40} />
       </div>
     );
   if (error && error instanceof Error) {

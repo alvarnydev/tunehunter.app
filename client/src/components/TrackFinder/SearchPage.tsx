@@ -20,7 +20,7 @@ const initialFormData: FormDataType = {
 
 const SearchPage = () => {
   const [formData, setFormData] = useState(initialFormData);
-  const [shouldSearch, setShouldSearch] = useState(false);
+  const [forceUpdate, setForceUpdate] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -30,16 +30,16 @@ const SearchPage = () => {
     I can't use handleSubmit after handleFormUpdate in the spotifyintegration box because the state is still old so we have to somehow wait for the rerender of SearchPage
   */
   useEffect(() => {
-    if (shouldSearch) {
+    if (forceUpdate) {
       handleSubmit();
     }
-    setShouldSearch(false);
-  }, [shouldSearch]);
+    setForceUpdate(false);
+  }, [forceUpdate]);
 
   const handleFormUpdate = (newFormData: FormDataType, final?: boolean) => {
     setFormData(newFormData);
     if (final) {
-      setShouldSearch(true);
+      setForceUpdate(true);
     }
   };
 

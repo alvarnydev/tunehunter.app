@@ -1,4 +1,4 @@
-import { LoadingSpinner } from '../utils/LoadingComponents';
+import { LoadingIndicator } from '../utils/IndicatorComponents';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../contexts/auth';
 import { useEffect, useState } from 'react';
@@ -124,7 +124,7 @@ const CallbackPage = () => {
 
   return (
     <div className='flex flex-col gap-4 items-center'>
-      {isLoading && <LoadingSpinner size={24} />}
+      {isLoading && <LoadingIndicator size={24} />}
       {!isLoading && (
         <>
           <FaCheck size={24} className='text-success' />
