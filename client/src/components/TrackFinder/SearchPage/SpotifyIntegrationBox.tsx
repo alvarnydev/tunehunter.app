@@ -6,13 +6,16 @@ import { storeInLocalStorage } from '../../../utils/localStorage';
 import { Track } from '../../../types';
 import { LoadingIndicator, MusicPlayingIndicator } from '../../utils/IndicatorComponents';
 import { FormDataType } from '../../../../../types';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
   const { t } = useTranslation();
   const { isAuthenticated, userData, refreshData } = useAuth();
+  const readyForRefresh = useRef(true);
 
   useEffect(() => {
+    readyForRefresh.current = true;
+
     const getUpdatedPlayingData = async () => {
       if (userData.currentlyPlaying == undefined) return;
 
@@ -23,13 +26,14 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
       setTimeout(() => {
         refreshData('queue');
         refreshData('currentlyPlaying');
+        readyForRefresh.current = false;
       }, timeLeft + 500);
     };
 
-    if (isAuthenticated) {
+    if (isAuthenticated && readyForRefresh.current) {
       getUpdatedPlayingData();
     }
-  }, [isAuthenticated, userData.queue, userData.currentlyPlaying]);
+  }, [isAuthenticated, userData.currentlyPlaying]);
 
   const startIntegration = () => {
     storeInLocalStorage('redirect_path', window.location.pathname + window.location.search);
@@ -88,12 +92,11 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
   };
 
   const RecentlyPlayedTable = () => {
-    console.log(userData);
     return (
-      <div className={`overflow-x-auto w-full h-60 rounded-xl shadow shadow-info bg-info ${userData.isLoading ? 'flex justify-center items-center' : ''} pl-2 `}>
+      <div className={`overflow-x-auto w-full h-60 rounded-xl shadow shadow-info ${userData.isLoading ? 'flex justify-center items-center' : ''} pl-2 `}>
         {userData.isLoading && <LoadingIndicator size={40} />}
         {!userData.isLoading && (
-          <table className='table table-fixed '>
+          <table className='table table-fixed w-full'>
             <tbody>
               {userData.currentlyPlaying && <TrackRow trackData={userData.currentlyPlaying.item} currentlyPlaying={true} />}
               {userData.recentlyPlayed?.items.map((item) => (
@@ -108,7 +111,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
 
   const RecentlyPlayedBox = () => {
     return (
-      <div className='flex flex-col items-center justify-center gap-2'>
+      <div className='w-3/4 flex flex-col items-center justify-center gap-2'>
         <RecentlyPlayedTable />
         <div className='text-sm italic text-info'>{t('spotify.recentlyPlayed')}</div>
       </div>
@@ -130,7 +133,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
   };
 
   return (
-    <div className='flex flex-col items-center justify-center'>
+    <div className='flex flex-col items-center justify-center w-full'>
       {isAuthenticated && <RecentlyPlayedBox />}
       {!isAuthenticated && <IntegrationText />}
     </div>
