@@ -12,8 +12,8 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
   const { t } = useTranslation();
   const { isAuthenticated, userData, refreshData } = useAuth();
   const readyForRefresh = useRef(true);
-  console.log(userData);
 
+  // Refresh data when song is finished
   useEffect(() => {
     readyForRefresh.current = true;
 
@@ -94,7 +94,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
 
   const RecentlyPlayedTable = () => {
     return (
-      <div className={`overflow-x-auto w-full h-60 rounded-xl shadow shadow-info ${userData.isLoading ? 'flex justify-center items-center' : ''} pl-2 `}>
+      <div className={`overflow-x-auto w-full h-60 rounded-xl shadow-md shadow-info ${userData.isLoading ? 'flex justify-center items-center' : ''} pl-2 `}>
         {userData.isLoading && <LoadingIndicator size={40} />}
         {!userData.isLoading && (
           <table className='table table-fixed w-full'>

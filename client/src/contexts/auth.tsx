@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     setUserData({ ...spotifyData, isLoading: false });
   };
 
-  const refreshData = async (type: string) => {
+  const refreshData = async (type?: string) => {
     setUserData((userData) => ({ ...userData, isLoading: true }));
     let newData;
 
@@ -70,6 +70,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         setUserData({ ...userData, currentlyPlaying: newData, isLoading: false });
         break;
       default:
+        newData = await combinedFetchSpotifyData(tokens.accessToken);
+        setUserData({ ...newData, isLoading: false });
         break;
     }
   };
