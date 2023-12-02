@@ -1,75 +1,39 @@
 MVP: only german results
 
-table header
-resize not triggering?
-
 create settings
-
-recently played
-- also queue
-- picks from top artists
 
 results:
 - when store doesn't have it: NaN to something more meaningful (e.g. "not available")
 - cant find song to your input -> no store has it
 
-fix 
+fix
 - profile rendering twice on first load
 - bring searchbar into its correct width (right side overflows)
 
-song choice modal
-
-1. spotify integration for song data 
-    - songs and playlist currently playing
-    - Get song info from spotify and then search vendor APIs with that data
-    - Play found song in TrackPreview
-
 2. Modal to narrow down user input: <This one>, check out these other songs we found for your input
-
-use daisy's toasts?
-
 3. beatport, amazon, bandcamp
-4. suggestions when entering text
 
 optimizations: 
 - tailwind purge
 - react lazy
+- use daisy's toasts? 
 - daisyui
 
 
 THEN:
 
-Why is cors not blocking requests to https://accounts.spotify.com/api/token but to api.btt.com?
 lots of memory? check for memory leaks, endless loops
 
 1. Save calls in DB
 2. Get real API keys
 
-style stuff:
-- loading animation color
-
-
 make logo with iPad and 80s retrowave font https://creativemarket.com/Aiyari/1434947-The-Moonlight or https://creativemarket.com/Aiyari/3461753-Aiyari-Handmade-Font-Bundle-Extras?u=Aiyari&utm_source=Link&utm_medium=CM+Social+Share&utm_campaign=Product+Social+Share&utm_content=Aiyari+Handmade+Font+Bundle+%2B+Extras+%7E+Display+Fonts+%7E+Creative+Market&ts=201902
-
-
-
-
-
 
 
 
 _________________
 
-
-
-
-
-
-
 - add lang to trackfinder form to properly route requests
-- api key
-- Validate input: react hook forms
-- Convert results to table(s): array.map
 - rate limiting search
 
 

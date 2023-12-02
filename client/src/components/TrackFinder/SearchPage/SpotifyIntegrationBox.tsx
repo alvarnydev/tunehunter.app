@@ -32,7 +32,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
       }, timeLeft + 500);
     };
 
-    if (isAuthenticated && !setRefresh.current) {
+    if (isAuthenticated && userData.currentlyPlaying?.is_playing && !setRefresh.current) {
       getUpdatedPlayingData();
     }
   }, [isAuthenticated, userData.currentlyPlaying]);
@@ -81,7 +81,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
         <td>
           <div className='flex items-center gap-2'>
             {currentlyPlaying && <MusicPlayingIndicator size={12} />}
-            <div className='inline'>{trackData.name.substring(0, 50)}</div>
+            <div className='inline'>{trackData.name.length >= 40 ? `${trackData.name.substring(0, 40)}...` : trackData.name}</div>
           </div>
         </td>
         <td className='absolute right-0 top-2'>

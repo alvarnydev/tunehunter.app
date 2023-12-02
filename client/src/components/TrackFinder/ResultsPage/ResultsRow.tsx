@@ -12,6 +12,7 @@ enum ArtistsShareEnum {
 
 const ResultsRow = ({ rowData }: { rowData: TrackInfoType }) => {
   const { t } = useTranslation();
+  console.log(rowData);
 
   const vendorNameLower = rowData.vendor.name.toLowerCase().replace(' ', '');
   const vendorCountryLower = rowData.vendor.country.toLowerCase().slice(0, 2);
