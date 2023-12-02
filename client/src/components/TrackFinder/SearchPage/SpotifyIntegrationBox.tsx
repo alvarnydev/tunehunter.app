@@ -14,6 +14,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
   const { isAuthenticated, userData, refreshData } = useAuth();
   const setRefresh = useRef(false);
   console.log('rerender', setRefresh.current);
+  console.log(userData);
 
   // Refresh data when song is finished
   useEffect(() => {
@@ -158,6 +159,13 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
   };
 
   const QueueTable = () => {
+    if (userData.queue?.queue.length == 0)
+      return (
+        <div className='flex h-full justify-center items-center'>
+          <p className='text-center'>Your queue is currently empty</p>
+        </div>
+      );
+
     return (
       <table className='table table-fixed w-full'>
         <tbody>
