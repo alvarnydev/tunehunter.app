@@ -11,7 +11,7 @@ const resources = {
         search: 'Search',
       },
       spotify: {
-        integration: 'For best results, use our ',
+        integration: 'For the best results, use our ',
         recentlyPlayed: 'Your recently played songs on Spotify',
         annotation: "After logging in, you'll see your recently played songs and can search for them directly!",
         authenticated: 'Press play on any song (in Spotify) and we will try to find it!',
@@ -60,7 +60,7 @@ const resources = {
         search: 'Buscar',
       },
       spotify: {
-        integration: 'Para mejores resultados, use nuestra ',
+        integration: 'Para los mejores resultados, usa nuestra ',
         recentlyPlayed: 'Tus canciones recientes en Spotify',
         annotation: 'Después de iniciar sesión, verás tus canciones recientes y podrás buscarlas directamente!',
         authenticated: 'Pulsa play en cualquier canción (en Spotify) y intentaremos encontrarla!',
