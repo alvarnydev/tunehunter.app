@@ -12,15 +12,14 @@ import SongsTableLayout from './UserSongsTable/SongsTableLayout';
 const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
   const { t } = useTranslation();
   const { isAuthenticated, userData, refreshData } = useAuth();
-  const readyForRefresh = useRef(true);
-  console.log('SpotifyIntegrationBox');
+  const setRefresh = useRef(false);
+  console.log('rerender', setRefresh.current);
 
   // Refresh data when song is finished
   useEffect(() => {
-    readyForRefresh.current = true;
-
     const getUpdatedPlayingData = async () => {
       if (userData.currentlyPlaying == undefined) return;
+      setRefresh.current = true;
 
       const songDuration = userData.currentlyPlaying.item.duration_ms;
       const songProgress = userData.currentlyPlaying.progress_ms;
@@ -28,13 +27,12 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
       console.log(timeLeft);
 
       setTimeout(() => {
-        refreshData('queue');
-        refreshData('currentlyPlaying');
-        readyForRefresh.current = false;
+        refreshData('currentlyAndRecently');
+        setRefresh.current = false;
       }, timeLeft + 500);
     };
 
-    if (isAuthenticated && readyForRefresh.current) {
+    if (isAuthenticated && !setRefresh.current) {
       getUpdatedPlayingData();
     }
   }, [isAuthenticated, userData.currentlyPlaying]);
@@ -98,6 +96,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
   const UserSongsTable = () => {
     const [tab, setTab] = useState<SongTableTab>('recentlyPlayed');
     const divRef = useRef<HTMLDivElement>(null);
+    userData.isLoading = false;
 
     const handleTabUpdate = (newTab: SongTableTab) => {
       setTab(newTab);
@@ -105,17 +104,19 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
 
     return (
       <SongsTableLayout loading={userData.isLoading}>
-        {userData.isLoading && <LoadingIndicator size={40} />}
-        {!userData.isLoading && (
-          <>
-            <TablePicker tab={tab} handleTabUpdate={handleTabUpdate} />
-            <div ref={divRef} className={`overflow-x-auto scrollbar-none rounded py-2 resize-y h-52`}>
-              {tab == 'recentlyPlayed' && <RecentlyPlayedTable />}
-              {tab == 'mostPlayed' && <MostPlayedTable />}
-              {tab == 'queue' && <QueueTable />}
-            </div>
-          </>
-        )}
+        <>
+          <TablePicker tab={tab} handleTabUpdate={handleTabUpdate} />
+          <div ref={divRef} className={`overflow-x-auto scrollbar-none rounded py-2 resize-y h-52`}>
+            {userData.isLoading && <LoadingIndicator size={40} />}
+            {!userData.isLoading && (
+              <>
+                {tab == 'recentlyPlayed' && <RecentlyPlayedTable />}
+                {tab == 'mostPlayed' && <MostPlayedTable />}
+                {tab == 'queue' && <QueueTable />}
+              </>
+            )}
+          </div>
+        </>
       </SongsTableLayout>
     );
   };
@@ -157,7 +158,6 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
   };
 
   const QueueTable = () => {
-    console.log(userData.queue?.queue);
     return (
       <table className='table table-fixed w-full'>
         <tbody>

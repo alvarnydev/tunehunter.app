@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { removeFromLocalStorage } from '../utils/localStorage';
-import { combinedFetchSpotifyData, fetchCurrentlyPlaying, fetchQueue, fetchRecentlyPlayed } from '../utils/fetchSpotifyData';
+import { combinedFetchSpotifyData, fetchCurrentlyPlaying, fetchProfileData, fetchQueue, fetchRecentlyPlayed, fetchTopArtists, fetchTopTracks } from '../utils/fetchSpotifyData';
 import { SpotifyDataType } from '../types';
 import { TokenType } from '../../../types';
 
@@ -13,6 +13,7 @@ const initialUserData: SpotifyDataType = {
   queue: null,
   recentlyPlayed: null,
   topArtists: null,
+  topTracks: null,
 };
 
 const initialTokens = {
@@ -59,16 +60,37 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const refreshData = async (type?: string) => {
     console.log('refreshing data');
     setUserData((userData) => ({ ...userData, isLoading: true }));
-    let newData;
+    let newData, newData2;
 
     switch (type) {
-      case 'recentlyPlayed':
-        newData = await fetchRecentlyPlayed(tokens.accessToken);
-        setUserData({ ...userData, recentlyPlayed: newData, isLoading: false });
+      case 'profileData':
+        newData = await fetchProfileData(tokens.accessToken);
+        setUserData({ ...userData, profileData: newData, isLoading: false });
         break;
       case 'currentlyPlaying':
         newData = await fetchCurrentlyPlaying(tokens.accessToken);
         setUserData({ ...userData, currentlyPlaying: newData, isLoading: false });
+        break;
+      case 'recentlyPlayed':
+        newData = await fetchRecentlyPlayed(tokens.accessToken);
+        setUserData({ ...userData, recentlyPlayed: newData, isLoading: false });
+        break;
+      case 'currentlyAndRecently':
+        newData = await fetchCurrentlyPlaying(tokens.accessToken);
+        newData2 = await fetchRecentlyPlayed(tokens.accessToken);
+        setUserData({ ...userData, currentlyPlaying: newData, recentlyPlayed: newData2, isLoading: false });
+        break;
+      case 'queue':
+        newData = await fetchQueue(tokens.accessToken);
+        setUserData({ ...userData, queue: newData, isLoading: false });
+        break;
+      case 'topArtists':
+        newData = await fetchTopArtists(tokens.accessToken);
+        setUserData({ ...userData, topArtists: newData, isLoading: false });
+        break;
+      case 'topTracks':
+        newData = await fetchTopTracks(tokens.accessToken);
+        setUserData({ ...userData, topTracks: newData, isLoading: false });
         break;
       default:
         newData = await combinedFetchSpotifyData(tokens.accessToken);
