@@ -1,5 +1,9 @@
 MVP: only german results
 
+refresh button - indicator refresh time
+show loading icon only on very first render 
+periodically load only once
+
 create settings
 
 results:
@@ -9,6 +13,7 @@ results:
 fix
 - profile rendering twice on first load
 - bring searchbar into its correct width (right side overflows)
+- token expiring after 60min of inactivity
 
 2. Modal to narrow down user input: <This one>, check out these other songs we found for your input
 3. beatport, amazon, bandcamp data
