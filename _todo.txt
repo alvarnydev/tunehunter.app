@@ -11,7 +11,7 @@ fix
 - bring searchbar into its correct width (right side overflows)
 
 2. Modal to narrow down user input: <This one>, check out these other songs we found for your input
-3. beatport, amazon, bandcamp
+3. beatport, amazon, bandcamp data
 
 optimizations: 
 - tailwind purge
@@ -22,32 +22,21 @@ optimizations:
 
 THEN:
 
-lots of memory? check for memory leaks, endless loops
+add region menu (maybe min quality: aac 256, mp3 320, lossless)
 
-1. Save calls in DB
-2. Get real API keys
+make responsive
+test: jest, cypress
+
+Save calls in DB
+Get real API keys
 
 make logo with iPad and 80s retrowave font https://creativemarket.com/Aiyari/1434947-The-Moonlight or https://creativemarket.com/Aiyari/3461753-Aiyari-Handmade-Font-Bundle-Extras?u=Aiyari&utm_source=Link&utm_medium=CM+Social+Share&utm_campaign=Product+Social+Share&utm_content=Aiyari+Handmade+Font+Bundle+%2B+Extras+%7E+Display+Fonts+%7E+Creative+Market&ts=201902
 
 
 
-_________________
+MAYBE:
 
-- add lang to trackfinder form to properly route requests
-- rate limiting search
-
-
-2. Work
-  - Provider context for SeachBar status
-  - Add region + quality menu
-      - aac 256, mp3 320, lossless
-  - Add server actions, api for data requests
-  - For mobile:
-      - on button click hide menu
-
-3. Jest, Cypress
-
-Maybe:
+- Rate limiting search
 - Retrowave fonts
 - Animations
 - Background more interesting
@@ -55,8 +44,6 @@ Maybe:
 
 
 Fix:
-- State in input component leading to unnecessary renders
-- Lots of state sharing between toggler and input
 - Put data fetching in ResultsTable and make it a RSC (child in pages.tsx rather than directly in TrackFinderForm) rather than use API
 
 
@@ -84,7 +71,3 @@ APIs:
 
     iTunes Store
     - API example: https://itunes.apple.com/search?term=need+to+feel+loved&country=DE&media=music&entity=song&limit=5
-
-___________________________
-
-new project: bun, trpc, zod
