@@ -97,17 +97,10 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
 
   const UserSongsTable = () => {
     const [tab, setTab] = useState<SongTableTab>('recentlyPlayed');
-    const [height, setHeight] = useState(192);
     const divRef = useRef<HTMLDivElement>(null);
 
     const handleTabUpdate = (newTab: SongTableTab) => {
       setTab(newTab);
-    };
-
-    const handleResize = () => {
-      console.log('resize'); // why is this not called?
-      const newHeight = divRef.current?.getBoundingClientRect().height;
-      setHeight(newHeight || height);
     };
 
     return (
@@ -116,10 +109,10 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
         {!userData.isLoading && (
           <>
             <TablePicker tab={tab} handleTabUpdate={handleTabUpdate} />
-            <div ref={divRef} className={`overflow-x-auto scrollbar-none rounded py-2 resize-y h-[${height}px]`} onResize={handleResize}>
+            <div ref={divRef} className={`overflow-x-auto scrollbar-none rounded py-2 resize-y h-52`}>
               {tab == 'recentlyPlayed' && <RecentlyPlayedTable />}
-              {tab == 'trackQueue' && <TrackQueueTable />}
-              {tab == 'topArtists' && <TopArtistsTable />}
+              {tab == 'mostPlayed' && <MostPlayedTable />}
+              {tab == 'queue' && <QueueTable />}
             </div>
           </>
         )}
@@ -138,11 +131,11 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
             <button className={`join-item capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-l-full ${tab === 'recentlyPlayed' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('recentlyPlayed')}>
               Recently Played
             </button>
-            <button className={`join-item  capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-none ${tab === 'trackQueue' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('trackQueue')}>
-              Track Queue
+            <button className={`join-item capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-none ${tab === 'mostPlayed' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('mostPlayed')}>
+              Most Played
             </button>
-            <button className={`join-item capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-r-full ${tab === 'topArtists' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('topArtists')}>
-              Top Artists
+            <button className={`join-item  capitalize text-base tracking-wide btn-ghost btn btn-sm  rounded-r-full  ${tab === 'queue' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('queue')}>
+              Queue
             </button>
           </div>
         </div>
@@ -163,18 +156,27 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
     );
   };
 
-  const TrackQueueTable = () => {
+  const QueueTable = () => {
+    console.log(userData.queue?.queue);
     return (
       <table className='table table-fixed w-full'>
-        <tbody></tbody>
+        <tbody>
+          {userData.queue?.queue.map((item) => (
+            <TrackRow key={item.uri} trackData={item} />
+          ))}
+        </tbody>
       </table>
     );
   };
 
-  const TopArtistsTable = () => {
+  const MostPlayedTable = () => {
     return (
       <table className='table table-fixed w-full'>
-        <tbody></tbody>
+        <tbody>
+          {userData.topTracks?.items.map((item) => (
+            <TrackRow key={item.id} trackData={item} />
+          ))}
+        </tbody>
       </table>
     );
   };

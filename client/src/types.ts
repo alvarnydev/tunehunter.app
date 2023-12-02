@@ -11,6 +11,7 @@ export type SpotifyDataType = {
   queue: QueueType | null;
   recentlyPlayed: RecentlyPlayedType | null;
   topArtists: TopArtistsType | null;
+  topTracks: TopTracksType | null;
 };
 
 // Meta
@@ -52,6 +53,16 @@ export type RecentlyPlayedType = {
 
 export type TopArtistsType = {
   items: TopArtist[];
+  total: number;
+  limit: number;
+  offset: number;
+  href: string;
+  previous: string;
+  next: string;
+};
+
+export type TopTracksType = {
+  items: Track[];
   total: number;
   limit: number;
   offset: number;

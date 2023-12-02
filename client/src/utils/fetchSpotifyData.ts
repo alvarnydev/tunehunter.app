@@ -6,17 +6,25 @@ User's recently played: user-read-recently-played (https://api.spotify.com/v1/me
 User's top artists: user-top-read (https://api.spotify.com/v1/me/top/artists)
 */
 
-import { CurrentlyPlayingType, ProfileDataType, QueueType, RecentlyPlayedType, TopArtistsType } from '../types';
+import { CurrentlyPlayingType, ProfileDataType, QueueType, RecentlyPlayedType, TopArtistsType, TopTracksType } from '../types';
 
 const USER_PROFILE_ENDPOINT = 'https://api.spotify.com/v1/me';
 const CURRENTLY_PLAYING_ENDPOINT = 'https://api.spotify.com/v1/me/player/currently-playing';
 const QUEUE_ENDPOINT = 'https://api.spotify.com/v1/me/player/queue';
-const RECENTLY_PLAYED_ENDPOINT = 'https://api.spotify.com/v1/me/player/recently-played';
-const TOP_ARTISTS_ENDPOINT = 'https://api.spotify.com/v1/me/top/artists';
+const RECENTLY_PLAYED_ENDPOINT = 'https://api.spotify.com/v1/me/player/recently-played?limit=50';
+const TOP_ARTISTS_ENDPOINT = 'https://api.spotify.com/v1/me/top/artists?time_range=long_term&limit=50';
+const TOP_TRACKS_ENDPOINT = 'https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50';
 
 export const combinedFetchSpotifyData = async (token: string) => {
-  const [profileData, currentlyPlaying, queue, recentlyPlayed, topArtists] = await Promise.all([fetchProfileData(token), fetchCurrentlyPlaying(token), fetchQueue(token), fetchRecentlyPlayed(token), fetchTopArtists(token)]);
-  return { profileData, currentlyPlaying, queue, recentlyPlayed, topArtists };
+  const [profileData, currentlyPlaying, queue, recentlyPlayed, topArtists, topTracks] = await Promise.all([
+    fetchProfileData(token),
+    fetchCurrentlyPlaying(token),
+    fetchQueue(token),
+    fetchRecentlyPlayed(token),
+    fetchTopArtists(token),
+    fetchTopTracks(token),
+  ]);
+  return { profileData, currentlyPlaying, queue, recentlyPlayed, topArtists, topTracks };
 };
 
 export const fetchProfileData = async (token: string) => {
@@ -41,6 +49,11 @@ export const fetchRecentlyPlayed = async (token: string) => {
 
 export const fetchTopArtists = async (token: string) => {
   const data = fetchSpotifyData(token, TOP_ARTISTS_ENDPOINT) as Promise<TopArtistsType>;
+  return data;
+};
+
+export const fetchTopTracks = async (token: string) => {
+  const data = fetchSpotifyData(token, TOP_TRACKS_ENDPOINT) as Promise<TopTracksType>;
   return data;
 };
 

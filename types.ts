@@ -1,4 +1,4 @@
-export type SongTableTab = 'recentlyPlayed' | 'trackQueue' | 'topArtists';
+export type SongTableTab = 'recentlyPlayed' | 'queue' | 'mostPlayed';
 
 export type TokenType = {
   accessToken: string;
