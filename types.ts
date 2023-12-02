@@ -1,3 +1,5 @@
+export type SongTableTab = 'recentlyPlayed' | 'trackQueue' | 'topArtists';
+
 export type TokenType = {
   accessToken: string;
   refreshToken: string;

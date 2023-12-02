@@ -1,11 +1,12 @@
-import SpotifyIntegrationBox from './SearchPage/SpotifyIntegrationBox';
+import MemoizedSpotifyIntegrationBox from './SearchPage/SpotifyIntegrationBox';
 import SearchBar from './SearchPage/SearchBar';
 import { FormDataType } from '../../../../types';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastComponent } from '../utils/ToastComponent';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import SearchPageLayout from './SearchPage/SearchPageLayout';
 
 const initialFormData: FormDataType = {
   country: 'DE',
@@ -36,22 +37,21 @@ const SearchPage = () => {
     setForceUpdate(false);
   }, [forceUpdate]);
 
-  const handleFormUpdate = (newFormData: FormDataType, final?: boolean) => {
+  const handleFormUpdate = useCallback((newFormData: FormDataType, final?: boolean) => {
     setFormData(newFormData);
     if (final) {
       setForceUpdate(true);
     }
-  };
+  }, []);
 
   function handleSubmit() {
     if (!isValidInput()) {
       return;
     }
-
     storeFormData();
 
-    const params = buildGetParams();
-    navigate(`/results${params}`);
+    const newParams = buildGetParams();
+    navigate(`/results${newParams}`);
   }
 
   useEffect(() => {
@@ -176,10 +176,10 @@ const SearchPage = () => {
   }
 
   return (
-    <div className='w-full flex flex-col justify-center items-center gap-10'>
+    <SearchPageLayout>
       <SearchBar formData={formData} handleFormUpdate={handleFormUpdate} handleSubmit={handleSubmit} />
-      <SpotifyIntegrationBox handleFormUpdate={handleFormUpdate} />
-    </div>
+      <MemoizedSpotifyIntegrationBox handleFormUpdate={handleFormUpdate} />
+    </SearchPageLayout>
   );
 };
 

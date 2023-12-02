@@ -5,13 +5,15 @@ import { requestAuthorizationCodePKCE } from '../../../utils/fetchSpotifyAuth';
 import { storeInLocalStorage } from '../../../utils/localStorage';
 import { Track } from '../../../types';
 import { LoadingIndicator, MusicPlayingIndicator } from '../../utils/IndicatorComponents';
-import { FormDataType } from '../../../../../types';
-import { useEffect, useRef, useState } from 'react';
+import { FormDataType, SongTableTab } from '../../../../../types';
+import { memo, useEffect, useRef, useState } from 'react';
+import SongsTableLayout from './UserSongsTable/SongsTableLayout';
 
 const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
   const { t } = useTranslation();
   const { isAuthenticated, userData, refreshData } = useAuth();
   const readyForRefresh = useRef(true);
+  console.log('SpotifyIntegrationBox');
 
   // Refresh data when song is finished
   useEffect(() => {
@@ -93,9 +95,14 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
     );
   };
 
-  const UserSongTable = () => {
+  const UserSongsTable = () => {
+    const [tab, setTab] = useState<SongTableTab>('recentlyPlayed');
     const [height, setHeight] = useState(192);
     const divRef = useRef<HTMLDivElement>(null);
+
+    const handleTabUpdate = (newTab: SongTableTab) => {
+      setTab(newTab);
+    };
 
     const handleResize = () => {
       console.log('resize'); // why is this not called?
@@ -104,41 +111,71 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
     };
 
     return (
-      <div className={`w-3/4 rounded-xl shadow shadow-neutral pt-2 px-2 ${userData.isLoading ? 'flex justify-center items-center' : ''} `}>
+      <SongsTableLayout loading={userData.isLoading}>
         {userData.isLoading && <LoadingIndicator size={40} />}
         {!userData.isLoading && (
           <>
-            <div className='flex justify-center py-2 mx-[2%] border-b-neutral border-b-[1px]'>
-              <TablePicker />
-            </div>
-            <div ref={divRef} className={`overflow-x-auto rounded py-2 resize-y h-[${height}px]`} onResize={handleResize}>
-              <table className='table table-fixed w-full'>
-                <tbody>
-                  {userData.currentlyPlaying?.is_playing && <TrackRow trackData={userData.currentlyPlaying.item} currentlyPlaying={true} />}
-                  {userData.recentlyPlayed?.items.map((item) => (
-                    <TrackRow key={item.played_at} trackData={item.track} />
-                  ))}
-                </tbody>
-              </table>
+            <TablePicker tab={tab} handleTabUpdate={handleTabUpdate} />
+            <div ref={divRef} className={`overflow-x-auto scrollbar-none rounded py-2 resize-y h-[${height}px]`} onResize={handleResize}>
+              {tab == 'recentlyPlayed' && <RecentlyPlayedTable />}
+              {tab == 'trackQueue' && <TrackQueueTable />}
+              {tab == 'topArtists' && <TopArtistsTable />}
             </div>
           </>
         )}
+      </SongsTableLayout>
+    );
+  };
+
+  const TablePicker = ({ tab, handleTabUpdate }: { tab: string; handleTabUpdate: (newTab: SongTableTab) => void }) => {
+    return (
+      <div className='flex justify-center py-2 mx-[2%] border-b-neutral border-b-[1px]'>
+        <div className='w-[90%] flex justify-between'>
+          <div>
+            <p>Get your songs from:</p>
+          </div>
+          <div className='join'>
+            <button className={`join-item capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-l-full ${tab === 'recentlyPlayed' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('recentlyPlayed')}>
+              Recently Played
+            </button>
+            <button className={`join-item  capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-none ${tab === 'trackQueue' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('trackQueue')}>
+              Track Queue
+            </button>
+            <button className={`join-item capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-r-full ${tab === 'topArtists' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('topArtists')}>
+              Top Artists
+            </button>
+          </div>
+        </div>
       </div>
     );
   };
 
-  const TablePicker = () => {
+  const RecentlyPlayedTable = () => {
     return (
-      <div className='w-[90%] flex justify-between'>
-        <div>
-          <p>Get your songs from:</p>
-        </div>
-        <div className='join'>
-          <button className='join-item capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-l-full'>Recently Played</button>
-          <button className='join-item font-normal capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-none'>Track Queue</button>
-          <button className='join-item font-normal capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-r-full'>Top Artists</button>
-        </div>
-      </div>
+      <table className='table table-fixed w-full'>
+        <tbody>
+          {userData.currentlyPlaying?.is_playing && <TrackRow trackData={userData.currentlyPlaying.item} currentlyPlaying={true} />}
+          {userData.recentlyPlayed?.items.map((item) => (
+            <TrackRow key={item.played_at} trackData={item.track} />
+          ))}
+        </tbody>
+      </table>
+    );
+  };
+
+  const TrackQueueTable = () => {
+    return (
+      <table className='table table-fixed w-full'>
+        <tbody></tbody>
+      </table>
+    );
+  };
+
+  const TopArtistsTable = () => {
+    return (
+      <table className='table table-fixed w-full'>
+        <tbody></tbody>
+      </table>
     );
   };
 
@@ -158,10 +195,11 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
 
   return (
     <div className='flex flex-col items-center justify-center w-full'>
-      {isAuthenticated && <UserSongTable />}
+      {isAuthenticated && <UserSongsTable />}
       {!isAuthenticated && <IntegrationText />}
     </div>
   );
 };
 
-export default SpotifyIntegrationBox;
+const MemoizedSpotifyIntegrationBox = memo(SpotifyIntegrationBox);
+export default MemoizedSpotifyIntegrationBox;
