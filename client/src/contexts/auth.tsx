@@ -5,6 +5,7 @@ import { removeFromLocalStorage } from '../utils/localStorage';
 import { combinedFetchSpotifyData, fetchCurrentlyPlaying, fetchProfileData, fetchQueue, fetchRecentlyPlayed, fetchTopArtists, fetchTopTracks } from '../utils/fetchSpotifyData';
 import { SpotifyDataType } from '../types';
 import { TokenType } from '../../../types';
+import { getNewTokens, shouldRefreshToken } from '../utils/fetchSpotifyAuth';
 
 const initialUserData: SpotifyDataType = {
   profileData: null,
@@ -50,12 +51,20 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     setUserData(initialUserData);
   };
 
+  const refreshTokens = async () => {
+    const tokens = await getNewTokens();
+    setTokens(tokens);
+  };
+
   const getUserData = async (accessToken: string) => {
+    if (isAuthenticated && shouldRefreshToken()) refreshTokens();
     const spotifyData = await combinedFetchSpotifyData(accessToken);
     setUserData({ ...spotifyData });
   };
 
   const refreshData = async (type?: string) => {
+    if (isAuthenticated && shouldRefreshToken()) refreshTokens();
+    console.log(`refreshing ${type} data`);
     let newData, newData2;
 
     switch (type) {

@@ -6,13 +6,17 @@ import { storeInLocalStorage } from '../../../utils/localStorage';
 import { Track } from '../../../types';
 import { MusicPlayingIndicator } from '../../utils/IndicatorComponents';
 import { FormDataType, SongTableTab } from '../../../../../types';
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import SongsTableLayout from './UserSongsTable/SongsTableLayout';
 import { IoMdRefresh } from 'react-icons/io';
 
 const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
   const { t } = useTranslation();
   const { isAuthenticated, userData, refreshData } = useAuth();
+  const [tab, setTab] = useState<SongTableTab>('recentlyPlayed');
+  const tableHeight = useRef(208);
+  const tableRef = useRef<HTMLDivElement>(null);
+  const timerEnd = useRef(new Date().getTime() + 60_000);
 
   // Refresh data when song is finished or every 60 seconds
   useEffect(() => {
@@ -25,29 +29,40 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
       const songDuration = userData.currentlyPlaying.item.duration_ms;
       const songProgress = userData.currentlyPlaying.progress_ms;
       const timeLeft = songDuration - songProgress;
-      console.log(`refreshing data in ${timeLeft / 1000} seconds`);
 
+      timerEnd.current = new Date().getTime() + (timeLeft + 500);
       timer = setTimeout(() => {
-        refreshData('currentlyAndRecently');
+        startDataRefresh();
       }, timeLeft + 500);
     };
 
     const refreshDataPeriodically = async (refreshTime: number) => {
+      const newTimerEndTime = new Date().getTime() + refreshTime * 1000;
+      if (newTimerEndTime < timerEnd.current) timerEnd.current = newTimerEndTime;
       timer = setTimeout(() => {
-        refreshData('currentlyAndRecently');
+        startDataRefresh();
       }, refreshTime * 1000);
     };
 
     if (userData.currentlyPlaying?.is_playing) {
       refreshDataOnEndOfSong();
     }
-    console.log(`refreshing data in 60 seconds`);
-    refreshDataPeriodically(1000);
+    refreshDataPeriodically(60);
 
     return () => {
       clearTimeout(timer);
     };
   }, [isAuthenticated, userData]);
+
+  const startDataRefresh = () => {
+    saveTableHeight();
+    refreshData('currentlyAndRecently');
+  };
+
+  const saveTableHeight = () => {
+    if (tableRef.current == null) return;
+    tableHeight.current = tableRef.current.getBoundingClientRect().height;
+  };
 
   const startIntegration = () => {
     storeInLocalStorage('redirect_path', window.location.pathname + window.location.search);
@@ -105,19 +120,22 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
     );
   };
 
-  const UserSongsTable = () => {
-    const [tab, setTab] = useState<SongTableTab>('recentlyPlayed');
-    const divRef = useRef<HTMLDivElement>(null);
-
+  const SpotifyTable = () => {
     const handleTabUpdate = (newTab: SongTableTab) => {
       setTab(newTab);
     };
+
+    // Restore table height (h-[${tableHeight.current}px] doesn't work on tab change for some reason)
+    useLayoutEffect(() => {
+      if (tableRef.current == null) return;
+      tableRef.current.style.height = `${tableHeight.current}px`;
+    }, []);
 
     return (
       <SongsTableLayout loading={userData.recentlyPlayed === null}>
         <>
           <TablePicker tab={tab} handleTabUpdate={handleTabUpdate} />
-          <div ref={divRef} className={`overflow-x-auto scrollbar-none rounded py-2 w-full resize-y h-52`}>
+          <div ref={tableRef} className={`overflow-x-auto scrollbar-none rounded py-2 w-full resize-y h-52`}>
             {tab == 'recentlyPlayed' && <RecentlyPlayedTable />}
             {tab == 'mostPlayed' && <MostPlayedTable />}
             {tab == 'queue' && <QueueTable />}
@@ -145,12 +163,30 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
               Queue
             </button>
           </div>
-          <div className='flex items-center'>
-            <button className='btn btn-ghost btn-xs rounded-full' onClick={() => refreshData('currentlyAndRecently')}>
-              <IoMdRefresh size={20} />
-            </button>
-          </div>
+          <TimeLeftIndicator />
         </div>
+      </div>
+    );
+  };
+
+  const TimeLeftIndicator = () => {
+    const [timeLeft, setTimeLeft] = useState<number>(0);
+
+    useEffect(() => {
+      const timer = setInterval(() => {
+        setTimeLeft(timerEnd.current - new Date().getTime());
+      }, 1000);
+
+      return () => {
+        clearInterval(timer);
+      };
+    }, []);
+
+    return (
+      <div className='flex items-center lg:tooltip' data-tip={`Automatic refresh in ${Math.round(timeLeft / 1000)} seconds`}>
+        <button className='btn btn-ghost btn-xs rounded-full' onClick={startDataRefresh}>
+          <IoMdRefresh size={20} />
+        </button>
       </div>
     );
   };
@@ -229,7 +265,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
 
   return (
     <div className='flex flex-col items-center justify-center w-full'>
-      {isAuthenticated && <UserSongsTable />}
+      {isAuthenticated && <SpotifyTable />}
       {!isAuthenticated && <IntegrationText />}
     </div>
   );

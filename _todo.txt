@@ -1,9 +1,11 @@
 MVP: only german results
 
-refresh button - indicator refresh time
 on refresh stay in same place
 
 create settings
+make responsive
+
+checkout rerendering behavior when manually triggering refresh of spotify data
 
 results:
 - when store doesn't have it: NaN to something more meaningful (e.g. "not available")
@@ -30,7 +32,6 @@ THEN:
 
 add region menu (maybe min quality: aac 256, mp3 320, lossless)
 
-make responsive
 test: jest, cypress
 
 Save calls in DB
