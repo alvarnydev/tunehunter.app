@@ -8,7 +8,7 @@ const ResultsPage = () => {
   return (
     <div className='flex flex-col justify-center items-center w-full gap-14'>
       <SearchPage />
-      <div className='flex justify-center items-center xl:h-96'>
+      <div className='flex justify-center items-center h-96'>
         <ErrorBoundary fallback={<AppAlert type={'error'} />} onError={logError}>
           <ResultsTable />
         </ErrorBoundary>

@@ -7,6 +7,7 @@ import { ToastComponent } from '../utils/ToastComponent';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import SearchPageLayout from './SearchPage/SearchPageLayout';
+import { useAuth } from '../../contexts/auth';
 
 const initialFormData: FormDataType = {
   country: 'DE',
@@ -22,6 +23,8 @@ const initialFormData: FormDataType = {
 const SearchPage = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [forceUpdate, setForceUpdate] = useState(false);
+  const { isAuthenticated } = useAuth();
+  const [displayMode, setDisplayMode] = useState<'both' | 'search' | 'spotify'>('both'); // todo: remove this, use formData.searchMode instead
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -175,10 +178,34 @@ const SearchPage = () => {
     }
   }
 
+  const TabPicker = () => {
+    useEffect(() => {
+      if (displayMode == 'spotify') {
+        localStorage.setItem('searchMode', 'song');
+        setFormData((formData) => ({ ...formData, searchMode: 'song' }));
+      }
+      return () => {
+        console.log();
+      };
+    }, [displayMode]);
+
+    return (
+      <div role='tablist' className='tabs tabs-boxed'>
+        <a role='tab' className={`tab ${displayMode === 'search' ? 'tab-active' : ''}`} onClick={() => setDisplayMode('search')}>
+          Search
+        </a>
+        <a role='tab' className={`tab ${displayMode === 'spotify' ? 'tab-active' : ''}`} onClick={() => setDisplayMode('spotify')}>
+          Spotify
+        </a>
+      </div>
+    );
+  };
+
   return (
     <SearchPageLayout>
-      <SearchBar formData={formData} handleFormUpdate={handleFormUpdate} handleSubmit={handleSubmit} />
-      <MemoizedSpotifyIntegrationBox handleFormUpdate={handleFormUpdate} />
+      {isAuthenticated && <TabPicker />}
+      {(displayMode == 'both' || displayMode == 'search') && <SearchBar formData={formData} handleFormUpdate={handleFormUpdate} handleSubmit={handleSubmit} />}
+      {(displayMode == 'both' || displayMode == 'spotify') && <MemoizedSpotifyIntegrationBox handleFormUpdate={handleFormUpdate} />}
     </SearchPageLayout>
   );
 };

@@ -59,7 +59,7 @@ const ResultsTable = () => {
     const filteredData = filterData(data);
 
     return (
-      <div className='overflow-x-auto w-11/12 flex flex-col xl:flex-row gap-8'>
+      <div className='overflow-x-auto w-11/12 flex flex-row gap-8'>
         <TrackPreview songData={filteredData.itunesData} />
         <table className='table w-full'>
           <thead>

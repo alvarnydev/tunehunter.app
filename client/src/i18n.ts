@@ -17,6 +17,12 @@ const resources = {
         authenticated: 'Press play on any song (in Spotify) and we will try to find it!',
         denied: "You did not grant us access! While we can't use your Spotify data this way, you can still use the normal search function.",
       },
+      spotifyBox: {
+        prompt: 'Get your songs from: ',
+        recentlyPlayed: 'Recently Played',
+        mostPlayed: 'Most Played',
+        queue: 'Queue',
+      },
       resultstable: {
         header: {
           store: 'Music store',
@@ -65,6 +71,12 @@ const resources = {
         annotation: 'Después de iniciar sesión, verás tus canciones recientes y podrás buscarlas directamente!',
         authenticated: 'Pulsa play en cualquier canción (en Spotify) y intentaremos encontrarla!',
         denied: 'No nos has dado acceso! Aunque no podemos usar tus datos de Spotify de esta manera, puedes seguir usando la búsqueda normal.',
+      },
+      spotifyBox: {
+        prompt: 'Obtén tus canciones de: ',
+        recentlyPlayed: 'Recientes',
+        mostPlayed: 'Más escuchadas',
+        queue: 'Cola',
       },
       resultstable: {
         header: {
@@ -115,6 +127,12 @@ const resources = {
         annotation: 'Nach dem Einloggen siehst du deine zuletzt gehörten Lieder und kannst direkt danach suchen!',
         authenticated: 'Starte irgendein Lied (in Spotify) und wir suchen danach automatisch!',
         denied: 'Du hast uns keinen Zugriff gewährt! Auch wenn wir deine Spotifydaten so nicht verwenden können, kannst du trotzdem die normale Suche verwenden.',
+      },
+      spotifyBox: {
+        prompt: 'Hol dir deine Lieder von: ',
+        recentlyPlayed: 'Zuletzt gehört',
+        mostPlayed: 'Meistgehört',
+        queue: 'Warteschlange',
       },
       resultstable: {
         header: {

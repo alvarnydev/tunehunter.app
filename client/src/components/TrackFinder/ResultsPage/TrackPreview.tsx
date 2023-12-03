@@ -12,7 +12,7 @@ const TrackPreview = ({ songData }: { songData: TrackInfoType }) => {
   const { vendor, song } = songData;
 
   return (
-    <div className='bg-primary m-auto flex flex-col items-center justify-around rounded-2xl gap-4 p-8 xl:w-96 xl:m-0'>
+    <div className='bg-primary flex flex-col items-center justify-around rounded-2xl gap-4 p-8 w-96 m-0 lg'>
       <figure className='content-center'>
         <img src={vendor.artLink} alt='Album cover art' className='rounded-xl w-40 h-40' />
       </figure>

@@ -151,17 +151,17 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
       <div className='flex justify-center py-2 mx-[2%] border-b-neutral border-b-[1px]'>
         <div className='w-full flex justify-between items-center'>
           <div>
-            <p>Get your songs from:</p>
+            <p> {t('spotifyBox.prompt')}</p>
           </div>
           <div className='join'>
             <button className={`join-item capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-l-full ${tab === 'recentlyPlayed' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('recentlyPlayed')}>
-              Recently Played
+              {t('spotifyBox.recentlyPlayed')}
             </button>
             <button className={`join-item capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-none ${tab === 'mostPlayed' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('mostPlayed')}>
-              Most Played
+              {t('spotifyBox.mostPlayed')}
             </button>
             <button className={`join-item  capitalize text-base tracking-wide btn-ghost btn btn-sm  rounded-r-full  ${tab === 'queue' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('queue')}>
-              Queue
+              {t('spotifyBox.queue')}
             </button>
           </div>
           <TimeLeftIndicator />
