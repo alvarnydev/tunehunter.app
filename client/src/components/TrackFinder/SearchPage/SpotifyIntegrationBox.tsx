@@ -12,42 +12,24 @@ import SongsTableLayout from './UserSongsTable/SongsTableLayout';
 const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
   const { t } = useTranslation();
   const { isAuthenticated, userData, refreshData } = useAuth();
-  const setRefresh = useRef(false);
-  console.log('>>>>>>> rerender', setRefresh.current);
-  console.log('data on render', userData);
 
-  // Refresh data when song is finished
+  // Refresh data when song is finished or every 60 seconds
   useEffect(() => {
     if (!isAuthenticated) return;
     let timer: NodeJS.Timeout;
 
     const refreshDataOnEndOfSong = async () => {
       if (userData.currentlyPlaying == undefined) return;
-      setRefresh.current = true;
 
       const songDuration = userData.currentlyPlaying.item.duration_ms;
       const songProgress = userData.currentlyPlaying.progress_ms;
       const timeLeft = songDuration - songProgress;
-      console.log(`refreshing data in ${timeLeft} seconds`);
+      console.log(`refreshing data in ${timeLeft / 1000} seconds`);
 
       timer = setTimeout(() => {
         refreshData('currentlyAndRecently');
-        setRefresh.current = false;
       }, timeLeft + 500);
     };
-
-    if (userData.currentlyPlaying?.is_playing && !setRefresh.current) {
-      refreshDataOnEndOfSong();
-    }
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [isAuthenticated, userData.currentlyPlaying]);
-
-  useEffect(() => {
-    if (!isAuthenticated) return;
-    let timer: NodeJS.Timeout;
 
     const refreshDataPeriodically = async (refreshTime: number) => {
       timer = setTimeout(() => {
@@ -55,6 +37,10 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
       }, refreshTime * 1000);
     };
 
+    if (userData.currentlyPlaying?.is_playing) {
+      refreshDataOnEndOfSong();
+    }
+    console.log(`refreshing data in 60 seconds`);
     refreshDataPeriodically(60);
 
     return () => {
