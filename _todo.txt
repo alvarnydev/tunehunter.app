@@ -1,7 +1,5 @@
 MVP: only german results
 
-on refresh stay in same place
-
 create settings
 make responsive
 

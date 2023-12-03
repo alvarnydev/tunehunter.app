@@ -122,10 +122,11 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
 
   const SpotifyTable = () => {
     const handleTabUpdate = (newTab: SongTableTab) => {
+      saveTableHeight();
       setTab(newTab);
     };
 
-    // Restore table height (h-[${tableHeight.current}px] doesn't work on tab change for some reason)
+    // Restore table height (tailwind stops evaluating h-[${tableHeight.current}px] correctly after some time, for whatever reason)
     useLayoutEffect(() => {
       if (tableRef.current == null) return;
       tableRef.current.style.height = `${tableHeight.current}px`;
@@ -135,7 +136,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
       <SongsTableLayout loading={userData.recentlyPlayed === null}>
         <>
           <TablePicker tab={tab} handleTabUpdate={handleTabUpdate} />
-          <div ref={tableRef} className={`overflow-x-auto scrollbar-none rounded py-2 w-full resize-y h-52`}>
+          <div ref={tableRef} className={`overflow-x-auto scrollbar-none rounded py-2 w-full resize-y h-[${tableHeight.current}px]`}>
             {tab == 'recentlyPlayed' && <RecentlyPlayedTable />}
             {tab == 'mostPlayed' && <MostPlayedTable />}
             {tab == 'queue' && <QueueTable />}
