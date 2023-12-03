@@ -8,6 +8,7 @@ import { MusicPlayingIndicator } from '../../utils/IndicatorComponents';
 import { FormDataType, SongTableTab } from '../../../../../types';
 import { memo, useEffect, useRef, useState } from 'react';
 import SongsTableLayout from './UserSongsTable/SongsTableLayout';
+import { IoMdRefresh } from 'react-icons/io';
 
 const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
       refreshDataOnEndOfSong();
     }
     console.log(`refreshing data in 60 seconds`);
-    refreshDataPeriodically(60);
+    refreshDataPeriodically(1000);
 
     return () => {
       clearTimeout(timer);
@@ -129,7 +130,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
   const TablePicker = ({ tab, handleTabUpdate }: { tab: string; handleTabUpdate: (newTab: SongTableTab) => void }) => {
     return (
       <div className='flex justify-center py-2 mx-[2%] border-b-neutral border-b-[1px]'>
-        <div className='w-[90%] flex justify-between'>
+        <div className='w-full flex justify-between items-center'>
           <div>
             <p>Get your songs from:</p>
           </div>
@@ -142,6 +143,11 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
             </button>
             <button className={`join-item  capitalize text-base tracking-wide btn-ghost btn btn-sm  rounded-r-full  ${tab === 'queue' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('queue')}>
               Queue
+            </button>
+          </div>
+          <div className='flex items-center'>
+            <button className='btn btn-ghost btn-xs rounded-full' onClick={() => refreshData('currentlyAndRecently')}>
+              <IoMdRefresh size={20} />
             </button>
           </div>
         </div>
@@ -180,8 +186,8 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
     return (
       <table className='table table-fixed w-full'>
         <tbody>
-          {userData.queue?.queue.map((item) => (
-            <TrackRow key={item.uri} trackData={item} />
+          {userData.queue?.queue.map((item, index) => (
+            <TrackRow key={index} trackData={item} />
           ))}
         </tbody>
       </table>
