@@ -9,6 +9,7 @@ const resources = {
         artist: 'Artist',
         song: 'Song',
         search: 'Search',
+        modeSearch: 'Search',
       },
       spotify: {
         integration: 'For the best results, use our ',
@@ -64,6 +65,7 @@ const resources = {
         artist: 'Artista',
         song: 'Canción',
         search: 'Buscar',
+        modeSearch: 'Búsqueda',
       },
       spotify: {
         integration: 'Para los mejores resultados, usa nuestra ',
@@ -119,7 +121,7 @@ const resources = {
         artist: 'Künstler',
         song: 'Lied',
         search: 'Suchen',
-        spotifyIntegration: '',
+        modeSearch: 'Suche',
       },
       spotify: {
         integration: "Für die besten Ergebnisse, nutz' unsere ",

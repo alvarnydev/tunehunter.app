@@ -1,5 +1,7 @@
 MVP: only german results
 
+updates - save valentine and synthwave colors
+
 create settings
 make responsive
 

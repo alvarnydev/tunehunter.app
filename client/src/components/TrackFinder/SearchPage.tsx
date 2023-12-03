@@ -24,7 +24,7 @@ const SearchPage = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [forceUpdate, setForceUpdate] = useState(false);
   const { isAuthenticated } = useAuth();
-  const [displayMode, setDisplayMode] = useState<'both' | 'search' | 'spotify'>('both'); // todo: remove this, use formData.searchMode instead
+  const [displayMode, setDisplayMode] = useState<'both' | 'search' | 'spotify'>('search'); // todo: remove this, use formData.searchMode instead
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -179,20 +179,20 @@ const SearchPage = () => {
   }
 
   const TabPicker = () => {
-    useEffect(() => {
-      if (displayMode == 'spotify') {
-        localStorage.setItem('searchMode', 'song');
-        setFormData((formData) => ({ ...formData, searchMode: 'song' }));
-      }
-      return () => {
-        console.log();
-      };
-    }, [displayMode]);
+    // useEffect(() => {
+    //   if (displayMode == 'spotify') {
+    //     localStorage.setItem('searchMode', 'song');
+    //     setFormData((formData) => ({ ...formData, searchMode: 'song' }));
+    //   }
+    //   return () => {
+    //     console.log();
+    //   };
+    // }, [displayMode]);
 
     return (
-      <div role='tablist' className='tabs tabs-boxed'>
+      <div role='tablist' className='absolute top-5 tabs tabs-bordered'>
         <a role='tab' className={`tab ${displayMode === 'search' ? 'tab-active' : ''}`} onClick={() => setDisplayMode('search')}>
-          Search
+          {t('searchbar.modeSearch')}
         </a>
         <a role='tab' className={`tab ${displayMode === 'spotify' ? 'tab-active' : ''}`} onClick={() => setDisplayMode('spotify')}>
           Spotify
