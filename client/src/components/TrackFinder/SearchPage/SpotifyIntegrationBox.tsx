@@ -4,7 +4,7 @@ import { useAuth } from '../../../contexts/auth';
 import { requestAuthorizationCodePKCE } from '../../../utils/fetchSpotifyAuth';
 import { storeInLocalStorage } from '../../../utils/localStorage';
 import { Track } from '../../../types';
-import { LoadingIndicator, MusicPlayingIndicator } from '../../utils/IndicatorComponents';
+import { MusicPlayingIndicator } from '../../utils/IndicatorComponents';
 import { FormDataType, SongTableTab } from '../../../../../types';
 import { memo, useEffect, useRef, useState } from 'react';
 import SongsTableLayout from './UserSongsTable/SongsTableLayout';
@@ -13,30 +13,54 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
   const { t } = useTranslation();
   const { isAuthenticated, userData, refreshData } = useAuth();
   const setRefresh = useRef(false);
-  console.log('rerender', setRefresh.current);
-  console.log(userData);
+  console.log('>>>>>>> rerender', setRefresh.current);
+  console.log('data on render', userData);
 
   // Refresh data when song is finished
   useEffect(() => {
-    const getUpdatedPlayingData = async () => {
+    if (!isAuthenticated) return;
+    let timer: NodeJS.Timeout;
+
+    const refreshDataOnEndOfSong = async () => {
       if (userData.currentlyPlaying == undefined) return;
       setRefresh.current = true;
 
       const songDuration = userData.currentlyPlaying.item.duration_ms;
       const songProgress = userData.currentlyPlaying.progress_ms;
       const timeLeft = songDuration - songProgress;
-      console.log(timeLeft);
+      console.log(`refreshing data in ${timeLeft} seconds`);
 
-      setTimeout(() => {
+      timer = setTimeout(() => {
         refreshData('currentlyAndRecently');
         setRefresh.current = false;
       }, timeLeft + 500);
     };
 
-    if (isAuthenticated && userData.currentlyPlaying?.is_playing && !setRefresh.current) {
-      getUpdatedPlayingData();
+    if (userData.currentlyPlaying?.is_playing && !setRefresh.current) {
+      refreshDataOnEndOfSong();
     }
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [isAuthenticated, userData.currentlyPlaying]);
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    let timer: NodeJS.Timeout;
+
+    const refreshDataPeriodically = async (refreshTime: number) => {
+      timer = setTimeout(() => {
+        refreshData('currentlyAndRecently');
+      }, refreshTime * 1000);
+    };
+
+    refreshDataPeriodically(60);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isAuthenticated, userData]);
 
   const startIntegration = () => {
     storeInLocalStorage('redirect_path', window.location.pathname + window.location.search);
@@ -97,25 +121,19 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
   const UserSongsTable = () => {
     const [tab, setTab] = useState<SongTableTab>('recentlyPlayed');
     const divRef = useRef<HTMLDivElement>(null);
-    userData.isLoading = false;
 
     const handleTabUpdate = (newTab: SongTableTab) => {
       setTab(newTab);
     };
 
     return (
-      <SongsTableLayout loading={userData.isLoading}>
+      <SongsTableLayout loading={userData.recentlyPlayed === null}>
         <>
           <TablePicker tab={tab} handleTabUpdate={handleTabUpdate} />
-          <div ref={divRef} className={`overflow-x-auto scrollbar-none rounded py-2 resize-y h-52`}>
-            {userData.isLoading && <LoadingIndicator size={40} />}
-            {!userData.isLoading && (
-              <>
-                {tab == 'recentlyPlayed' && <RecentlyPlayedTable />}
-                {tab == 'mostPlayed' && <MostPlayedTable />}
-                {tab == 'queue' && <QueueTable />}
-              </>
-            )}
+          <div ref={divRef} className={`overflow-x-auto scrollbar-none rounded py-2 w-full resize-y h-52`}>
+            {tab == 'recentlyPlayed' && <RecentlyPlayedTable />}
+            {tab == 'mostPlayed' && <MostPlayedTable />}
+            {tab == 'queue' && <QueueTable />}
           </div>
         </>
       </SongsTableLayout>
@@ -146,6 +164,13 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
   };
 
   const RecentlyPlayedTable = () => {
+    if (userData.recentlyPlayed?.items.length == 0)
+      return (
+        <div className='flex h-full justify-center items-center'>
+          <p className='text-center'>You have no recently played songs</p>
+        </div>
+      );
+
     return (
       <table className='table table-fixed w-full'>
         <tbody>
@@ -178,6 +203,13 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
   };
 
   const MostPlayedTable = () => {
+    if (userData.topTracks?.items.length == 0)
+      return (
+        <div className='flex h-full justify-center items-center'>
+          <p className='text-center'>We found no data for your most played songs.</p>
+        </div>
+      );
+
     return (
       <table className='table table-fixed w-full'>
         <tbody>
