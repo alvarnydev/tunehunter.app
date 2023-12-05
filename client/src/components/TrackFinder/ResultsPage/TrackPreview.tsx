@@ -16,11 +16,11 @@ const TrackPreview = ({ songData }: { songData: TrackInfoType }) => {
       <figure className='content-center'>
         <img src={vendor.artLink} alt='Album cover art' className='rounded-xl w-40 h-40' />
       </figure>
-      <div className='flex flex-col justify-start items-center text-center max-h-20 overflow-scroll p-0 gap-1'>
+      <div className='flex flex-col justify-start text-primary-content items-center text-center max-h-20 overflow-scroll p-0 gap-1'>
         <h2 className='text-xl font-bold'>{songData.song.artist}</h2>
         <p>{song.title}</p>
       </div>
-      <button className='btn btn-outline rounded-full text-xs w-auto' onClick={openModal}>
+      <button className='btn btn-outline text-primary-content rounded-full text-xs w-auto' onClick={openModal}>
         {t('resultstable.wrongsong')}
       </button>
       <dialog id='song_choice_modal' className='modal'>
