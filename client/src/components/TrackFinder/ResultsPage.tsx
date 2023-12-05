@@ -3,10 +3,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import AppAlert from '../utils/ErrorComponents';
 import { logError } from '../utils/ErrorFunctions';
 import SearchPage from './SearchPage';
-import { useWindowSize } from '@uidotdev/usehooks';
 
 const ResultsPage = () => {
-  const size = useWindowSize();
   return (
     <div className='flex flex-col justify-center items-center w-full gap-14'>
       <SearchPage />

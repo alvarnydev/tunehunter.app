@@ -7,8 +7,6 @@ import { ToastComponent } from '../utils/ToastComponent';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import SearchPageLayout from './SearchPage/SearchPageLayout';
-import { useAuth } from '../../contexts/auth';
-import { useWindowSize } from '@uidotdev/usehooks';
 
 const initialFormData: FormDataType = {
   country: 'DE',
@@ -22,10 +20,8 @@ const initialFormData: FormDataType = {
 };
 
 const SearchPage = () => {
-  const size = useWindowSize();
   const [formData, setFormData] = useState(initialFormData);
   const [forceUpdate, setForceUpdate] = useState(false);
-  const { isAuthenticated } = useAuth();
   const [displayMode, setDisplayMode] = useState<'both' | 'search' | 'spotify'>('both'); // todo: remove this, use formData.searchMode instead
   const navigate = useNavigate();
   const { t } = useTranslation();

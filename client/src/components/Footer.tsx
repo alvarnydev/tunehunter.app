@@ -6,9 +6,12 @@ import Profile from './Footer/Profile';
 import { useWindowSize } from '@uidotdev/usehooks';
 import { BiSearch } from 'react-icons/bi';
 import { SlSocialSpotify } from 'react-icons/sl';
+import { useAuth } from '../contexts/auth';
 
 const Footer = () => {
   const size = useWindowSize();
+  const { isAuthenticated } = useAuth();
+
   useEffect(() => {
     themeChange(false);
   }, []);
@@ -32,13 +35,13 @@ const Footer = () => {
           </svg>
         </button>
       </div>
-      <button className='text-primary '>
+      <button className='text-base-content '>
         <BiSearch size={30} />
       </button>
-      <button className='text-primary '>
+      <button className={`text-base-content ${isAuthenticated ? '' : 'disabled'}`}>
         <SlSocialSpotify size={28} />
       </button>
-      <button className='text-primary active'>
+      <button className='text-base-content active'>
         <svg xmlns='http://www.w3.org/2000/svg' className='h-8 w-8' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
           <path
             strokeLinecap='round'
