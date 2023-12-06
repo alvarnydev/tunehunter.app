@@ -1,4 +1,4 @@
-import MemoizedSpotifyIntegrationBox from './SearchPage/SpotifyIntegrationBox';
+import MemoizedSpotifyIntegrationBox from './SearchPage/SpotifyIntegration';
 import SearchBar from './SearchPage/SearchBar';
 import { FormDataType } from '../../../../types';
 import { useCallback, useEffect, useState } from 'react';
