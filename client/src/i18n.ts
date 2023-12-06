@@ -14,7 +14,7 @@ const resources = {
       spotify: {
         integration: 'For the best results, use our ',
         recentlyPlayed: 'Your recently played songs on Spotify',
-        annotation: "After logging in you'll see your recently played songs and can search for them directly. (We don't store any of your data!)",
+        annotation: "After logging in you'll see your recently played songs and can search for them directly. (Not functional for users not added to Spotify's developer dashboard during development phase)",
         authenticated: 'Press play on any song (in Spotify) and we will try to find it!',
         denied: "You did not grant us access! While we can't use your Spotify data this way, you can still use the normal search function.",
       },
@@ -70,7 +70,7 @@ const resources = {
       spotify: {
         integration: 'Para los mejores resultados, usa nuestra ',
         recentlyPlayed: 'Tus canciones recientes en Spotify',
-        annotation: 'Después de iniciar sesión, verás tus canciones recientes y podrás buscarlas directamente!',
+        annotation: 'Después de iniciar sesión, verás tus canciones recientes y podrás buscarlas directamente. (No funcional para usuarios que no hayan sido añadidos al panel de desarrolladores de Spotify durante la fase de desarrollo)',
         authenticated: 'Pulsa play en cualquier canción (en Spotify) y intentaremos encontrarla!',
         denied: 'No nos has dado acceso! Aunque no podemos usar tus datos de Spotify de esta manera, puedes seguir usando la búsqueda normal.',
       },
@@ -126,7 +126,7 @@ const resources = {
       spotify: {
         integration: "Für die besten Ergebnisse, nutz' unsere ",
         recentlyPlayed: 'Deine zuletzt gehörten Lieder auf Spotify',
-        annotation: 'Nach dem Einloggen siehst du deine zuletzt gehörten Lieder und kannst direkt danach suchen!',
+        annotation: 'Nach dem Einloggen siehst du deine zuletzt gehörten Lieder und kannst direkt danach suchen. (Nicht funktional für Nutzer, die während der Entwicklungsphase nicht zu Spotifys Entwicklerdashboard hinzugefügt wurden)',
         authenticated: 'Starte irgendein Lied (in Spotify) und wir suchen danach automatisch!',
         denied: 'Du hast uns keinen Zugriff gewährt! Auch wenn wir deine Spotifydaten so nicht verwenden können, kannst du trotzdem die normale Suche verwenden.',
       },
