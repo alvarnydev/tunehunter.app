@@ -44,6 +44,7 @@ const SpotifyIntegrationBox = ({ handleFormUpdate }: { handleFormUpdate: (newFor
       }, refreshTime * 1000);
     };
 
+    // Refresh data when song is finished
     if (userData.currentlyPlaying?.is_playing) {
       refreshDataOnEndOfSong();
     }

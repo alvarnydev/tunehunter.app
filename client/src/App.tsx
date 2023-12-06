@@ -22,6 +22,7 @@ const AnimatedSwitch = () => {
   const { isAuthenticated, login } = useAuth();
 
   useEffect(() => {
+    console.log('effect running');
     const keyMappings = [
       { key: 'Backspace', action: () => navigate(-1) },
       { key: 'Escape', action: () => navigate('/') },

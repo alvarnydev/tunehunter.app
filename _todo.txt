@@ -1,7 +1,5 @@
 MVP: only german results
 
-updates - save valentine and synthwave colors
-
 create settings
 make responsive
 
@@ -14,12 +12,16 @@ results:
 fix
 - profile rendering twice on first load
 - bring searchbar into its correct width (right side overflows)
-- token expiring after 60min of inactivity
 
 particles
 
 2. Modal to narrow down user input: <This one>, check out these other songs we found for your input
 3. beatport, amazon, bandcamp data
+
+
+
+watch
+- token expiring after 60min of inactivity still happening?
 
 optimizations: 
 - tailwind purge
