@@ -49,25 +49,16 @@ const SearchPage = () => {
     if (!isValidInput()) {
       return;
     }
-    storeFormData();
 
     const newParams = buildGetParams();
     navigate(`/results${newParams}`);
   }
 
   useEffect(() => {
-    function restoreFormData() {
-      if (existSearchParams()) {
-        restoreInputFromSearchParams();
-      } else {
-        restoreInputFromLocalStorage(); // to keep inputs after mode switch (playlist <> song)
-      }
-    }
-
     restoreFormData();
   }, []);
 
-  const restoreInputFromSearchParams = () => {
+  const restoreFormData = () => {
     const searchParams = new URLSearchParams(window.location.search);
 
     const type = searchParams.get('type');
@@ -93,42 +84,6 @@ const SearchPage = () => {
       setFormData((formData) => ({
         ...formData,
         playlistSearchString: url,
-      }));
-    }
-  };
-
-  const existSearchParams = () => {
-    const searchParams = new URLSearchParams(window.location.search);
-    if (searchParams.has('type')) {
-      return true;
-    }
-    return false;
-  };
-
-  const restoreInputFromLocalStorage = () => {
-    const searchMode = localStorage.getItem('searchMode');
-    if (searchMode) {
-      setFormData((formData) => ({ ...formData, searchMode }));
-    }
-
-    const playlistSearchString = localStorage.getItem('playlistSearchString');
-    if (playlistSearchString) {
-      setFormData((formData) => ({
-        ...formData,
-        playlistSearchString,
-      }));
-    }
-
-    const artist = localStorage.getItem('songSearchQuery_artist');
-    const title = localStorage.getItem('songSearchQuery_title');
-    if (artist && title) {
-      setFormData((formData) => ({
-        ...formData,
-        songSearchQuery: {
-          ...formData.songSearchQuery,
-          artist,
-          title,
-        },
       }));
     }
   };
@@ -159,21 +114,6 @@ const SearchPage = () => {
       params += `&url=${playlistSearchString}`;
     }
     return params;
-  }
-
-  function storeFormData() {
-    const { searchMode, songSearchQuery, playlistSearchString } = formData;
-    localStorage.setItem('searchMode', searchMode);
-
-    if (searchMode == 'song') {
-      localStorage.setItem('songSearchQuery_artist', songSearchQuery.artist);
-      localStorage.setItem('songSearchQuery_title', songSearchQuery.title);
-      localStorage.removeItem('playlistSearchString');
-    } else if (searchMode == 'playlist') {
-      localStorage.removeItem('songSearchQuery_artist');
-      localStorage.removeItem('songSearchQuery_title');
-      localStorage.setItem('playlistSearchString', playlistSearchString);
-    }
   }
 
   return (
