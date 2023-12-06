@@ -57,13 +57,13 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   const getUserData = async (accessToken: string) => {
-    if (isAuthenticated && shouldRefreshToken()) refreshTokens();
+    if (isAuthenticated && shouldRefreshToken()) await refreshTokens();
     const spotifyData = await combinedFetchSpotifyData(accessToken);
     setUserData({ ...spotifyData });
   };
 
   const refreshData = async (type?: string) => {
-    if (isAuthenticated && shouldRefreshToken()) refreshTokens();
+    if (isAuthenticated && shouldRefreshToken()) await refreshTokens();
     console.log(`refreshing ${type} data`);
     let newData, newData2;
 

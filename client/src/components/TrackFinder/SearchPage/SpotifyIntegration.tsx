@@ -15,7 +15,6 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
   const [tab, setTab] = useState<SongTableTab>('recentlyPlayed');
   const tableHeight = useRef(208);
   const tableRef = useRef<HTMLDivElement>(null);
-
   const dataRefreshTimer = useRef(new Date().getTime() + 60_000);
 
   // Refresh data when song is finished or every 60 seconds

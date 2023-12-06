@@ -1,5 +1,7 @@
 MVP: only german results
 
+fix refresh timer not resetting on manual refresh
+
 create settings
 make responsive
 
