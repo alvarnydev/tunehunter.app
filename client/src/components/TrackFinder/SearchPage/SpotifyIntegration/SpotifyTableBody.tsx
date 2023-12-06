@@ -3,7 +3,7 @@ import { useAuth } from '../../../../contexts/auth';
 import { SpotifyDataType, Track } from '../../../../types';
 import { MusicPlayingIndicator } from '../../../utils/IndicatorComponents';
 import { FormDataType } from '../../../../../../types';
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect } from 'react';
 
 interface ISpotifyTableBodyProps {
   tab: string;
