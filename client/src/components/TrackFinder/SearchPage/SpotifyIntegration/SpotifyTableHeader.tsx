@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 interface ISpotifyTableHeaderProps {
   tab: string;
   handleTabUpdate: (newTab: SongTableTab) => void;
-  dataRefreshTimer: number;
+  dataRefreshTimer: React.MutableRefObject<number>;
   startDataRefresh: () => void;
 }
 
@@ -44,12 +44,12 @@ const TabPicker = ({ tab, handleTabUpdate }: { tab: string; handleTabUpdate: (ne
   );
 };
 
-const TimeLeftIndicator = ({ dataRefreshTimer, startDataRefresh }: { dataRefreshTimer: number; startDataRefresh: () => void }) => {
+const TimeLeftIndicator = ({ dataRefreshTimer, startDataRefresh }: { dataRefreshTimer: React.MutableRefObject<number>; startDataRefresh: () => void }) => {
   const [timeLeft, setTimeLeft] = useState<number>(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(dataRefreshTimer - new Date().getTime());
+      setTimeLeft(dataRefreshTimer.current - new Date().getTime());
     }, 1000);
 
     return () => {

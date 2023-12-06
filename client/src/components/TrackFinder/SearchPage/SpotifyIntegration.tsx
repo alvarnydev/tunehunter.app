@@ -79,7 +79,7 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
     return (
       <SpotifyTableLayout loading={userData.recentlyPlayed === null}>
         <>
-          <SpotifyTableHeader tab={tab} handleTabUpdate={handleTabUpdate} dataRefreshTimer={dataRefreshTimer.current} startDataRefresh={startDataRefresh} />
+          <SpotifyTableHeader tab={tab} handleTabUpdate={handleTabUpdate} dataRefreshTimer={dataRefreshTimer} startDataRefresh={startDataRefresh} />
           <SpotifyTableBody tab={tab} handleFormUpdate={handleFormUpdate} tableRef={tableRef} tableHeight={tableHeight.current} />
         </>
       </SpotifyTableLayout>

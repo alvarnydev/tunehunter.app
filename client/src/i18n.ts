@@ -14,7 +14,7 @@ const resources = {
       spotify: {
         integration: 'For the best results, use our ',
         recentlyPlayed: 'Your recently played songs on Spotify',
-        annotation: "After logging in, you'll see your recently played songs and can search for them directly!",
+        annotation: "After logging in you'll see your recently played songs and can search for them directly. (We don't store any of your data!)",
         authenticated: 'Press play on any song (in Spotify) and we will try to find it!',
         denied: "You did not grant us access! While we can't use your Spotify data this way, you can still use the normal search function.",
       },

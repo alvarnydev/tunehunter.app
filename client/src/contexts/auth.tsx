@@ -21,7 +21,7 @@ const initialTokens = {
   refreshToken: '',
 };
 
-export const AuthContext = createContext({
+const AuthContext = createContext({
   isAuthenticated: false,
   tokens: initialTokens,
   userData: initialUserData,

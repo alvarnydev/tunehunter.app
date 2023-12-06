@@ -13,6 +13,7 @@ import { AuthProvider, useAuth } from './contexts/auth';
 import animationClasses from './utils/animations';
 import { toastContainer, toastOptions } from './utils/toast';
 import { retrieveFromLocalStorage } from './utils/localStorage';
+import { ThemeProvider, useTheme } from './contexts/theme';
 
 const queryClient = new QueryClient();
 
@@ -20,9 +21,9 @@ const AnimatedSwitch = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, login } = useAuth();
+  const { changeTheme } = useTheme();
 
   useEffect(() => {
-    console.log('effect running');
     const keyMappings = [
       { key: 'Backspace', action: () => navigate(-1) },
       { key: 'Escape', action: () => navigate('/') },
@@ -59,7 +60,15 @@ const AnimatedSwitch = () => {
       }
     };
 
+    const restoreTheme = () => {
+      const themeStored = localStorage.getItem('theme');
+      if (themeStored) {
+        changeTheme(themeStored);
+      }
+    };
+
     addKeyMappings();
+    restoreTheme();
 
     if (!isAuthenticated) tryToIdentifyUser();
 
@@ -88,14 +97,16 @@ function App() {
       {/* todo:
       https://react.dev/reference/react/useContext#optimizing-re-renders-when-passing-objects-and-functions */}
       <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-          <Layout>
-            <Toaster containerClassName='toaster-wrapper' position='top-center' reverseOrder={true} containerStyle={toastContainer} toastOptions={toastOptions} gutter={24} />
-            <BrowserRouter>
-              <AnimatedSwitch />
-            </BrowserRouter>
-          </Layout>
-        </QueryClientProvider>
+        <ThemeProvider>
+          <QueryClientProvider client={queryClient}>
+            <Layout>
+              <Toaster containerClassName='toaster-wrapper' position='top-center' reverseOrder={true} containerStyle={toastContainer} toastOptions={toastOptions} gutter={24} />
+              <BrowserRouter>
+                <AnimatedSwitch />
+              </BrowserRouter>
+            </Layout>
+          </QueryClientProvider>
+        </ThemeProvider>
       </AuthProvider>
     </Suspense>
   );
