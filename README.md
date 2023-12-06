@@ -1,7 +1,6 @@
 # traxtrove.com
 
-traxtrove.com helps its users find the best place to buy (digital) music.  
-'Best' may mean cheapest, highest quality, or the site that pays the artists the most, depending on user input.
+traxtrove.com helps its users find the best place to buy (digital) music, comparing prices, quality and artist payout across different sites.
 
 ## Stack
 
