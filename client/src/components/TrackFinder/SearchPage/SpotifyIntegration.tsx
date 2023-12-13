@@ -31,32 +31,26 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
   useEffect(() => {
     if (!isAuthenticated) return;
     let timer: NodeJS.Timeout;
-
-    const refreshDataOnEndOfSong = async () => {
-      if (userData.currentlyPlaying == undefined) return;
-
-      const songDuration = userData.currentlyPlaying.item.duration_ms;
-      const songProgress = userData.currentlyPlaying.progress_ms;
-      const timeLeft = songDuration - songProgress;
-
-      dataRefreshTimer.current = new Date().getTime() + (timeLeft + 500);
-      timer = setTimeout(() => {
-        startDataRefresh();
-      }, timeLeft + 500);
-    };
-
-    const refreshDataPeriodically = async (refreshTime: number) => {
-      const newRefreshTimer = new Date().getTime() + refreshTime * 1000;
-      if (!userData.currentlyPlaying?.is_playing) dataRefreshTimer.current = newRefreshTimer;
-      timer = setTimeout(() => {
-        startDataRefresh();
-      }, refreshTime * 1000);
-    };
-
-    if (userData.currentlyPlaying?.is_playing) {
-      refreshDataOnEndOfSong();
+    const refreshInterval = 60_000;
+    let timeLeft;
+    let isPlaying;
+    if (userData.currentlyPlaying) {
+      timeLeft = userData.currentlyPlaying.item.duration_ms - userData.currentlyPlaying.progress_ms;
+      isPlaying = userData.currentlyPlaying.is_playing;
     }
-    refreshDataPeriodically(60);
+
+    const refreshDataAfter = async (time: number) => {
+      dataRefreshTimer.current = new Date().getTime() + (time + 500);
+      timer = setTimeout(() => {
+        startDataRefresh();
+      }, time);
+    };
+
+    if (isPlaying && timeLeft && timeLeft < refreshInterval) {
+      refreshDataAfter(timeLeft);
+    } else {
+      refreshDataAfter(refreshInterval);
+    }
 
     return () => {
       clearTimeout(timer);
