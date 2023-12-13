@@ -47,7 +47,7 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
 
     const refreshDataPeriodically = async (refreshTime: number) => {
       const newRefreshTimer = new Date().getTime() + refreshTime * 1000;
-      if (newRefreshTimer < dataRefreshTimer.current) dataRefreshTimer.current = newRefreshTimer;
+      if (!userData.currentlyPlaying?.is_playing) dataRefreshTimer.current = newRefreshTimer;
       timer = setTimeout(() => {
         startDataRefresh();
       }, refreshTime * 1000);
