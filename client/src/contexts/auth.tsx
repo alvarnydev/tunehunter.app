@@ -27,7 +27,7 @@ const AuthContext = createContext({
   userData: initialUserData,
   login: (_tokens: TokenType) => {},
   logout: () => {},
-  refreshData: (_type?: string) => {},
+  refreshData: async (_type?: string) => {},
 });
 
 // eslint-disable-next-line react-refresh/only-export-components

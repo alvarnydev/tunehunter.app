@@ -14,6 +14,7 @@ import animationClasses from './utils/animations';
 import { toastContainer, toastOptions } from './utils/toast';
 import { retrieveFromLocalStorage } from './utils/localStorage';
 import { ThemeProvider, useTheme } from './contexts/theme';
+import { shouldRefreshToken } from './utils/fetchSpotifyAuth';
 
 const queryClient = new QueryClient();
 
@@ -69,7 +70,6 @@ const AnimatedSwitch = () => {
 
     addKeyMappings();
     restoreTheme();
-
     if (!isAuthenticated) tryToIdentifyUser();
 
     return () => {

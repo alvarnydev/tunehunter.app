@@ -17,6 +17,16 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
   const tableRef = useRef<HTMLDivElement>(null);
   const dataRefreshTimer = useRef(new Date().getTime() + 60_000);
 
+  // On first mount, refresh data
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    const getFirstData = async () => {
+      await refreshData();
+    };
+    getFirstData();
+  }, []);
+
   // Refresh data when song is finished or every 60 seconds
   useEffect(() => {
     if (!isAuthenticated) return;
@@ -43,7 +53,6 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
       }, refreshTime * 1000);
     };
 
-    // Refresh data when song is finished
     if (userData.currentlyPlaying?.is_playing) {
       refreshDataOnEndOfSong();
     }
