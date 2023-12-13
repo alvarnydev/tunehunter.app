@@ -14,6 +14,7 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
   const { isAuthenticated, userData, refreshData } = useAuth();
   const [tab, setTab] = useState<SongTableTab>('recentlyPlayed');
   const tableHeight = useRef(208);
+  const tableScroll = useRef(0);
   const tableRef = useRef<HTMLDivElement>(null);
   const dataRefreshTimer = useRef(new Date().getTime() + 60_000);
 
@@ -63,18 +64,19 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
   };
 
   const startDataRefresh = () => {
-    saveTableHeight();
+    saveTableInfo();
     refreshData('currentlyAndRecently');
   };
 
-  const saveTableHeight = () => {
+  const saveTableInfo = (scroll?: number) => {
     if (tableRef.current == null) return;
     tableHeight.current = tableRef.current.getBoundingClientRect().height;
+    tableScroll.current = scroll === 0 ? scroll : tableRef.current.scrollTop;
   };
 
   const SpotifyTable = () => {
     const handleTabUpdate = (newTab: SongTableTab) => {
-      saveTableHeight();
+      saveTableInfo(0);
       setTab(newTab);
     };
 
@@ -82,7 +84,7 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
       <SpotifyTableLayout loading={userData.recentlyPlayed === null}>
         <>
           <SpotifyTableHeader tab={tab} handleTabUpdate={handleTabUpdate} dataRefreshTimer={dataRefreshTimer} startDataRefresh={startDataRefresh} />
-          <SpotifyTableBody tab={tab} handleFormUpdate={handleFormUpdate} tableRef={tableRef} tableHeight={tableHeight.current} />
+          <SpotifyTableBody tab={tab} handleFormUpdate={handleFormUpdate} tableRef={tableRef} tableHeight={tableHeight.current} tableScroll={tableScroll.current} />
         </>
       </SpotifyTableLayout>
     );

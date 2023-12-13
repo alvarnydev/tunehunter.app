@@ -1,11 +1,7 @@
 MVP: only german results
 
-fix refresh timer not resetting on manual refresh
-
 create settings
 make responsive
-
-checkout rerendering behavior when manually triggering refresh of spotify data
 
 results:
 - when store doesn't have it: NaN to something more meaningful (e.g. "not available")
@@ -15,12 +11,8 @@ fix
 - profile rendering twice on first load
 - bring searchbar into its correct width (right side overflows)
 
-particles
-
 2. Modal to narrow down user input: <This one>, check out these other songs we found for your input
 3. beatport, amazon, bandcamp data
-
-
 
 watch
 - token expiring after 60min of inactivity still happening?

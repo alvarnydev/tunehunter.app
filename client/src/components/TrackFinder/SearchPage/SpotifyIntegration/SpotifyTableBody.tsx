@@ -10,15 +10,17 @@ interface ISpotifyTableBodyProps {
   handleFormUpdate: (newFormData: FormDataType, final: boolean) => void;
   tableRef: React.RefObject<HTMLDivElement>;
   tableHeight: number;
+  tableScroll: number;
 }
 
-const SpotifyTableBody = ({ tab, handleFormUpdate, tableRef, tableHeight }: ISpotifyTableBodyProps) => {
+const SpotifyTableBody = ({ tab, handleFormUpdate, tableRef, tableHeight, tableScroll }: ISpotifyTableBodyProps) => {
   const { userData } = useAuth();
 
   // Restore table height (tailwind stops evaluating h-[${tableHeight.current}px] correctly after some time, for whatever reason)
   useLayoutEffect(() => {
     if (tableRef.current == null) return;
     tableRef.current.style.height = `${tableHeight}px`;
+    tableRef.current.scrollTop = tableScroll;
   }, []);
 
   return (
