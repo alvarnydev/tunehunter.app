@@ -58,6 +58,7 @@ const ResultsTable = () => {
     if (!validateData(data)) return <WarningAlert message={t('errors.noSong')} />;
 
     const filteredData = filterData(data);
+    document.title = `${filteredData.itunesData.song.artist} - ${filteredData.itunesData.song.title}`;
 
     return (
       <div className='overflow-x-auto w-11/12 flex flex-row gap-8'>

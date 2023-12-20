@@ -25,6 +25,7 @@ const SearchPage = () => {
   const [displayMode, setDisplayMode] = useState<'both' | 'search' | 'spotify'>('both'); // todo: remove this, use formData.searchMode instead
   const navigate = useNavigate();
   const { t } = useTranslation();
+  document.title = t('title');
 
   // todo: this is terrible, figure out another way
   /*
@@ -118,8 +119,8 @@ const SearchPage = () => {
 
   return (
     <SearchPageLayout>
-      {(displayMode == 'both' || displayMode == 'search') && <SearchBar formData={formData} handleFormUpdate={handleFormUpdate} handleSubmit={handleSubmit} />}
-      {(displayMode == 'both' || displayMode == 'spotify') && <MemoizedSpotifyIntegrationBox handleFormUpdate={handleFormUpdate} />}
+      <SearchBar formData={formData} handleFormUpdate={handleFormUpdate} handleSubmit={handleSubmit} />
+      <MemoizedSpotifyIntegrationBox handleFormUpdate={handleFormUpdate} />
     </SearchPageLayout>
   );
 };
