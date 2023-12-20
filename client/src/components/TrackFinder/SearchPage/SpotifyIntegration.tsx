@@ -37,6 +37,7 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
 
   // Refresh data when song is finished or every 60 seconds
   useEffect(() => {
+    console.log('useEffect: SpotifyIntegration');
     if (!isAuthenticated) return;
     let timer: NodeJS.Timeout;
     const refreshInterval = 60_000;
@@ -55,7 +56,7 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
     };
 
     if (userData.recentlyPlayed === null) {
-      refreshDataAfter(3000);
+      startDataRefresh();
     } else if (isPlaying && timeLeft && timeLeft < refreshInterval) {
       refreshDataAfter(timeLeft);
     } else {
