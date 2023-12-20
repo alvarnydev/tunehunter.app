@@ -50,21 +50,7 @@ export const requestAuthorizationCodePKCE = async () => {
   redirectToSpotify(codeChallenge);
 };
 
-export const shouldRefreshToken = () => {
-  const expiryDate = window.localStorage.getItem('expiry_date');
-  if (!expiryDate) {
-    return true;
-  }
-
-  const timeLeft = (new Date(expiryDate).getTime() - new Date().getTime()) / 60_000;
-  if (timeLeft > 30) {
-    return false;
-  }
-  return true;
-};
-
-export const getNewTokens = async (): Promise<TokenType> => {
-  const refreshToken = retrieveFromLocalStorage('refresh_token');
+const refreshTokens = async (refreshToken: string) => {
   const url = new URL('https://accounts.spotify.com/api/token');
 
   const payload = {
@@ -89,4 +75,17 @@ export const getNewTokens = async (): Promise<TokenType> => {
   saveExpiryDate(data);
 
   return { accessToken: access_token, refreshToken: refresh_token };
+};
+
+export const getTokens = async (): Promise<TokenType> => {
+  const expiryDate = retrieveFromLocalStorage('expiry_date');
+  const accessToken = retrieveFromLocalStorage('access_token');
+  const refreshToken = retrieveFromLocalStorage('refresh_token');
+  const timeLeft = (new Date(expiryDate).getTime() - new Date().getTime()) / 60_000;
+
+  if (timeLeft > 30) {
+    return { accessToken, refreshToken };
+  }
+
+  return refreshTokens(refreshToken);
 };

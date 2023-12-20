@@ -14,7 +14,6 @@ import animationClasses from './utils/animations';
 import { toastContainer, toastOptions } from './utils/toast';
 import { retrieveFromLocalStorage } from './utils/localStorage';
 import { ThemeProvider, useTheme } from './contexts/theme';
-import { shouldRefreshToken } from './utils/fetchSpotifyAuth';
 
 const queryClient = new QueryClient();
 
@@ -52,9 +51,9 @@ const AnimatedSwitch = () => {
 
     const tryToIdentifyUser = async (): Promise<boolean> => {
       try {
-        const accessToken = retrieveFromLocalStorage('access_token');
-        const refreshToken = retrieveFromLocalStorage('refresh_token');
-        login({ accessToken, refreshToken });
+        retrieveFromLocalStorage('access_token');
+        retrieveFromLocalStorage('refresh_token');
+        await login();
         return true;
       } catch (error) {
         return false;

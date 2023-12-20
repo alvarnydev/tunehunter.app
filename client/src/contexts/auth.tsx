@@ -5,7 +5,7 @@ import { removeFromLocalStorage } from '../utils/localStorage';
 import { combinedFetchSpotifyData, fetchCurrentlyPlaying, fetchProfileData, fetchQueue, fetchRecentlyPlayed, fetchTopArtists, fetchTopTracks } from '../utils/fetchSpotifyData';
 import { SpotifyDataType } from '../types';
 import { TokenType } from '../../../types';
-import { getNewTokens, shouldRefreshToken } from '../utils/fetchSpotifyAuth';
+import { getTokens } from '../utils/fetchSpotifyAuth';
 
 const initialUserData: SpotifyDataType = {
   profileData: null,
@@ -16,16 +16,10 @@ const initialUserData: SpotifyDataType = {
   topTracks: null,
 };
 
-const initialTokens = {
-  accessToken: '',
-  refreshToken: '',
-};
-
 const AuthContext = createContext({
   isAuthenticated: false,
-  tokens: initialTokens,
   userData: initialUserData,
-  login: (_tokens: TokenType) => {},
+  login: async () => {},
   logout: () => {},
   refreshData: async (_type?: string) => {},
 });
@@ -35,74 +29,67 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [tokens, setTokens] = useState(initialTokens);
   const [userData, setUserData] = useState<SpotifyDataType>(initialUserData);
 
-  const login = (tokens: TokenType) => {
+  const login = async () => {
+    await getTokens();
     setIsAuthenticated(true);
-    setTokens({ accessToken: tokens.accessToken, refreshToken: tokens.refreshToken });
-    getUserData(tokens.accessToken);
+    getUserData();
   };
 
   const logout = () => {
     removeFromLocalStorage('access_token');
     setIsAuthenticated(false);
-    setTokens(initialTokens);
     setUserData(initialUserData);
   };
 
-  const refreshTokens = async () => {
-    const tokens = await getNewTokens();
-    setTokens(tokens);
-  };
-
-  const getUserData = async (accessToken: string) => {
-    if (isAuthenticated && shouldRefreshToken()) await refreshTokens();
+  const getUserData = async () => {
+    const { accessToken } = await getTokens();
     const spotifyData = await combinedFetchSpotifyData(accessToken);
     setUserData({ ...spotifyData });
   };
 
   const refreshData = async (type?: string) => {
-    if (isAuthenticated && shouldRefreshToken()) await refreshTokens();
+    const { accessToken } = await getTokens();
     console.log(`refreshing ${type} data`);
     let newData, newData2;
 
     switch (type) {
       case 'profileData':
-        newData = await fetchProfileData(tokens.accessToken);
+        newData = await fetchProfileData(accessToken);
         setUserData({ ...userData, profileData: newData });
         break;
       case 'currentlyPlaying':
-        newData = await fetchCurrentlyPlaying(tokens.accessToken);
+        newData = await fetchCurrentlyPlaying(accessToken);
         setUserData({ ...userData, currentlyPlaying: newData });
         break;
       case 'recentlyPlayed':
-        newData = await fetchRecentlyPlayed(tokens.accessToken);
+        newData = await fetchRecentlyPlayed(accessToken);
         setUserData({ ...userData, recentlyPlayed: newData });
         break;
       case 'currentlyAndRecently':
-        newData = await fetchCurrentlyPlaying(tokens.accessToken);
-        newData2 = await fetchRecentlyPlayed(tokens.accessToken);
+        newData = await fetchCurrentlyPlaying(accessToken);
+        newData2 = await fetchRecentlyPlayed(accessToken);
         setUserData({ ...userData, currentlyPlaying: newData, recentlyPlayed: newData2 });
         break;
       case 'queue':
-        newData = await fetchQueue(tokens.accessToken);
+        newData = await fetchQueue(accessToken);
         setUserData({ ...userData, queue: newData });
         break;
       case 'topArtists':
-        newData = await fetchTopArtists(tokens.accessToken);
+        newData = await fetchTopArtists(accessToken);
         setUserData({ ...userData, topArtists: newData });
         break;
       case 'topTracks':
-        newData = await fetchTopTracks(tokens.accessToken);
+        newData = await fetchTopTracks(accessToken);
         setUserData({ ...userData, topTracks: newData });
         break;
       default:
-        newData = await combinedFetchSpotifyData(tokens.accessToken);
+        newData = await combinedFetchSpotifyData(accessToken);
         setUserData({ ...newData });
         break;
     }
   };
 
-  return <AuthContext.Provider value={{ isAuthenticated, userData, tokens, login, logout, refreshData }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ isAuthenticated, userData, login, logout, refreshData }}>{children}</AuthContext.Provider>;
 };

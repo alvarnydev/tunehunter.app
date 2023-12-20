@@ -4,10 +4,11 @@ import { useAuth } from '../../../contexts/auth';
 import { requestAuthorizationCodePKCE } from '../../../utils/fetchSpotifyAuth';
 import { storeInLocalStorage } from '../../../utils/localStorage';
 import { FormDataType, SongTableTab } from '../../../../../types';
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import SpotifyTableLayout from './SpotifyIntegration/SpotifyTableLayout';
 import SpotifyTableHeader from './SpotifyIntegration/SpotifyTableHeader';
 import SpotifyTableBody from './SpotifyIntegration/SpotifyTableBody';
+import { useEffectDebugger } from '../../../hooks/useEffectDebugger';
 
 const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
   const { t } = useTranslation();
@@ -18,15 +19,21 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
   const tableRef = useRef<HTMLDivElement>(null);
   const dataRefreshTimer = useRef(new Date().getTime() + 60_000);
 
-  // On first mount, refresh data
-  useEffect(() => {
-    if (!isAuthenticated) return;
+  const startDataRefresh = useCallback(() => {
+    saveTableInfo();
+    refreshData();
+  }, [refreshData]);
 
-    const getFirstData = async () => {
-      await refreshData();
-    };
-    getFirstData();
-  }, []);
+  const startIntegration = () => {
+    storeInLocalStorage('redirect_path', window.location.pathname + window.location.search);
+    requestAuthorizationCodePKCE();
+  };
+
+  const saveTableInfo = (scroll?: number) => {
+    if (tableRef.current == null) return;
+    tableHeight.current = tableRef.current.getBoundingClientRect().height;
+    tableScroll.current = scroll === 0 ? scroll : tableRef.current.scrollTop;
+  };
 
   // Refresh data when song is finished or every 60 seconds
   useEffect(() => {
@@ -47,7 +54,9 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
       }, time);
     };
 
-    if (isPlaying && timeLeft && timeLeft < refreshInterval) {
+    if (userData.recentlyPlayed === null) {
+      refreshDataAfter(3000);
+    } else if (isPlaying && timeLeft && timeLeft < refreshInterval) {
       refreshDataAfter(timeLeft);
     } else {
       refreshDataAfter(refreshInterval);
@@ -56,23 +65,7 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
     return () => {
       clearTimeout(timer);
     };
-  }, [isAuthenticated, userData]);
-
-  const startIntegration = () => {
-    storeInLocalStorage('redirect_path', window.location.pathname + window.location.search);
-    requestAuthorizationCodePKCE();
-  };
-
-  const startDataRefresh = () => {
-    saveTableInfo();
-    refreshData('currentlyAndRecently');
-  };
-
-  const saveTableInfo = (scroll?: number) => {
-    if (tableRef.current == null) return;
-    tableHeight.current = tableRef.current.getBoundingClientRect().height;
-    tableScroll.current = scroll === 0 ? scroll : tableRef.current.scrollTop;
-  };
+  }, [isAuthenticated, userData, startDataRefresh]);
 
   const SpotifyTable = () => {
     const handleTabUpdate = (newTab: SongTableTab) => {
