@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { ApiResponseDataType, ResultsDataType } from '../../../../../types';
+import { ApiResponseDataType, ResultsDataType } from '../../../../../globalTypes';
 import { fetchMusicData } from '@/utils/fetchMusicData';
 import { LoadingIndicator } from '@components/UtilComponents/IndicatorComponents';
 import AppAlert, { WarningAlert } from '@components/UtilComponents/ErrorComponents';

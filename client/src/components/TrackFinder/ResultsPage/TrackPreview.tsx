@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { TrackInfoType } from '../../../../../types';
+import { TrackInfoType } from '../../../../../globalTypes';
 
 function openModal() {
   const modal = document.getElementById('song_choice_modal') as HTMLDialogElement;
