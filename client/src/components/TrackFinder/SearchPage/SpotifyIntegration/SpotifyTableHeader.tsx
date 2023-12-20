@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { IoMdRefresh } from 'react-icons/io';
-import { SongTableTab } from '../../../../../../types';
 import { useTranslation } from 'react-i18next';
+import { SongTableTab } from '@/types';
 
 interface ISpotifyTableHeaderProps {
   tab: string;

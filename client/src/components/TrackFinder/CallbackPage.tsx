@@ -1,14 +1,15 @@
-import { LoadingIndicator } from '../utils/IndicatorComponents';
 import { useNavigate } from 'react-router';
-import { useAuth } from '../../contexts/auth';
 import { useEffect, useState } from 'react';
-import AppAlert, { UserAlert } from '../utils/ErrorComponents';
 import { useTranslation } from 'react-i18next';
 import { FaCheck } from 'react-icons/fa6';
-import { removeFromLocalStorage, retrieveFromLocalStorage } from '../../utils/localStorage';
+import { LoadingIndicator } from '@components/UtilComponents/IndicatorComponents';
+import { removeFromLocalStorage, retrieveFromLocalStorage } from '@utils/localStorage';
+import { retrieveFromUrl, saveExpiryDate, saveProperty } from '@utils/utilsFetch';
+import { playJingle } from '@utils/audio';
+import { useAuth } from '@contexts/auth';
+import AppAlert, { UserAlert } from '@components/UtilComponents/ErrorComponents';
+
 import BackButton from './ResultsPage/BackButton';
-import { retrieveFromUrl, saveExpiryDate, saveProperty } from '../../utils/utilsFetch';
-import { playJingle } from '../../utils/audio';
 
 const initialError = { type: 'app', message: '' };
 

@@ -1,7 +1,7 @@
 /* Credit: https://github.com/chronark/chronark.com */
 
 import { useRef, useEffect } from 'react';
-import { useMousePosition } from '../../hooks/useMousePosition';
+import { useMousePosition } from '@hooks/useMousePosition';
 
 interface ParticlesProps {
   className?: string;

@@ -1,6 +1,6 @@
-import { saveExpiryDate } from './utilsFetch';
-import { retrieveFromLocalStorage, storeInLocalStorage } from './localStorage';
-import { TokenType } from '../../../types';
+import { saveExpiryDate } from '@utils/utilsFetch';
+import { retrieveFromLocalStorage, storeInLocalStorage } from '@utils/localStorage';
+import { TokenType } from '@/types';
 
 const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID || '';
 const REDIRECT_URI = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;

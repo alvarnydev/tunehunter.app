@@ -1,14 +1,13 @@
 import { useTranslation } from 'react-i18next';
-import InfoAnnotation from '../../utils/InfoComponents';
-import { useAuth } from '../../../contexts/auth';
-import { requestAuthorizationCodePKCE } from '../../../utils/fetchSpotifyAuth';
-import { storeInLocalStorage } from '../../../utils/localStorage';
-import { FormDataType, SongTableTab } from '../../../../../types';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { FormDataType, SongTableTab } from '@/types';
+import InfoAnnotation from '@components/UtilComponents/InfoComponents';
+import { useAuth } from '@contexts/auth';
+import { requestAuthorizationCodePKCE } from '@utils/fetchSpotifyAuth';
+import { storeInLocalStorage } from '@utils/localStorage';
 import SpotifyTableLayout from './SpotifyIntegration/SpotifyTableLayout';
 import SpotifyTableHeader from './SpotifyIntegration/SpotifyTableHeader';
 import SpotifyTableBody from './SpotifyIntegration/SpotifyTableBody';
-import { useEffectDebugger } from '../../../hooks/useEffectDebugger';
 
 const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
   const { t } = useTranslation();
@@ -37,7 +36,6 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
 
   // Refresh data when song is finished or every 60 seconds
   useEffect(() => {
-    console.log('useEffect: SpotifyIntegration');
     if (!isAuthenticated) return;
     let timer: NodeJS.Timeout;
     const refreshInterval = 60_000;

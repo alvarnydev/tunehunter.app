@@ -1,5 +1,5 @@
-import { BiSearch } from 'react-icons/bi';
 import { useTranslation } from 'react-i18next';
+import { BiSearch } from 'react-icons/bi';
 
 const SearchButton = ({ handleSubmit }: { handleSubmit: () => void }) => {
   const { t } = useTranslation();

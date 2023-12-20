@@ -1,3 +1,21 @@
+export type SongTableTab = 'recentlyPlayed' | 'queue' | 'mostPlayed';
+
+export type TokenType = {
+  accessToken: string;
+  refreshToken: string;
+};
+
+export type FormDataType = {
+  country: string;
+  searchMode: string;
+  songSearchQuery: {
+    artist: string;
+    title: string;
+    duration: number;
+  };
+  playlistSearchString: string;
+};
+
 export type PriceDataType = {
   artist: string;
   song: string;

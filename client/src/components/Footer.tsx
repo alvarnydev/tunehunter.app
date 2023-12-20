@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { themeChange } from 'theme-change';
-import ThemeSelector from './Footer/ThemeSelector';
-import LanguageSelector from './Footer/LanguageSelector';
-import Profile from './Footer/Profile';
 import { useWindowSize } from '@uidotdev/usehooks';
 import { BiSearch } from 'react-icons/bi';
 import { SlSocialSpotify } from 'react-icons/sl';
-import { useAuth } from '../contexts/auth';
+import ThemeSelector from '@components/Footer/ThemeSelector';
+import LanguageSelector from '@components/Footer/LanguageSelector';
+import Profile from '@components/Footer/Profile';
+import { useAuth } from '@contexts/auth';
 
 const Footer = () => {
   const size = useWindowSize();

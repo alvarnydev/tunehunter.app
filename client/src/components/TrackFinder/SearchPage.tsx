@@ -1,11 +1,11 @@
-import MemoizedSpotifyIntegrationBox from './SearchPage/SpotifyIntegration';
-import SearchBar from './SearchPage/SearchBar';
-import { FormDataType } from '../../../../types';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { ToastComponent } from '../utils/ToastComponent';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
+import { FormDataType } from '@/types';
+import { ToastComponent } from '@components/UtilComponents/ToastComponent';
+import MemoizedSpotifyIntegrationBox from './SearchPage/SpotifyIntegration';
+import SearchBar from './SearchPage/SearchBar';
 import SearchPageLayout from './SearchPage/SearchPageLayout';
 
 const initialFormData: FormDataType = {

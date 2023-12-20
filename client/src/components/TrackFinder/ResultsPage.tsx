@@ -1,7 +1,6 @@
-import ResultsTable from './ResultsPage/ResultsTable';
 import { ErrorBoundary } from 'react-error-boundary';
-import AppAlert from '../utils/ErrorComponents';
-import { logError } from '../utils/ErrorFunctions';
+import AppAlert from '@components/UtilComponents/ErrorComponents';
+import ResultsTable from './ResultsPage/ResultsTable';
 import SearchPage from './SearchPage';
 
 const ResultsPage = () => {

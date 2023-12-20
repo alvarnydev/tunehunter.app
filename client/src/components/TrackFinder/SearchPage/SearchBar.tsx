@@ -1,6 +1,6 @@
+import { FormDataType } from '@/types';
 import SearchTextInput from './SearchInput';
 import SearchButton from './SearchButton';
-import { FormDataType } from '../../../../../types';
 
 const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: FormDataType; handleFormUpdate: (formData: FormDataType) => void; handleSubmit: () => void }) => {
   return (

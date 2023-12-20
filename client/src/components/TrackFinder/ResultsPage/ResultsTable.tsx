@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchMusicData } from '../../../utils/fetchMusicData';
-import { LoadingIndicator } from '../../utils/IndicatorComponents';
-import ResultsRow from './ResultsRow';
-import { ApiResponseDataType, ResultsDataType } from '../../../../../types';
-import AppAlert, { WarningAlert } from '../../utils/ErrorComponents';
-import { useTranslation } from 'react-i18next';
-import TrackPreview from './TrackPreview';
-import { logError } from '../../utils/ErrorFunctions';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+import { ApiResponseDataType, ResultsDataType } from '../../../../../types';
+import { fetchMusicData } from '@/utils/fetchMusicData';
+import { LoadingIndicator } from '@components/UtilComponents/IndicatorComponents';
+import AppAlert, { WarningAlert } from '@components/UtilComponents/ErrorComponents';
+import { logError } from '@components/UtilComponents/ErrorFunctions';
+import TrackPreview from './TrackPreview';
+import ResultsRow from './ResultsRow';
 
 function validateData(apiData: ApiResponseDataType): number {
   // todo: itunes length 0 or undefined?

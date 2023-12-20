@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { FormDataType } from '../../../../../types';
+import { FormDataType } from '@/types';
 
 const SearchTextInput = ({ formData, handleFormUpdate }: { formData: FormDataType; handleFormUpdate: (newFormData: FormDataType) => void }) => {
   return (

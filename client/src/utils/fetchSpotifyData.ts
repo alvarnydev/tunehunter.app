@@ -6,7 +6,7 @@ User's recently played: user-read-recently-played (https://api.spotify.com/v1/me
 User's top artists: user-top-read (https://api.spotify.com/v1/me/top/artists)
 */
 
-import { CurrentlyPlayingType, ProfileDataType, QueueType, RecentlyPlayedType, TopArtistsType, TopTracksType } from '../types';
+import { CurrentlyPlayingType, ProfileDataType, QueueType, RecentlyPlayedType, TopArtistsType, TopTracksType } from '@/types';
 
 const USER_PROFILE_ENDPOINT = 'https://api.spotify.com/v1/me';
 const CURRENTLY_PLAYING_ENDPOINT = 'https://api.spotify.com/v1/me/player/currently-playing';
