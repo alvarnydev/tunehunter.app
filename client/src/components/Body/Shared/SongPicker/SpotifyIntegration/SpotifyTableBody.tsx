@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useLayoutEffect } from 'react';
 import { useAuth } from '@/contexts/auth';
-import { MusicPlayingIndicator } from '@/components/UtilComponents/IndicatorComponents';
+import { MusicPlayingIndicator } from '@/components/Body/Shared/IndicatorComponents';
 import { FormDataType, SpotifyDataType, Track } from '@/types';
 
 interface ISpotifyTableBodyProps {

@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { FormDataType } from '@/types';
-import { ToastComponent } from '@/components/UtilComponents/ToastComponent';
-import MemoizedSpotifyIntegrationBox from './SearchPage/SpotifyIntegration';
-import SearchBar from './SearchPage/SearchBar';
-import SearchPageLayout from './SearchPage/SearchPageLayout';
+import { ToastComponent } from '@/components/Shared/ToastComponent';
+import MemoizedSpotifyIntegrationBox from './SongPicker/SpotifyIntegration';
+import SearchBar from './SongPicker/SearchBar';
+import SongPickerLayout from './SongPicker/SongPickerLayout';
 
 const initialFormData: FormDataType = {
   country: 'DE',
@@ -118,10 +118,10 @@ const SearchPage = () => {
   }
 
   return (
-    <SearchPageLayout>
+    <SongPickerLayout>
       <SearchBar formData={formData} handleFormUpdate={handleFormUpdate} handleSubmit={handleSubmit} />
       <MemoizedSpotifyIntegrationBox handleFormUpdate={handleFormUpdate} />
-    </SearchPageLayout>
+    </SongPickerLayout>
   );
 };
 

@@ -2,12 +2,12 @@ import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaCheck } from 'react-icons/fa6';
-import { LoadingIndicator } from '@/components/UtilComponents/IndicatorComponents';
+import { LoadingIndicator } from '@/components/Body/Shared/IndicatorComponents';
 import { removeFromLocalStorage, retrieveFromLocalStorage } from '@/utils/localStorage';
 import { retrieveFromUrl, saveExpiryDate, saveProperty } from '@/utils/utilsFetch';
 import { playJingle } from '@/utils/audio';
 import { useAuth } from '@/contexts/auth';
-import AppAlert, { UserAlert } from '@/components/UtilComponents/ErrorComponents';
+import AppAlert, { UserAlert } from '@/components/Body/Shared/ErrorComponents';
 
 import BackButton from './ResultsPage/BackButton';
 

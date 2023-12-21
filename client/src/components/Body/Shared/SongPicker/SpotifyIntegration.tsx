@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { FormDataType, SongTableTab } from '@/types';
-import InfoAnnotation from '@/components/UtilComponents/InfoComponents';
+import InfoAnnotation from '@/components/Body/Shared/InfoComponents';
 import { useAuth } from '@/contexts/auth';
 import { requestAuthorizationCodePKCE } from '@/utils/fetchSpotifyAuth';
 import { storeInLocalStorage } from '@/utils/localStorage';

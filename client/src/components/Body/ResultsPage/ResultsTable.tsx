@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 
 import { ApiResponseDataType, ResultsDataType } from '../../../../../globalTypes';
 import { fetchMusicData } from '@/utils/fetchMusicData';
-import { LoadingIndicator } from '@/components/UtilComponents/IndicatorComponents';
-import AppAlert, { WarningAlert } from '@/components/UtilComponents/ErrorComponents';
-import { logError } from '@/components/UtilComponents/ErrorFunctions';
+import { LoadingIndicator } from '@/components/Body/Shared/IndicatorComponents';
+import AppAlert, { WarningAlert } from '@/components/Body/Shared/ErrorComponents';
+import { logError } from '@/components/Body/Shared/ErrorFunctions';
 import TrackPreview from './TrackPreview';
 import ResultsRow from './ResultsRow';
 

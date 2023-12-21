@@ -5,10 +5,10 @@ import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-ro
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import Layout from '@/components/Layout';
-import ResultsPage from '@/components/TrackFinder/ResultsPage';
-import SearchPage from '@/components/TrackFinder/SearchPage';
-import { NotFoundError } from '@/components/UtilComponents/ErrorComponents';
-import CallbackPage from '@/components/TrackFinder/CallbackPage';
+import ResultsPage from '@/components/Body/ResultsPage';
+import SearchPage from '@/components/Body/Shared/SongPicker';
+import { NotFoundError } from '@/components/Body/Shared/ErrorComponents';
+import CallbackPage from '@/components/Body/CallbackPage';
 import { AuthProvider, useAuth } from '@/contexts/auth';
 import animationClasses from '@/utils/animations';
 import { toastContainer, toastOptions } from '@/utils/toast';
