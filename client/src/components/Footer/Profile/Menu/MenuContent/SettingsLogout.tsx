@@ -1,5 +1,5 @@
-import { useAuth } from '@contexts/auth';
-import { playJingle } from '@utils/audio';
+import { useAuth } from '@/contexts/auth';
+import { playJingle } from '@/utils/audio';
 
 const SettingsLogout = () => {
   const { logout } = useAuth();

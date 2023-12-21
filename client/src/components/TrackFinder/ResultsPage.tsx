@@ -1,5 +1,5 @@
 import { ErrorBoundary } from 'react-error-boundary';
-import AppAlert from '@components/UtilComponents/ErrorComponents';
+import AppAlert from '@/components/UtilComponents/ErrorComponents';
 import ResultsTable from './ResultsPage/ResultsTable';
 import SearchPage from './SearchPage';
 

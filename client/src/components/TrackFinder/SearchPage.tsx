@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { FormDataType } from '@/types';
-import { ToastComponent } from '@components/UtilComponents/ToastComponent';
+import { ToastComponent } from '@/components/UtilComponents/ToastComponent';
 import MemoizedSpotifyIntegrationBox from './SearchPage/SpotifyIntegration';
 import SearchBar from './SearchPage/SearchBar';
 import SearchPageLayout from './SearchPage/SearchPageLayout';

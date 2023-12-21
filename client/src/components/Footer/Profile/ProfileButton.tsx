@@ -1,7 +1,7 @@
 import { RiAccountCircleFill } from 'react-icons/ri';
 import { RiCloseCircleFill } from 'react-icons/ri';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '@contexts/auth';
+import { useAuth } from '@/contexts/auth';
 
 const ProfileButton = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const { isAuthenticated } = useAuth();

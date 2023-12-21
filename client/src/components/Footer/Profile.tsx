@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAuth } from '@contexts/auth';
+import { useAuth } from '@/contexts/auth';
 import ProfileButton from './Profile/ProfileButton';
 import ProfileMenu from './Profile/ProfileMenu';
 import ProfileBackground from './Profile/ProfileBackground';

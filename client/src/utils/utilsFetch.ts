@@ -1,4 +1,4 @@
-import { storeInLocalStorage } from '@utils/localStorage';
+import { storeInLocalStorage } from '@/utils/localStorage';
 
 export const saveExpiryDate = async (data: any) => {
   const expiresIn = data['expires_in'];

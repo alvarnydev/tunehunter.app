@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { TrackInfoType } from '../../../../../globalTypes';
-import InfoAnnotation from '@components/UtilComponents/InfoComponents';
+import InfoAnnotation from '@/components/UtilComponents/InfoComponents';
 
 enum ArtistsShareEnum {
   amazonmusic = 0.5,

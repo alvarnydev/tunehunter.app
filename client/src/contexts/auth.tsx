@@ -4,7 +4,7 @@ import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { removeFromLocalStorage } from '../utils/localStorage';
 import { combinedFetchSpotifyData, fetchCurrentlyPlaying, fetchProfileData, fetchQueue, fetchRecentlyPlayed, fetchTopArtists, fetchTopTracks } from '../utils/fetchSpotifyData';
 import { SpotifyDataType } from '@/types';
-import { getTokens } from '@utils/fetchSpotifyAuth';
+import { getTokens } from '@/utils/fetchSpotifyAuth';
 
 const initialUserData: SpotifyDataType = {
   profileData: null,

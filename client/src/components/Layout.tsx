@@ -1,8 +1,8 @@
 import { PropsWithChildren } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
-import Footer from '@components/Footer';
-import { useTheme } from '@contexts/theme';
-import Particles from '@components/UtilComponents/Particles';
+import Footer from '@/components/Footer';
+import { useTheme } from '@/contexts/theme';
+import Particles from '@/components/UtilComponents/Particles';
 
 const Layout = ({ children }: PropsWithChildren) => {
   const { theme } = useTheme();
