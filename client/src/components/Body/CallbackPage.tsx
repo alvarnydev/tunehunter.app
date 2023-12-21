@@ -10,6 +10,7 @@ import { useAuth } from '@/contexts/auth';
 import AppAlert, { UserAlert } from '@/components/Body/Shared/ErrorComponents';
 
 import BackButton from './ResultsPage/BackButton';
+import CallbackPageLayout from './CallbackPage/CallbackPageLayout';
 
 const initialError = { type: 'app', message: '' };
 
@@ -122,7 +123,7 @@ const CallbackPage = () => {
   }
 
   return (
-    <div className='flex flex-col gap-4 items-center'>
+    <CallbackPageLayout>
       {isLoading && <LoadingIndicator size={24} />}
       {!isLoading && (
         <>
@@ -130,7 +131,7 @@ const CallbackPage = () => {
           <span>{t('loadingStates.success.redirecting')}</span>
         </>
       )}
-    </div>
+    </CallbackPageLayout>
   );
 };
 

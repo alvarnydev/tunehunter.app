@@ -1,34 +1,18 @@
-import AboutContribute from './MenuContent/AboutContribute';
-import AboutFeedback from './MenuContent/AboutFeedback';
-import AboutInfo from './MenuContent/AboutInfo';
-import ProfileEdits from './MenuContent/ProfileEdits';
-import ProfileStats from './MenuContent/ProfileStats';
-import SettingsEdits from './MenuContent/SettingsEdits';
-import SettingsLogout from './MenuContent/SettingsLogout';
+import { useAuth } from '@/contexts/auth';
+import ProfileYou from './MenuContent/ProfileYou';
+import ProfileSettings from './MenuContent/ProfileSettings';
+import ProfileAbout from './MenuContent/ProfileAbout';
+import MenuContentLayout from './MenuContent/MenuContentLayout';
 
 const MenuContent = ({ menuPage }: { menuPage: string }) => {
+  const { userData } = useAuth();
+
   return (
-    <div className='flex flex-col justify-center items-center gap-4 '>
-      {menuPage === 'you' && (
-        <>
-          <ProfileEdits />
-          <ProfileStats />
-        </>
-      )}
-      {menuPage === 'settings' && (
-        <>
-          <SettingsEdits />
-          <SettingsLogout />
-        </>
-      )}
-      {menuPage === 'about' && (
-        <>
-          <AboutInfo />
-          <AboutFeedback />
-          <AboutContribute />
-        </>
-      )}
-    </div>
+    <MenuContentLayout>
+      {menuPage === 'you' && <ProfileYou />}
+      {menuPage === 'settings' && <ProfileSettings />}
+      {menuPage === 'about' && <ProfileAbout />}
+    </MenuContentLayout>
   );
 };
 

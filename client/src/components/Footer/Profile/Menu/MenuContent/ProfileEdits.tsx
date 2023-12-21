@@ -23,12 +23,7 @@ const ProfileEdits = () => {
           <tr>
             <td className='text-end'>E-Mail</td>
             <td>
-              <input
-                type='text'
-                placeholder='peterstolz@google.com'
-                className='input input-bordered w-full max-w-xs rounded-full'
-                disabled
-              />
+              <input type='text' placeholder='peterstolz@google.com' className='input input-bordered w-full max-w-xs rounded-full' disabled />
             </td>
           </tr>
         </tbody>

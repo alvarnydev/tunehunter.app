@@ -61,7 +61,7 @@ const ResultsTable = () => {
     document.title = `${filteredData.itunesData.song.artist} - ${filteredData.itunesData.song.title}`;
 
     return (
-      <div className='overflow-x-auto w-11/12 flex flex-row gap-8'>
+      <div className='overflow-x-auto w-11/12 flex flex-row gap-8 h-96'>
         <TrackPreview songData={filteredData.itunesData} />
         <table className='table w-full'>
           <thead>
