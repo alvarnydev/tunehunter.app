@@ -1,4 +1,4 @@
-import { TrackInfoType } from '../../types';
+import { TrackInfoType } from '../../globalTypes';
 import { OurRequest } from '../utils/types';
 
 export const getData = async (req: OurRequest, store: string): Promise<TrackInfoType[]> => {

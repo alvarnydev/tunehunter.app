@@ -138,7 +138,7 @@ const TrackRow: React.FC<{
           <div className='inline'>{trackData.name.length >= 40 ? `${trackData.name.substring(0, 40)}...` : trackData.name}</div>
         </div>
       </td>
-      <td className='absolute right-0 top-2'>
+      <td className='absolute right-0'>
         <button className='btn btn-primary btn-outline btn-xs rounded-full' onClick={startSearch}>
           {t('searchbar.search')}
         </button>
