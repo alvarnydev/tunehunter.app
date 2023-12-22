@@ -5,8 +5,11 @@ import InfoAnnotation from '@/components/Body/Shared/InfoComponents';
 import { useAuth } from '@/contexts/auth';
 import { requestAuthorizationCodePKCE } from '@/utils/fetchSpotifyAuth';
 import { storeInLocalStorage } from '@/utils/localStorage';
-import SpotifyTableHeader from './SpotifyIntegration/SpotifyTableHeader';
-import SpotifyTableBody from './SpotifyIntegration/SpotifyTableBody';
+import { useLayoutEffect } from 'react';
+import { MusicPlayingIndicator } from '@/components/Body/Shared/IndicatorComponents';
+import { SpotifyDataType, Track } from '@/types';
+import { ISpotifyDataTableBodyProps, ISpotifyTableBodyProps, ISpotifyTableHeaderProps } from '@/interfaces';
+import { IoMdRefresh } from 'react-icons/io';
 
 const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
   const { t } = useTranslation();
@@ -89,12 +92,196 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
       return <div className={`w-3/4 rounded-xl shadow-md shadow-neutral pt-2 px-2  `}>{children}</div>;
     };
 
+    const SpotifyTableHeader = ({ tab, handleTabUpdate, dataRefreshTimer, startDataRefresh }: ISpotifyTableHeaderProps) => {
+      const { t } = useTranslation();
+
+      const TabPicker = ({ tab, handleTabUpdate }: { tab: string; handleTabUpdate: (newTab: SongTableTab) => void }) => {
+        const { t } = useTranslation();
+
+        return (
+          <div className='join'>
+            <button className={`join-item capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-l-full ${tab === 'recentlyPlayed' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('recentlyPlayed')}>
+              {t('spotifyBox.recentlyPlayed')}
+            </button>
+            <button className={`join-item capitalize text-base tracking-wide btn-ghost btn btn-sm rounded-none ${tab === 'mostPlayed' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('mostPlayed')}>
+              {t('spotifyBox.mostPlayed')}
+            </button>
+            <button className={`join-item  capitalize text-base tracking-wide btn-ghost btn btn-sm  rounded-r-full  ${tab === 'queue' ? 'font-bold' : 'font-normal'}`} onClick={() => handleTabUpdate('queue')}>
+              {t('spotifyBox.queue')}
+            </button>
+          </div>
+        );
+      };
+
+      const TimeLeftIndicator = ({ dataRefreshTimer, startDataRefresh }: { dataRefreshTimer: React.MutableRefObject<number>; startDataRefresh: () => void }) => {
+        const [timeLeft, setTimeLeft] = useState<number>(0);
+
+        useEffect(() => {
+          const timer = setInterval(() => {
+            setTimeLeft(dataRefreshTimer.current - new Date().getTime());
+          }, 1000);
+
+          return () => {
+            clearInterval(timer);
+          };
+        }, []);
+
+        return (
+          <div className='flex items-center lg:tooltip' data-tip={`Automatic refresh in ${Math.round(timeLeft / 1000)} seconds`}>
+            <button className='btn btn-ghost btn-xs rounded-full' onClick={startDataRefresh}>
+              <IoMdRefresh size={20} />
+            </button>
+          </div>
+        );
+      };
+
+      return (
+        <div className='flex justify-center py-2 mx-[2%] border-b-neutral border-b-[1px]'>
+          <div className='w-full flex justify-between items-center'>
+            <div>
+              <p> {t('spotifyBox.prompt')}</p>
+            </div>
+            <TabPicker tab={tab} handleTabUpdate={handleTabUpdate} />
+            <TimeLeftIndicator dataRefreshTimer={dataRefreshTimer} startDataRefresh={startDataRefresh} />
+          </div>
+        </div>
+      );
+    };
+
+    const SpotifyTableBody = ({ tab, handleFormUpdate, tableRef, tableHeight, tableScroll }: ISpotifyTableBodyProps) => {
+      const { userData } = useAuth();
+
+      const RecentlyPlayedTable = ({ data, handleFormUpdate }: ISpotifyDataTableBodyProps) => {
+        if (data.recentlyPlayed?.items.length == 0)
+          return (
+            <div className='flex h-full justify-center items-center'>
+              <p className='text-center'>You have no recently played songs</p>
+            </div>
+          );
+
+        return (
+          <table className='table table-fixed w-full'>
+            <tbody>
+              {data.currentlyPlaying?.is_playing && <TrackRow trackData={data.currentlyPlaying.item} currentlyPlaying={true} userCountry={data.profileData?.country} handleFormUpdate={handleFormUpdate} />}
+              {data.recentlyPlayed?.items.map((item) => (
+                <TrackRow key={item.played_at} trackData={item.track} userCountry={data.profileData?.country} handleFormUpdate={handleFormUpdate} />
+              ))}
+            </tbody>
+          </table>
+        );
+      };
+
+      const QueueTable = ({ data, handleFormUpdate }: ISpotifyDataTableBodyProps) => {
+        if (data.queue?.queue.length == 0)
+          return (
+            <div className='flex h-full justify-center items-center'>
+              <p className='text-center'>Your queue is currently empty</p>
+            </div>
+          );
+
+        return (
+          <table className='table table-fixed w-full'>
+            <tbody>
+              {data.queue?.queue.map((item, index) => (
+                <TrackRow key={index} trackData={item} userCountry={data.profileData?.country} handleFormUpdate={handleFormUpdate} />
+              ))}
+            </tbody>
+          </table>
+        );
+      };
+
+      const MostPlayedTable = ({ data, handleFormUpdate }: ISpotifyDataTableBodyProps) => {
+        if (data.topTracks?.items.length == 0)
+          return (
+            <div className='flex h-full justify-center items-center'>
+              <p className='text-center'>We found no data for your most played songs.</p>
+            </div>
+          );
+
+        return (
+          <table className='table table-fixed w-full'>
+            <tbody>
+              {data.topTracks?.items.map((item) => (
+                <TrackRow key={item.id} trackData={item} userCountry={data.profileData?.country} handleFormUpdate={handleFormUpdate} />
+              ))}
+            </tbody>
+          </table>
+        );
+      };
+
+      // Restore table height (tailwind stops evaluating h-[${tableHeight.current}px] correctly after some time, for whatever reason)
+      useLayoutEffect(() => {
+        if (tableRef.current == null) return;
+        tableRef.current.style.height = `${tableHeight}px`;
+        tableRef.current.scrollTop = tableScroll;
+      }, []);
+
+      return (
+        <div ref={tableRef} className={`overflow-x-auto scrollbar-none rounded py-2 w-full resize-y h-[${tableHeight}px]`}>
+          {tab == 'recentlyPlayed' && <RecentlyPlayedTable data={userData} handleFormUpdate={handleFormUpdate} />}
+          {tab == 'mostPlayed' && <MostPlayedTable data={userData} handleFormUpdate={handleFormUpdate} />}
+          {tab == 'queue' && <QueueTable data={userData} handleFormUpdate={handleFormUpdate} />}
+        </div>
+      );
+    };
+
+    const TrackRow: React.FC<{
+      trackData: Track;
+      currentlyPlaying?: boolean;
+      userCountry?: string;
+      handleFormUpdate(newFormData: FormDataType, final: boolean): void;
+    }> = ({ trackData, currentlyPlaying, userCountry, handleFormUpdate }) => {
+      const { t } = useTranslation();
+
+      const startSearch = () => {
+        const newFormData = {
+          country: userCountry || 'DE',
+          searchMode: 'song',
+          songSearchQuery: {
+            artist: trackData.artists[0].name,
+            title: trackData.name,
+            duration: trackData.duration_ms,
+          },
+          playlistSearchString: '',
+        };
+
+        handleFormUpdate(newFormData, true);
+      };
+
+      return (
+        <tr className='[&>td]:border-0 relative [&>td]:rounded-none'>
+          <td>
+            <div className='flex items-center gap-3'>
+              <div className='avatar pr-2'>
+                <div className={`mask mask-squircle w-10 h-10 `}>
+                  <img src={trackData.album.images[0].url} alt='Avatar Tailwind CSS Component' className='relative' />
+                </div>
+              </div>
+              <div>
+                <div>{trackData.artists[0].name}</div>
+                <div className='text-sm opacity-50'>{trackData.artists[1]?.name}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div className='flex items-center gap-2'>
+              {currentlyPlaying && <MusicPlayingIndicator size={12} />}
+              <div className='inline'>{trackData.name.length >= 40 ? `${trackData.name.substring(0, 40)}...` : trackData.name}</div>
+            </div>
+          </td>
+          <td className='absolute right-0'>
+            <button className='btn btn-primary btn-outline btn-xs rounded-full' onClick={startSearch}>
+              {t('searchbar.search')}
+            </button>
+          </td>
+        </tr>
+      );
+    };
+
     return (
       <SpotifyTableLayout loading={userData.recentlyPlayed === null}>
-        <>
-          <SpotifyTableHeader tab={tab} handleTabUpdate={handleTabUpdate} dataRefreshTimer={dataRefreshTimer} startDataRefresh={startDataRefresh} />
-          <SpotifyTableBody tab={tab} handleFormUpdate={handleFormUpdate} tableRef={tableRef} tableHeight={tableHeight.current} tableScroll={tableScroll.current} />
-        </>
+        <SpotifyTableHeader tab={tab} handleTabUpdate={handleTabUpdate} dataRefreshTimer={dataRefreshTimer} startDataRefresh={startDataRefresh} />
+        <SpotifyTableBody tab={tab} handleFormUpdate={handleFormUpdate} tableRef={tableRef} tableHeight={tableHeight.current} tableScroll={tableScroll.current} />
       </SpotifyTableLayout>
     );
   };
