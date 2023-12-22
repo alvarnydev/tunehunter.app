@@ -6,7 +6,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import Layout from '@/components/Layout';
 import ResultsPage from '@/components/Body/ResultsPage';
-import SearchPage from '@/components/Body/Shared/SongPicker';
+import SongPicker from '@/components/Body/Shared/SongPicker';
 import { NotFoundError } from '@/components/Body/Shared/ErrorComponents';
 import CallbackPage from '@/components/Body/CallbackPage';
 import { AuthProvider, useAuth } from '@/contexts/auth';
@@ -80,7 +80,7 @@ const AnimatedSwitch = () => {
     <TransitionGroup component={null} exit={false}>
       <CSSTransition key={location.pathname} classNames={animationClasses} timeout={500}>
         <Routes location={location}>
-          <Route path='/' element={<SearchPage />} />
+          <Route path='/' element={<SongPicker />} />
           <Route path='/results' element={<ResultsPage />} />
           <Route path='/callback' element={<CallbackPage />} />
           <Route path='*' element={<NotFoundError />} />

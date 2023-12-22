@@ -4,8 +4,8 @@ import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import { FormDataType } from '@/types';
 import { ToastComponent } from '@/components/Shared/ToastComponent';
-import MemoizedSpotifyIntegrationBox from './SongPicker/SpotifyIntegration';
-import SearchBar from './SongPicker/SearchBar';
+import { BiSearch } from 'react-icons/bi';
+import MemoizedSpotifyIntegration from './SpotifyIntegration';
 
 const initialFormData: FormDataType = {
   country: 'DE',
@@ -18,7 +18,7 @@ const initialFormData: FormDataType = {
   playlistSearchString: '',
 };
 
-const SearchPage = () => {
+const SongPicker = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [forceUpdate, setForceUpdate] = useState(false);
   const [displayMode, setDisplayMode] = useState<'both' | 'search' | 'spotify'>('both'); // todo: remove this, use formData.searchMode instead
@@ -38,6 +38,10 @@ const SearchPage = () => {
     setForceUpdate(false);
   }, [forceUpdate]);
 
+  useEffect(() => {
+    restoreFormData();
+  }, []);
+
   const handleFormUpdate = useCallback((newFormData: FormDataType, final?: boolean) => {
     setFormData(newFormData);
     if (final) {
@@ -45,18 +49,14 @@ const SearchPage = () => {
     }
   }, []);
 
-  function handleSubmit() {
+  const handleSubmit = () => {
     if (!isValidInput()) {
       return;
     }
 
     const newParams = buildGetParams();
     navigate(`/results${newParams}`);
-  }
-
-  useEffect(() => {
-    restoreFormData();
-  }, []);
+  };
 
   const restoreFormData = () => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -88,7 +88,7 @@ const SearchPage = () => {
     }
   };
 
-  function isValidInput(): boolean {
+  const isValidInput = (): boolean => {
     const { searchMode, songSearchQuery, playlistSearchString } = formData;
 
     if (searchMode == 'song') {
@@ -102,9 +102,9 @@ const SearchPage = () => {
     }
 
     return true;
-  }
+  };
 
-  function buildGetParams(): string {
+  const buildGetParams = (): string => {
     const { country, searchMode, songSearchQuery, playlistSearchString } = formData;
     let params = `?type=${searchMode}&country=${country}`;
 
@@ -114,18 +114,93 @@ const SearchPage = () => {
       params += `&url=${playlistSearchString}`;
     }
     return params;
-  }
+  };
 
   const SongPickerLayout = ({ children }: PropsWithChildren) => {
     return <div className=' w-full flex flex-col justify-center items-center gap-10'>{children}</div>;
   };
 
+  const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: FormDataType; handleFormUpdate: (formData: FormDataType) => void; handleSubmit: () => void }) => {
+    const SearchTextInput = ({ formData, handleFormUpdate }: { formData: FormDataType; handleFormUpdate: (newFormData: FormDataType) => void }) => {
+      function handleSubmit(e: React.KeyboardEvent) {
+        if (e.key === 'Enter') {
+          document.getElementById('submitBtn')?.click();
+        }
+      }
+
+      const SongInput = ({ formData, handleFormUpdate }: { formData: FormDataType; handleFormUpdate: (newFormData: FormDataType) => void }) => {
+        const { t } = useTranslation();
+        const { songSearchQuery } = formData;
+
+        function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+          handleFormUpdate({
+            ...formData,
+            songSearchQuery: { ...songSearchQuery, [e.target.name]: e.target.value },
+          });
+        }
+
+        return (
+          <>
+            <input type='text' name='artist' placeholder={t('searchbar.artist')} className='input input-primary rounded-full md:w-full border-2 tracking-wide' value={songSearchQuery.artist} onChange={handleChange} onKeyDown={handleSubmit} />
+            <input type='text' name='title' placeholder={t('searchbar.song')} className='input rounded-full input-primary md:w-full border-2 tracking-wide' value={songSearchQuery.title} onChange={handleChange} onKeyDown={handleSubmit} />
+          </>
+        );
+      };
+
+      const PlaylistInput = ({ formData, handleFormUpdate }: { formData: FormDataType; handleFormUpdate: (newFormData: FormDataType) => void }) => {
+        function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+          const value = e.target.value;
+          handleFormUpdate({ ...formData, playlistSearchString: value });
+        }
+
+        return (
+          <input
+            type='text'
+            placeholder='https://open.spotify.com/playlist/4Zn1Wd...'
+            className='input input-primary rounded-full md:w-full border-2 tracking-wide'
+            value={formData.playlistSearchString}
+            onChange={handleChange}
+            onKeyDown={handleSubmit}
+          />
+        );
+      };
+
+      return (
+        <div className='w-full flex md:flex-row flex-col md:gap-10 gap-8 order-2'>
+          {formData.searchMode === 'song' && <SongInput formData={formData} handleFormUpdate={handleFormUpdate} />}
+          {formData.searchMode === 'playlist' && <PlaylistInput formData={formData} handleFormUpdate={handleFormUpdate} />}
+        </div>
+      );
+    };
+
+    const SearchButton = ({ handleSubmit }: { handleSubmit: () => void }) => {
+      const { t } = useTranslation();
+
+      return (
+        <div className='order-3 md:flex'>
+          <button id='submitBtn' type='submit' className='btn btn-primary font-normal md:w-auto w-1/2 m-auto rounded-full gap-2 flex normal-case px-4 text-base tracking-wide' onClick={handleSubmit}>
+            <BiSearch size={18} />
+            {t('searchbar.search')}
+          </button>
+        </div>
+      );
+    };
+
+    return (
+      <div className='flex md:flex-row flex-col w-4/5 gap-10'>
+        {/* <SearchModeToggler formData={formData} handleFormUpdate={handleFormUpdate} /> */}
+        <SearchTextInput formData={formData} handleFormUpdate={handleFormUpdate} />
+        <SearchButton handleSubmit={handleSubmit} />
+      </div>
+    );
+  };
+
   return (
     <SongPickerLayout>
       <SearchBar formData={formData} handleFormUpdate={handleFormUpdate} handleSubmit={handleSubmit} />
-      <MemoizedSpotifyIntegrationBox handleFormUpdate={handleFormUpdate} />
+      <MemoizedSpotifyIntegration handleFormUpdate={handleFormUpdate} />
     </SongPickerLayout>
   );
 };
 
-export default SearchPage;
+export default SongPicker;

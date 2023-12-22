@@ -1,15 +1,13 @@
-import { useTranslation } from 'react-i18next';
-import { PropsWithChildren, memo, useCallback, useEffect, useRef, useState } from 'react';
-import { FormDataType, SongTableTab } from '@/types';
-import InfoAnnotation from '@/components/Body/Shared/InfoComponents';
 import { useAuth } from '@/contexts/auth';
+import { FormDataType, SongTableTab, Track } from '@/types';
 import { requestAuthorizationCodePKCE } from '@/utils/fetchSpotifyAuth';
 import { storeInLocalStorage } from '@/utils/localStorage';
-import { useLayoutEffect } from 'react';
-import { MusicPlayingIndicator } from '@/components/Body/Shared/IndicatorComponents';
-import { SpotifyDataType, Track } from '@/types';
+import { PropsWithChildren, memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import InfoAnnotation from './InfoComponents';
 import { ISpotifyDataTableBodyProps, ISpotifyTableBodyProps, ISpotifyTableHeaderProps } from '@/interfaces';
 import { IoMdRefresh } from 'react-icons/io';
+import { MusicPlayingIndicator } from './IndicatorComponents';
 
 const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
   const { t } = useTranslation();
@@ -294,5 +292,5 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
   );
 };
 
-const MemoizedSpotifyIntegrationBox = memo(SpotifyIntegration);
-export default MemoizedSpotifyIntegrationBox;
+const MemoizedSpotifyIntegration = memo(SpotifyIntegration);
+export default MemoizedSpotifyIntegration;
