@@ -50,5 +50,5 @@ async function fetchPlaylistData(url: string) {
 // Low-level API call to our own backend
 async function fetchFromAPI(artist: string, title: string, country: string, vendor: string): Promise<TrackInfoType[]> {
   const dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}`).href;
-  return await axios(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then((res) => res.data as TrackInfoType[]);
+  return await axios<TrackInfoType[]>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then((res) => res.data);
 }
