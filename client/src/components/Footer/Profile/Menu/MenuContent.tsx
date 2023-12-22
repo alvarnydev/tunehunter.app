@@ -2,10 +2,14 @@ import { useAuth } from '@/contexts/auth';
 import ProfileYou from './MenuContent/ProfileYou';
 import ProfileSettings from './MenuContent/ProfileSettings';
 import ProfileAbout from './MenuContent/ProfileAbout';
-import MenuContentLayout from './MenuContent/MenuContentLayout';
+import { PropsWithChildren } from 'react';
 
 const MenuContent = ({ menuPage }: { menuPage: string }) => {
   const { userData } = useAuth();
+
+  const MenuContentLayout = ({ children }: PropsWithChildren) => {
+    return <div className='flex flex-col justify-center items-center gap-4 '>{children}</div>;
+  };
 
   return (
     <MenuContentLayout>

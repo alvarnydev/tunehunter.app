@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +6,6 @@ import { FormDataType } from '@/types';
 import { ToastComponent } from '@/components/Shared/ToastComponent';
 import MemoizedSpotifyIntegrationBox from './SongPicker/SpotifyIntegration';
 import SearchBar from './SongPicker/SearchBar';
-import SongPickerLayout from './SongPicker/SongPickerLayout';
 
 const initialFormData: FormDataType = {
   country: 'DE',
@@ -116,6 +115,10 @@ const SearchPage = () => {
     }
     return params;
   }
+
+  const SongPickerLayout = ({ children }: PropsWithChildren) => {
+    return <div className=' w-full flex flex-col justify-center items-center gap-10'>{children}</div>;
+  };
 
   return (
     <SongPickerLayout>

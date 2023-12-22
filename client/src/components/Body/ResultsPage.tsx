@@ -2,9 +2,13 @@ import { ErrorBoundary } from 'react-error-boundary';
 import AppAlert from '@/components/Body/Shared/ErrorComponents';
 import ResultsTable from './ResultsPage/ResultsTable';
 import SongPicker from './Shared/SongPicker';
-import ResultsPageLayout from './ResultsPage/ResultsPageLayout';
+import { PropsWithChildren } from 'react';
 
 const ResultsPage = () => {
+  const ResultsPageLayout = ({ children }: PropsWithChildren) => {
+    return <div className='flex flex-col justify-center items-center w-full gap-14'>{children}</div>;
+  };
+
   return (
     <ResultsPageLayout>
       <SongPicker />

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router';
-import { useEffect, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaCheck } from 'react-icons/fa6';
 import { LoadingIndicator } from '@/components/Body/Shared/IndicatorComponents';
@@ -10,7 +10,6 @@ import { useAuth } from '@/contexts/auth';
 import AppAlert, { UserAlert } from '@/components/Body/Shared/ErrorComponents';
 
 import BackButton from './ResultsPage/BackButton';
-import CallbackPageLayout from './CallbackPage/CallbackPageLayout';
 
 const initialError = { type: 'app', message: '' };
 
@@ -121,6 +120,10 @@ const CallbackPage = () => {
       </div>
     );
   }
+
+  const CallbackPageLayout = ({ children }: PropsWithChildren) => {
+    return <div className='flex flex-col gap-4 items-center'>{children}</div>;
+  };
 
   return (
     <CallbackPageLayout>

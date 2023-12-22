@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { PropsWithChildren, memo, useCallback, useEffect, useRef, useState } from 'react';
 import { FormDataType, SongTableTab } from '@/types';
 import InfoAnnotation from '@/components/Body/Shared/InfoComponents';
 import { useAuth } from '@/contexts/auth';
 import { requestAuthorizationCodePKCE } from '@/utils/fetchSpotifyAuth';
 import { storeInLocalStorage } from '@/utils/localStorage';
-import SpotifyTableLayout from './SpotifyIntegration/SpotifyTableLayout';
 import SpotifyTableHeader from './SpotifyIntegration/SpotifyTableHeader';
 import SpotifyTableBody from './SpotifyIntegration/SpotifyTableBody';
 
@@ -66,22 +65,6 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
     };
   }, [isAuthenticated, userData, startDataRefresh]);
 
-  const SpotifyTable = () => {
-    const handleTabUpdate = (newTab: SongTableTab) => {
-      saveTableInfo(0);
-      setTab(newTab);
-    };
-
-    return (
-      <SpotifyTableLayout loading={userData.recentlyPlayed === null}>
-        <>
-          <SpotifyTableHeader tab={tab} handleTabUpdate={handleTabUpdate} dataRefreshTimer={dataRefreshTimer} startDataRefresh={startDataRefresh} />
-          <SpotifyTableBody tab={tab} handleFormUpdate={handleFormUpdate} tableRef={tableRef} tableHeight={tableHeight.current} tableScroll={tableScroll.current} />
-        </>
-      </SpotifyTableLayout>
-    );
-  };
-
   const IntegrationText = () => {
     return (
       <div className='flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0'>
@@ -93,6 +76,26 @@ const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormDa
           <InfoAnnotation infoText={t('spotify.annotation')} />
         </div>
       </div>
+    );
+  };
+
+  const SpotifyTable = () => {
+    const handleTabUpdate = (newTab: SongTableTab) => {
+      saveTableInfo(0);
+      setTab(newTab);
+    };
+
+    const SpotifyTableLayout = ({ children }: PropsWithChildren<{ loading: boolean }>) => {
+      return <div className={`w-3/4 rounded-xl shadow-md shadow-neutral pt-2 px-2  `}>{children}</div>;
+    };
+
+    return (
+      <SpotifyTableLayout loading={userData.recentlyPlayed === null}>
+        <>
+          <SpotifyTableHeader tab={tab} handleTabUpdate={handleTabUpdate} dataRefreshTimer={dataRefreshTimer} startDataRefresh={startDataRefresh} />
+          <SpotifyTableBody tab={tab} handleFormUpdate={handleFormUpdate} tableRef={tableRef} tableHeight={tableHeight.current} tableScroll={tableScroll.current} />
+        </>
+      </SpotifyTableLayout>
     );
   };
 
