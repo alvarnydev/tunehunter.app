@@ -5,7 +5,7 @@ import { BiSearch } from 'react-icons/bi';
 import { SlSocialSpotify } from 'react-icons/sl';
 import ThemeSelector from '@/components/Footer/ThemeSelector';
 import LanguageSelector from '@/components/Footer/LanguageSelector';
-import Profile from '@/components/Footer/Profile';
+import ProfileOpener from '@/components/Footer/ProfileOpener';
 import { useAuth } from '@/contexts/auth';
 
 const Footer = () => {
@@ -20,7 +20,7 @@ const Footer = () => {
     return (
       <footer className='w-full grid grid-cols-3 md:py-3 py-2 bg-base-300'>
         <ThemeSelector />
-        <Profile />
+        <ProfileOpener />
         <LanguageSelector />
       </footer>
     );
