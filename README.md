@@ -1,6 +1,6 @@
 # traxtrove.com
 
-traxtrove.com helps its users find the best place to buy (digital) music, comparing prices, quality and artist payout across different sites.
+traxtrove.com helps youfind the best place to buy (digital) music, comparing prices, quality and artist payout across different sites.
 
 ## Stack
 
@@ -14,8 +14,8 @@ traxtrove.com helps its users find the best place to buy (digital) music, compar
 
 ## Vendors
 
-We fetch and compare data from the following vendors and regions: Amazon Music, iTunes Store, Beatport, Bandcamp.  
-Record pools may be added in the future.
+Data is fetched and compared from the following vendors and regions: Amazon Music, iTunes Store, Beatport, Bandcamp.  
+(Maybe add record pools in the future?)
 
 <!-- | Vendor       | Global                                                                 | US                                           | DE                                         |
 | ------------ | ---------------------------------------------------------------------- | -------------------------------------------- | ------------------------------------------ |
