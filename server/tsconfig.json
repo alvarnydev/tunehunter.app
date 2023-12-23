@@ -3,6 +3,6 @@
   "compilerOptions": {
     "module": "commonjs" /* Specify what module code is generated. */
   },
-  "include": ["index.ts"],
+  "include": ["**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
