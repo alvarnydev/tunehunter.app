@@ -4,15 +4,15 @@ import { Toaster } from 'react-hot-toast';
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import Layout from '@/components/Layout';
-import ResultsPage from '@/components/Body/ResultsPage';
-import SongPicker from '@/components/Body/Shared/SongPicker';
-import { NotFoundError } from '@/components/Body/Shared/ErrorComponents';
-import CallbackPage from '@/components/Body/CallbackPage';
+import Layout from '@/components/pages/Layout';
+import ResultsPage from '@/components/pages/ResultsPage';
+import SongPicker from '@/components/organisms/SongPicker';
+import { NotFoundError } from '@/components/atoms/ErrorComponents';
+import CallbackPage from '@/components/pages/CallbackPage';
 import { AuthProvider, useAuth } from '@/contexts/auth';
-import animationClasses from '@/utils/animations';
-import { toastContainer, toastOptions } from '@/utils/toast';
-import { retrieveFromLocalStorage } from '@/utils/localStorage';
+import animationClasses from '@/utils/options/animationOptions';
+import { toastContainer, toastOptions } from '@/utils/options/toastOptions';
+import { retrieveFromLocalStorage } from '@/utils/localStorageUtils';
 import { ThemeProvider, useTheme } from '@/contexts/theme';
 
 const queryClient = new QueryClient();

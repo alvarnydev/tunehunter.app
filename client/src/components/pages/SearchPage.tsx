@@ -1,4 +1,4 @@
-import SongPicker from './Shared/SongPicker';
+import SongPicker from '@/components/organisms/SongPicker';
 
 const SearchPage = () => {
   return <SongPicker />;

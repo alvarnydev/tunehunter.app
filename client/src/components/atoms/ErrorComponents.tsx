@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import BackButton from '@/components/Body/ResultsPage/BackButton';
+import BackButton from '@/components/atoms/BackButton';
 
 const AppAlert = ({ type, message }: { type: string; message?: string }) => {
   const { t } = useTranslation();

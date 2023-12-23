@@ -1,4 +1,4 @@
-import { sendMessage } from '@/components/Shared/TelegramUtils';
+import { sendMessage } from '@/utils/telegramUtils';
 
 export const logError = (error: Error, info: { customMessage?: string; componentStack?: string }) => {
   sendMessage(

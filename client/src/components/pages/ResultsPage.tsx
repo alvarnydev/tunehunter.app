@@ -1,7 +1,7 @@
 import { ErrorBoundary } from 'react-error-boundary';
-import AppAlert from '@/components/Body/Shared/ErrorComponents';
-import ResultsTable from './ResultsPage/ResultsTable';
-import SongPicker from './Shared/SongPicker';
+import AppAlert from '@/components/atoms/ErrorComponents';
+import ResultsTable from '@/components/organisms/ResultsTable';
+import SongPicker from '@/components/organisms/SongPicker';
 import { PropsWithChildren } from 'react';
 
 const ResultsPage = () => {

@@ -1,4 +1,4 @@
-import { FormDataType, SongTableTab, SpotifyDataType } from './types';
+import { FormDataType, SongTableTab, SpotifyDataType } from '@/types';
 
 export interface ISpotifyTableBodyProps {
   tab: string;

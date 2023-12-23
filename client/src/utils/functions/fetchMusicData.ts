@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ApiResponseDataType, TrackInfoType } from '../../../globalTypes';
+import { ApiResponseDataType, TrackInfoType } from '../../../../globalTypes';
 
 const apiUrl = import.meta.env.VITE_API_URL || '';
 const apiKey = import.meta.env.VITE_API_KEY || '';

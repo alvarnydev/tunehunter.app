@@ -1,5 +1,5 @@
-import { saveExpiryDate } from '@/utils/utilsFetch';
-import { retrieveFromLocalStorage, storeInLocalStorage } from '@/utils/localStorage';
+import { saveExpiryDate } from '@/utils/fetchUtils';
+import { retrieveFromLocalStorage, storeInLocalStorage } from '@/utils/localStorageUtils';
 import { TokenType } from '@/types';
 
 const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID || '';

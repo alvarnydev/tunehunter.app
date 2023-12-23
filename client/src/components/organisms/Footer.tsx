@@ -3,9 +3,9 @@ import { themeChange } from 'theme-change';
 import { useWindowSize } from '@uidotdev/usehooks';
 import { BiSearch } from 'react-icons/bi';
 import { SlSocialSpotify } from 'react-icons/sl';
-import ThemeSelector from '@/components/Footer/ThemeSelector';
-import LanguageSelector from '@/components/Footer/LanguageSelector';
-import ProfileOpener from '@/components/Footer/ProfileOpener';
+import ThemeSelector from '@/components/atoms/ThemeSelector';
+import LanguageSelector from '@/components/atoms/LanguageSelector';
+import ProfileOpener from '@/components/molecules/ProfileOpener';
 import { useAuth } from '@/contexts/auth';
 
 const Footer = () => {
