@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { ITunesData, RequestDataType, TrackDataType, VendorDataType } from '../../globalTypes';
-import { OurRequest } from '../utils/types';
+import { RequestDataType, TrackDataType, VendorDataType } from '../../globalTypes';
+import { ITunesDataType, OurRequest } from '../utils/types';
 import { sortByDuration } from '../utils/utils';
 
 export const fetchStoreData = async (req: OurRequest, store: string): Promise<VendorDataType> => {
@@ -25,7 +25,7 @@ export const fetchStoreData = async (req: OurRequest, store: string): Promise<Ve
 
 export const fetchItunesData = async ({ country, searchQuery: { title, artist, duration } }: RequestDataType): Promise<VendorDataType> => {
   const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
-  const response = await axios.get<ITunesData>(dataUrl);
+  const response = await axios.get<ITunesDataType>(dataUrl);
   const data = response.data;
 
   // Grab what we need from the response
