@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ApiResponseDataType, TrackInfoType } from '../../../../globalTypes';
+import { ResponseDataType, TrackInfoType } from '../../../../globalTypes';
 
 const apiUrl = import.meta.env.VITE_API_URL || '';
 const apiKey = import.meta.env.VITE_API_KEY || '';
@@ -25,7 +25,7 @@ export const fetchMusicData = async ({ queryKey }: { queryKey: [string, { search
 };
 
 // Mid-level custom API calls to our own backend
-async function fetchSongData(artist: string, title: string, country: string): Promise<ApiResponseDataType> {
+async function fetchSongData(artist: string, title: string, country: string): Promise<ResponseDataType> {
   const itunesResponse = fetchFromAPI(artist, title, country, 'itunes');
   const beatportResponse = fetchFromAPI(artist, title, country, 'beatport');
   const amazonResponse = fetchFromAPI(artist, title, country, 'amazon');

@@ -1,5 +1,5 @@
 import { useAuth } from '@/contexts/auth';
-import { FormDataType, SongTableTab, Track } from '@/types';
+import { SongTableTab, Track } from '@/types';
 import { requestAuthorizationCodePKCE } from '@/utils/functions/fetchSpotifyAuth';
 import { storeInLocalStorage } from '@/utils/localStorageUtils';
 import { PropsWithChildren, memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
@@ -8,6 +8,7 @@ import InfoAnnotation from '../atoms/InfoComponents';
 import { ISpotifyDataTableBodyProps, ISpotifyTableBodyProps, ISpotifyTableHeaderProps } from '@/interfaces';
 import { IoMdRefresh } from 'react-icons/io';
 import { MusicPlayingIndicator } from '../atoms/IndicatorComponents';
+import { RequestDataType } from '../../../../globalTypes';
 
 const IntegrationText = () => {
   const { t } = useTranslation();
@@ -30,7 +31,7 @@ const IntegrationText = () => {
   );
 };
 
-const SpotifyTable = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
+const SpotifyTable = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: RequestDataType, final: boolean) => void }) => {
   const { isAuthenticated, userData, refreshData } = useAuth();
   const tableHeight = useRef(208);
   const tableScroll = useRef(0);
@@ -235,14 +236,14 @@ const TrackRow: React.FC<{
   trackData: Track;
   currentlyPlaying?: boolean;
   userCountry?: string;
-  handleFormUpdate(newFormData: FormDataType, final: boolean): void;
+  handleFormUpdate(newFormData: RequestDataType, final: boolean): void;
 }> = ({ trackData, currentlyPlaying, userCountry, handleFormUpdate }) => {
   const { t } = useTranslation();
 
   const startSearch = () => {
     const newFormData = {
       country: userCountry || 'DE',
-      songSearchQuery: {
+      searchQuery: {
         artist: trackData.artists[0].name,
         title: trackData.name,
         duration: trackData.duration_ms,
@@ -282,7 +283,7 @@ const TrackRow: React.FC<{
   );
 };
 
-const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: FormDataType, final: boolean) => void }) => {
+const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: RequestDataType, final: boolean) => void }) => {
   const { isAuthenticated } = useAuth();
 
   return (

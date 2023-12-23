@@ -1,4 +1,21 @@
-// Basic information about a given track, used in both API and frontend
+// What we request from the API
+export type RequestDataType = {
+  country: string;
+  searchQuery: {
+    artist: string;
+    title: string;
+    duration: number;
+  };
+};
+
+// What the API returns
+export type ResponseDataType = {
+  itunesData: TrackInfoType[];
+  beatportData: TrackInfoType[];
+  amazonData: TrackInfoType[];
+  bandcampData: TrackInfoType[];
+};
+
 export type TrackInfoType = {
   vendor: {
     name: string;
@@ -15,31 +32,4 @@ export type TrackInfoType = {
     qualityKbps: number;
     price: number;
   };
-};
-
-export type PlaylistDataType = {
-  url: string;
-  songs: TrackInfoType[];
-};
-
-// The front-end makes 4 calls to the API, 1 per vendor. We then combine the returned data into one new type
-export type ApiResponseDataType = {
-  itunesData: TrackInfoType[];
-  beatportData: TrackInfoType[];
-  amazonData: TrackInfoType[];
-  bandcampData: TrackInfoType[];
-};
-
-export type ApiSongRequestDataType = {
-  artist: string;
-  title: string;
-  country: string;
-};
-
-// This is the filtered data that we use in the frontend
-export type ResultsDataType = {
-  itunesData: TrackInfoType;
-  beatportData: TrackInfoType;
-  amazonData: TrackInfoType;
-  bandcampData: TrackInfoType;
 };

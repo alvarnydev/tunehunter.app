@@ -2,12 +2,12 @@ import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import { FormDataType } from '@/types';
 import { ToastComponent } from '@/components/atoms/ToastComponent';
 import { BiSearch } from 'react-icons/bi';
 import MemoizedSpotifyIntegration from '../molecules/SpotifyIntegration';
+import { RequestDataType } from '../../../../globalTypes';
 
-const initialFormData: FormDataType = {
+const initialFormData: RequestDataType = {
   country: 'DE',
   searchQuery: {
     artist: '',
@@ -20,7 +20,7 @@ const SongPickerLayout = ({ children }: PropsWithChildren) => {
   return <div className=' w-full flex flex-col justify-center items-center gap-10'>{children}</div>;
 };
 
-const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: FormDataType; handleFormUpdate: (formData: FormDataType) => void; handleSubmit: () => void }) => {
+const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: RequestDataType; handleFormUpdate: (formData: RequestDataType) => void; handleSubmit: () => void }) => {
   return (
     <div className='flex md:flex-row flex-col w-4/5 gap-10'>
       <SearchTextInput formData={formData} handleFormUpdate={handleFormUpdate} />
@@ -29,7 +29,7 @@ const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: For
   );
 };
 
-const SearchTextInput = ({ formData, handleFormUpdate }: { formData: FormDataType; handleFormUpdate: (newFormData: FormDataType) => void }) => {
+const SearchTextInput = ({ formData, handleFormUpdate }: { formData: RequestDataType; handleFormUpdate: (newFormData: RequestDataType) => void }) => {
   const { t } = useTranslation();
   const { searchQuery } = formData;
 
@@ -91,7 +91,7 @@ const SongPicker = () => {
     restoreFormData();
   }, []);
 
-  const handleFormUpdate = useCallback((newFormData: FormDataType, final?: boolean) => {
+  const handleFormUpdate = useCallback((newFormData: RequestDataType, final?: boolean) => {
     setFormData(newFormData);
     if (final) {
       setForceUpdate(true);

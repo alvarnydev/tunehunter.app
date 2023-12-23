@@ -1,17 +1,18 @@
+import { TrackInfoType } from '../../globalTypes';
+
 export type SongTableTab = 'recentlyPlayed' | 'queue' | 'mostPlayed';
+
+// This is shit, let's rework that
+export type ResultsDataType = {
+  itunesData: TrackInfoType;
+  beatportData: TrackInfoType;
+  amazonData: TrackInfoType;
+  bandcampData: TrackInfoType;
+};
 
 export type TokenType = {
   accessToken: string;
   refreshToken: string;
-};
-
-export type FormDataType = {
-  country: string;
-  searchQuery: {
-    artist: string;
-    title: string;
-    duration: number;
-  };
 };
 
 export type PriceDataType = {
