@@ -7,13 +7,11 @@ export type TokenType = {
 
 export type FormDataType = {
   country: string;
-  searchMode: string;
-  songSearchQuery: {
+  searchQuery: {
     artist: string;
     title: string;
     duration: number;
   };
-  playlistSearchString: string;
 };
 
 export type PriceDataType = {

@@ -21,12 +21,6 @@ export const fetchMusicData = async ({ queryKey }: { queryKey: [string, { search
       throw new Error('Missing artist and/or title!');
     }
     return await fetchSongData(artist, title, country);
-  } else if (type == 'playlist') {
-    const url = searchParams.get('url');
-    if (!url) {
-      throw new Error('Missing playlist URL!');
-    }
-    return await fetchPlaylistData(url);
   }
 };
 
@@ -40,11 +34,6 @@ async function fetchSongData(artist: string, title: string, country: string): Pr
   const [itunesData, beatportData, amazonData, bandcampData] = await Promise.all([itunesResponse, beatportResponse, amazonResponse, bandcampResponse]);
 
   return { itunesData, beatportData, amazonData, bandcampData };
-}
-
-async function fetchPlaylistData(url: string) {
-  throw new Error('Not yet implemented');
-  console.log(url);
 }
 
 // Low-level API call to our own backend

@@ -242,13 +242,11 @@ const TrackRow: React.FC<{
   const startSearch = () => {
     const newFormData = {
       country: userCountry || 'DE',
-      searchMode: 'song',
       songSearchQuery: {
         artist: trackData.artists[0].name,
         title: trackData.name,
         duration: trackData.duration_ms,
       },
-      playlistSearchString: '',
     };
 
     handleFormUpdate(newFormData, true);

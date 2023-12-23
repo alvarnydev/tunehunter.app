@@ -9,13 +9,11 @@ import MemoizedSpotifyIntegration from '../molecules/SpotifyIntegration';
 
 const initialFormData: FormDataType = {
   country: 'DE',
-  searchMode: 'song',
-  songSearchQuery: {
+  searchQuery: {
     artist: '',
     title: '',
     duration: 0,
   },
-  playlistSearchString: '',
 };
 
 const SongPickerLayout = ({ children }: PropsWithChildren) => {
@@ -33,12 +31,12 @@ const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: For
 
 const SearchTextInput = ({ formData, handleFormUpdate }: { formData: FormDataType; handleFormUpdate: (newFormData: FormDataType) => void }) => {
   const { t } = useTranslation();
-  const { songSearchQuery } = formData;
+  const { searchQuery } = formData;
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     handleFormUpdate({
       ...formData,
-      songSearchQuery: { ...songSearchQuery, [e.target.name]: e.target.value },
+      searchQuery: { ...searchQuery, [e.target.name]: e.target.value },
     });
   }
 
@@ -50,8 +48,8 @@ const SearchTextInput = ({ formData, handleFormUpdate }: { formData: FormDataTyp
 
   return (
     <div className='w-full flex md:flex-row flex-col md:gap-10 gap-8 order-2'>
-      <input type='text' name='artist' placeholder={t('searchbar.artist')} className='input input-primary rounded-full md:w-full border-2 tracking-wide' value={songSearchQuery.artist} onChange={handleChange} onKeyDown={handleEnter} />
-      <input type='text' name='title' placeholder={t('searchbar.song')} className='input rounded-full input-primary md:w-full border-2 tracking-wide' value={songSearchQuery.title} onChange={handleChange} onKeyDown={handleEnter} />
+      <input type='text' name='artist' placeholder={t('searchbar.artist')} className='input input-primary rounded-full md:w-full border-2 tracking-wide' value={searchQuery.artist} onChange={handleChange} onKeyDown={handleEnter} />
+      <input type='text' name='title' placeholder={t('searchbar.song')} className='input rounded-full input-primary md:w-full border-2 tracking-wide' value={searchQuery.title} onChange={handleChange} onKeyDown={handleEnter} />
     </div>
   );
 };
@@ -112,43 +110,25 @@ const SongPicker = () => {
   const restoreFormData = () => {
     const searchParams = new URLSearchParams(window.location.search);
 
-    const type = searchParams.get('type');
-    if (type) {
-      setFormData((formData) => ({ ...formData, searchMode: type }));
-    }
-
     const artist = searchParams.get('artist');
     const title = searchParams.get('title');
     if (artist && title) {
       setFormData((formData) => ({
         ...formData,
-        songSearchQuery: {
-          ...formData.songSearchQuery,
+        searchQuery: {
+          ...formData.searchQuery,
           artist,
           title,
         },
       }));
     }
-
-    const url = searchParams.get('url');
-    if (url) {
-      setFormData((formData) => ({
-        ...formData,
-        playlistSearchString: url,
-      }));
-    }
   };
 
   const isValidInput = (): boolean => {
-    const { searchMode, songSearchQuery, playlistSearchString } = formData;
+    const { searchQuery } = formData;
 
-    if (searchMode == 'song') {
-      if (songSearchQuery.artist == '' || songSearchQuery.title == '') {
-        toast((toast) => <ToastComponent t={toast} text={t('errors.missingSongInput')} />);
-        return false;
-      }
-    } else if (searchMode == 'playlist' && playlistSearchString == '') {
-      toast((toast) => <ToastComponent t={toast} text={t('errors.missingPlaylistInput')} />);
+    if (searchQuery.artist == '' || searchQuery.title == '') {
+      toast((toast) => <ToastComponent t={toast} text={t('errors.missingSongInput')} />);
       return false;
     }
 
@@ -156,14 +136,10 @@ const SongPicker = () => {
   };
 
   const buildGetParams = (): string => {
-    const { country, searchMode, songSearchQuery, playlistSearchString } = formData;
-    let params = `?type=${searchMode}&country=${country}`;
+    const { country, searchQuery } = formData;
+    let params = `?country=${country}`;
 
-    if (searchMode == 'song') {
-      params += `&artist=${songSearchQuery.artist}&title=${songSearchQuery.title}&duration=${songSearchQuery.duration}`;
-    } else if (searchMode == 'playlist') {
-      params += `&url=${playlistSearchString}`;
-    }
+    params += `&artist=${searchQuery.artist}&title=${searchQuery.title}&duration=${searchQuery.duration}`;
     return params;
   };
 
