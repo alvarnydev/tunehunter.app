@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ResponseDataType, TrackInfoType } from '../../../../globalTypes';
+import { ResponseDataType, VendorDataType } from '../../../../globalTypes';
 
 const apiUrl = import.meta.env.VITE_API_URL || '';
 const apiKey = import.meta.env.VITE_API_KEY || '';
@@ -8,20 +8,17 @@ const apiKey = import.meta.env.VITE_API_KEY || '';
 export const fetchMusicData = async ({ queryKey }: { queryKey: [string, { searchParams: URLSearchParams }] }) => {
   const [, { searchParams }] = queryKey;
 
-  const type = searchParams.get('type');
   const country = searchParams.get('country');
-  if (!type || !country) {
-    throw new Error('Missing type or country!');
+  if (!country) {
+    throw new Error('Missing country!');
   }
 
-  if (type == 'song') {
-    const artist = searchParams.get('artist');
-    const title = searchParams.get('title');
-    if (!artist || !title) {
-      throw new Error('Missing artist and/or title!');
-    }
-    return await fetchSongData(artist, title, country);
+  const artist = searchParams.get('artist');
+  const title = searchParams.get('title');
+  if (!artist || !title) {
+    throw new Error('Missing artist and/or title!');
   }
+  return await fetchSongData(artist, title, country);
 };
 
 // Mid-level custom API calls to our own backend
@@ -37,7 +34,7 @@ async function fetchSongData(artist: string, title: string, country: string): Pr
 }
 
 // Low-level API call to our own backend
-async function fetchFromAPI(artist: string, title: string, country: string, vendor: string): Promise<TrackInfoType[]> {
+async function fetchFromAPI(artist: string, title: string, country: string, vendor: string): Promise<VendorDataType> {
   const dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}`).href;
-  return await axios<TrackInfoType[]>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then((res) => res.data);
+  return await axios<VendorDataType>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then((res) => res.data);
 }

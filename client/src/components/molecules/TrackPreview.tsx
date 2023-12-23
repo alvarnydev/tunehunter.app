@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { TrackInfoType } from '../../../../globalTypes';
+import { TrackDataType } from '../../../../globalTypes';
 
 function openModal() {
   const modal = document.getElementById('song_choice_modal') as HTMLDialogElement;
@@ -7,18 +7,17 @@ function openModal() {
   modal.showModal();
 }
 
-const TrackPreview = ({ songData }: { songData: TrackInfoType }) => {
+const TrackPreview = ({ songData }: { songData: TrackDataType }) => {
   const { t } = useTranslation();
-  const { vendor, song } = songData;
 
   return (
     <div className='bg-primary flex flex-col items-center justify-around rounded-2xl gap-4 p-8 w-96 m-0 lg'>
       <figure className='content-center'>
-        <img src={vendor.artLink} alt='Album cover art' className='rounded-xl w-40 h-40' />
+        <img src={songData.artLink} alt='Album cover art' className='rounded-xl w-40 h-40' />
       </figure>
       <div className='flex flex-col justify-start text-primary-content items-center text-center max-h-20 overflow-scroll p-0 gap-1'>
-        <h2 className='text-xl font-bold'>{songData.song.artist}</h2>
-        <p>{song.title}</p>
+        <h2 className='text-xl font-bold'>{songData.artist}</h2>
+        <p>{songData.title}</p>
       </div>
       <button className='btn btn-outline text-primary-content rounded-full text-xs w-auto' onClick={openModal}>
         {t('resultstable.wrongsong')}

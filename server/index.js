@@ -23,28 +23,28 @@ app.get('/beatport', async (req, res) => {
     if (!(0, validateRequest_1.isValidRequest)(req, res)) {
         return;
     }
-    const data = await (0, fetchSongData_1.getData)(req, 'beatport');
+    const data = await (0, fetchSongData_1.fetchStoreData)(req, 'beatport');
     res.send(data);
 });
 app.get('/amazon', async (req, res) => {
     if (!(0, validateRequest_1.isValidRequest)(req, res)) {
         return;
     }
-    const data = await (0, fetchSongData_1.getData)(req, 'amazon');
+    const data = await (0, fetchSongData_1.fetchStoreData)(req, 'amazon');
     res.send(data);
 });
 app.get('/bandcamp', async (req, res) => {
     if (!(0, validateRequest_1.isValidRequest)(req, res)) {
         return;
     }
-    const data = await (0, fetchSongData_1.getData)(req, 'bandcamp');
+    const data = await (0, fetchSongData_1.fetchStoreData)(req, 'bandcamp');
     res.send(data);
 });
 app.get('/itunes', async (req, res) => {
     if (!(0, validateRequest_1.isValidRequest)(req, res)) {
         return;
     }
-    const data = await (0, fetchSongData_1.getData)(req, 'itunes');
+    const data = await (0, fetchSongData_1.fetchStoreData)(req, 'itunes');
     res.send(data);
 });
 app.listen(port, () => {

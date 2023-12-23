@@ -6,8 +6,8 @@ import { LoadingIndicator } from '@/components/atoms/IndicatorComponents';
 import AppAlert, { WarningAlert } from '@/components/atoms/ErrorComponents';
 import { logError } from '@/utils/logUtils';
 import TrackPreview from '../molecules/TrackPreview';
-import { filterData, validateData } from '@/utils/validateDataUtils';
-import { TrackInfoType } from '../../../../globalTypes';
+import { validateData } from '@/utils/validateDataUtils';
+import { VendorDataType } from '../../../../globalTypes';
 import InfoAnnotation from '../atoms/InfoComponents';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 
@@ -18,14 +18,14 @@ enum ArtistsShareEnum {
   itunesstore = 0.6,
 }
 
-const ResultsRow = ({ rowData }: { rowData: TrackInfoType }) => {
+const ResultsRow = ({ vendorData }: { vendorData: VendorDataType }) => {
   const { t } = useTranslation();
 
-  const vendorNameLower = rowData.vendor.name.toLowerCase().replace(' ', '');
-  const vendorCountryLower = rowData.vendor.country.toLowerCase().slice(0, 2);
+  const vendorNameLower = vendorData.vendor.name.toLowerCase().replace(' ', '');
+  const vendorCountryLower = vendorData.vendor.country.toLowerCase().slice(0, 2);
 
   const artistsShare = ArtistsShareEnum[vendorNameLower as keyof typeof ArtistsShareEnum];
-  const logoPath = rowData.vendor.name == 'iTunes Store' ? `logo_${vendorNameLower}.jpg` : `logo_${vendorNameLower}.svg`;
+  const logoPath = vendorData.vendor.name == 'iTunes Store' ? `logo_${vendorNameLower}.jpg` : `logo_${vendorNameLower}.svg`;
 
   return (
     <tr>
@@ -37,24 +37,24 @@ const ResultsRow = ({ rowData }: { rowData: TrackInfoType }) => {
             </div>
           </div>
           <div className='md:block hidden'>
-            <div className='font-bold'>{rowData.vendor.name}</div>
+            <div className='font-bold'>{vendorData.vendor.name}</div>
             <div className='text-sm font-normal opacity-50'>{t(`countries.${vendorCountryLower}`)}</div>
           </div>
         </div>
       </td>
       <td>
-        <div>{rowData.song.qualityFormat}</div>
-        <div className='text-sm opacity-50'>{rowData.song.qualityKbps}kbps</div>
+        <div>{vendorData.songs[0].qualityFormat}</div>
+        <div className='text-sm opacity-50'>{vendorData.songs[0].qualityKbps}kbps</div>
       </td>
       <td className=''>
-        {(Math.round(rowData.song.price * artistsShare * 100) / 100).toFixed(2)}€
-        <InfoAnnotation infoText={`Artist's share is ${artistsShare * 100}% on ${rowData.vendor.name}.`} />
+        {vendorData.songs[0].price && (Math.round(vendorData.songs[0].price * artistsShare * 100) / 100).toFixed(2)}€
+        <InfoAnnotation infoText={`Artist's share is ${artistsShare * 100}% on ${vendorData.vendor.name}.`} />
       </td>
       <td>
         <div className='flex items-center gap-4'>
-          <div className='inline-block'>{rowData.song.price}€</div>
+          <div className='inline-block'>{vendorData.songs[0].price}€</div>
           <div className='flex justify-center flex-1'>
-            <a href={rowData.vendor.songLink} target='_blank'>
+            <a href={vendorData.songs[0].songLink} target='_blank'>
               <button className='btn btn-ghost text-base normal-case'>
                 <FaExternalLinkSquareAlt size={32} className='text-primary' />
               </button>
@@ -92,12 +92,11 @@ const ResultsTable = () => {
   if (data) {
     if (!validateData(data)) return <WarningAlert message={t('errors.noSong')} />;
 
-    const filteredData = filterData(data);
-    document.title = `${filteredData.itunesData.song.artist} - ${filteredData.itunesData.song.title}`;
+    document.title = `${data.itunesData.songs[0].artist} - ${data.itunesData.songs[0].title}`;
 
     return (
       <div className='overflow-x-auto w-11/12 flex flex-row gap-8 h-96'>
-        <TrackPreview songData={filteredData.itunesData} />
+        <TrackPreview songData={data.itunesData.songs[0]} />
         <table className='table w-full'>
           <thead>
             <tr>
@@ -108,10 +107,10 @@ const ResultsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredData.amazonData && <ResultsRow rowData={filteredData.amazonData} />}
-            {filteredData.bandcampData && <ResultsRow rowData={filteredData.bandcampData} />}
-            {filteredData.beatportData && <ResultsRow rowData={filteredData.beatportData} />}
-            {filteredData.itunesData && <ResultsRow rowData={filteredData.itunesData} />}
+            {data.amazonData && <ResultsRow vendorData={data.amazonData} />}
+            {data.bandcampData && <ResultsRow vendorData={data.bandcampData} />}
+            {data.beatportData && <ResultsRow vendorData={data.beatportData} />}
+            {data.itunesData && <ResultsRow vendorData={data.itunesData} />}
           </tbody>
         </table>
       </div>

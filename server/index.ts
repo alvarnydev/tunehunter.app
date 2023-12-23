@@ -1,7 +1,7 @@
 import express, { Express, Response } from 'express';
 import dotenv from 'dotenv';
 import { OurRequest } from './utils/types';
-import { getData } from './data/fetchSongData';
+import { fetchStoreData } from './data/fetchSongData';
 import { isValidRequest } from './utils/validateRequest';
 
 dotenv.config();
@@ -25,7 +25,7 @@ app.get('/beatport', async (req: OurRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
-  const data = await getData(req, 'beatport');
+  const data = await fetchStoreData(req, 'beatport');
   res.send(data);
 });
 
@@ -33,7 +33,7 @@ app.get('/amazon', async (req: OurRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
-  const data = await getData(req, 'amazon');
+  const data = await fetchStoreData(req, 'amazon');
   res.send(data);
 });
 
@@ -41,7 +41,7 @@ app.get('/bandcamp', async (req: OurRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
-  const data = await getData(req, 'bandcamp');
+  const data = await fetchStoreData(req, 'bandcamp');
   res.send(data);
 });
 
@@ -49,7 +49,7 @@ app.get('/itunes', async (req: OurRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
-  const data = await getData(req, 'itunes');
+  const data = await fetchStoreData(req, 'itunes');
   res.send(data);
 });
 
