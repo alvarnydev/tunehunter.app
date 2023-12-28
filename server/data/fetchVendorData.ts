@@ -59,18 +59,12 @@ export const fetchPreviewData = async ({ country, title, artist, duration }: Req
 };
 
 const fetchItunesData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
-  const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=1`).href;
+  const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
   const response = await axios.get<ITunesData>(dataUrl);
   const data = response.data;
-  const song = data.results[0];
 
-  // Grab what we need from the response
-  const vendorData: VendorData = {
-    vendor: {
-      name: 'iTunes Store',
-      country,
-    },
-    song: {
+  const songs = data.results.map((song) => {
+    return {
       title: song.trackName,
       artist: song.artistName,
       album: song.collectionName,
@@ -80,10 +74,19 @@ const fetchItunesData = async ({ country, title, artist, duration }: RequestData
       price: song.trackPrice,
       songLink: song.trackViewUrl,
       artLink: song.artworkUrl100,
-    },
-  };
+    };
+  });
+  if (duration) {
+    songs.sort(sortByMatchingDuration(duration));
+  }
 
-  return vendorData;
+  return {
+    vendor: {
+      name: 'iTunes Store',
+      country,
+    },
+    song: songs[0],
+  };
 };
 
 const fetchBeatportData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
