@@ -1,5 +1,10 @@
 MVP: only german results
 
+modal functionality
+maybe change index things to new load in trackpreview
+- 5 tracks on iTunesdata -> also use for preview
+- 1 track each on beatport, amazon, bandcamp based on the current itunes data -> requery on index change, for itunes change index
+
 TODO:
 1. Create Test Suite (Jest, Cypress)
 2. Create Settings

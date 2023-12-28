@@ -2,7 +2,7 @@ import { ResponseData } from '../../../globalTypes';
 
 export function validateData(responseData: ResponseData): number {
   // todo: itunes length 0 or undefined?
-  if (responseData.itunesData.songs.length == 0 || responseData.itunesData == undefined) {
+  if (responseData.preview.length == 0 || responseData.itunes == undefined) {
     return 0;
   }
   return 1;

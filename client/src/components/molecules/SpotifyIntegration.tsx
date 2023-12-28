@@ -1,5 +1,5 @@
 import { useAuth } from '@/contexts/auth';
-import { SongTableTab, Track } from '@/types';
+import { SongTableTab, SpotifyTrack } from '@/types';
 import { requestAuthorizationCodePKCE } from '@/utils/functions/fetchSpotifyAuth';
 import { storeInLocalStorage } from '@/utils/localStorageUtils';
 import { PropsWithChildren, memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
@@ -233,7 +233,7 @@ const MostPlayedTable = ({ data, handleFormUpdate }: ISpotifyDataTableBodyProps)
 };
 
 const TrackRow: React.FC<{
-  trackData: Track;
+  trackData: SpotifyTrack;
   currentlyPlaying?: boolean;
   userCountry?: string;
   handleFormUpdate(newFormData: RequestData, final: boolean): void;

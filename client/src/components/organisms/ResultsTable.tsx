@@ -7,11 +7,10 @@ import AppAlert, { WarningAlert } from '@/components/atoms/ErrorComponents';
 import { logError } from '@/utils/logUtils';
 import TrackPreview from '../molecules/TrackPreview';
 import { validateData } from '@/utils/validateDataUtils';
-import { ResponseData, VendorData } from '../../../../globalTypes.ts';
-import { sortByMatchingDuration } from '../../../../globalUtils.ts';
 import InfoAnnotation from '../atoms/InfoComponents';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { useState } from 'react';
+import { VendorData } from '../../../../globalTypes';
 
 enum ArtistsShareEnum {
   amazonmusic = 0.5,
@@ -20,7 +19,7 @@ enum ArtistsShareEnum {
   itunesstore = 0.6,
 }
 
-const ResultsRow = ({ vendorData }: { vendorData: VendorData }) => {
+const ResultsRow = ({ vendorData, index }: { vendorData: VendorData; index?: number }) => {
   const { t } = useTranslation();
 
   const vendorNameLower = vendorData.vendor.name.toLowerCase().replace(' ', '');
@@ -45,18 +44,18 @@ const ResultsRow = ({ vendorData }: { vendorData: VendorData }) => {
         </div>
       </td>
       <td>
-        <div>{vendorData.songs[0].qualityFormat}</div>
-        <div className='text-sm opacity-50'>{vendorData.songs[0].qualityKbps}kbps</div>
+        <div>{vendorData.song.qualityFormat}</div>
+        <div className='text-sm opacity-50'>{vendorData.song.qualityKbps}kbps</div>
       </td>
       <td className=''>
-        {vendorData.songs[0].price && (Math.round(vendorData.songs[0].price! * artistsShare * 100) / 100).toFixed(2)}€
+        {vendorData.song.price && (Math.round(vendorData.song.price * artistsShare * 100) / 100).toFixed(2)}€
         <InfoAnnotation infoText={`Artist's share is ${artistsShare * 100}% on ${vendorData.vendor.name}.`} />
       </td>
       <td>
         <div className='flex items-center gap-4'>
-          <div className='inline-block'>{vendorData.songs[0].price}€</div>
+          <div className='inline-block'>{vendorData.song.price}€</div>
           <div className='flex justify-center flex-1'>
-            <a href={vendorData.songs[0].songLink} target='_blank'>
+            <a href={vendorData.song.songLink} target='_blank'>
               <button className='btn btn-ghost text-base normal-case'>
                 <FaExternalLinkSquareAlt size={32} className='text-primary' />
               </button>
@@ -71,7 +70,7 @@ const ResultsRow = ({ vendorData }: { vendorData: VendorData }) => {
 const ResultsTable = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
-  const [previewIndex, setPreviewIndex] = useState(0);
+  const [index, setIndex] = useState(0);
   const { isLoading, error, data } = useQuery({
     queryKey: [searchParams.toString(), { searchParams }],
     queryFn: fetchMusicData,
@@ -80,16 +79,7 @@ const ResultsTable = () => {
 
   const handleIndexChange = (newIndex: number) => {
     // Rerender changes site title and trackpreview chosen
-    setPreviewIndex(newIndex);
-
-    // Resort array to match duration
-    if (data) {
-      const newDuration = data.itunesData.songs[newIndex].duration;
-      let key: keyof ResponseData;
-      for (key in data) {
-        data[key].songs.sort(sortByMatchingDuration(newDuration));
-      }
-    }
+    setIndex(newIndex);
   };
 
   if (isLoading)
@@ -109,11 +99,11 @@ const ResultsTable = () => {
   if (data) {
     if (!validateData(data)) return <WarningAlert message={t('errors.noSong')} />;
 
-    document.title = `${data.itunesData.songs[0].artist} - ${data.itunesData.songs[0].title}`;
+    document.title = `${data.itunes.song.artist} - ${data.itunes.song.title}`;
 
     return (
       <div className='overflow-x-auto w-11/12 flex flex-row gap-8 h-96'>
-        <TrackPreview songData={data.itunesData.songs} index={previewIndex} handleIndexChange={handleIndexChange} />
+        <TrackPreview songData={data.preview} index={index} handleIndexChange={handleIndexChange} />
         <table className='table w-full'>
           <thead>
             <tr>
@@ -124,10 +114,10 @@ const ResultsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {data.amazonData && <ResultsRow vendorData={data.amazonData} />}
-            {data.bandcampData && <ResultsRow vendorData={data.bandcampData} />}
-            {data.beatportData && <ResultsRow vendorData={data.beatportData} />}
-            {data.itunesData && <ResultsRow vendorData={data.itunesData} />}
+            {data.amazon && <ResultsRow vendorData={data.amazon} />}
+            {data.bandcamp && <ResultsRow vendorData={data.bandcamp} />}
+            {data.beatport && <ResultsRow vendorData={data.beatport} />}
+            {data.itunes && <ResultsRow vendorData={data.itunes} index={index} />}
           </tbody>
         </table>
       </div>

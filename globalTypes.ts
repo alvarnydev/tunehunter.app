@@ -8,10 +8,11 @@ export type RequestData = {
 
 // What our API returns
 export type ResponseData = {
-  itunesData: VendorData;
-  beatportData: VendorData;
-  amazonData: VendorData;
-  bandcampData: VendorData;
+  preview: TrackData[];
+  itunes: VendorData;
+  beatport: VendorData;
+  amazon: VendorData;
+  bandcamp: VendorData;
 };
 
 export type VendorData = {
@@ -19,7 +20,7 @@ export type VendorData = {
     name: string;
     country: string;
   };
-  songs: TrackData[];
+  song: TrackData;
 };
 
 export type TrackData = {

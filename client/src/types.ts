@@ -11,54 +11,55 @@ export type PriceData = {
   prices: { amazon: number; itunes: number; beatport: number; bandcamp: number };
 };
 
+// << Spotify >>
 export type SpotifyData = {
-  profileData: ProfileData | null;
-  currentlyPlaying: CurrentlyPlaying | null;
-  queue: Queue | null;
-  recentlyPlayed: RecentlyPlayed | null;
-  topArtists: TopArtists | null;
-  topTracks: TopTracks | null;
+  profileData: SpotifyProfileData | null;
+  currentlyPlaying: SpotifyCurrentlyPlaying | null;
+  queue: SpotifyQueue | null;
+  recentlyPlayed: SpotifyRecentlyPlayed | null;
+  topArtists: SpotifyTopArtists | null;
+  topTracks: SpotifyTopTracks | null;
 };
 
 // Meta
-export type ProfileData = {
+export type SpotifyProfileData = {
   display_name: string;
-  external_urls: ExternalUrls;
+  external_urls: SpotifyExternalUrls;
   href: string;
   id: string;
-  images: Image[];
+  images: SpotifyImage[];
   type: string;
   uri: string;
-  followers: Followers;
+  followers: SpotifyFollowers;
   country: string;
   product: string;
-  explicit_content: ExplicitContent;
+  explicit_content: SpotifyExplicitContent;
   email: string;
 };
-export type CurrentlyPlaying = {
+export type SpotifyCurrentlyPlaying = {
   timestamp: number;
-  context: Context;
+  context: SpotifyContext;
   progress_ms: number;
-  item: Track;
+  item: SpotifyTrack;
   currently_playing_type: string;
-  actions: Actions;
+  actions: SpotifyActions;
   is_playing: boolean;
 };
-export type Queue = {
-  currently_playing: Track;
-  queue: Track[];
+export type SpotifyQueue = {
+  currently_playing: SpotifyTrack;
+  queue: SpotifyTrack[];
 };
 
-export type RecentlyPlayed = {
-  items: RecentlyPlayedTrack[];
+export type SpotifyRecentlyPlayed = {
+  items: SpotifyRecentlyPlayedTrack[];
   next: string;
-  cursors: Cursors;
+  cursors: SpotifyCursors;
   limit: number;
   href: string;
 };
 
-export type TopArtists = {
-  items: TopArtist[];
+export type SpotifyTopArtists = {
+  items: SpotifyTopArtist[];
   total: number;
   limit: number;
   offset: number;
@@ -67,8 +68,8 @@ export type TopArtists = {
   next: string;
 };
 
-export type TopTracks = {
-  items: Track[];
+export type SpotifyTopTracks = {
+  items: SpotifyTrack[];
   total: number;
   limit: number;
   offset: number;
@@ -78,21 +79,21 @@ export type TopTracks = {
 };
 
 // Combined
-export type RecentlyPlayedTrack = {
-  track: Track;
+export type SpotifyRecentlyPlayedTrack = {
+  track: SpotifyTrack;
   played_at: string;
-  context: Context;
+  context: SpotifyContext;
 };
 
-export type Track = {
-  album: Album;
-  artists: Artist[];
+export type SpotifyTrack = {
+  album: SpotifyAlbum;
+  artists: SpotifyArtist[];
   available_markets: string[];
   disc_number: number;
   duration_ms: number;
   explicit: boolean;
-  external_ids: ExternalIds;
-  external_urls: ExternalUrls;
+  external_ids: SpotifyExternalIds;
+  external_urls: SpotifyExternalUrls;
   href: string;
   id: string;
   is_local: boolean;
@@ -104,14 +105,14 @@ export type Track = {
   uri: string;
 };
 
-export type Album = {
+export type SpotifyAlbum = {
   album_type: string;
-  artists: Artist[];
+  artists: SpotifyArtist[];
   available_markets: string[];
-  external_urls: ExternalUrls;
+  external_urls: SpotifyExternalUrls;
   href: string;
   id: string;
-  images: Image[];
+  images: SpotifyImage[];
   name: string;
   release_date: string;
   release_date_precision: string;
@@ -120,8 +121,8 @@ export type Album = {
   uri: string;
 };
 
-export type Artist = {
-  external_urls: ExternalUrls;
+export type SpotifyArtist = {
+  external_urls: SpotifyExternalUrls;
   href: string;
   id: string;
   name: string;
@@ -129,57 +130,57 @@ export type Artist = {
   uri: string;
 };
 
-export type TopArtist = {
-  external_urls: ExternalUrls;
-  followers: Followers;
+export type SpotifyTopArtist = {
+  external_urls: SpotifyExternalUrls;
+  followers: SpotifyFollowers;
   genres: string[];
   href: string;
   id: string;
-  images: Image[];
+  images: SpotifyImage[];
   name: string;
   popularity: number;
   type: string;
   uri: string;
 };
 
-export type Context = {
-  external_urls: ExternalUrls;
+export type SpotifyContext = {
+  external_urls: SpotifyExternalUrls;
   href: string;
   type: string;
   uri: string;
 };
 
-export type Actions = {
-  disallows: Disallows;
+export type SpotifyActions = {
+  disallows: SpotifyDisallows;
 };
 
-export type Cursors = {
+export type SpotifyCursors = {
   after: string;
   before: string;
 };
 
 // Singles
-export type Image = {
+export type SpotifyImage = {
   height: number;
   url: string;
   width: number;
 };
-export type ExternalIds = {
+export type SpotifyExternalIds = {
   isrc: string;
 };
-export type Disallows = {
+export type SpotifyDisallows = {
   resuming: boolean;
 };
-export type ExternalUrls = {
+export type SpotifyExternalUrls = {
   spotify: string;
 };
 
-export type Followers = {
+export type SpotifyFollowers = {
   href: any;
   total: number;
 };
 
-export type ExplicitContent = {
+export type SpotifyExplicitContent = {
   filter_enabled: boolean;
   filter_locked: boolean;
 };

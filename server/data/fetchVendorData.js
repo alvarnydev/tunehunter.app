@@ -3,15 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchVendorData = exports.fetchSpecificSong = void 0;
+exports.fetchPreviewData = exports.fetchVendorData = exports.fetchSpecificSong = void 0;
 const axios_1 = __importDefault(require("axios"));
-const globalUtils_1 = require("../../globalUtils");
+const sorting_1 = require("../utils/sorting");
 const fetchSpecificSong = async (req) => {
-    const { songs } = await fetchItunesData(req.query);
+    const { song } = await fetchItunesData(req.query);
     return {
-        title: songs[0].title,
-        artist: songs[0].artist,
-        duration: songs[0].duration,
+        title: song.title,
+        artist: song.artist,
+        duration: song.duration,
         country: req.query.country,
     };
 };
@@ -33,33 +33,53 @@ const fetchVendorData = async (req, store) => {
     }
 };
 exports.fetchVendorData = fetchVendorData;
-const fetchItunesData = async ({ country, title, artist, duration }) => {
+const fetchPreviewData = async ({ country, title, artist, duration }) => {
     const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
     const response = await axios_1.default.get(dataUrl);
     const data = response.data;
+    // Grab what we need from the response
+    const previewData = data.results.map((song) => {
+        return {
+            title: song.trackName,
+            artist: song.artistName,
+            album: song.collectionName,
+            duration: song.trackTimeMillis / 1000,
+            qualityFormat: 'AAC',
+            qualityKbps: 256,
+            price: song.trackPrice,
+            songLink: song.trackViewUrl,
+            artLink: song.artworkUrl100,
+        };
+    });
+    if (duration) {
+        previewData.sort((0, sorting_1.sortByMatchingDuration)(duration));
+    }
+    return previewData;
+};
+exports.fetchPreviewData = fetchPreviewData;
+const fetchItunesData = async ({ country, title, artist, duration }) => {
+    const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=1`).href;
+    const response = await axios_1.default.get(dataUrl);
+    const data = response.data;
+    const song = data.results[0];
     // Grab what we need from the response
     const vendorData = {
         vendor: {
             name: 'iTunes Store',
             country,
         },
-        songs: data.results.map((song) => {
-            return {
-                title: song.trackName,
-                artist: song.artistName,
-                album: song.collectionName,
-                duration: song.trackTimeMillis / 1000,
-                qualityFormat: 'AAC',
-                qualityKbps: 256,
-                price: song.trackPrice,
-                songLink: song.trackViewUrl,
-                artLink: song.artworkUrl100,
-            };
-        }),
+        song: {
+            title: song.trackName,
+            artist: song.artistName,
+            album: song.collectionName,
+            duration: song.trackTimeMillis / 1000,
+            qualityFormat: 'AAC',
+            qualityKbps: 256,
+            price: song.trackPrice,
+            songLink: song.trackViewUrl,
+            artLink: song.artworkUrl100,
+        },
     };
-    if (duration) {
-        vendorData.songs.sort((0, globalUtils_1.sortByMatchingDuration)(duration));
-    }
     return vendorData;
 };
 const fetchBeatportData = async ({ country, title, artist, duration }) => {
@@ -77,30 +97,17 @@ function fetchPlaceholderValues(vendor) {
             name: vendor,
             country: 'DE',
         },
-        songs: [
-            {
-                title: 'ph title',
-                artist: 'ph artist',
-                album: 'song album',
-                duration: 213,
-                qualityFormat: 'MP3',
-                qualityKbps: 320,
-                price: 1.29,
-                songLink: 'fancy link',
-                artLink: 'album',
-            },
-            {
-                title: 'ph title 2',
-                artist: 'ph artist 2',
-                album: 'song album 2',
-                duration: 187,
-                qualityFormat: 'MP3 2',
-                qualityKbps: 320,
-                price: 2.29,
-                songLink: 'fancy link',
-                artLink: 'album',
-            },
-        ],
+        song: {
+            title: 'ph title',
+            artist: 'ph artist',
+            album: 'song album',
+            duration: 213,
+            qualityFormat: 'MP3',
+            qualityKbps: 320,
+            price: 1.29,
+            songLink: 'fancy link',
+            artLink: 'album',
+        },
     };
     return response;
 }
