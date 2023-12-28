@@ -7,9 +7,11 @@ import AppAlert, { WarningAlert } from '@/components/atoms/ErrorComponents';
 import { logError } from '@/utils/logUtils';
 import TrackPreview from '../molecules/TrackPreview';
 import { validateData } from '@/utils/validateDataUtils';
-import { VendorData } from '../../../../globalTypes';
+import { ResponseData, VendorData } from '../../../../globalTypes';
+import { sortByMatchingDuration } from '../../../../globalUtils';
 import InfoAnnotation from '../atoms/InfoComponents';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
+import { useState } from 'react';
 
 enum ArtistsShareEnum {
   amazonmusic = 0.5,
@@ -47,7 +49,7 @@ const ResultsRow = ({ vendorData }: { vendorData: VendorData }) => {
         <div className='text-sm opacity-50'>{vendorData.songs[0].qualityKbps}kbps</div>
       </td>
       <td className=''>
-        {vendorData.songs[0].price && (Math.round(vendorData.songs[0].price * artistsShare * 100) / 100).toFixed(2)}€
+        {vendorData.songs[0].price && (Math.round(vendorData.songs[0].price! * artistsShare * 100) / 100).toFixed(2)}€
         <InfoAnnotation infoText={`Artist's share is ${artistsShare * 100}% on ${vendorData.vendor.name}.`} />
       </td>
       <td>
@@ -69,11 +71,26 @@ const ResultsRow = ({ vendorData }: { vendorData: VendorData }) => {
 const ResultsTable = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
+  const [previewIndex, setPreviewIndex] = useState(0);
   const { isLoading, error, data } = useQuery({
     queryKey: [searchParams.toString(), { searchParams }],
     queryFn: fetchMusicData,
     retry: false,
   });
+
+  const handleIndexChange = (newIndex: number) => {
+    // Rerender changes site title and trackpreview chosen
+    setPreviewIndex(newIndex);
+
+    // Resort array to match duration
+    if (data) {
+      const newDuration = data.itunesData.songs[newIndex].duration;
+      let key: keyof ResponseData;
+      for (key in data) {
+        data[key].songs.sort(sortByMatchingDuration(newDuration));
+      }
+    }
+  };
 
   if (isLoading)
     return (
@@ -96,7 +113,7 @@ const ResultsTable = () => {
 
     return (
       <div className='overflow-x-auto w-11/12 flex flex-row gap-8 h-96'>
-        <TrackPreview songData={data.itunesData.songs[0]} />
+        <TrackPreview songData={data.itunesData.songs} index={previewIndex} handleIndexChange={handleIndexChange} />
         <table className='table w-full'>
           <thead>
             <tr>

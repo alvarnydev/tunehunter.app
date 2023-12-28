@@ -18,15 +18,15 @@ export const fetchMusicData = async ({ queryKey }: { queryKey: [string, { search
   if (!artist || !title) {
     throw new Error('Missing artist and/or title!');
   }
-  return await fetchSongData(artist, title, country);
+  return await fetchVendorData(artist, title, country);
 };
 
 // Mid-level custom API calls to our own backend
-async function fetchSongData(artist: string, title: string, country: string): Promise<ResponseData> {
-  const itunesResponse = fetchFromAPI(artist, title, country, 'itunes');
-  const beatportResponse = fetchFromAPI(artist, title, country, 'beatport');
-  const amazonResponse = fetchFromAPI(artist, title, country, 'amazon');
-  const bandcampResponse = fetchFromAPI(artist, title, country, 'bandcamp');
+async function fetchVendorData(artist: string, title: string, country: string): Promise<ResponseData> {
+  const itunesResponse = fetchFromApi(artist, title, country, 'itunes');
+  const beatportResponse = fetchFromApi(artist, title, country, 'beatport');
+  const amazonResponse = fetchFromApi(artist, title, country, 'amazon');
+  const bandcampResponse = fetchFromApi(artist, title, country, 'bandcamp');
 
   const [itunesData, beatportData, amazonData, bandcampData] = await Promise.all([itunesResponse, beatportResponse, amazonResponse, bandcampResponse]);
 
@@ -34,7 +34,7 @@ async function fetchSongData(artist: string, title: string, country: string): Pr
 }
 
 // Low-level API call to our own backend
-async function fetchFromAPI(artist: string, title: string, country: string, vendor: string): Promise<VendorData> {
+async function fetchFromApi(artist: string, title: string, country: string, vendor: string): Promise<VendorData> {
   const dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}`).href;
   return await axios<VendorData>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then((res) => res.data);
 }

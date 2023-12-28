@@ -13,5 +13,5 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */
   },
-  "include": ["types.ts"]
+  "include": ["**/*.ts"]
 }

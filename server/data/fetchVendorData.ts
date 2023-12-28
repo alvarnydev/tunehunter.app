@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { RequestData, TrackData, VendorData } from '../../globalTypes';
+import { RequestData, VendorData } from '../../globalTypes';
 import { ITunesData, VendorDataRequest } from '../utils/types';
-import { sortByMatchingDuration } from '../utils/utils';
+import { sortByMatchingDuration } from '../../globalUtils';
 
 export const fetchSpecificSong = async (req: VendorDataRequest): Promise<RequestData> => {
   const { songs } = await fetchItunesData(req.query);
@@ -15,10 +15,8 @@ export const fetchSpecificSong = async (req: VendorDataRequest): Promise<Request
 };
 
 export const fetchVendorData = async (req: VendorDataRequest, store: string): Promise<VendorData> => {
-  console.log('--------- fetchStoreData: ', store, ' ---------');
   const { title, artist, duration, country } = req.query;
   const requestData: RequestData = { country, artist, title, duration };
-  console.log('requestData: ', requestData);
 
   switch (store) {
     case 'itunes':

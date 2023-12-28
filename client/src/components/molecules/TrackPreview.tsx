@@ -7,17 +7,17 @@ function openModal() {
   modal.showModal();
 }
 
-const TrackPreview = ({ songData }: { songData: TrackData }) => {
+const TrackPreview = ({ songData, index, handleIndexChange }: { songData: TrackData[]; index: number; handleIndexChange: (newIndex: number) => void }) => {
   const { t } = useTranslation();
 
   return (
     <div className='bg-primary flex flex-col items-center justify-around rounded-2xl gap-4 p-8 w-96 m-0 lg'>
       <figure className='content-center'>
-        <img src={songData.artLink} alt='Album cover art' className='rounded-xl w-40 h-40' />
+        <img src={songData[index].artLink} alt='Album cover art' className='rounded-xl w-40 h-40' />
       </figure>
       <div className='flex flex-col justify-start text-primary-content items-center text-center max-h-20 overflow-scroll p-0 gap-1'>
-        <h2 className='text-xl font-bold'>{songData.artist}</h2>
-        <p>{songData.title}</p>
+        <h2 className='text-xl font-bold'>{songData[index].artist}</h2>
+        <p>{songData[index].title}</p>
       </div>
       <button className='btn btn-outline text-primary-content rounded-full text-xs w-auto' onClick={openModal}>
         {t('resultstable.wrongsong')}

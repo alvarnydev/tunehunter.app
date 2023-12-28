@@ -1,14 +1,4 @@
-import { TrackData } from '../../globalTypes';
-
 export type SongTableTab = 'recentlyPlayed' | 'queue' | 'mostPlayed';
-
-// This is shit, let's rework that
-export type ResultsData = {
-  itunesData: TrackData;
-  beatportData: TrackData;
-  amazonData: TrackData;
-  bandcampData: TrackData;
-};
 
 export type Token = {
   accessToken: string;
