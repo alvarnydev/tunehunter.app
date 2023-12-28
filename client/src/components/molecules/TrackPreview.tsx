@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { TrackDataType } from '../../../../globalTypes';
+import { TrackData } from '../../../../globalTypes';
 
 function openModal() {
   const modal = document.getElementById('song_choice_modal') as HTMLDialogElement;
@@ -7,7 +7,7 @@ function openModal() {
   modal.showModal();
 }
 
-const TrackPreview = ({ songData }: { songData: TrackDataType }) => {
+const TrackPreview = ({ songData }: { songData: TrackData }) => {
   const { t } = useTranslation();
 
   return (

@@ -1,13 +1,12 @@
 import axios from 'axios';
-import { RequestDataType, TrackDataType, VendorDataType } from '../../globalTypes';
-import { ITunesDataType, VendorDataRequest } from '../utils/types';
+import { RequestData, TrackData, VendorData } from '../../globalTypes';
+import { ITunesData, VendorDataRequest } from '../utils/types';
 import { sortByDuration } from '../utils/utils';
 
-export const fetchVendorData = async (req: VendorDataRequest, store: string): Promise<VendorDataType> => {
+export const fetchVendorData = async (req: VendorDataRequest, store: string): Promise<VendorData> => {
   console.log('--------- fetchStoreData: ', store, ' ---------');
   const { title, artist, duration, country } = req.query;
-  const durationNum = parseInt(duration);
-  const requestData: RequestDataType = { country, artist, title, duration: durationNum };
+  const requestData: RequestData = { country, artist, title, duration };
   console.log('requestData: ', requestData);
 
   switch (store) {
@@ -24,13 +23,13 @@ export const fetchVendorData = async (req: VendorDataRequest, store: string): Pr
   }
 };
 
-export const fetchItunesData = async ({ country, title, artist, duration }: RequestDataType): Promise<VendorDataType> => {
+export const fetchItunesData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
   const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
-  const response = await axios.get<ITunesDataType>(dataUrl);
+  const response = await axios.get<ITunesData>(dataUrl);
   const data = response.data;
 
   // Grab what we need from the response
-  const vendorData: VendorDataType = {
+  const vendorData: VendorData = {
     vendor: {
       name: 'iTunes Store',
       country,
@@ -70,20 +69,20 @@ export const fetchItunesData = async ({ country, title, artist, duration }: Requ
   return vendorData;
 };
 
-export const fetchBeatportData = async ({ country, title, artist, duration }: RequestDataType): Promise<VendorDataType> => {
+export const fetchBeatportData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
   return await fetchItunesData({ country, title, artist, duration });
 };
 
-export const fetchAmazonData = async ({ country, title, artist, duration }: RequestDataType): Promise<VendorDataType> => {
+export const fetchAmazonData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
   return await fetchItunesData({ country, title, artist, duration });
 };
 
-export const fetchBandcampData = async ({ country, title, artist, duration }: RequestDataType): Promise<VendorDataType> => {
+export const fetchBandcampData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
   return await fetchItunesData({ country, title, artist, duration });
 };
 
 export function fetchPlaceholderValues(vendor: string) {
-  const response: VendorDataType = {
+  const response: VendorData = {
     vendor: {
       name: vendor,
       country: 'DE',

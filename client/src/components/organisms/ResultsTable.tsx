@@ -7,7 +7,7 @@ import AppAlert, { WarningAlert } from '@/components/atoms/ErrorComponents';
 import { logError } from '@/utils/logUtils';
 import TrackPreview from '../molecules/TrackPreview';
 import { validateData } from '@/utils/validateDataUtils';
-import { VendorDataType } from '../../../../globalTypes';
+import { VendorData } from '../../../../globalTypes';
 import InfoAnnotation from '../atoms/InfoComponents';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 
@@ -18,7 +18,7 @@ enum ArtistsShareEnum {
   itunesstore = 0.6,
 }
 
-const ResultsRow = ({ vendorData }: { vendorData: VendorDataType }) => {
+const ResultsRow = ({ vendorData }: { vendorData: VendorData }) => {
   const { t } = useTranslation();
 
   const vendorNameLower = vendorData.vendor.name.toLowerCase().replace(' ', '');

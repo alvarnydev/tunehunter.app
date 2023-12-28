@@ -9,8 +9,7 @@ const utils_1 = require("../utils/utils");
 const fetchVendorData = async (req, store) => {
     console.log('--------- fetchStoreData: ', store, ' ---------');
     const { title, artist, duration, country } = req.query;
-    const durationNum = parseInt(duration);
-    const requestData = { country, artist, title, duration: durationNum };
+    const requestData = { country, artist, title, duration };
     console.log('requestData: ', requestData);
     switch (store) {
         case 'itunes':

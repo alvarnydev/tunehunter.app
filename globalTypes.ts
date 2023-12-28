@@ -1,5 +1,5 @@
 // What we request from our API
-export type RequestDataType = {
+export type RequestData = {
   country: string;
   artist: string;
   title: string;
@@ -7,22 +7,22 @@ export type RequestDataType = {
 };
 
 // What our API returns
-export type ResponseDataType = {
-  itunesData: VendorDataType;
-  beatportData: VendorDataType;
-  amazonData: VendorDataType;
-  bandcampData: VendorDataType;
+export type ResponseData = {
+  itunesData: VendorData;
+  beatportData: VendorData;
+  amazonData: VendorData;
+  bandcampData: VendorData;
 };
 
-export type VendorDataType = {
+export type VendorData = {
   vendor: {
     name: string;
     country: string;
   };
-  songs: TrackDataType[];
+  songs: TrackData[];
 };
 
-export type TrackDataType = {
+export type TrackData = {
   title: string;
   artist: string;
   album: string;

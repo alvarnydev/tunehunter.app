@@ -8,7 +8,7 @@ import InfoAnnotation from '../atoms/InfoComponents';
 import { ISpotifyDataTableBodyProps, ISpotifyTableBodyProps, ISpotifyTableHeaderProps } from '@/interfaces';
 import { IoMdRefresh } from 'react-icons/io';
 import { MusicPlayingIndicator } from '../atoms/IndicatorComponents';
-import { RequestDataType } from '../../../../globalTypes';
+import { RequestData } from '../../../../globalTypes';
 
 const IntegrationText = () => {
   const { t } = useTranslation();
@@ -31,7 +31,7 @@ const IntegrationText = () => {
   );
 };
 
-const SpotifyTable = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: RequestDataType, final: boolean) => void }) => {
+const SpotifyTable = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: RequestData, final: boolean) => void }) => {
   const { isAuthenticated, userData, refreshData } = useAuth();
   const tableHeight = useRef(208);
   const tableScroll = useRef(0);
@@ -236,7 +236,7 @@ const TrackRow: React.FC<{
   trackData: Track;
   currentlyPlaying?: boolean;
   userCountry?: string;
-  handleFormUpdate(newFormData: RequestDataType, final: boolean): void;
+  handleFormUpdate(newFormData: RequestData, final: boolean): void;
 }> = ({ trackData, currentlyPlaying, userCountry, handleFormUpdate }) => {
   const { t } = useTranslation();
 
@@ -281,7 +281,7 @@ const TrackRow: React.FC<{
   );
 };
 
-const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: RequestDataType, final: boolean) => void }) => {
+const SpotifyIntegration = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: RequestData, final: boolean) => void }) => {
   const { isAuthenticated } = useAuth();
 
   return (

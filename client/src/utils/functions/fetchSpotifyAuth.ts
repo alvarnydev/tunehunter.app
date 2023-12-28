@@ -1,6 +1,6 @@
 import { saveExpiryDate } from '@/utils/fetchUtils';
 import { retrieveFromLocalStorage, storeInLocalStorage } from '@/utils/localStorageUtils';
-import { TokenType } from '@/types';
+import { Token } from '@/types';
 
 const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID || '';
 const REDIRECT_URI = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
@@ -77,7 +77,7 @@ const refreshTokens = async (refreshToken: string) => {
   return { accessToken: access_token, refreshToken: refresh_token };
 };
 
-export const getTokens = async (): Promise<TokenType> => {
+export const getTokens = async (): Promise<Token> => {
   const expiryDate = retrieveFromLocalStorage('expiry_date');
   const accessToken = retrieveFromLocalStorage('access_token');
   const refreshToken = retrieveFromLocalStorage('refresh_token');

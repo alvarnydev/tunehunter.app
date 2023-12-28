@@ -1,9 +1,9 @@
-import { SongTableTab, SpotifyDataType } from '@/types';
-import { RequestDataType } from '../../globalTypes';
+import { SongTableTab, SpotifyData } from '@/types';
+import { RequestData } from '../../globalTypes';
 
 export interface ISpotifyTableBodyProps {
   tab: string;
-  handleFormUpdate: (newFormData: RequestDataType, final: boolean) => void;
+  handleFormUpdate: (newFormData: RequestData, final: boolean) => void;
   tableRef: React.RefObject<HTMLDivElement>;
   tableHeight: number;
   tableScroll: number;
@@ -16,6 +16,6 @@ export interface ISpotifyTableHeaderProps {
 }
 
 export interface ISpotifyDataTableBodyProps {
-  data: SpotifyDataType;
-  handleFormUpdate: (newFormData: RequestDataType, final: boolean) => void;
+  data: SpotifyData;
+  handleFormUpdate: (newFormData: RequestData, final: boolean) => void;
 }

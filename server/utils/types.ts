@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { RequestData, VendorData } from '../../globalTypes';
 
 interface RequestParams {}
 
@@ -6,23 +7,16 @@ interface ResponseBody {}
 
 interface RequestBody {}
 
-interface RequestQuery {
-  title: string;
-  artist: string;
-  duration: string;
-  country: string;
-}
-
-export type VendorDataRequest = Request<RequestParams, ResponseBody, RequestBody, RequestQuery>;
-export type VendorDataResponse = Response<ResponseBody>;
+export type VendorDataRequest = Request<RequestParams, ResponseBody, RequestBody, RequestData>;
+export type VendorDataResponse = Response<VendorData>;
 
 // What the itunes API returns
-export type ITunesDataType = {
+export type ITunesData = {
   resultCount: number;
-  results: ITunesResultsType[];
+  results: ITunesResults[];
 };
 
-export type ITunesResultsType = {
+export type ITunesResults = {
   wrapperType: string;
   kind: string;
   artistId: number;

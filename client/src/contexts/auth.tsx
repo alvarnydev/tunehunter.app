@@ -3,10 +3,10 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { removeFromLocalStorage } from '../utils/localStorageUtils';
 import { combinedFetchSpotifyData, fetchCurrentlyPlaying, fetchProfileData, fetchQueue, fetchRecentlyPlayed, fetchTopArtists, fetchTopTracks } from '../utils/functions/fetchSpotifyData';
-import { SpotifyDataType } from '@/types';
+import { SpotifyData } from '@/types';
 import { getTokens } from '@/utils/functions/fetchSpotifyAuth';
 
-const initialUserData: SpotifyDataType = {
+const initialUserData: SpotifyData = {
   profileData: null,
   currentlyPlaying: null,
   queue: null,
@@ -28,7 +28,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userData, setUserData] = useState<SpotifyDataType>(initialUserData);
+  const [userData, setUserData] = useState<SpotifyData>(initialUserData);
 
   const login = async () => {
     await getTokens();

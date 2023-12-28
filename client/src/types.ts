@@ -1,37 +1,37 @@
-import { TrackDataType } from '../../globalTypes';
+import { TrackData } from '../../globalTypes';
 
 export type SongTableTab = 'recentlyPlayed' | 'queue' | 'mostPlayed';
 
 // This is shit, let's rework that
-export type ResultsDataType = {
-  itunesData: TrackDataType;
-  beatportData: TrackDataType;
-  amazonData: TrackDataType;
-  bandcampData: TrackDataType;
+export type ResultsData = {
+  itunesData: TrackData;
+  beatportData: TrackData;
+  amazonData: TrackData;
+  bandcampData: TrackData;
 };
 
-export type TokenType = {
+export type Token = {
   accessToken: string;
   refreshToken: string;
 };
 
-export type PriceDataType = {
+export type PriceData = {
   artist: string;
   song: string;
   prices: { amazon: number; itunes: number; beatport: number; bandcamp: number };
 };
 
-export type SpotifyDataType = {
-  profileData: ProfileDataType | null;
-  currentlyPlaying: CurrentlyPlayingType | null;
-  queue: QueueType | null;
-  recentlyPlayed: RecentlyPlayedType | null;
-  topArtists: TopArtistsType | null;
-  topTracks: TopTracksType | null;
+export type SpotifyData = {
+  profileData: ProfileData | null;
+  currentlyPlaying: CurrentlyPlaying | null;
+  queue: Queue | null;
+  recentlyPlayed: RecentlyPlayed | null;
+  topArtists: TopArtists | null;
+  topTracks: TopTracks | null;
 };
 
 // Meta
-export type ProfileDataType = {
+export type ProfileData = {
   display_name: string;
   external_urls: ExternalUrls;
   href: string;
@@ -45,7 +45,7 @@ export type ProfileDataType = {
   explicit_content: ExplicitContent;
   email: string;
 };
-export type CurrentlyPlayingType = {
+export type CurrentlyPlaying = {
   timestamp: number;
   context: Context;
   progress_ms: number;
@@ -54,12 +54,12 @@ export type CurrentlyPlayingType = {
   actions: Actions;
   is_playing: boolean;
 };
-export type QueueType = {
+export type Queue = {
   currently_playing: Track;
   queue: Track[];
 };
 
-export type RecentlyPlayedType = {
+export type RecentlyPlayed = {
   items: RecentlyPlayedTrack[];
   next: string;
   cursors: Cursors;
@@ -67,7 +67,7 @@ export type RecentlyPlayedType = {
   href: string;
 };
 
-export type TopArtistsType = {
+export type TopArtists = {
   items: TopArtist[];
   total: number;
   limit: number;
@@ -77,7 +77,7 @@ export type TopArtistsType = {
   next: string;
 };
 
-export type TopTracksType = {
+export type TopTracks = {
   items: Track[];
   total: number;
   limit: number;

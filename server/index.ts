@@ -1,8 +1,9 @@
 import express, { Express, Response } from 'express';
 import dotenv from 'dotenv';
-import { VendorDataRequest } from './utils/types';
+import { VendorDataRequest, VendorDataResponse } from './utils/types';
 import { fetchVendorData } from './data/fetchVendorData';
 import { isValidRequest } from './utils/validateRequest';
+import { ResponseData, VendorData, VendorData as VendorDataResponseType } from '../globalTypes';
 
 dotenv.config();
 
@@ -21,7 +22,7 @@ app.get('/', (_, res) => {
   res.send('Hello World!');
 });
 
-app.get('/beatport', async (req: VendorDataRequest, res: Response) => {
+app.get('/beatport', async (req: VendorDataRequest, res: VendorDataResponse) => {
   if (!isValidRequest(req, res)) {
     return;
   }
@@ -29,7 +30,7 @@ app.get('/beatport', async (req: VendorDataRequest, res: Response) => {
   res.send(vendorData);
 });
 
-app.get('/amazon', async (req: VendorDataRequest, res: Response) => {
+app.get('/amazon', async (req: VendorDataRequest, res: VendorDataResponse) => {
   if (!isValidRequest(req, res)) {
     return;
   }
@@ -37,7 +38,7 @@ app.get('/amazon', async (req: VendorDataRequest, res: Response) => {
   res.send(vendorData);
 });
 
-app.get('/bandcamp', async (req: VendorDataRequest, res: Response) => {
+app.get('/bandcamp', async (req: VendorDataRequest, res: VendorDataResponse) => {
   if (!isValidRequest(req, res)) {
     return;
   }
@@ -46,7 +47,7 @@ app.get('/bandcamp', async (req: VendorDataRequest, res: Response) => {
   res.send(vendorData);
 });
 
-app.get('/itunes', async (req: VendorDataRequest, res: Response) => {
+app.get('/itunes', async (req: VendorDataRequest, res: VendorDataResponse) => {
   if (!isValidRequest(req, res)) {
     return;
   }

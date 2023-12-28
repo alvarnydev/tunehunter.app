@@ -1,6 +1,6 @@
-import { ResponseDataType } from '../../../globalTypes';
+import { ResponseData } from '../../../globalTypes';
 
-export function validateData(responseData: ResponseDataType): number {
+export function validateData(responseData: ResponseData): number {
   // todo: itunes length 0 or undefined?
   if (responseData.itunesData.songs.length == 0 || responseData.itunesData == undefined) {
     return 0;

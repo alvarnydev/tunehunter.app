@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ResponseDataType, VendorDataType } from '../../../../globalTypes';
+import { ResponseData, VendorData } from '../../../../globalTypes';
 
 const apiUrl = import.meta.env.VITE_API_URL || '';
 const apiKey = import.meta.env.VITE_API_KEY || '';
@@ -22,7 +22,7 @@ export const fetchMusicData = async ({ queryKey }: { queryKey: [string, { search
 };
 
 // Mid-level custom API calls to our own backend
-async function fetchSongData(artist: string, title: string, country: string): Promise<ResponseDataType> {
+async function fetchSongData(artist: string, title: string, country: string): Promise<ResponseData> {
   const itunesResponse = fetchFromAPI(artist, title, country, 'itunes');
   const beatportResponse = fetchFromAPI(artist, title, country, 'beatport');
   const amazonResponse = fetchFromAPI(artist, title, country, 'amazon');
@@ -34,7 +34,7 @@ async function fetchSongData(artist: string, title: string, country: string): Pr
 }
 
 // Low-level API call to our own backend
-async function fetchFromAPI(artist: string, title: string, country: string, vendor: string): Promise<VendorDataType> {
+async function fetchFromAPI(artist: string, title: string, country: string, vendor: string): Promise<VendorData> {
   const dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}`).href;
-  return await axios<VendorDataType>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then((res) => res.data);
+  return await axios<VendorData>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then((res) => res.data);
 }

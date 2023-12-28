@@ -1,4 +1,4 @@
-import { TrackDataType } from '../../globalTypes';
+import { TrackData } from '../../globalTypes';
 
 // export const songSortFn = (a: TrackDataType, b: TrackDataType, duration: number) => {
 //   const aDurationDiff = Math.abs(a.song.duration - duration);
@@ -7,7 +7,7 @@ import { TrackDataType } from '../../globalTypes';
 // };
 
 export const sortByDuration = (duration: number) => {
-  return (a: TrackDataType, b: TrackDataType) => {
+  return (a: TrackData, b: TrackData) => {
     const diffSongA = Math.abs(a.duration - duration);
     const diffSongB = Math.abs(b.duration - duration);
     return diffSongA < diffSongB ? -1 : 1;

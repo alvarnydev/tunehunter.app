@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { ToastComponent } from '@/components/atoms/ToastComponent';
 import { BiSearch } from 'react-icons/bi';
 import MemoizedSpotifyIntegration from '../molecules/SpotifyIntegration';
-import { RequestDataType } from '../../../../globalTypes';
+import { RequestData } from '../../../../globalTypes';
 
-const initialFormData: RequestDataType = {
+const initialFormData: RequestData = {
   country: 'DE',
   artist: '',
   title: '',
@@ -18,7 +18,7 @@ const SongPickerLayout = ({ children }: PropsWithChildren) => {
   return <div className=' w-full flex flex-col justify-center items-center gap-10'>{children}</div>;
 };
 
-const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: RequestDataType; handleFormUpdate: (formData: RequestDataType) => void; handleSubmit: () => void }) => {
+const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: RequestData; handleFormUpdate: (formData: RequestData) => void; handleSubmit: () => void }) => {
   return (
     <div className='flex md:flex-row flex-col w-4/5 gap-10'>
       <SearchTextInput formData={formData} handleFormUpdate={handleFormUpdate} />
@@ -27,7 +27,7 @@ const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: Req
   );
 };
 
-const SearchTextInput = ({ formData, handleFormUpdate }: { formData: RequestDataType; handleFormUpdate: (newFormData: RequestDataType) => void }) => {
+const SearchTextInput = ({ formData, handleFormUpdate }: { formData: RequestData; handleFormUpdate: (newFormData: RequestData) => void }) => {
   const { t } = useTranslation();
   const { artist, title } = formData;
 
@@ -89,7 +89,7 @@ const SongPicker = () => {
     restoreFormData();
   }, []);
 
-  const handleFormUpdate = useCallback((newFormData: RequestDataType, final?: boolean) => {
+  const handleFormUpdate = useCallback((newFormData: RequestData, final?: boolean) => {
     setFormData(newFormData);
     if (final) {
       setForceUpdate(true);
