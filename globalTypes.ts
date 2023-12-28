@@ -1,11 +1,9 @@
 // What we request from our API
 export type RequestDataType = {
   country: string;
-  searchQuery: {
-    artist: string;
-    title: string;
-    duration: number;
-  };
+  artist: string;
+  title: string;
+  duration: number;
 };
 
 // What our API returns

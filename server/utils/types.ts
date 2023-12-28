@@ -13,8 +13,8 @@ interface RequestQuery {
   country: string;
 }
 
-export type OurRequest = Request<RequestParams, ResponseBody, RequestBody, RequestQuery>;
-export type OurResponse = Response<ResponseBody>;
+export type VendorDataRequest = Request<RequestParams, ResponseBody, RequestBody, RequestQuery>;
+export type VendorDataResponse = Response<ResponseBody>;
 
 // What the itunes API returns
 export type ITunesDataType = {

@@ -1,7 +1,7 @@
 import express, { Express, Response } from 'express';
 import dotenv from 'dotenv';
-import { OurRequest } from './utils/types';
-import { fetchStoreData } from './data/fetchSongData';
+import { VendorDataRequest } from './utils/types';
+import { fetchVendorData } from './data/fetchVendorData';
 import { isValidRequest } from './utils/validateRequest';
 
 dotenv.config();
@@ -21,36 +21,37 @@ app.get('/', (_, res) => {
   res.send('Hello World!');
 });
 
-app.get('/beatport', async (req: OurRequest, res: Response) => {
+app.get('/beatport', async (req: VendorDataRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
-  const data = await fetchStoreData(req, 'beatport');
-  res.send(data);
+  const vendorData = await fetchVendorData(req, 'beatport');
+  res.send(vendorData);
 });
 
-app.get('/amazon', async (req: OurRequest, res: Response) => {
+app.get('/amazon', async (req: VendorDataRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
-  const data = await fetchStoreData(req, 'amazon');
-  res.send(data);
+  const vendorData = await fetchVendorData(req, 'amazon');
+  res.send(vendorData);
 });
 
-app.get('/bandcamp', async (req: OurRequest, res: Response) => {
+app.get('/bandcamp', async (req: VendorDataRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
-  const data = await fetchStoreData(req, 'bandcamp');
-  res.send(data);
+
+  const vendorData = await fetchVendorData(req, 'bandcamp');
+  res.send(vendorData);
 });
 
-app.get('/itunes', async (req: OurRequest, res: Response) => {
+app.get('/itunes', async (req: VendorDataRequest, res: Response) => {
   if (!isValidRequest(req, res)) {
     return;
   }
-  const data = await fetchStoreData(req, 'itunes');
-  res.send(data);
+  const vendorData = await fetchVendorData(req, 'itunes');
+  res.send(vendorData);
 });
 
 app.listen(port, () => {

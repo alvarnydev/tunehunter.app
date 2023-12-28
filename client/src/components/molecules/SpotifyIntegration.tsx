@@ -243,11 +243,9 @@ const TrackRow: React.FC<{
   const startSearch = () => {
     const newFormData = {
       country: userCountry || 'DE',
-      searchQuery: {
-        artist: trackData.artists[0].name,
-        title: trackData.name,
-        duration: trackData.duration_ms,
-      },
+      artist: trackData.artists[0].name,
+      title: trackData.name,
+      duration: trackData.duration_ms,
     };
 
     handleFormUpdate(newFormData, true);

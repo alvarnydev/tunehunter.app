@@ -9,11 +9,9 @@ import { RequestDataType } from '../../../../globalTypes';
 
 const initialFormData: RequestDataType = {
   country: 'DE',
-  searchQuery: {
-    artist: '',
-    title: '',
-    duration: 0,
-  },
+  artist: '',
+  title: '',
+  duration: 0,
 };
 
 const SongPickerLayout = ({ children }: PropsWithChildren) => {
@@ -31,12 +29,12 @@ const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: Req
 
 const SearchTextInput = ({ formData, handleFormUpdate }: { formData: RequestDataType; handleFormUpdate: (newFormData: RequestDataType) => void }) => {
   const { t } = useTranslation();
-  const { searchQuery } = formData;
+  const { artist, title } = formData;
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     handleFormUpdate({
       ...formData,
-      searchQuery: { ...searchQuery, [e.target.name]: e.target.value },
+      [e.target.name]: e.target.value,
     });
   }
 
@@ -48,8 +46,8 @@ const SearchTextInput = ({ formData, handleFormUpdate }: { formData: RequestData
 
   return (
     <div className='w-full flex md:flex-row flex-col md:gap-10 gap-8 order-2'>
-      <input type='text' name='artist' placeholder={t('searchbar.artist')} className='input input-primary rounded-full md:w-full border-2 tracking-wide' value={searchQuery.artist} onChange={handleChange} onKeyDown={handleEnter} />
-      <input type='text' name='title' placeholder={t('searchbar.song')} className='input rounded-full input-primary md:w-full border-2 tracking-wide' value={searchQuery.title} onChange={handleChange} onKeyDown={handleEnter} />
+      <input type='text' name='artist' placeholder={t('searchbar.artist')} className='input input-primary rounded-full md:w-full border-2 tracking-wide' value={artist} onChange={handleChange} onKeyDown={handleEnter} />
+      <input type='text' name='title' placeholder={t('searchbar.song')} className='input rounded-full input-primary md:w-full border-2 tracking-wide' value={title} onChange={handleChange} onKeyDown={handleEnter} />
     </div>
   );
 };
@@ -115,19 +113,16 @@ const SongPicker = () => {
     if (artist && title) {
       setFormData((formData) => ({
         ...formData,
-        searchQuery: {
-          ...formData.searchQuery,
-          artist,
-          title,
-        },
+        artist,
+        title,
       }));
     }
   };
 
   const isValidInput = (): boolean => {
-    const { searchQuery } = formData;
+    const { artist, title } = formData;
 
-    if (searchQuery.artist == '' || searchQuery.title == '') {
+    if (artist == '' || title == '') {
       toast((toast) => <ToastComponent t={toast} text={t('errors.missingSongInput')} />);
       return false;
     }
@@ -136,10 +131,10 @@ const SongPicker = () => {
   };
 
   const buildGetParams = (): string => {
-    const { country, searchQuery } = formData;
+    const { country, artist, title, duration } = formData;
     let params = `?country=${country}`;
 
-    params += `&artist=${searchQuery.artist}&title=${searchQuery.title}&duration=${searchQuery.duration}`;
+    params += `&artist=${artist}&title=${title}&duration=${duration}`;
     return params;
   };
 

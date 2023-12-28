@@ -3,14 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchPlaceholderValues = exports.fetchBandcampData = exports.fetchAmazonData = exports.fetchBeatportData = exports.fetchItunesData = exports.fetchStoreData = void 0;
+exports.fetchPlaceholderValues = exports.fetchBandcampData = exports.fetchAmazonData = exports.fetchBeatportData = exports.fetchItunesData = exports.fetchVendorData = void 0;
 const axios_1 = __importDefault(require("axios"));
 const utils_1 = require("../utils/utils");
-const fetchStoreData = async (req, store) => {
+const fetchVendorData = async (req, store) => {
     console.log('--------- fetchStoreData: ', store, ' ---------');
     const { title, artist, duration, country } = req.query;
     const durationNum = parseInt(duration);
-    const requestData = { country, searchQuery: { artist, title, duration: durationNum } };
+    const requestData = { country, artist, title, duration: durationNum };
+    console.log('requestData: ', requestData);
     switch (store) {
         case 'itunes':
             return await (0, exports.fetchItunesData)(requestData);
@@ -24,8 +25,8 @@ const fetchStoreData = async (req, store) => {
             return fetchPlaceholderValues('song store');
     }
 };
-exports.fetchStoreData = fetchStoreData;
-const fetchItunesData = async ({ country, searchQuery: { title, artist, duration } }) => {
+exports.fetchVendorData = fetchVendorData;
+const fetchItunesData = async ({ country, title, artist, duration }) => {
     const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
     const response = await axios_1.default.get(dataUrl);
     const data = response.data;
@@ -67,16 +68,16 @@ const fetchItunesData = async ({ country, searchQuery: { title, artist, duration
     return vendorData;
 };
 exports.fetchItunesData = fetchItunesData;
-const fetchBeatportData = async ({ country, searchQuery: { title, artist, duration } }) => {
-    return await (0, exports.fetchItunesData)({ country, searchQuery: { title, artist, duration } });
+const fetchBeatportData = async ({ country, title, artist, duration }) => {
+    return await (0, exports.fetchItunesData)({ country, title, artist, duration });
 };
 exports.fetchBeatportData = fetchBeatportData;
-const fetchAmazonData = async ({ country, searchQuery: { title, artist, duration } }) => {
-    return await (0, exports.fetchItunesData)({ country, searchQuery: { title, artist, duration } });
+const fetchAmazonData = async ({ country, title, artist, duration }) => {
+    return await (0, exports.fetchItunesData)({ country, title, artist, duration });
 };
 exports.fetchAmazonData = fetchAmazonData;
-const fetchBandcampData = async ({ country, searchQuery: { title, artist, duration } }) => {
-    return await (0, exports.fetchItunesData)({ country, searchQuery: { title, artist, duration } });
+const fetchBandcampData = async ({ country, title, artist, duration }) => {
+    return await (0, exports.fetchItunesData)({ country, title, artist, duration });
 };
 exports.fetchBandcampData = fetchBandcampData;
 function fetchPlaceholderValues(vendor) {
