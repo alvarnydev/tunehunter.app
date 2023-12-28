@@ -59,22 +59,8 @@ const fetchItunesData = async ({ country, title, artist, duration }) => {
             };
         }),
     };
-    // Sort the songs by matching duration
     if (duration) {
-        console.log('  <<   start    >>    ');
-        vendorData.songs.map((song) => {
-            console.log('arist ', song.artist);
-            console.log('title ', song.title);
-            console.log('duration ', song.duration);
-        });
-        console.log('  <<   sort    >>    ');
-        vendorData.songs.sort((0, utils_1.sortByDuration)(duration));
-        vendorData.songs.map((song) => {
-            console.log('arist ', song.artist);
-            console.log('title ', song.title);
-            console.log('duration ', song.duration);
-        });
-        console.log('  <<   end    >>    ');
+        vendorData.songs.sort((0, utils_1.sortByMatchingDuration)(duration));
     }
     return vendorData;
 };

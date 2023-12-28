@@ -6,7 +6,7 @@ import { TrackData } from '../../globalTypes';
 //   return aDurationDiff - bDurationDiff;
 // };
 
-export const sortByDuration = (duration: number) => {
+export const sortByMatchingDuration = (duration: number) => {
   return (a: TrackData, b: TrackData) => {
     const diffSongA = Math.abs(a.duration - duration);
     const diffSongB = Math.abs(b.duration - duration);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { RequestData, TrackData, VendorData } from '../../globalTypes';
 import { ITunesData, VendorDataRequest } from '../utils/types';
-import { sortByDuration } from '../utils/utils';
+import { sortByMatchingDuration } from '../utils/utils';
 
 export const fetchSpecificSong = async (req: VendorDataRequest): Promise<RequestData> => {
   const { songs } = await fetchItunesData(req.query);
@@ -60,25 +60,9 @@ const fetchItunesData = async ({ country, title, artist, duration }: RequestData
     }),
   };
 
-  // Sort the songs by matching duration
   if (duration) {
-    console.log('  <<   start    >>    ');
-    vendorData.songs.map((song) => {
-      console.log('arist ', song.artist);
-      console.log('title ', song.title);
-      console.log('duration ', song.duration);
-    });
-    console.log('  <<   sort    >>    ');
-
-    vendorData.songs.sort(sortByDuration(duration));
-    vendorData.songs.map((song) => {
-      console.log('arist ', song.artist);
-      console.log('title ', song.title);
-      console.log('duration ', song.duration);
-    });
-    console.log('  <<   end    >>    ');
+    vendorData.songs.sort(sortByMatchingDuration(duration));
   }
-
   return vendorData;
 };
 
