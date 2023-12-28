@@ -3,6 +3,17 @@ import { RequestData, TrackData, VendorData } from '../../globalTypes';
 import { ITunesData, VendorDataRequest } from '../utils/types';
 import { sortByDuration } from '../utils/utils';
 
+export const fetchSpecificSong = async (req: VendorDataRequest): Promise<RequestData> => {
+  const { songs } = await fetchItunesData(req.query);
+
+  return {
+    title: songs[0].title,
+    artist: songs[0].artist,
+    duration: songs[0].duration,
+    country: req.query.country,
+  };
+};
+
 export const fetchVendorData = async (req: VendorDataRequest, store: string): Promise<VendorData> => {
   console.log('--------- fetchStoreData: ', store, ' ---------');
   const { title, artist, duration, country } = req.query;
@@ -23,7 +34,7 @@ export const fetchVendorData = async (req: VendorDataRequest, store: string): Pr
   }
 };
 
-export const fetchItunesData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
+const fetchItunesData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
   const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
   const response = await axios.get<ITunesData>(dataUrl);
   const data = response.data;
@@ -50,38 +61,40 @@ export const fetchItunesData = async ({ country, title, artist, duration }: Requ
   };
 
   // Sort the songs by matching duration
-  console.log('  <<   start    >>    ');
-  vendorData.songs.map((song) => {
-    console.log('arist ', song.artist);
-    console.log('title ', song.title);
-    console.log('duration ', song.duration);
-  });
-  console.log('  <<   sort    >>    ');
+  if (duration) {
+    console.log('  <<   start    >>    ');
+    vendorData.songs.map((song) => {
+      console.log('arist ', song.artist);
+      console.log('title ', song.title);
+      console.log('duration ', song.duration);
+    });
+    console.log('  <<   sort    >>    ');
 
-  vendorData.songs.sort(sortByDuration(duration));
-  vendorData.songs.map((song) => {
-    console.log('arist ', song.artist);
-    console.log('title ', song.title);
-    console.log('duration ', song.duration);
-  });
-  console.log('  <<   end    >>    ');
+    vendorData.songs.sort(sortByDuration(duration));
+    vendorData.songs.map((song) => {
+      console.log('arist ', song.artist);
+      console.log('title ', song.title);
+      console.log('duration ', song.duration);
+    });
+    console.log('  <<   end    >>    ');
+  }
 
   return vendorData;
 };
 
-export const fetchBeatportData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
+const fetchBeatportData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
   return await fetchItunesData({ country, title, artist, duration });
 };
 
-export const fetchAmazonData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
+const fetchAmazonData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
   return await fetchItunesData({ country, title, artist, duration });
 };
 
-export const fetchBandcampData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
+const fetchBandcampData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
   return await fetchItunesData({ country, title, artist, duration });
 };
 
-export function fetchPlaceholderValues(vendor: string) {
+function fetchPlaceholderValues(vendor: string) {
   const response: VendorData = {
     vendor: {
       name: vendor,

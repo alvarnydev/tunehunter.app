@@ -1,9 +1,8 @@
 import express, { Express, Response } from 'express';
 import dotenv from 'dotenv';
 import { VendorDataRequest, VendorDataResponse } from './utils/types';
-import { fetchVendorData } from './data/fetchVendorData';
+import { fetchSpecificSong, fetchVendorData } from './data/fetchVendorData';
 import { isValidRequest } from './utils/validateRequest';
-import { ResponseData, VendorData, VendorData as VendorDataResponseType } from '../globalTypes';
 
 dotenv.config();
 
@@ -22,38 +21,24 @@ app.get('/', (_, res) => {
   res.send('Hello World!');
 });
 
-app.get('/beatport', async (req: VendorDataRequest, res: VendorDataResponse) => {
-  if (!isValidRequest(req, res)) {
-    return;
-  }
-  const vendorData = await fetchVendorData(req, 'beatport');
-  res.send(vendorData);
-});
+function createHandler(store: string) {
+  return app.get(`/${store}`, async (req: VendorDataRequest, res: VendorDataResponse) => {
+    if (!isValidRequest(req, res)) {
+      return;
+    }
+    if (!req.query.duration) {
+      const { duration } = await fetchSpecificSong(req);
+      req.query.duration = duration;
+    }
+    const vendorData = await fetchVendorData(req, store);
+    res.send(vendorData);
+  });
+}
 
-app.get('/amazon', async (req: VendorDataRequest, res: VendorDataResponse) => {
-  if (!isValidRequest(req, res)) {
-    return;
-  }
-  const vendorData = await fetchVendorData(req, 'amazon');
-  res.send(vendorData);
-});
-
-app.get('/bandcamp', async (req: VendorDataRequest, res: VendorDataResponse) => {
-  if (!isValidRequest(req, res)) {
-    return;
-  }
-
-  const vendorData = await fetchVendorData(req, 'bandcamp');
-  res.send(vendorData);
-});
-
-app.get('/itunes', async (req: VendorDataRequest, res: VendorDataResponse) => {
-  if (!isValidRequest(req, res)) {
-    return;
-  }
-  const vendorData = await fetchVendorData(req, 'itunes');
-  res.send(vendorData);
-});
+createHandler('beatport');
+createHandler('amazon');
+createHandler('bandcamp');
+createHandler('itunes');
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

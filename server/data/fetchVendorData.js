@@ -3,9 +3,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchPlaceholderValues = exports.fetchBandcampData = exports.fetchAmazonData = exports.fetchBeatportData = exports.fetchItunesData = exports.fetchVendorData = void 0;
+exports.fetchVendorData = exports.fetchSpecificSong = void 0;
 const axios_1 = __importDefault(require("axios"));
 const utils_1 = require("../utils/utils");
+const fetchSpecificSong = async (req) => {
+    const { songs } = await fetchItunesData(req.query);
+    return {
+        title: songs[0].title,
+        artist: songs[0].artist,
+        duration: songs[0].duration,
+        country: req.query.country,
+    };
+};
+exports.fetchSpecificSong = fetchSpecificSong;
 const fetchVendorData = async (req, store) => {
     console.log('--------- fetchStoreData: ', store, ' ---------');
     const { title, artist, duration, country } = req.query;
@@ -13,13 +23,13 @@ const fetchVendorData = async (req, store) => {
     console.log('requestData: ', requestData);
     switch (store) {
         case 'itunes':
-            return await (0, exports.fetchItunesData)(requestData);
+            return await fetchItunesData(requestData);
         case 'beatport':
-            return await (0, exports.fetchBeatportData)(requestData);
+            return await fetchBeatportData(requestData);
         case 'amazon':
-            return await (0, exports.fetchAmazonData)(requestData);
+            return await fetchAmazonData(requestData);
         case 'bandcamp':
-            return await (0, exports.fetchBandcampData)(requestData);
+            return await fetchBandcampData(requestData);
         default:
             return fetchPlaceholderValues('song store');
     }
@@ -50,35 +60,33 @@ const fetchItunesData = async ({ country, title, artist, duration }) => {
         }),
     };
     // Sort the songs by matching duration
-    console.log('  <<   start    >>    ');
-    vendorData.songs.map((song) => {
-        console.log('arist ', song.artist);
-        console.log('title ', song.title);
-        console.log('duration ', song.duration);
-    });
-    console.log('  <<   sort    >>    ');
-    vendorData.songs.sort((0, utils_1.sortByDuration)(duration));
-    vendorData.songs.map((song) => {
-        console.log('arist ', song.artist);
-        console.log('title ', song.title);
-        console.log('duration ', song.duration);
-    });
-    console.log('  <<   end    >>    ');
+    if (duration) {
+        console.log('  <<   start    >>    ');
+        vendorData.songs.map((song) => {
+            console.log('arist ', song.artist);
+            console.log('title ', song.title);
+            console.log('duration ', song.duration);
+        });
+        console.log('  <<   sort    >>    ');
+        vendorData.songs.sort((0, utils_1.sortByDuration)(duration));
+        vendorData.songs.map((song) => {
+            console.log('arist ', song.artist);
+            console.log('title ', song.title);
+            console.log('duration ', song.duration);
+        });
+        console.log('  <<   end    >>    ');
+    }
     return vendorData;
 };
-exports.fetchItunesData = fetchItunesData;
 const fetchBeatportData = async ({ country, title, artist, duration }) => {
-    return await (0, exports.fetchItunesData)({ country, title, artist, duration });
+    return await fetchItunesData({ country, title, artist, duration });
 };
-exports.fetchBeatportData = fetchBeatportData;
 const fetchAmazonData = async ({ country, title, artist, duration }) => {
-    return await (0, exports.fetchItunesData)({ country, title, artist, duration });
+    return await fetchItunesData({ country, title, artist, duration });
 };
-exports.fetchAmazonData = fetchAmazonData;
 const fetchBandcampData = async ({ country, title, artist, duration }) => {
-    return await (0, exports.fetchItunesData)({ country, title, artist, duration });
+    return await fetchItunesData({ country, title, artist, duration });
 };
-exports.fetchBandcampData = fetchBandcampData;
 function fetchPlaceholderValues(vendor) {
     const response = {
         vendor: {
@@ -112,4 +120,3 @@ function fetchPlaceholderValues(vendor) {
     };
     return response;
 }
-exports.fetchPlaceholderValues = fetchPlaceholderValues;
