@@ -1,12 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { TrackData } from '../../../../globalTypes';
 
-function openModal() {
-  const modal = document.getElementById('song_choice_modal') as HTMLDialogElement;
-  if (!modal) return;
-  modal.showModal();
-}
-
 const TrackPreview = ({ songData, index, handleIndexChange }: { songData: TrackData[]; index: number; handleIndexChange: (newIndex: number) => void }) => {
   const { t } = useTranslation();
 
@@ -19,18 +13,20 @@ const TrackPreview = ({ songData, index, handleIndexChange }: { songData: TrackD
         <h2 className='text-xl font-bold'>{songData[index].artist}</h2>
         <p>{songData[index].title}</p>
       </div>
-      <button className='btn btn-outline text-primary-content rounded-full text-xs w-auto' onClick={openModal}>
+      <label htmlFor='my-modal-3' className='btn btn-outline text-primary-content rounded-full text-xs w-auto'>
         {t('resultstable.wrongsong')}
-      </button>
-      <dialog id='song_choice_modal' className='modal'>
-        <div className='modal-box'>
-          <form method='dialog'>
-            <button className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'>✕</button>
-          </form>
-          <h3 className='font-bold text-lg'>Hello!</h3>
-          <p className='py-4'>Press ESC key or click on ✕ button to close</p>
+      </label>
+      <input type='checkbox' id='my-modal-3' className='modal-toggle' />
+      {/* Make bg blurry, add close on click outside */}
+      <div className='modal'>
+        <div className='modal-box relative'>
+          <label htmlFor='my-modal-3' className='btn btn-sm btn-circle absolute right-2 top-2'>
+            ✕
+          </label>
+          <h3 className='text-lg font-bold'>Congratulations random Internet user!</h3>
+          <p className='py-4'>You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
         </div>
-      </dialog>
+      </div>
     </div>
   );
 };
