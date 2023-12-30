@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ResponseData, TrackData, VendorData } from '../../../../globalTypes';
+import { RequestData, ResponseData, TrackData, VendorData } from '../../../../globalTypes';
 
 const apiUrl = import.meta.env.VITE_API_URL || '';
 const apiKey = import.meta.env.VITE_API_KEY || '';
@@ -18,19 +18,22 @@ export const fetchMusicData = async ({ queryKey }: { queryKey: [string, { search
   if (!artist || !title) {
     throw new Error('Missing artist and/or title!');
   }
-  return await fetchData(artist, title, country);
+  const requestData: RequestData = { artist, title, country };
+  if (searchParams.get('duration')) requestData.duration = Number(searchParams.get('duration'));
+  return await fetchData(requestData);
 };
 
 // Mid-level custom API calls to our own backend
-async function fetchData(artist: string, title: string, country: string): Promise<ResponseData> {
-  // fetch preview and take itunes data from it as the 0 index
-  const previewResponse = fetchPreviewData(artist, title, country);
+async function fetchData(requestData: RequestData): Promise<ResponseData> {
+  console.log('requestData before preview: ', requestData);
 
-  // fetch other vendor data
-  const itunesResponse = fetchVendorData(artist, title, country, 'itunes');
-  const beatportResponse = fetchVendorData(artist, title, country, 'beatport');
-  const amazonResponse = fetchVendorData(artist, title, country, 'amazon');
-  const bandcampResponse = fetchVendorData(artist, title, country, 'bandcamp');
+  const previewResponse = await fetchPreviewData(requestData);
+  if (!requestData.duration) requestData.duration = previewResponse[0].duration;
+
+  const itunesResponse = fetchVendorData(requestData, 'itunes');
+  const beatportResponse = fetchVendorData(requestData, 'beatport');
+  const amazonResponse = fetchVendorData(requestData, 'amazon');
+  const bandcampResponse = fetchVendorData(requestData, 'bandcamp');
 
   const [previewData, itunesData, beatportData, amazonData, bandcampData] = await Promise.all([previewResponse, itunesResponse, beatportResponse, amazonResponse, bandcampResponse]);
 
@@ -38,12 +41,15 @@ async function fetchData(artist: string, title: string, country: string): Promis
 }
 
 // Low-level API call to our own backend
-async function fetchVendorData(artist: string, title: string, country: string, vendor: string): Promise<VendorData> {
-  const dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}`).href;
+async function fetchVendorData({ artist, title, country, duration }: RequestData, vendor: string): Promise<VendorData> {
+  const dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}&duration=${duration}`).href;
   return await axios<VendorData>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then((res) => res.data);
 }
 
-async function fetchPreviewData(artist: string, title: string, country: string): Promise<TrackData[]> {
-  const dataUrl = new URL(`${apiUrl}/preview?artist=${artist}&title=${title}&country=${country}`).href;
+async function fetchPreviewData({ artist, title, country, duration }: RequestData): Promise<TrackData[]> {
+  let urlString = `${apiUrl}/preview?artist=${artist}&title=${title}&country=${country}`;
+  if (duration) urlString += `&duration=${duration}`;
+
+  const dataUrl = new URL(urlString).href;
   return await axios<TrackData[]>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then((res) => res.data);
 }

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { RequestData, VendorData } from '../../globalTypes';
+import { RequestData, TrackData, VendorData } from '../../globalTypes';
 
 interface RequestParams {}
 
@@ -7,8 +7,9 @@ interface ResponseBody {}
 
 interface RequestBody {}
 
-export type VendorDataRequest = Request<RequestParams, ResponseBody, RequestBody, RequestData>;
+export type DataRequest = Request<RequestParams, ResponseBody, RequestBody, RequestData>;
 export type VendorDataResponse = Response<VendorData>;
+export type PreviewDataResponse = Response<TrackData[]>;
 
 // What the itunes API returns
 export type ITunesData = {

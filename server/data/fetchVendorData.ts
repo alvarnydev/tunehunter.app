@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { RequestData, TrackData, VendorData } from '../../globalTypes';
-import { ITunesData, VendorDataRequest } from '../utils/types';
+import { ITunesData, DataRequest } from '../utils/types';
 import { sortByMatchingDuration } from '../utils/sorting';
 
-export const fetchSpecificSong = async (req: VendorDataRequest): Promise<RequestData> => {
+export const fetchSpecificSong = async (req: DataRequest): Promise<RequestData> => {
   const { song } = await fetchItunesData(req.query);
 
   return {
@@ -14,7 +14,7 @@ export const fetchSpecificSong = async (req: VendorDataRequest): Promise<Request
   };
 };
 
-export const fetchVendorData = async (req: VendorDataRequest, store: string): Promise<VendorData> => {
+export const fetchVendorData = async (req: DataRequest, store: string): Promise<VendorData> => {
   const { title, artist, duration, country } = req.query;
   const requestData: RequestData = { country, artist, title, duration };
 

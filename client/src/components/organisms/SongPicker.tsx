@@ -134,7 +134,10 @@ const SongPicker = () => {
     const { country, artist, title, duration } = formData;
     let params = `?country=${country}`;
 
-    params += `&artist=${artist}&title=${title}&duration=${duration}`;
+    params += `&artist=${artist}&title=${title}`;
+    if (duration) {
+      params += `&duration=${duration}`;
+    }
     return params;
   };
 

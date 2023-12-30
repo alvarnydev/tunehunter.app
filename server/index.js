@@ -19,23 +19,27 @@ app.use((_, res, next) => {
 app.get('/', (_, res) => {
     res.send('Hello World!');
 });
+app.get('/preview', async (req, res) => {
+    console.log('sender request data: ', req.query);
+    if (!(0, validateRequest_1.isValidRequest)(req, res)) {
+        return;
+    }
+    const previewData = await (0, fetchVendorData_1.fetchPreviewData)(req.query);
+    res.send(previewData);
+});
+createHandler('beatport');
+createHandler('amazon');
+createHandler('bandcamp');
+createHandler('itunes');
 function createHandler(store) {
     return app.get(`/${store}`, async (req, res) => {
         if (!(0, validateRequest_1.isValidRequest)(req, res)) {
             return;
         }
-        if (!req.query.duration) {
-            const { duration } = await (0, fetchVendorData_1.fetchSpecificSong)(req);
-            req.query.duration = duration;
-        }
         const vendorData = await (0, fetchVendorData_1.fetchVendorData)(req, store);
         res.send(vendorData);
     });
 }
-createHandler('beatport');
-createHandler('amazon');
-createHandler('bandcamp');
-createHandler('itunes');
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });

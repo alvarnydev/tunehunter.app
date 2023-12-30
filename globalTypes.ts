@@ -3,7 +3,7 @@ export type RequestData = {
   country: string;
   artist: string;
   title: string;
-  duration: number;
+  duration?: number;
 };
 
 // What our API returns

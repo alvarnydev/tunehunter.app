@@ -1,7 +1,7 @@
-import express, { Express, Response } from 'express';
+import express, { Express } from 'express';
 import dotenv from 'dotenv';
-import { VendorDataRequest, VendorDataResponse } from './utils/types';
-import { fetchSpecificSong, fetchVendorData } from './data/fetchVendorData';
+import { DataRequest, PreviewDataResponse, VendorDataResponse } from './utils/types';
+import { fetchPreviewData, fetchSpecificSong, fetchVendorData } from './data/fetchVendorData';
 import { isValidRequest } from './utils/validateRequest';
 
 dotenv.config();
@@ -21,24 +21,29 @@ app.get('/', (_, res) => {
   res.send('Hello World!');
 });
 
-function createHandler(store: string) {
-  return app.get(`/${store}`, async (req: VendorDataRequest, res: VendorDataResponse) => {
-    if (!isValidRequest(req, res)) {
-      return;
-    }
-    if (!req.query.duration) {
-      const { duration } = await fetchSpecificSong(req);
-      req.query.duration = duration;
-    }
-    const vendorData = await fetchVendorData(req, store);
-    res.send(vendorData);
-  });
-}
+app.get('/preview', async (req: DataRequest, res: PreviewDataResponse) => {
+  console.log('sender request data: ', req.query);
+  if (!isValidRequest(req, res)) {
+    return;
+  }
+  const previewData = await fetchPreviewData(req.query);
+  res.send(previewData);
+});
 
 createHandler('beatport');
 createHandler('amazon');
 createHandler('bandcamp');
 createHandler('itunes');
+
+function createHandler(store: string) {
+  return app.get(`/${store}`, async (req: DataRequest, res: VendorDataResponse) => {
+    if (!isValidRequest(req, res)) {
+      return;
+    }
+    const vendorData = await fetchVendorData(req, store);
+    res.send(vendorData);
+  });
+}
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
