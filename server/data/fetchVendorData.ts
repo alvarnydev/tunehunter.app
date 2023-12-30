@@ -48,12 +48,12 @@ export const fetchPreviewData = async ({ country, title, artist, duration }: Req
       qualityKbps: 256, // todo: figure out kbps from song.previewUrl
       price: song.trackPrice,
       songLink: song.trackViewUrl,
-      artLink: song.artworkUrl100,
+      artLink: song.artworkUrl100.replace('100x100', '400x400'),
     };
   });
 
   if (duration) {
-    previewData.sort(sortByMatchingDuration(duration));
+    previewData.sort(sortByMatchingDuration(duration / 1000));
   }
   return previewData;
 };

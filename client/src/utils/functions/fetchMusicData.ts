@@ -25,8 +25,6 @@ export const fetchMusicData = async ({ queryKey }: { queryKey: [string, { search
 
 // Mid-level custom API calls to our own backend
 async function fetchData(requestData: RequestData): Promise<ResponseData> {
-  console.log('requestData before preview: ', requestData);
-
   const previewResponse = await fetchPreviewData(requestData);
   if (!requestData.duration) requestData.duration = previewResponse[0].duration;
 

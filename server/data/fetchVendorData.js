@@ -48,11 +48,11 @@ const fetchPreviewData = async ({ country, title, artist, duration }) => {
             qualityKbps: 256,
             price: song.trackPrice,
             songLink: song.trackViewUrl,
-            artLink: song.artworkUrl100,
+            artLink: song.artworkUrl100.replace('100x100', '400x400'),
         };
     });
     if (duration) {
-        previewData.sort((0, sorting_1.sortByMatchingDuration)(duration));
+        previewData.sort((0, sorting_1.sortByMatchingDuration)(duration / 1000));
     }
     return previewData;
 };
