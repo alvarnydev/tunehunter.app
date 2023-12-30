@@ -43,7 +43,7 @@ const fetchPreviewData = async ({ country, title, artist, duration }) => {
             title: song.trackName,
             artist: song.artistName,
             album: song.collectionName,
-            duration: song.trackTimeMillis / 1000,
+            duration: song.trackTimeMillis,
             qualityFormat: 'AAC',
             qualityKbps: 256,
             price: song.trackPrice,
@@ -52,7 +52,7 @@ const fetchPreviewData = async ({ country, title, artist, duration }) => {
         };
     });
     if (duration) {
-        previewData.sort((0, sorting_1.sortByMatchingDuration)(duration / 1000));
+        previewData.sort((0, sorting_1.sortByMatchingDuration)(duration));
     }
     return previewData;
 };
@@ -66,7 +66,7 @@ const fetchItunesData = async ({ country, title, artist, duration }) => {
             title: song.trackName,
             artist: song.artistName,
             album: song.collectionName,
-            duration: song.trackTimeMillis / 1000,
+            duration: song.trackTimeMillis,
             qualityFormat: 'AAC',
             qualityKbps: 256,
             price: song.trackPrice,

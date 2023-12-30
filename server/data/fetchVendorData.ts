@@ -43,7 +43,7 @@ export const fetchPreviewData = async ({ country, title, artist, duration }: Req
       title: song.trackName,
       artist: song.artistName,
       album: song.collectionName,
-      duration: song.trackTimeMillis / 1000,
+      duration: song.trackTimeMillis,
       qualityFormat: 'AAC', // todo: figure out format from song.previewUrl
       qualityKbps: 256, // todo: figure out kbps from song.previewUrl
       price: song.trackPrice,
@@ -53,7 +53,7 @@ export const fetchPreviewData = async ({ country, title, artist, duration }: Req
   });
 
   if (duration) {
-    previewData.sort(sortByMatchingDuration(duration / 1000));
+    previewData.sort(sortByMatchingDuration(duration));
   }
   return previewData;
 };
@@ -68,7 +68,7 @@ const fetchItunesData = async ({ country, title, artist, duration }: RequestData
       title: song.trackName,
       artist: song.artistName,
       album: song.collectionName,
-      duration: song.trackTimeMillis / 1000,
+      duration: song.trackTimeMillis,
       qualityFormat: 'AAC', // todo: figure out format from song.previewUrl
       qualityKbps: 256, // todo: figure out kbps from song.previewUrl
       price: song.trackPrice,
