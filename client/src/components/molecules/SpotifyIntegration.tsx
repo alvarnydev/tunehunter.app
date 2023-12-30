@@ -50,36 +50,36 @@ const SpotifyTable = ({ handleFormUpdate }: { handleFormUpdate: (newFormData: Re
   };
 
   // Refresh data when song is finished or every 60 seconds
-  useEffect(() => {
-    if (!isAuthenticated) return;
-    let timer: NodeJS.Timeout;
-    const refreshInterval = 60_000;
-    let timeLeft;
-    let isPlaying;
-    if (userData.currentlyPlaying) {
-      timeLeft = userData.currentlyPlaying.item.duration_ms - userData.currentlyPlaying.progress_ms;
-      isPlaying = userData.currentlyPlaying.is_playing;
-    }
+  // useEffect(() => {
+  //   if (!isAuthenticated) return;
+  //   let timer: NodeJS.Timeout;
+  //   const refreshInterval = 60_000;
+  //   let timeLeft;
+  //   let isPlaying;
+  //   if (userData.currentlyPlaying) {
+  //     timeLeft = userData.currentlyPlaying.item.duration_ms - userData.currentlyPlaying.progress_ms;
+  //     isPlaying = userData.currentlyPlaying.is_playing;
+  //   }
 
-    const refreshDataAfter = async (time: number) => {
-      dataRefreshTimer.current = new Date().getTime() + (time + 500);
-      timer = setTimeout(() => {
-        startDataRefresh();
-      }, time);
-    };
+  //   const refreshDataAfter = async (time: number) => {
+  //     dataRefreshTimer.current = new Date().getTime() + (time + 500);
+  //     timer = setTimeout(() => {
+  //       startDataRefresh();
+  //     }, time);
+  //   };
 
-    if (userData.recentlyPlayed === null) {
-      startDataRefresh();
-    } else if (isPlaying && timeLeft && timeLeft < refreshInterval) {
-      refreshDataAfter(timeLeft);
-    } else {
-      refreshDataAfter(refreshInterval);
-    }
+  //   if (userData.recentlyPlayed === null) {
+  //     startDataRefresh();
+  //   } else if (isPlaying && timeLeft && timeLeft < refreshInterval) {
+  //     refreshDataAfter(timeLeft);
+  //   } else {
+  //     refreshDataAfter(refreshInterval);
+  //   }
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [isAuthenticated, userData, startDataRefresh]);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [isAuthenticated, userData, startDataRefresh]);
   const [tab, setTab] = useState<SongTableTab>('recentlyPlayed');
 
   const handleTabUpdate = (newTab: SongTableTab) => {

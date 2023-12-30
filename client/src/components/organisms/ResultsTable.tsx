@@ -70,17 +70,11 @@ const ResultsRow = ({ vendorData, index }: { vendorData: VendorData; index?: num
 const ResultsTable = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
-  const [index, setIndex] = useState(0);
   const { isLoading, error, data } = useQuery({
     queryKey: [searchParams.toString(), { searchParams }],
     queryFn: fetchMusicData,
     retry: false,
   });
-
-  const handleIndexChange = (newIndex: number) => {
-    // Rerender changes site title and trackpreview chosen
-    setIndex(newIndex);
-  };
 
   if (isLoading)
     return (
@@ -103,7 +97,7 @@ const ResultsTable = () => {
 
     return (
       <div className='overflow-x-auto w-11/12 flex flex-row gap-8 h-96'>
-        <TrackPreview songData={data.preview} index={index} handleIndexChange={handleIndexChange} />
+        <TrackPreview songData={data.preview} />
         <table className='table w-full'>
           <thead>
             <tr>
@@ -117,7 +111,7 @@ const ResultsTable = () => {
             {data.amazon && <ResultsRow vendorData={data.amazon} />}
             {data.bandcamp && <ResultsRow vendorData={data.bandcamp} />}
             {data.beatport && <ResultsRow vendorData={data.beatport} />}
-            {data.itunes && <ResultsRow vendorData={data.itunes} index={index} />}
+            {data.itunes && <ResultsRow vendorData={data.itunes} />}
           </tbody>
         </table>
       </div>

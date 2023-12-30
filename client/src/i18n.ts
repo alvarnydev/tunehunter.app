@@ -35,6 +35,10 @@ const resources = {
         },
         buy: 'Buy',
         backtostart: 'Back to the start',
+      },
+      trackpreview: {
+        selectedsong: 'Current choice',
+        selectsong: 'Select',
         wrongsong: 'Not the right song?',
       },
       footer: {
@@ -91,6 +95,10 @@ const resources = {
         },
         buy: 'Comprar',
         backtostart: 'Volver al principio',
+      },
+      trackpreview: {
+        selectedsong: 'Elección actual',
+        selectsong: 'Seleccionar',
         wrongsong: '¿No la canción correcta?',
       },
       footer: {
@@ -147,6 +155,10 @@ const resources = {
         },
         buy: 'Kaufen',
         backtostart: 'Zurück zum Start',
+      },
+      trackpreview: {
+        selectedsong: 'Aktuelle Auswahl',
+        selectsong: 'Auswählen',
         wrongsong: 'Nicht das richtige Lied?',
       },
       footer: {
