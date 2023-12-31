@@ -79,8 +79,6 @@ const MenuNavigation = ({ menuPage, setMenuPage }: { menuPage: string; setMenuPa
 };
 
 const MenuContent = ({ menuPage }: { menuPage: string }) => {
-  const { userData } = useAuth();
-
   const MenuContentLayout = ({ children }: PropsWithChildren) => {
     return <div className='flex flex-col justify-center items-center gap-4 '>{children}</div>;
   };

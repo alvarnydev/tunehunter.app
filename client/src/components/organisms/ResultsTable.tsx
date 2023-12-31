@@ -9,7 +9,6 @@ import TrackPreview from '../molecules/TrackPreview';
 import { validateData } from '@/utils/validateDataUtils';
 import InfoAnnotation from '../atoms/InfoComponents';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
-import { useState } from 'react';
 import { VendorData } from '../../../../globalTypes';
 
 enum ArtistsShareEnum {
@@ -19,7 +18,7 @@ enum ArtistsShareEnum {
   itunesstore = 0.6,
 }
 
-const ResultsRow = ({ vendorData, index }: { vendorData: VendorData; index?: number }) => {
+const ResultsRow = ({ vendorData }: { vendorData: VendorData }) => {
   const { t } = useTranslation();
 
   const vendorNameLower = vendorData.vendor.name.toLowerCase().replace(' ', '');

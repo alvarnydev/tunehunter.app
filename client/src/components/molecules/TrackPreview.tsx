@@ -24,21 +24,17 @@ const TrackPreview = ({ songData }: { songData: TrackData[] }) => {
   const Modal = () => {
     return (
       <>
-        <input type='checkbox' id='my-modal-3' className='modal-toggle' />
-        <div className='modal modal-bottom sm:modal-middle'>
-          <div className='modal-box p-0 overflow-x-auto !w-auto !max-w-[400px] flex relative'>
-            <label htmlFor='my-modal-3' className='btn btn-sm btn-circle absolute right-2 top-2'>
-              ✕
-            </label>
+        <input type='checkbox' id='preview-modal' className='modal-toggle' />
+        <label htmlFor='preview-modal' className='modal modal-bottom backdrop-blur-[10px] sm:modal-middle'>
+          <label className='modal-box p-0 overflow-x-auto !w-auto !max-w-[400px] flex relative' htmlFor=''>
             <div className='carousel rounded-box'>
               {songData.map(
                 (song, i) =>
                   i !== 0 && (
-                    <div className='carousel-item card w-[400px] bg-base-100 shadow-xl image-full'>
+                    <div id={`slide${i}`} className='carousel-item card w-[400px] bg-base-100 shadow-xl image-full'>
                       <figure>
-                        <img src={song.artLink} alt='Album cover art' className='' />
+                        <img src={song.artLink} alt='Album cover art' className='object-cover !h-auto' />
                       </figure>
-
                       <div className='card-body justify-end'>
                         <h2 className='card-title'>{song.artist}</h2>
                         <p className='grow-0'>
@@ -48,32 +44,23 @@ const TrackPreview = ({ songData }: { songData: TrackData[] }) => {
                           <button className='btn btn-sm btn-outline rounded-full text-xs w-auto' onClick={() => handleSelectSong(i)}>
                             {t('trackpreview.selectsong')}
                           </button>
-                          <p className='grow-0'>{`${i} / ${songData.length - 1}`}</p>
+                          <div className='flex gap-2 items-center justify-center'>
+                            <a href={`#slide${i - 1}`} className='btn btn-xs btn-ghost btn-circle'>
+                              ❮
+                            </a>
+                            <p className='grow-0'>{`${i} / ${songData.length - 1}`}</p>
+                            <a href={`#slide${i + 1}`} className='btn btn-xs btn-ghost btn-circle'>
+                              ❯
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
-
-                    // <div key={i} className='w-48 flex flex-col items-center gap-4'>
-                    //   <div className='flex flex-1 flex-col items-center justify-start gap-4 m-0 lg'>
-                    //     <figure className='content-center'>
-                    //       <img src={song.artLink} alt='Album cover art' className='rounded-xl w-40 h-40' />
-                    //     </figure>
-                    //     <div className='flex flex-col justify-start c items-center text-center p-0 gap-1'>
-                    //       <h2 className='text-xl font-bold'>{song.artist}</h2>
-                    //       <p>
-                    //         {song.title} ({formatDuration(song.duration * 1000)})
-                    //       </p>
-                    //     </div>
-                    //   </div>
-                    // <button className='btn btn-sm btn-outline rounded-full text-xs w-auto m-auto' onClick={() => handleSelectSong(i)}>
-                    //   {t('trackpreview.selectsong')}
-                    // </button>
-                    // </div>
                   )
               )}
             </div>
-          </div>
-        </div>
+          </label>
+        </label>
       </>
     );
   };
@@ -89,7 +76,7 @@ const TrackPreview = ({ songData }: { songData: TrackData[] }) => {
           {songData[0].title} ({formatDuration(songData[0].duration)})
         </p>
       </div>
-      <label htmlFor='my-modal-3' className={`btn btn-outline text-primary-content rounded-full text-xs w-auto ${songData.length === 1 ? 'invisible' : ''}`}>
+      <label htmlFor='preview-modal' className={`btn btn-outline text-primary-content rounded-full text-xs w-auto ${songData.length === 1 ? 'invisible' : ''}`}>
         {t('trackpreview.wrongsong')}
       </label>
       <Modal />
