@@ -1,6 +1,6 @@
-# traxtrove.com
+# rekordstore.com
 
-traxtrove.com helps youfind the best place to buy (digital) music, comparing prices, quality and artist payout across different sites.
+rekordstore.com helps youfind the best place to buy (digital) music, comparing prices, quality and artist payout across different sites.
 
 ## Stack
 
