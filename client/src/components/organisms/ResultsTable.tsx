@@ -18,54 +18,6 @@ enum ArtistsShareEnum {
   itunesstore = 0.6,
 }
 
-const ResultsRow = ({ vendorData }: { vendorData: VendorData }) => {
-  const { t } = useTranslation();
-
-  const vendorNameLower = vendorData.vendor.name.toLowerCase().replace(' ', '');
-  const vendorCountryLower = vendorData.vendor.country.toLowerCase().slice(0, 2);
-
-  const artistsShare = ArtistsShareEnum[vendorNameLower as keyof typeof ArtistsShareEnum];
-  const logoPath = vendorData.vendor.name == 'iTunes Store' ? `logo_${vendorNameLower}.jpg` : `logo_${vendorNameLower}.svg`;
-
-  return (
-    <tr>
-      <td>
-        <div className='flex items-center space-x-5'>
-          <div className='avatar '>
-            <div className='mask mask-squircle w-12 h-12'>
-              <img src={logoPath} alt='Avatar Tailwind CSS Component' />
-            </div>
-          </div>
-          <div className='md:block hidden'>
-            <div className='font-bold'>{vendorData.vendor.name}</div>
-            <div className='text-sm font-normal opacity-50'>{t(`countries.${vendorCountryLower}`)}</div>
-          </div>
-        </div>
-      </td>
-      <td>
-        <div>{vendorData.song.qualityFormat}</div>
-        <div className='text-sm opacity-50'>{vendorData.song.qualityKbps}kbps</div>
-      </td>
-      <td className=''>
-        {vendorData.song.price && (Math.round(vendorData.song.price * artistsShare * 100) / 100).toFixed(2)}€
-        <InfoAnnotation infoText={`Artist's share is ${artistsShare * 100}% on ${vendorData.vendor.name}.`} />
-      </td>
-      <td>
-        <div className='flex items-center gap-4'>
-          <div className='inline-block'>{vendorData.song.price}€</div>
-          <div className='flex justify-center flex-1'>
-            <a href={vendorData.song.songLink} target='_blank'>
-              <button className='btn btn-ghost text-base normal-case'>
-                <FaExternalLinkSquareAlt size={32} className='text-primary' />
-              </button>
-            </a>
-          </div>
-        </div>
-      </td>
-    </tr>
-  );
-};
-
 const ResultsTable = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
@@ -77,7 +29,7 @@ const ResultsTable = () => {
 
   if (isLoading)
     return (
-      <div className='flex h-[426px]'>
+      <div className='flex items-center justify-center h-96'>
         <LoadingIndicator size={40} />
       </div>
     );
@@ -86,8 +38,60 @@ const ResultsTable = () => {
       customMessage: `ResultsTable query failed!`,
       componentStack: error.stack,
     });
-    return <AppAlert type={'error'} message={error.message} />;
+    return (
+      <div className='flex items-center justify-center h-96'>
+        <AppAlert type={'error'} message={error.message} />
+      </div>
+    );
   }
+
+  const ResultsRow = ({ vendorData }: { vendorData: VendorData }) => {
+    const { t } = useTranslation();
+
+    const vendorNameLower = vendorData.vendor.name.toLowerCase().replace(' ', '');
+    const vendorCountryLower = vendorData.vendor.country.toLowerCase().slice(0, 2);
+
+    const artistsShare = ArtistsShareEnum[vendorNameLower as keyof typeof ArtistsShareEnum];
+    const logoPath = vendorData.vendor.name == 'iTunes Store' ? `logo_${vendorNameLower}.jpg` : `logo_${vendorNameLower}.svg`;
+
+    return (
+      <tr>
+        <td>
+          <div className='flex items-center space-x-5'>
+            <div className='avatar '>
+              <div className='mask mask-squircle w-12 h-12'>
+                <img src={logoPath} alt='Avatar Tailwind CSS Component' />
+              </div>
+            </div>
+            <div className='md:block hidden'>
+              <div className='font-bold'>{vendorData.vendor.name}</div>
+              <div className='text-sm font-normal opacity-50'>{t(`countries.${vendorCountryLower}`)}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div>{vendorData.song.qualityFormat}</div>
+          <div className='text-sm opacity-50'>{vendorData.song.qualityKbps}kbps</div>
+        </td>
+        <td className=''>
+          {vendorData.song.price && (Math.round(vendorData.song.price * artistsShare * 100) / 100).toFixed(2)}€
+          <InfoAnnotation infoText={`Artist's share is ${artistsShare * 100}% on ${vendorData.vendor.name}.`} />
+        </td>
+        <td>
+          <div className='flex items-center gap-4'>
+            <div className='inline-block'>{vendorData.song.price}€</div>
+            <div className='flex justify-center flex-1'>
+              <a href={vendorData.song.songLink} target='_blank'>
+                <button className='btn btn-ghost text-base normal-case'>
+                  <FaExternalLinkSquareAlt size={32} className='text-primary' />
+                </button>
+              </a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    );
+  };
 
   if (data) {
     if (!validateData(data)) return <WarningAlert message={t('errors.noSong')} />;

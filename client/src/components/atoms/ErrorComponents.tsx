@@ -5,8 +5,8 @@ const AppAlert = ({ type, message }: { type: string; message?: string }) => {
   const { t } = useTranslation();
 
   return (
-    <div className={`alert w-auto max-w-[80%] alert-${type}`}>
-      <div className='collapse collapse-arrow bg-error rounded-xl'>
+    <div className={`w-auto max-w-[80%]`}>
+      <div className={`alert collapse collapse-arrow bg-error rounded-xl alert-${type}`}>
         <input type='checkbox' />
         <div className='collapse-title flex gap-4'>
           {type === 'error' && (
