@@ -5,7 +5,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 const resources = {
   english: {
     translation: {
-      title: "Trax' Trove",
+      title: 'rekordstore',
       searchbar: {
         artist: 'Artist',
         song: 'Song',
@@ -65,7 +65,7 @@ const resources = {
   },
   spanish: {
     translation: {
-      title: "Trax' Trove",
+      title: 'rekordstore',
       searchbar: {
         artist: 'Artista',
         song: 'Canción',
@@ -125,7 +125,7 @@ const resources = {
   },
   german: {
     translation: {
-      title: "Trax' Trove",
+      title: 'rekordstore',
       searchbar: {
         artist: 'Künstler',
         song: 'Lied',
