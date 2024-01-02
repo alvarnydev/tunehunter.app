@@ -2,7 +2,7 @@ import { useAuth } from '@/contexts/auth';
 import { SongTableTab, SpotifyTrack } from '@/types';
 import { requestAuthorizationCodePKCE } from '@/utils/functions/fetchSpotifyAuth';
 import { storeInLocalStorage } from '@/utils/localStorageUtils';
-import { PropsWithChildren, memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import InfoAnnotation from '../atoms/InfoComponents';
 import { ISpotifyDataTableBodyProps, ISpotifyTableBodyProps, ISpotifyTableHeaderProps, ISpotifyTableProps } from '@/interfaces';

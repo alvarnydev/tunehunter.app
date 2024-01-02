@@ -8,7 +8,7 @@ const TrackPreview = ({ songData }: { songData: TrackData[] }) => {
 
   function formatDuration(duration: number) {
     const minutes = Math.floor(duration / 60000);
-    const seconds = ((duration % 60000) / 1000).toFixed(0);
+    const seconds = Math.floor((duration % 60000) / 1000).toFixed(0);
     return `${minutes}:${Number(seconds) < 10 ? '0' : ''}${seconds}`;
   }
 
@@ -66,17 +66,17 @@ const TrackPreview = ({ songData }: { songData: TrackData[] }) => {
   };
 
   return (
-    <div className='bg-primary flex flex-col items-center justify-around rounded-2xl gap-4 p-8 w-96 m-0 lg'>
+    <div className='bg-primary flex flex-col items-center justify-evenly rounded-2xl gap-4 p-8 w-96 m-0 lg'>
       <figure className='content-center'>
         <img src={songData[0].artLink} alt='Album cover art' className='rounded-xl w-40 h-40' />
       </figure>
-      <div className='flex flex-col justify-start text-primary-content items-center text-center max-h-48 overflow-scroll p-0 gap-1'>
+      <div className='flex flex-col justify-start text-primary-content items-center text-center overflow-scroll p-0 gap-1'>
         <h2 className='text-xl font-bold'>{songData[0].artist}</h2>
         <p>
           {songData[0].title} ({formatDuration(songData[0].duration)})
         </p>
       </div>
-      <label htmlFor='preview-modal' className={`btn btn-outline text-primary-content rounded-full text-xs w-auto ${songData.length === 1 ? 'invisible' : ''}`}>
+      <label htmlFor='preview-modal' className={`btn btn-outline text-primary-content rounded-full text-xs w-auto ${songData.length === 1 ? 'hidden' : ''}`}>
         {t('trackpreview.wrongsong')}
       </label>
       <Modal />

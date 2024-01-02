@@ -27,6 +27,8 @@ OPTIMIZE:
 - react lazy
 - use daisy's toasts? 
 - daisyui
+- spotify album image is 640x640 -> lots of data
+- react icons size
 
 
 
