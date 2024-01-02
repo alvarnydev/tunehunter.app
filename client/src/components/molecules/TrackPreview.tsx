@@ -17,7 +17,7 @@ const TrackPreview = ({ songData }: { songData: TrackData[] }) => {
     const country = searchParams.get('country');
 
     const selectedSong = songData[index];
-    const newParams = `?country=${country}&artist=${selectedSong.artist}&title=${selectedSong.title}&duration=${selectedSong.duration}`;
+    const newParams = `?country=${country}&artist=${selectedSong.artist}&title=${selectedSong.title}&duration=${selectedSong.duration}&album=${selectedSong.album}`;
     navigate(`/results${newParams}`);
   };
 

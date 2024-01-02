@@ -33,8 +33,10 @@ const fetchVendorData = async (req, store) => {
     }
 };
 exports.fetchVendorData = fetchVendorData;
-const fetchPreviewData = async ({ country, title, artist, duration }) => {
-    const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
+const fetchPreviewData = async ({ country, title, artist, duration, album }) => {
+    let dataUrl = new URL(`https://itunes.apple.com/search?country=${country}&media=music&entity=song&limit=5&term=${title}+${artist}`).href;
+    if (album)
+        dataUrl += `+${album}`;
     const response = await axios_1.default.get(dataUrl);
     const data = response.data;
     // Grab what we need from the response

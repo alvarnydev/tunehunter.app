@@ -20,6 +20,7 @@ export const fetchMusicData = async ({ queryKey }: { queryKey: [string, { search
   }
   const requestData: RequestData = { artist, title, country };
   if (searchParams.get('duration')) requestData.duration = Number(searchParams.get('duration'));
+  if (searchParams.get('album')) requestData.album = searchParams.get('album') || undefined;
   return await fetchData(requestData);
 };
 
@@ -39,14 +40,16 @@ async function fetchData(requestData: RequestData): Promise<ResponseData> {
 }
 
 // Low-level API call to our own backend
-async function fetchVendorData({ artist, title, country, duration }: RequestData, vendor: string): Promise<VendorData> {
-  const dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}&duration=${duration}`).href;
+async function fetchVendorData({ artist, title, country, duration, album }: RequestData, vendor: string): Promise<VendorData> {
+  let dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}&duration=${duration}`).href;
+  if (album) dataUrl += `&album=${album}`;
   return await axios<VendorData>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then((res) => res.data);
 }
 
-async function fetchPreviewData({ artist, title, country, duration }: RequestData): Promise<TrackData[]> {
+async function fetchPreviewData({ artist, title, country, duration, album }: RequestData): Promise<TrackData[]> {
   let urlString = `${apiUrl}/preview?artist=${artist}&title=${title}&country=${country}`;
   if (duration) urlString += `&duration=${duration}`;
+  if (album) urlString += `&album=${album}`;
 
   const dataUrl = new URL(urlString).href;
   return await axios<TrackData[]>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then((res) => res.data);

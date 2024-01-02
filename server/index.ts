@@ -22,7 +22,6 @@ app.get('/', (_, res) => {
 });
 
 app.get('/preview', async (req: DataRequest, res: PreviewDataResponse) => {
-  console.log('sender request data: ', req.query);
   if (!isValidRequest(req, res)) {
     return;
   }

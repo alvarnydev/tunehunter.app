@@ -20,7 +20,6 @@ app.get('/', (_, res) => {
     res.send('Hello World!');
 });
 app.get('/preview', async (req, res) => {
-    console.log('sender request data: ', req.query);
     if (!(0, validateRequest_1.isValidRequest)(req, res)) {
         return;
     }

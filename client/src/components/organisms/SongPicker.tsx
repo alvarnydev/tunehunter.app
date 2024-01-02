@@ -12,6 +12,7 @@ const initialFormData: RequestData = {
   artist: '',
   title: '',
   duration: 0,
+  album: '',
 };
 
 const SongPickerLayout = ({ children }: PropsWithChildren) => {
@@ -73,6 +74,35 @@ const SongPicker = () => {
   const { t } = useTranslation();
   document.title = t('title');
 
+  const handleSubmit = useCallback(() => {
+    const isValidInput = (): boolean => {
+      const { artist, title } = formData;
+
+      if (artist == '' || title == '') {
+        toast((toast) => <ToastComponent t={toast} text={t('errors.missingSongInput')} />);
+        return false;
+      }
+
+      return true;
+    };
+    const buildGetParams = (): string => {
+      const { country, artist, title, duration, album } = formData;
+      let params = `?country=${country}`;
+
+      params += `&artist=${artist}&title=${title}`;
+      if (duration) params += `&duration=${duration}`;
+      if (album) params += `&album=${album}`;
+      return params;
+    };
+
+    if (!isValidInput()) {
+      return;
+    }
+
+    const newParams = buildGetParams();
+    navigate(`/results${newParams}`);
+  }, [formData, navigate, t]);
+
   // todo: this is terrible, figure out another way
   /*
     I use handleformupdate for the manual update via the input fields but also for the update via the spotify integration box
@@ -83,26 +113,18 @@ const SongPicker = () => {
       handleSubmit();
     }
     setForceUpdate(false);
-  }, [forceUpdate]);
+  }, [forceUpdate, handleSubmit]);
 
   useEffect(() => {
     restoreFormData();
   }, []);
 
-  const handleFormUpdate = useCallback((newFormData: RequestData, final?: boolean) => {
+  const handleFormUpdate = useCallback((newFormData: RequestData) => {
     setFormData(newFormData);
-    if (final) {
-      setForceUpdate(true);
-    }
   }, []);
 
-  const handleSubmit = () => {
-    if (!isValidInput()) {
-      return;
-    }
-
-    const newParams = buildGetParams();
-    navigate(`/results${newParams}`);
+  const forceDelayedSubmit = () => {
+    setForceUpdate(true);
   };
 
   const restoreFormData = () => {
@@ -119,32 +141,10 @@ const SongPicker = () => {
     }
   };
 
-  const isValidInput = (): boolean => {
-    const { artist, title } = formData;
-
-    if (artist == '' || title == '') {
-      toast((toast) => <ToastComponent t={toast} text={t('errors.missingSongInput')} />);
-      return false;
-    }
-
-    return true;
-  };
-
-  const buildGetParams = (): string => {
-    const { country, artist, title, duration } = formData;
-    let params = `?country=${country}`;
-
-    params += `&artist=${artist}&title=${title}`;
-    if (duration) {
-      params += `&duration=${duration}`;
-    }
-    return params;
-  };
-
   return (
     <SongPickerLayout>
       <SearchBar formData={formData} handleFormUpdate={handleFormUpdate} handleSubmit={handleSubmit} />
-      <MemoizedSpotifyIntegration handleFormUpdate={handleFormUpdate} />
+      <MemoizedSpotifyIntegration handleFormUpdate={handleFormUpdate} forceDelayedSubmit={forceDelayedSubmit} />
     </SongPickerLayout>
   );
 };

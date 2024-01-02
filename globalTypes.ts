@@ -4,6 +4,7 @@ export type RequestData = {
   artist: string;
   title: string;
   duration?: number;
+  album?: string;
 };
 
 // What our API returns
