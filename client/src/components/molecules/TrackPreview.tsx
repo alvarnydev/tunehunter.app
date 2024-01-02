@@ -40,8 +40,9 @@ const TrackPreview = ({ songData }: { songData: TrackData[] }) => {
                         <p className='grow-0'>
                           {song.title} ({formatDuration(song.duration)})
                         </p>
+                        <p className='grow-0'>[{song.album}]</p>
                         <div className='card-actions mt-4 justify-between'>
-                          <button className='btn btn-sm btn-outline rounded-full text-xs w-auto' onClick={() => handleSelectSong(i)}>
+                          <button className='btn btn-sm btn-outline text-white rounded-full text-xs w-auto' onClick={() => handleSelectSong(i)}>
                             {t('trackpreview.selectsong')}
                           </button>
                           <div className='flex gap-2 items-center justify-center'>
@@ -75,6 +76,7 @@ const TrackPreview = ({ songData }: { songData: TrackData[] }) => {
         <p>
           {songData[0].title} ({formatDuration(songData[0].duration)})
         </p>
+        <p>[{songData[0].album}]</p>
       </div>
       <label htmlFor='preview-modal' className={`btn btn-outline text-primary-content rounded-full text-xs w-auto ${songData.length === 1 ? 'hidden' : ''}`}>
         {t('trackpreview.wrongsong')}
