@@ -7,14 +7,6 @@ import { BiSearch } from 'react-icons/bi';
 import MemoizedSpotifyIntegration from '../molecules/SpotifyIntegration';
 import { RequestData } from '../../../../globalTypes';
 
-const initialFormData: RequestData = {
-  country: 'DE',
-  artist: '',
-  title: '',
-  duration: 0,
-  album: '',
-};
-
 const SongPickerLayout = ({ children }: PropsWithChildren) => {
   return <div className=' w-full flex flex-col justify-center items-center gap-10'>{children}</div>;
 };
@@ -66,54 +58,53 @@ const SearchButton = ({ handleSubmit }: { handleSubmit: () => void }) => {
   );
 };
 
+const initialFormData: RequestData = {
+  country: 'DE',
+  artist: '',
+  title: '',
+  duration: 0,
+  album: '',
+};
+
 const SongPicker = () => {
   const [formData, setFormData] = useState(initialFormData);
-  const [forceUpdate, setForceUpdate] = useState(false);
-  // const [displayMode, setDisplayMode] = useState<'both' | 'search' | 'spotify'>('both'); // todo: remove this, use formData.searchMode instead
+  // const [displayMode, setDisplayMode] = useState<'both' | 'search' | 'spotify'>('both');
   const navigate = useNavigate();
   const { t } = useTranslation();
   document.title = t('title');
 
-  const handleSubmit = useCallback(() => {
-    const isValidInput = (): boolean => {
-      const { artist, title } = formData;
-
-      if (artist == '' || title == '') {
-        toast((toast) => <ToastComponent t={toast} text={t('errors.missingSongInput')} />);
-        return false;
+  const handleSubmit = useCallback(
+    (submitData?: RequestData) => {
+      let { country, artist, title, duration, album } = formData;
+      if (submitData) {
+        ({ country, artist, title, duration, album } = submitData);
       }
 
-      return true;
-    };
-    const buildGetParams = (): string => {
-      const { country, artist, title, duration, album } = formData;
-      let params = `?country=${country}`;
+      const isValidInput = (): boolean => {
+        if (artist == '' || title == '') {
+          toast((toast) => <ToastComponent t={toast} text={t('errors.missingSongInput')} />);
+          return false;
+        }
 
-      params += `&artist=${artist}&title=${title}`;
-      if (duration) params += `&duration=${duration}`;
-      if (album) params += `&album=${album}`;
-      return params;
-    };
+        return true;
+      };
+      const buildGetParams = (): string => {
+        let params = `?country=${country}`;
+        params += `&artist=${artist}&title=${title}`;
+        if (duration) params += `&duration=${duration}`;
+        if (album) params += `&album=${album}`;
+        return params;
+      };
 
-    if (!isValidInput()) {
-      return;
-    }
+      if (!isValidInput()) {
+        return;
+      }
 
-    const newParams = buildGetParams();
-    navigate(`/results${newParams}`);
-  }, [formData, navigate, t]);
-
-  // todo: this is terrible, figure out another way
-  /*
-    I use handleformupdate for the manual update via the input fields but also for the update via the spotify integration box
-    I can't use handleSubmit after handleFormUpdate in the spotifyintegration box because the state is still old so we have to somehow wait for the rerender of SearchPage
-  */
-  useEffect(() => {
-    if (forceUpdate) {
-      handleSubmit();
-    }
-    setForceUpdate(false);
-  }, [forceUpdate, handleSubmit]);
+      const newParams = buildGetParams();
+      navigate(`/results${newParams}`);
+    },
+    [formData, navigate, t]
+  );
 
   useEffect(() => {
     restoreFormData();
@@ -122,10 +113,6 @@ const SongPicker = () => {
   const handleFormUpdate = useCallback((newFormData: RequestData) => {
     setFormData(newFormData);
   }, []);
-
-  const forceDelayedSubmit = () => {
-    setForceUpdate(true);
-  };
 
   const restoreFormData = () => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -144,7 +131,7 @@ const SongPicker = () => {
   return (
     <SongPickerLayout>
       <SearchBar formData={formData} handleFormUpdate={handleFormUpdate} handleSubmit={handleSubmit} />
-      <MemoizedSpotifyIntegration handleFormUpdate={handleFormUpdate} forceDelayedSubmit={forceDelayedSubmit} />
+      <MemoizedSpotifyIntegration handleSubmit={handleSubmit} />
     </SongPickerLayout>
   );
 };

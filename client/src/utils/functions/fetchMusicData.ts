@@ -28,6 +28,7 @@ export const fetchMusicData = async ({ queryKey }: { queryKey: [string, { search
 async function fetchData(requestData: RequestData): Promise<ResponseData> {
   const previewResponse = await fetchPreviewData(requestData);
   if (!requestData.duration) requestData.duration = previewResponse[0].duration;
+  if (!requestData.album) requestData.album = previewResponse[0].album;
 
   const itunesResponse = fetchVendorData(requestData, 'itunes');
   const beatportResponse = fetchVendorData(requestData, 'beatport');

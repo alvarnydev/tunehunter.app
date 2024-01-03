@@ -31,7 +31,7 @@ const IntegrationText = () => {
   );
 };
 
-const SpotifyTable = ({ handleFormUpdate, forceDelayedSubmit }: ISpotifyTableProps) => {
+const SpotifyTable = ({ handleSubmit }: ISpotifyTableProps) => {
   const { isAuthenticated, userData, refreshData } = useAuth();
   const tableHeight = useRef(208);
   const tableScroll = useRef(0);
@@ -90,7 +90,7 @@ const SpotifyTable = ({ handleFormUpdate, forceDelayedSubmit }: ISpotifyTablePro
   return (
     <div className='w-3/4 rounded-xl shadow-md shadow-neutral pt-2 px-2'>
       <SpotifyTableHeader tab={tab} handleTabUpdate={handleTabUpdate} dataRefreshTimer={dataRefreshTimer} startDataRefresh={startDataRefresh} />
-      <SpotifyTableBody tab={tab} handleFormUpdate={handleFormUpdate} forceDelayedSubmit={forceDelayedSubmit} tableRef={tableRef} tableHeight={tableHeight.current} tableScroll={tableScroll.current} />
+      <SpotifyTableBody tab={tab} handleSubmit={handleSubmit} tableRef={tableRef} tableHeight={tableHeight.current} tableScroll={tableScroll.current} />
     </div>
   );
 };
@@ -151,7 +151,7 @@ const TimeLeftIndicator = ({ dataRefreshTimer, startDataRefresh }: { dataRefresh
   );
 };
 
-const SpotifyTableBody = ({ tab, handleFormUpdate, forceDelayedSubmit, tableRef, tableHeight, tableScroll }: ISpotifyTableBodyProps) => {
+const SpotifyTableBody = ({ tab, handleSubmit, tableRef, tableHeight, tableScroll }: ISpotifyTableBodyProps) => {
   const { userData } = useAuth();
 
   // Restore table height (tailwind stops evaluating h-[${tableHeight.current}px] correctly after some time, for whatever reason)
@@ -163,14 +163,14 @@ const SpotifyTableBody = ({ tab, handleFormUpdate, forceDelayedSubmit, tableRef,
 
   return (
     <div ref={tableRef} className={`overflow-x-auto scrollbar-none rounded py-2 w-full resize-y h-[${tableHeight}px]`}>
-      {tab == 'recentlyPlayed' && <RecentlyPlayedTable data={userData} handleFormUpdate={handleFormUpdate} forceDelayedSubmit={forceDelayedSubmit} />}
-      {tab == 'mostPlayed' && <MostPlayedTable data={userData} handleFormUpdate={handleFormUpdate} forceDelayedSubmit={forceDelayedSubmit} />}
-      {tab == 'queue' && <QueueTable data={userData} handleFormUpdate={handleFormUpdate} forceDelayedSubmit={forceDelayedSubmit} />}
+      {tab == 'recentlyPlayed' && <RecentlyPlayedTable data={userData} handleSubmit={handleSubmit} />}
+      {tab == 'mostPlayed' && <MostPlayedTable data={userData} handleSubmit={handleSubmit} />}
+      {tab == 'queue' && <QueueTable data={userData} handleSubmit={handleSubmit} />}
     </div>
   );
 };
 
-const RecentlyPlayedTable = ({ data, handleFormUpdate, forceDelayedSubmit }: ISpotifyDataTableBodyProps) => {
+const RecentlyPlayedTable = ({ data, handleSubmit }: ISpotifyDataTableBodyProps) => {
   if (data.recentlyPlayed?.items.length == 0)
     return (
       <div className='flex h-full justify-center items-center'>
@@ -181,16 +181,16 @@ const RecentlyPlayedTable = ({ data, handleFormUpdate, forceDelayedSubmit }: ISp
   return (
     <table className='table table-fixed w-full'>
       <tbody>
-        {data.currentlyPlaying?.is_playing && <TrackRow trackData={data.currentlyPlaying.item} currentlyPlaying={true} userCountry={data.profileData?.country} handleFormUpdate={handleFormUpdate} forceDelayedSubmit={forceDelayedSubmit} />}
+        {data.currentlyPlaying?.is_playing && <TrackRow trackData={data.currentlyPlaying.item} currentlyPlaying={true} userCountry={data.profileData?.country} handleSubmit={handleSubmit} />}
         {data.recentlyPlayed?.items.map((item) => (
-          <TrackRow key={item.played_at} trackData={item.track} userCountry={data.profileData?.country} handleFormUpdate={handleFormUpdate} forceDelayedSubmit={forceDelayedSubmit} />
+          <TrackRow key={item.played_at} trackData={item.track} userCountry={data.profileData?.country} handleSubmit={handleSubmit} />
         ))}
       </tbody>
     </table>
   );
 };
 
-const QueueTable = ({ data, handleFormUpdate, forceDelayedSubmit }: ISpotifyDataTableBodyProps) => {
+const QueueTable = ({ data, handleSubmit }: ISpotifyDataTableBodyProps) => {
   if (data.queue?.queue.length == 0)
     return (
       <div className='flex h-full justify-center items-center'>
@@ -202,14 +202,14 @@ const QueueTable = ({ data, handleFormUpdate, forceDelayedSubmit }: ISpotifyData
     <table className='table table-fixed w-full'>
       <tbody>
         {data.queue?.queue.map((item, index) => (
-          <TrackRow key={index} trackData={item} userCountry={data.profileData?.country} handleFormUpdate={handleFormUpdate} forceDelayedSubmit={forceDelayedSubmit} />
+          <TrackRow key={index} trackData={item} userCountry={data.profileData?.country} handleSubmit={handleSubmit} />
         ))}
       </tbody>
     </table>
   );
 };
 
-const MostPlayedTable = ({ data, handleFormUpdate, forceDelayedSubmit }: ISpotifyDataTableBodyProps) => {
+const MostPlayedTable = ({ data, handleSubmit }: ISpotifyDataTableBodyProps) => {
   if (data.topTracks?.items.length == 0)
     return (
       <div className='flex h-full justify-center items-center'>
@@ -221,7 +221,7 @@ const MostPlayedTable = ({ data, handleFormUpdate, forceDelayedSubmit }: ISpotif
     <table className='table table-fixed w-full'>
       <tbody>
         {data.topTracks?.items.map((item) => (
-          <TrackRow key={item.id} trackData={item} userCountry={data.profileData?.country} handleFormUpdate={handleFormUpdate} forceDelayedSubmit={forceDelayedSubmit} />
+          <TrackRow key={item.id} trackData={item} userCountry={data.profileData?.country} handleSubmit={handleSubmit} />
         ))}
       </tbody>
     </table>
@@ -232,9 +232,8 @@ const TrackRow: React.FC<{
   trackData: SpotifyTrack;
   currentlyPlaying?: boolean;
   userCountry?: string;
-  handleFormUpdate(newFormData: RequestData): void;
-  forceDelayedSubmit(): void;
-}> = ({ trackData, currentlyPlaying, userCountry, handleFormUpdate, forceDelayedSubmit }) => {
+  handleSubmit(newFormData: RequestData): void;
+}> = ({ trackData, currentlyPlaying, userCountry, handleSubmit }) => {
   const { t } = useTranslation();
 
   const startSearch = () => {
@@ -246,8 +245,8 @@ const TrackRow: React.FC<{
       album: trackData.album.name,
     };
 
-    handleFormUpdate(newFormData);
-    forceDelayedSubmit();
+    // handleFormUpdate(newFormData);
+    handleSubmit(newFormData);
   };
 
   return (
@@ -280,12 +279,12 @@ const TrackRow: React.FC<{
   );
 };
 
-const SpotifyIntegration = ({ handleFormUpdate, forceDelayedSubmit }: { handleFormUpdate: (newFormData: RequestData) => void; forceDelayedSubmit: () => void }) => {
+const SpotifyIntegration = ({ handleSubmit }: { handleSubmit: (newFormData: RequestData) => void }) => {
   const { isAuthenticated } = useAuth();
 
   return (
     <div className='flex flex-col items-center justify-center w-full'>
-      {isAuthenticated && <SpotifyTable handleFormUpdate={handleFormUpdate} forceDelayedSubmit={forceDelayedSubmit} />}
+      {isAuthenticated && <SpotifyTable handleSubmit={handleSubmit} />}
       {!isAuthenticated && <IntegrationText />}
     </div>
   );
