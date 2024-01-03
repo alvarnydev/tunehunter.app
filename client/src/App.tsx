@@ -17,7 +17,7 @@ import { ThemeProvider, useTheme } from '@/contexts/theme';
 
 const queryClient = new QueryClient();
 
-const AnimatedSwitch = () => {
+const RouteSwitcher = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isAuthenticated, login } = useAuth();
@@ -98,12 +98,12 @@ function App() {
       <AuthProvider>
         <ThemeProvider>
           <QueryClientProvider client={queryClient}>
-            <Layout>
-              <Toaster containerClassName='toaster-wrapper' position='top-center' reverseOrder={true} containerStyle={toastContainer} toastOptions={toastOptions} gutter={24} />
-              <BrowserRouter>
-                <AnimatedSwitch />
-              </BrowserRouter>
-            </Layout>
+            <Toaster containerClassName='toaster-wrapper' position='top-center' reverseOrder={true} containerStyle={toastContainer} toastOptions={toastOptions} gutter={24} />
+            <BrowserRouter>
+              <Layout>
+                <RouteSwitcher />
+              </Layout>
+            </BrowserRouter>
           </QueryClientProvider>
         </ThemeProvider>
       </AuthProvider>

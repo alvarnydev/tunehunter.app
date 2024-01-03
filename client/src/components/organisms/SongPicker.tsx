@@ -71,7 +71,7 @@ const SongPicker = () => {
   // const [displayMode, setDisplayMode] = useState<'both' | 'search' | 'spotify'>('both');
   const navigate = useNavigate();
   const { t } = useTranslation();
-  document.title = t('title');
+  document.title = 'RekordStore';
 
   const handleSubmit = useCallback(
     (submitData?: RequestData) => {
