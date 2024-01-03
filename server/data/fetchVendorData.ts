@@ -59,8 +59,9 @@ export const fetchPreviewData = async ({ country, title, artist, duration, album
   return previewData;
 };
 
-const fetchItunesData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
-  const dataUrl = new URL(`https://itunes.apple.com/search?term=${title}+${artist}&country=${country}&media=music&entity=song&limit=5`).href;
+const fetchItunesData = async ({ country, title, artist, duration, album }: RequestData): Promise<VendorData> => {
+  let dataUrl = new URL(`https://itunes.apple.com/search?country=${country}&media=music&entity=song&limit=5&term=${title}+${artist}`).href;
+  if (album) dataUrl += `+${album}`;
   const response = await axios.get<ITunesData>(dataUrl);
   const data = response.data;
 
