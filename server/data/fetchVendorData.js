@@ -88,13 +88,19 @@ const fetchItunesData = async ({ country, title, artist, duration }) => {
     };
 };
 const fetchBeatportData = async ({ country, title, artist, duration }) => {
-    return await fetchItunesData({ country, title, artist, duration });
+    const beatportData = await fetchItunesData({ country, title, artist, duration });
+    beatportData.vendor.name = 'Beatport';
+    return beatportData;
 };
 const fetchAmazonData = async ({ country, title, artist, duration }) => {
-    return await fetchItunesData({ country, title, artist, duration });
+    const amazonData = await fetchItunesData({ country, title, artist, duration });
+    amazonData.vendor.name = 'Amazon Music';
+    return amazonData;
 };
 const fetchBandcampData = async ({ country, title, artist, duration }) => {
-    return await fetchItunesData({ country, title, artist, duration });
+    const bandcampData = await fetchItunesData({ country, title, artist, duration });
+    bandcampData.vendor.name = 'Bandcamp';
+    return bandcampData;
 };
 function fetchPlaceholderValues(vendor) {
     const response = {
