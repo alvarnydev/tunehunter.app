@@ -1,10 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import { TrackData } from '../../../../globalTypes';
 import { useNavigate } from 'react-router';
+import { useEffect } from 'react';
 
-const TrackPreview = ({ songData }: { songData: TrackData[] }) => {
+const TrackPreview = ({ songData, resultsRef }: { songData: TrackData[]; resultsRef: React.RefObject<HTMLDivElement> }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (resultsRef.current) resultsRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, [resultsRef]);
 
   function formatDuration(duration: number) {
     const minutes = Math.floor(duration / 60000);

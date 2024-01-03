@@ -50,7 +50,7 @@ const SearchButton = ({ handleSubmit }: { handleSubmit: () => void }) => {
 
   return (
     <div className='order-3 md:flex'>
-      <button id='submitBtn' type='submit' className='btn btn-primary font-normal md:w-auto w-1/2 m-auto rounded-full gap-2 flex normal-case px-4 text-base tracking-wide' onClick={handleSubmit}>
+      <button id='submitBtn' type='submit' className='btn btn-primary font-normal md:w-auto w-1/2 m-auto rounded-full gap-2 flex normal-case px-4 text-base tracking-wide' onClick={() => handleSubmit()}>
         <BiSearch size={18} />
         {t('searchbar.search')}
       </button>
@@ -77,6 +77,7 @@ const SongPicker = () => {
     (submitData?: RequestData) => {
       let { country, artist, title, duration, album } = formData;
       if (submitData) {
+        console.log('submitData', submitData);
         ({ country, artist, title, duration, album } = submitData);
       }
 

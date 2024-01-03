@@ -10,6 +10,7 @@ import { validateData } from '@/utils/validateDataUtils';
 import InfoAnnotation from '../atoms/InfoComponents';
 import { FaExternalLinkSquareAlt } from 'react-icons/fa';
 import { VendorData } from '../../../../globalTypes';
+import { useRef } from 'react';
 
 enum ArtistsShareEnum {
   amazonmusic = 0.5,
@@ -21,6 +22,7 @@ enum ArtistsShareEnum {
 const ResultsTable = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
+  const resultsRef = useRef(null);
   const { isLoading, error, data } = useQuery({
     queryKey: [searchParams.toString(), { searchParams }],
     queryFn: fetchMusicData,
@@ -95,12 +97,11 @@ const ResultsTable = () => {
 
   if (data) {
     if (!validateData(data)) return <WarningAlert message={t('errors.noSong')} />;
-
     document.title = `${data.itunes.song.artist} - ${data.itunes.song.title}`;
 
     return (
-      <div className='overflow-x-auto w-11/12 flex flex-row gap-8 h-96'>
-        <TrackPreview songData={data.preview} />
+      <div ref={resultsRef} className='overflow-x-auto w-11/12 flex flex-row gap-8 h-96'>
+        <TrackPreview songData={data.preview} resultsRef={resultsRef} />
         <table className='table w-full'>
           <thead>
             <tr>
