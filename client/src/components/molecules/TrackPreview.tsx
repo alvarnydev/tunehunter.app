@@ -26,12 +26,12 @@ const TrackPreview = ({ songData }: { songData: TrackData[] }) => {
       <>
         <input type='checkbox' id='preview-modal' className='modal-toggle' />
         <label htmlFor='preview-modal' className='modal modal-bottom backdrop-blur-[10px] sm:modal-middle'>
-          <label className='modal-box p-0 overflow-x-auto !w-auto !max-w-[400px] flex relative' htmlFor=''>
+          <label className='modal-box bg-transparent p-0 overflow-x-auto !w-auto !max-w-[400px] flex relative' htmlFor=''>
             <div className='carousel rounded-box'>
               {songData.map(
                 (song, i) =>
                   i !== 0 && (
-                    <div id={`slide${i}`} className='carousel-item card w-[400px] bg-base-100 shadow-xl image-full'>
+                    <div id={`slide${i}`} className='carousel-item card w-[400px] shadow-xl image-full'>
                       <figure>
                         <img src={song.artLink} alt='Album cover art' className='object-cover !h-auto' />
                       </figure>
