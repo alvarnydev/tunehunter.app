@@ -5,6 +5,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 const resources = {
   english: {
     translation: {
+      status: 'Currently in development so some things may not work as expected.',
       searchbar: {
         artist: 'Artist',
         song: 'Song',
@@ -64,6 +65,7 @@ const resources = {
   },
   spanish: {
     translation: {
+      status: 'Actualmente en desarrollo, por lo que algunas cosas pueden no funcionar como se espera.',
       searchbar: {
         artist: 'Artista',
         song: 'Canción',
@@ -123,6 +125,7 @@ const resources = {
   },
   german: {
     translation: {
+      status: 'Aktuell in Entwicklung, daher funktionieren einige Dinge eventuell nicht wie erwartet.',
       searchbar: {
         artist: 'Künstler',
         song: 'Lied',
