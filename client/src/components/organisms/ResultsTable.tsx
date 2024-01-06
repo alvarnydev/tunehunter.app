@@ -84,8 +84,8 @@ const ResultsTable = () => {
             <div className='inline-block'>{vendorData.song.price}€</div>
             <div className='flex justify-center flex-1'>
               <a href={vendorData.song.songLink} target='_blank'>
-                <button className='btn btn-ghost text-base normal-case'>
-                  <FaExternalLinkSquareAlt size={32} className='text-primary' />
+                <button className='btn btn-secondary btn-ghost text-base normal-case'>
+                  <FaExternalLinkSquareAlt size={32} className='text-secondary' />
                 </button>
               </a>
             </div>
