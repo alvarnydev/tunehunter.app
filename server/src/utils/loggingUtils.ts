@@ -8,7 +8,7 @@ export const logMessage = async (req: LogRequest): Promise<number> => {
   Error message: ${error.message} %0A
   Custom error message: ${info.customMessage} %0A
   Stack trace: ${info.componentStack}
-  `.substring(0, 4096);
+  `.substring(0, 400);
 
   const requestURL = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${message}`;
 
