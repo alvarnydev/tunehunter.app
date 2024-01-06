@@ -44,7 +44,7 @@ async function fetchData(requestData: RequestData): Promise<ResponseData> {
 async function fetchVendorData({ artist, title, country, duration, album }: RequestData, vendor: string): Promise<VendorData> {
   let dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}&duration=${duration}`).href;
   if (album) dataUrl += `&album=${album}`;
-  return await axios<VendorData>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then((res) => res.data);
+  return await axios<VendorData>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 10_000 }).then((res) => res.data);
 }
 
 async function fetchPreviewData({ artist, title, country, duration, album }: RequestData): Promise<TrackData[]> {
@@ -53,5 +53,5 @@ async function fetchPreviewData({ artist, title, country, duration, album }: Req
   if (album) urlString += `&album=${album}`;
 
   const dataUrl = new URL(urlString).href;
-  return await axios<TrackData[]>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 5000 }).then((res) => res.data);
+  return await axios<TrackData[]>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 10_000 }).then((res) => res.data);
 }
