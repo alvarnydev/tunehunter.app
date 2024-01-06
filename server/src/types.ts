@@ -1,13 +1,12 @@
 import { Request, Response } from 'express';
-import { RequestData, TrackData, VendorData } from '../../globalTypes';
+import { LogRequestBody, DataRequestQuery, TrackData, VendorData } from '../../globalTypes';
 
 interface RequestParams {}
-
 interface ResponseBody {}
-
 interface RequestBody {}
-
-export type DataRequest = Request<RequestParams, ResponseBody, RequestBody, RequestData>;
+interface RequestQuery {}
+export type DataRequest = Request<RequestParams, ResponseBody, RequestBody, DataRequestQuery>; // string parameters from route
+export type LogRequest = Request<RequestParams, ResponseBody, LogRequestBody, RequestQuery>; // data in the body
 export type VendorDataResponse = Response<VendorData>;
 export type PreviewDataResponse = Response<TrackData[]>;
 

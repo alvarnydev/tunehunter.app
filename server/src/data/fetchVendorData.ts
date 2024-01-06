@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { RequestData, TrackData, VendorData } from '../../globalTypes';
-import { ITunesData, DataRequest } from '../utils/types';
-import { sortByMatchingDuration } from '../utils/sorting';
+import { DataRequestQuery, TrackData, VendorData } from '../../../globalTypes';
+import { ITunesData, DataRequest } from '../types';
+import { sortByMatchingDuration } from '../utils/sortingUtils';
 
-export const fetchSpecificSong = async (req: DataRequest): Promise<RequestData> => {
+export const fetchSpecificSong = async (req: DataRequest): Promise<DataRequestQuery> => {
   const { song } = await fetchItunesData(req.query);
 
   return {
@@ -16,7 +16,7 @@ export const fetchSpecificSong = async (req: DataRequest): Promise<RequestData> 
 
 export const fetchVendorData = async (req: DataRequest, store: string): Promise<VendorData> => {
   const { title, artist, duration, country } = req.query;
-  const requestData: RequestData = { country, artist, title, duration };
+  const requestData: DataRequestQuery = { country, artist, title, duration };
 
   switch (store) {
     case 'itunes':
@@ -32,7 +32,7 @@ export const fetchVendorData = async (req: DataRequest, store: string): Promise<
   }
 };
 
-export const fetchPreviewData = async ({ country, title, artist, duration, album }: RequestData): Promise<TrackData[]> => {
+export const fetchPreviewData = async ({ country, title, artist, duration, album }: DataRequestQuery): Promise<TrackData[]> => {
   let dataUrl = new URL(`https://itunes.apple.com/search?country=${country}&media=music&entity=song&limit=5&term=${title}+${artist}`).href;
   if (album) dataUrl += `+${album}`;
   const response = await axios.get<ITunesData>(dataUrl);
@@ -59,7 +59,7 @@ export const fetchPreviewData = async ({ country, title, artist, duration, album
   return previewData;
 };
 
-const fetchItunesData = async ({ country, title, artist, duration, album }: RequestData): Promise<VendorData> => {
+const fetchItunesData = async ({ country, title, artist, duration, album }: DataRequestQuery): Promise<VendorData> => {
   let dataUrl = new URL(`https://itunes.apple.com/search?country=${country}&media=music&entity=song&limit=5&term=${title}+${artist}`).href;
   if (album) dataUrl += `+${album}`;
   const response = await axios.get<ITunesData>(dataUrl);
@@ -91,19 +91,19 @@ const fetchItunesData = async ({ country, title, artist, duration, album }: Requ
   };
 };
 
-const fetchBeatportData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
+const fetchBeatportData = async ({ country, title, artist, duration }: DataRequestQuery): Promise<VendorData> => {
   const beatportData = await fetchItunesData({ country, title, artist, duration });
   beatportData.vendor.name = 'Beatport';
   return beatportData;
 };
 
-const fetchAmazonData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
+const fetchAmazonData = async ({ country, title, artist, duration }: DataRequestQuery): Promise<VendorData> => {
   const amazonData = await fetchItunesData({ country, title, artist, duration });
   amazonData.vendor.name = 'Amazon Music';
   return amazonData;
 };
 
-const fetchBandcampData = async ({ country, title, artist, duration }: RequestData): Promise<VendorData> => {
+const fetchBandcampData = async ({ country, title, artist, duration }: DataRequestQuery): Promise<VendorData> => {
   const bandcampData = await fetchItunesData({ country, title, artist, duration });
   bandcampData.vendor.name = 'Bandcamp';
   return bandcampData;

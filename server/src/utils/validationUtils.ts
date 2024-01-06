@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { DataRequest } from './types';
+import { DataRequest } from '../types';
 
 export function validateHeaders(req: DataRequest, res: Response): boolean {
   const api_key = req.header('X-API-KEY');

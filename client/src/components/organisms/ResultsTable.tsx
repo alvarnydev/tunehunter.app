@@ -36,9 +36,12 @@ const ResultsTable = () => {
       </div>
     );
   if (error && error instanceof Error) {
-    logError(error, {
-      customMessage: `ResultsTable query failed!`,
-      componentStack: error.stack,
+    logError({
+      error,
+      info: {
+        customMessage: `ResultsTable query failed!`,
+        componentStack: error.stack,
+      },
     });
     return (
       <div className='flex items-center justify-center h-96'>

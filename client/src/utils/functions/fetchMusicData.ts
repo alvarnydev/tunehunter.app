@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { RequestData, ResponseData, TrackData, VendorData } from '../../../../globalTypes';
+import { DataRequestData, ResponseData, TrackData, VendorData } from '../../../../globalTypes';
 
 const apiUrl = import.meta.env.VITE_API_URL || '';
 const apiKey = import.meta.env.VITE_API_KEY || '';
@@ -18,14 +18,14 @@ export const fetchMusicData = async ({ queryKey }: { queryKey: [string, { search
   if (!artist || !title) {
     throw new Error('Missing artist and/or title!');
   }
-  const requestData: RequestData = { artist, title, country };
+  const requestData: DataRequestData = { artist, title, country };
   if (searchParams.get('duration')) requestData.duration = Number(searchParams.get('duration'));
   if (searchParams.get('album')) requestData.album = searchParams.get('album') || undefined;
   return await fetchData(requestData);
 };
 
 // Mid-level custom API calls to our own backend
-async function fetchData(requestData: RequestData): Promise<ResponseData> {
+async function fetchData(requestData: DataRequestData): Promise<ResponseData> {
   const previewResponse = await fetchPreviewData(requestData);
   if (!requestData.duration) requestData.duration = previewResponse[0].duration;
   if (!requestData.album) requestData.album = previewResponse[0].album;
@@ -41,13 +41,13 @@ async function fetchData(requestData: RequestData): Promise<ResponseData> {
 }
 
 // Low-level API call to our own backend
-async function fetchVendorData({ artist, title, country, duration, album }: RequestData, vendor: string): Promise<VendorData> {
+async function fetchVendorData({ artist, title, country, duration, album }: DataRequestData, vendor: string): Promise<VendorData> {
   let dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}&duration=${duration}`).href;
   if (album) dataUrl += `&album=${album}`;
   return await axios<VendorData>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 10_000 }).then((res) => res.data);
 }
 
-async function fetchPreviewData({ artist, title, country, duration, album }: RequestData): Promise<TrackData[]> {
+async function fetchPreviewData({ artist, title, country, duration, album }: DataRequestData): Promise<TrackData[]> {
   let urlString = `${apiUrl}/preview?artist=${artist}&title=${title}&country=${country}`;
   if (duration) urlString += `&duration=${duration}`;
   if (album) urlString += `&album=${album}`;

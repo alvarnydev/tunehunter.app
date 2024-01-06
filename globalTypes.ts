@@ -1,5 +1,10 @@
+export type LogRequestBody = {
+  error: Error;
+  info: { customMessage?: string; componentStack?: string };
+};
+
 // What we request from our API
-export type RequestData = {
+export type DataRequestQuery = {
   country: string;
   artist: string;
   title: string;

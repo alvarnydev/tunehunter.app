@@ -74,7 +74,7 @@ const RouteSwitcher = () => {
     return () => {
       removeKeyMappings();
     };
-  }, [isAuthenticated]); // navigate, login, isAuthenticated
+  }, [isAuthenticated]);
 
   return (
     <TransitionGroup component={null} exit={false}>

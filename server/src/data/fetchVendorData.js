@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchPreviewData = exports.fetchVendorData = exports.fetchSpecificSong = void 0;
 const axios_1 = __importDefault(require("axios"));
-const sorting_1 = require("../utils/sorting");
+const sortingUtils_1 = require("../utils/sortingUtils");
 const fetchSpecificSong = async (req) => {
     const { song } = await fetchItunesData(req.query);
     return {
@@ -54,7 +54,7 @@ const fetchPreviewData = async ({ country, title, artist, duration, album }) => 
         };
     });
     if (duration) {
-        previewData.sort((0, sorting_1.sortByMatchingDuration)(duration));
+        previewData.sort((0, sortingUtils_1.sortByMatchingDuration)(duration));
     }
     return previewData;
 };
@@ -79,7 +79,7 @@ const fetchItunesData = async ({ country, title, artist, duration, album }) => {
         };
     });
     if (duration) {
-        songs.sort((0, sorting_1.sortByMatchingDuration)(duration));
+        songs.sort((0, sortingUtils_1.sortByMatchingDuration)(duration));
     }
     return {
         vendor: {
