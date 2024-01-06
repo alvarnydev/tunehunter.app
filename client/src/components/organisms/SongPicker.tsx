@@ -84,7 +84,7 @@ const SongPicker = () => {
         return params;
       };
 
-      if (artist) {
+      if (artist && title) {
         const newParams = buildGetParams();
         navigate(`/results${newParams}`);
         return true;
