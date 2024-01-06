@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { BiSearch } from 'react-icons/bi';
 import MemoizedSpotifyIntegration from '../molecules/SpotifyIntegration';
-import { DataRequestData } from '../../../../globalTypes';
+import { DataRequestQuery } from '../../../../globalTypes';
 
-const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: DataRequestData; handleFormUpdate: (formData: DataRequestData) => void; handleSubmit: () => boolean }) => {
+const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: DataRequestQuery; handleFormUpdate: (formData: DataRequestQuery) => void; handleSubmit: () => boolean }) => {
   const [inputError, setInputError] = useState(false);
 
   return (
@@ -16,7 +16,7 @@ const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: Dat
   );
 };
 
-const SearchTextInput = ({ formData, handleFormUpdate, setInputError }: { formData: DataRequestData; handleFormUpdate: (newFormData: DataRequestData) => void; setInputError: Dispatch<SetStateAction<boolean>> }) => {
+const SearchTextInput = ({ formData, handleFormUpdate, setInputError }: { formData: DataRequestQuery; handleFormUpdate: (newFormData: DataRequestQuery) => void; setInputError: Dispatch<SetStateAction<boolean>> }) => {
   const { t } = useTranslation();
   const { artist, title } = formData;
 
@@ -55,7 +55,7 @@ const SearchButton = ({ handleSubmit, inputError, setInputError }: { handleSubmi
   );
 };
 
-const initialFormData: DataRequestData = {
+const initialFormData: DataRequestQuery = {
   country: 'DE',
   artist: '',
   title: '',
@@ -70,7 +70,7 @@ const SongPicker = () => {
   document.title = 'RekordStore';
 
   const handleSubmit = useCallback(
-    (submitData?: DataRequestData) => {
+    (submitData?: DataRequestQuery) => {
       let { country, artist, title, duration, album } = formData; // Either from form: big search button
       if (submitData) {
         ({ country, artist, title, duration, album } = submitData); // Or from spotify integration
@@ -99,7 +99,7 @@ const SongPicker = () => {
     restoreFormData();
   }, []);
 
-  const handleFormUpdate = useCallback((newFormData: DataRequestData) => {
+  const handleFormUpdate = useCallback((newFormData: DataRequestQuery) => {
     setFormData(newFormData);
   }, []);
 

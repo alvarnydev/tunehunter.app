@@ -13,13 +13,15 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
 const allowOrigin = process.env.ALLOW_ORIGIN || 'null';
-// Pre-flight
+// Pre-flight: allow (only) these requests
 app.use((_, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', allowOrigin);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
     res.setHeader('Access-Control-Allow-Headers', '*');
     next();
 });
+// Read POST bodies
+app.use(express_1.default.json());
 // Hello
 app.get('/', (_, res) => {
     res.send('Hello World!');

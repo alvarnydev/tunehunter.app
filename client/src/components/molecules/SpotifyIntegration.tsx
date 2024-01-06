@@ -8,7 +8,7 @@ import InfoAnnotation from '../atoms/InfoComponents';
 import { ISpotifyDataTableBodyProps, ISpotifyTableBodyProps, ISpotifyTableHeaderProps, ISpotifyTableProps } from '@/interfaces';
 import { IoMdRefresh } from 'react-icons/io';
 import { MusicPlayingIndicator } from '../atoms/IndicatorComponents';
-import { DataRequestData } from '../../../../globalTypes';
+import { DataRequestQuery } from '../../../../globalTypes';
 
 const IntegrationText = () => {
   const { t } = useTranslation();
@@ -232,7 +232,7 @@ const TrackRow: React.FC<{
   trackData: SpotifyTrack;
   currentlyPlaying?: boolean;
   userCountry?: string;
-  handleSubmit(newFormData: DataRequestData): void;
+  handleSubmit(newFormData: DataRequestQuery): void;
 }> = ({ trackData, currentlyPlaying, userCountry, handleSubmit }) => {
   const { t } = useTranslation();
 
@@ -279,7 +279,7 @@ const TrackRow: React.FC<{
   );
 };
 
-const SpotifyIntegration = ({ handleSubmit }: { handleSubmit: (newFormData: DataRequestData) => void }) => {
+const SpotifyIntegration = ({ handleSubmit }: { handleSubmit: (newFormData: DataRequestQuery) => void }) => {
   const { isAuthenticated } = useAuth();
 
   return (

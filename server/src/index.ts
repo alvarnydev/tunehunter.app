@@ -12,7 +12,7 @@ const app: Express = express();
 const port = process.env.PORT;
 const allowOrigin = process.env.ALLOW_ORIGIN || 'null';
 
-// Pre-flight
+// Pre-flight: allow (only) these requests
 app.use((_, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', allowOrigin);
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
@@ -20,6 +20,8 @@ app.use((_, res, next) => {
 
   next();
 });
+// Read POST bodies
+app.use(express.json());
 
 // Hello
 app.get('/', (_, res) => {
