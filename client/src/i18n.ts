@@ -48,7 +48,7 @@ const resources = {
       },
       errors: {
         general: "Something bad happened on our end, sorry! We're investigating...",
-        missingSongInput: 'Enter an artist and a song.',
+        missingSongInput: 'Please enter both artist and a song.',
         moreInformation: 'This is what happened: ',
         noSong: 'We could not find the song! Please check your input.',
         reachOut: 'The error already made its way over to us but feel free to reach out anyway at XXX.',
@@ -107,7 +107,7 @@ const resources = {
       },
       errors: {
         general: 'Nos ha pasado algo, ¡lo sentimos! Estamos investigando...',
-        missingSongInput: 'Introduce un artista y una canción.',
+        missingSongInput: 'Por favor, introduce tanto el artista como la canción.',
         moreInformation: 'Esto es lo que ha pasado: ',
         noSong: 'No hemos podido encontrar la canción! Por favor, comprueba tu entrada.',
         reachOut: 'Aunque el error ya nos ha llegado, no dudes en contactarnos en XXX.',
@@ -166,7 +166,7 @@ const resources = {
       },
       errors: {
         general: 'Etwas ist schief gelaufen, sorry! Wir begeben uns auf Fehlersuche...',
-        missingSongInput: "Gib' eine/n Künstler/in un ein Lied ein.",
+        missingSongInput: "Bitte gib' sowohl KünstlerIn als auch das Lied ein.",
         moreInformation: 'Das ist passiert: ',
         noSong: 'Wir konnten das Lied nicht finden! Bitte überprüfe deine Eingabe.',
         reachOut: 'Der Fehler hat auch schon seinen Weg zu uns gefunden, aber du kannst uns trotzdem gerne unter XXX kontaktieren.',

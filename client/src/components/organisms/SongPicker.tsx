@@ -1,30 +1,27 @@
-import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
-import { ToastComponent } from '@/components/atoms/ToastComponent';
 import { BiSearch } from 'react-icons/bi';
 import MemoizedSpotifyIntegration from '../molecules/SpotifyIntegration';
 import { RequestData } from '../../../../globalTypes';
 
-const SongPickerLayout = ({ children }: PropsWithChildren) => {
-  return <div className=' w-full flex flex-col justify-center items-center gap-10'>{children}</div>;
-};
+const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: RequestData; handleFormUpdate: (formData: RequestData) => void; handleSubmit: () => boolean }) => {
+  const [inputError, setInputError] = useState(false);
 
-const SearchBar = ({ formData, handleFormUpdate, handleSubmit }: { formData: RequestData; handleFormUpdate: (formData: RequestData) => void; handleSubmit: () => void }) => {
   return (
     <div className='flex md:flex-row flex-col w-4/5 gap-10'>
-      <SearchTextInput formData={formData} handleFormUpdate={handleFormUpdate} />
-      <SearchButton handleSubmit={handleSubmit} />
+      <SearchTextInput formData={formData} handleFormUpdate={handleFormUpdate} setInputError={setInputError} />
+      <SearchButton handleSubmit={handleSubmit} inputError={inputError} setInputError={setInputError} />
     </div>
   );
 };
 
-const SearchTextInput = ({ formData, handleFormUpdate }: { formData: RequestData; handleFormUpdate: (newFormData: RequestData) => void }) => {
+const SearchTextInput = ({ formData, handleFormUpdate, setInputError }: { formData: RequestData; handleFormUpdate: (newFormData: RequestData) => void; setInputError: Dispatch<SetStateAction<boolean>> }) => {
   const { t } = useTranslation();
   const { artist, title } = formData;
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setInputError(false);
     handleFormUpdate({
       ...formData,
       [e.target.name]: e.target.value,
@@ -45,12 +42,12 @@ const SearchTextInput = ({ formData, handleFormUpdate }: { formData: RequestData
   );
 };
 
-const SearchButton = ({ handleSubmit }: { handleSubmit: () => void }) => {
+const SearchButton = ({ handleSubmit, inputError, setInputError }: { handleSubmit: () => boolean; inputError: boolean; setInputError: Dispatch<SetStateAction<boolean>> }) => {
   const { t } = useTranslation();
 
   return (
-    <div className='order-3 md:flex'>
-      <button id='submitBtn' type='submit' className='btn btn-primary font-normal md:w-auto w-1/2 m-auto rounded-full gap-2 flex normal-case px-4 text-base tracking-wide' onClick={() => handleSubmit()}>
+    <div className={`order-3 md:flex ${inputError === true ? 'tooltip tooltip-open' : ''}`} data-tip={t('errors.missingSongInput')}>
+      <button id='submitBtn' type='submit' className='btn btn-primary font-normal md:w-auto w-1/2 m-auto rounded-full gap-2 flex normal-case px-4 text-base tracking-wide' onClick={() => setInputError(!handleSubmit())}>
         <BiSearch size={18} />
         {t('searchbar.search')}
       </button>
@@ -70,25 +67,15 @@ const SongPicker = () => {
   const [formData, setFormData] = useState(initialFormData);
   // const [displayMode, setDisplayMode] = useState<'both' | 'search' | 'spotify'>('both');
   const navigate = useNavigate();
-  const { t } = useTranslation();
   document.title = 'RekordStore';
 
   const handleSubmit = useCallback(
     (submitData?: RequestData) => {
-      let { country, artist, title, duration, album } = formData;
+      let { country, artist, title, duration, album } = formData; // Either from form: big search button
       if (submitData) {
-        console.log('submitData', submitData);
-        ({ country, artist, title, duration, album } = submitData);
+        ({ country, artist, title, duration, album } = submitData); // Or from spotify integration
       }
 
-      const isValidInput = (): boolean => {
-        if (artist == '' || title == '') {
-          toast((toast) => <ToastComponent t={toast} text={t('errors.missingSongInput')} />);
-          return false;
-        }
-
-        return true;
-      };
       const buildGetParams = (): string => {
         let params = `?country=${country}`;
         params += `&artist=${artist}&title=${title}`;
@@ -97,14 +84,15 @@ const SongPicker = () => {
         return params;
       };
 
-      if (!isValidInput()) {
-        return;
+      if (artist && title) {
+        const newParams = buildGetParams();
+        navigate(`/results${newParams}`);
+        return true;
       }
 
-      const newParams = buildGetParams();
-      navigate(`/results${newParams}`);
+      return false;
     },
-    [formData, navigate, t]
+    [formData, navigate]
   );
 
   useEffect(() => {
@@ -130,10 +118,10 @@ const SongPicker = () => {
   };
 
   return (
-    <SongPickerLayout>
+    <div className=' w-full flex flex-col justify-center items-center gap-10'>
       <SearchBar formData={formData} handleFormUpdate={handleFormUpdate} handleSubmit={handleSubmit} />
       <MemoizedSpotifyIntegration handleSubmit={handleSubmit} />
-    </SongPickerLayout>
+    </div>
   );
 };
 
