@@ -44,9 +44,9 @@ const CallbackPage = () => {
             redirect();
           }, 1500);
         }
-      } catch (e: unknown) {
-        if (ignore === false && e instanceof Error) {
-          setError({ type: 'app', message: e.message });
+      } catch (error) {
+        if (ignore === false && error instanceof Error) {
+          setError({ type: 'app', message: error.message });
           setIsLoading(false);
         }
       }

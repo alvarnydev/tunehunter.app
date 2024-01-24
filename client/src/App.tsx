@@ -49,14 +49,9 @@ const RouteSwitcher = () => {
       });
     };
 
-    const tryToIdentifyUser = async (): Promise<boolean> => {
-      try {
-        retrieveFromLocalStorage('access_token');
-        retrieveFromLocalStorage('refresh_token');
+    const tryToIdentifyUser = async () => {
+      if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token')) {
         await login();
-        return true;
-      } catch (error) {
-        return false;
       }
     };
 
