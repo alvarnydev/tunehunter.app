@@ -13,6 +13,15 @@ export default {
           dark: '#1ed760',
         },
       },
+      animation: {
+        'fold-in': 'fold .5s linear',
+      },
+      keyframes: {
+        fold: {
+          '0%': { transform: 'scale(0, .025)' },
+          '50%': { transform: 'scale(1, .025)' },
+        },
+      },
     },
   },
   plugins: [require('daisyui'), require('tailwind-scrollbar')],
