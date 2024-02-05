@@ -1,6 +1,6 @@
-# rekordstore.com
+# tunehunter.app
 
-rekordstore.com helps youfind the best place to buy (digital) music, comparing prices, quality and artist payout across different sites.
+tunehunter.app can help you find the best place to buy music in digital form. The app compares prices, quality and artist payout across different sites.
 
 ## Stack
 
