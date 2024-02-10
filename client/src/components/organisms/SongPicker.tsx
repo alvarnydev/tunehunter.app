@@ -67,7 +67,8 @@ const SongPicker = () => {
   const [formData, setFormData] = useState(initialFormData);
   // const [displayMode, setDisplayMode] = useState<'both' | 'search' | 'spotify'>('both');
   const navigate = useNavigate();
-  document.title = 'RekordStore';
+  const { t } = useTranslation();
+  document.title = 'TuneHunter';
 
   const handleSubmit = useCallback(
     (submitData?: DataRequestQuery) => {
