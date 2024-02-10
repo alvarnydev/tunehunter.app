@@ -1,11 +1,8 @@
 import { FaCompactDisc } from 'react-icons/fa6';
 import { useNavigate } from 'react-router';
-import InfoBanner from './InfoBanner';
-import { useTranslation } from 'react-i18next';
 
 const Header = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
   const handleClick = () => {
     navigate('/');
@@ -18,7 +15,6 @@ const Header = () => {
         <h1 className='text-5xl text-primary'>Tune</h1>
         <h1 className='text-5xl text-secondary'>Hunter</h1>
       </button>
-      <InfoBanner message={t('status')} />
       {/* <h3 className='text-right mr-2'>
         <i>Let the hunt begin</i>
       </h3> */}
