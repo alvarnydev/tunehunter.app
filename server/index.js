@@ -8,10 +8,10 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const fetchVendorData_1 = require("./data/fetchVendorData");
 const validationUtils_1 = require("./utils/validationUtils");
 const loggingUtils_1 = require("./utils/loggingUtils");
-// Config and EVs
+// // Config and EVs
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 const allowOrigin = process.env.ALLOW_ORIGIN || 'null';
 // Pre-flight: allow (only) these requests
 app.use((_, res, next) => {

@@ -1,4 +1,4 @@
-import { TrackData } from '../../../globalTypes';
+import { TrackData } from '../../globalTypes';
 
 export const sortByMatchingDuration = (duration: number) => {
   return (a: TrackData, b: TrackData) => {

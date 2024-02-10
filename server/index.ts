@@ -5,11 +5,11 @@ import { fetchPreviewData, fetchVendorData } from './data/fetchVendorData';
 import { isValidRequest } from './utils/validationUtils';
 import { logMessage } from './utils/loggingUtils';
 
-// Config and EVs
+// // Config and EVs
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 const allowOrigin = process.env.ALLOW_ORIGIN || 'null';
 
 // Pre-flight: allow (only) these requests

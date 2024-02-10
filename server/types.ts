@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { LogRequestBody, DataRequestQuery, TrackData, VendorData } from '../../globalTypes';
+import { LogRequestBody, DataRequestQuery, TrackData, VendorData } from '../globalTypes';
 
 interface RequestParams {}
 interface ResponseBody {}

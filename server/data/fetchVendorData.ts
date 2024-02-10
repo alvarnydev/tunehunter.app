@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DataRequestQuery, TrackData, VendorData } from '../../../globalTypes';
+import { DataRequestQuery, TrackData, VendorData } from '../../globalTypes';
 import { ITunesData, DataRequest } from '../types';
 import { sortByMatchingDuration } from '../utils/sortingUtils';
 
