@@ -46,8 +46,8 @@ const fetchPreviewData = async ({ country, title, artist, duration, album }) => 
             artist: song.artistName,
             album: song.collectionName,
             duration: song.trackTimeMillis,
-            qualityFormat: 'AAC',
-            qualityKbps: 256,
+            qualityFormat: 'AAC', // todo: figure out format from song.previewUrl
+            qualityKbps: 256, // todo: figure out kbps from song.previewUrl
             price: song.trackPrice,
             songLink: song.trackViewUrl,
             artLink: song.artworkUrl100.replace('100x100', '400x400'),
@@ -71,8 +71,8 @@ const fetchItunesData = async ({ country, title, artist, duration, album }) => {
             artist: song.artistName,
             album: song.collectionName,
             duration: song.trackTimeMillis,
-            qualityFormat: 'AAC',
-            qualityKbps: 256,
+            qualityFormat: 'AAC', // todo: figure out format from song.previewUrl
+            qualityKbps: 256, // todo: figure out kbps from song.previewUrl
             price: song.trackPrice,
             songLink: song.trackViewUrl,
             artLink: song.artworkUrl100,
@@ -115,8 +115,8 @@ function fetchPlaceholderValues(vendor) {
             artist: 'ph artist',
             album: 'song album',
             duration: 213,
-            qualityFormat: 'MP3',
-            qualityKbps: 320,
+            qualityFormat: 'MP3', // todo: figure out format from song.previewUrl
+            qualityKbps: 320, // todo: figure out kbps from song.previewUrl
             price: 1.29,
             songLink: 'fancy link',
             artLink: 'album',

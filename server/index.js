@@ -8,11 +8,20 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const fetchVendorData_1 = require("./data/fetchVendorData");
 const validationUtils_1 = require("./utils/validationUtils");
 const loggingUtils_1 = require("./utils/loggingUtils");
+const express_rate_limit_1 = require("express-rate-limit");
 // // Config and EVs
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
 const allowOrigin = process.env.ALLOW_ORIGIN || 'null';
+// Rate limiting
+const limiter = (0, express_rate_limit_1.rateLimit)({
+    windowMs: 1 * 60 * 1000, // 1 minute
+    limit: 100,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+});
+app.use(limiter);
 // Pre-flight: allow (only) these requests
 app.use((_, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', allowOrigin);

@@ -2,11 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
     "build": "npx tsc",
     "start": "node api/index.js",
-    "dev": "vercel dev"
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q index.js\"",
+    "verceldev": "vercel dev"
   },
   "keywords": [],
   "author": "",
