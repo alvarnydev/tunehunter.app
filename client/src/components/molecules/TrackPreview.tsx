@@ -36,7 +36,7 @@ const TrackPreview = ({ songData, resultsRef }: { songData: TrackData[]; results
               {songData.map(
                 (song, i) =>
                   i !== 0 && (
-                    <div id={`slide${i}`} className='carousel-item card w-[400px] shadow-xl image-full'>
+                    <div key={song.songLink} id={`slide${i}`} className='carousel-item card w-[400px] shadow-xl image-full'>
                       <figure>
                         <img src={song.artLink} alt='Album cover art' className='object-cover !h-auto' />
                       </figure>

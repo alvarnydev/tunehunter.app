@@ -26,8 +26,8 @@ export const fetchMusicData = async ({ queryKey }: { queryKey: [string, { search
 // Mid-level custom API calls to our own backend
 async function fetchData(requestData: DataRequestQuery): Promise<ResponseData> {
   const previewResponse = await fetchPreviewData(requestData);
-  if (!requestData.duration) requestData.duration = previewResponse[0].duration;
-  if (!requestData.album) requestData.album = previewResponse[0].album;
+  if (previewResponse.length > 0 && !requestData.duration) requestData.duration = previewResponse[0].duration;
+  if (previewResponse.length > 0 && !requestData.album) requestData.album = previewResponse[0].album;
 
   const itunesResponse = fetchVendorData(requestData, 'itunes');
   const beatportResponse = fetchVendorData(requestData, 'beatport');
