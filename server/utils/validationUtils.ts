@@ -2,11 +2,7 @@ import { Response } from 'express';
 import { DataRequest } from '../types';
 
 export function validateHeaders(req: DataRequest, res: Response): boolean {
-  const api_key = req.header('X-API-KEY');
-  if (api_key !== process.env.API_KEY) {
-    res.status(401).send('Unauthorized');
-    return false;
-  }
+  console.log(req, res);
   return true;
 }
 

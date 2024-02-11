@@ -2,7 +2,6 @@ import axios from 'axios';
 import { DataRequestQuery, ResponseData, TrackData, VendorData } from '../../../../globalTypes';
 
 const apiUrl = import.meta.env.VITE_API_URL || '';
-const apiKey = import.meta.env.VITE_API_KEY || '';
 
 // Top-level function to fetch data from our own API
 export const fetchMusicData = async ({ queryKey }: { queryKey: [string, { searchParams: URLSearchParams }] }) => {
@@ -44,7 +43,7 @@ async function fetchData(requestData: DataRequestQuery): Promise<ResponseData> {
 async function fetchVendorData({ artist, title, country, duration, album }: DataRequestQuery, vendor: string): Promise<VendorData> {
   let dataUrl = new URL(`${apiUrl}/${vendor}?artist=${artist}&title=${title}&country=${country}&duration=${duration}`).href;
   if (album) dataUrl += `&album=${album}`;
-  return await axios<VendorData>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 10_000 }).then((res) => res.data);
+  return await axios<VendorData>(dataUrl, { timeout: 10_000 }).then((res) => res.data);
 }
 
 async function fetchPreviewData({ artist, title, country, duration, album }: DataRequestQuery): Promise<TrackData[]> {
@@ -53,5 +52,5 @@ async function fetchPreviewData({ artist, title, country, duration, album }: Dat
   if (album) urlString += `&album=${album}`;
 
   const dataUrl = new URL(urlString).href;
-  return await axios<TrackData[]>(dataUrl, { headers: { 'X-API-KEY': apiKey }, timeout: 10_000 }).then((res) => res.data);
+  return await axios<TrackData[]>(dataUrl, { timeout: 10_000 }).then((res) => res.data);
 }
