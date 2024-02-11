@@ -4,6 +4,7 @@ import { DataRequest, LogRequest, PreviewDataResponse, VendorDataResponse } from
 import { fetchPreviewData, fetchVendorData } from './data/fetchVendorData';
 import { isValidRequest } from './utils/validationUtils';
 import { logMessage } from './utils/loggingUtils';
+import { rateLimit } from 'express-rate-limit';
 
 // // Config and EVs
 dotenv.config();
@@ -11,6 +12,15 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT || 3000;
 const allowOrigin = process.env.ALLOW_ORIGIN || 'null';
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  limit: 100,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
+});
+app.use(limiter);
 
 // Pre-flight: allow (only) these requests
 app.use((_, res, next) => {
